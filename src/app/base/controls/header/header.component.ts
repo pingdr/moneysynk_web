@@ -8,10 +8,11 @@ import { HttpService } from 'src/app/services/http.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  user:any;
   constructor(public http: HttpService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('loginData'));
   }
 
   Logout(){

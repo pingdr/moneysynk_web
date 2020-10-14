@@ -28,12 +28,12 @@
                 <input type="text" class="form-control" formControlName="Search" placeholder="Search Here...">
             </div>
         </div>
-        <div class="dropdown header-third-drop-down">
+        <div *ngIf="user" class="dropdown header-third-drop-down">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="user-pro-pic">
                   <img src="../../../../assets/images/round-pic.svg">
               </span>  
-              Jaimin Patel
+              {{user.username}}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item">Action</a>
