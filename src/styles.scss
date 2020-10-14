@@ -1,0 +1,545 @@
+/* You can add global styles to this file, and also import other style files */
+// @import "assest/fonts/stylesheet.css";
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+@font-face {
+    font-family: 'Sul Sans';
+    src: url('assets/fonts/SulSans-Medium.eot');
+    src: url('assets/fonts/SulSans-Medium.eot?#iefix') format('embedded-opentype'),
+        url('assets/fonts/SulSans-Medium.woff2') format('woff2'),
+        url('assets/fonts/SulSans-Medium.woff') format('woff'),
+        url('assets/fonts/SulSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sul Sans';
+    src: url('assets/fonts/SulSans-Bold.eot');
+    src: url('assets/fonts/SulSans-Bold.eot?#iefix') format('embedded-opentype'),
+        url('assets/fonts/SulSans-Bold.woff2') format('woff2'),
+        url('assets/fonts/SulSans-Bold.woff') format('woff'),
+        url('assets/fonts/SulSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sul Sans';
+    src: url('assets/fonts/SulSans-Light.eot');
+    src: url('assets/fonts/SulSans-Light.eot?#iefix') format('embedded-opentype'),
+        url('assets/fonts/SulSans-Light.woff2') format('woff2'),
+        url('assets/fonts/SulSans-Light.woff') format('woff'),
+        url('assets/fonts/SulSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sul Sans';
+    src: url('assets/fonts/SulSans-Regular.eot');
+    src: url('assets/fonts/SulSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('assets/fonts/SulSans-Regular.woff2') format('woff2'),
+        url('assets/fonts/SulSans-Regular.woff') format('woff'),
+        url('assets/fonts/SulSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+// ----Media query mixin-----------//
+@mixin min-mq($min-screen-size) {
+    @media (min-width: $min-screen-size +"px") {
+    @content;
+    }
+    }
+    
+    @mixin max-mq($max-screen-size) {
+    @media (max-width: $max-screen-size +"px") {
+    @content;
+    }
+    }
+    
+    // ----------------------------For Orientation-----------------------//
+    @mixin landscape-orientation($max-screen-size,
+    $orientation) {
+    @media (max-width: $max-screen-size +"px") and (orientation: $orientation) {
+    @content;
+    }
+    }
+    
+    @mixin btw-mq($min-screen-size,
+    $max-screen-size,
+    $pixel-ratio,
+    $orientation) {
+    @media only screen and (min-width: $min-screen-size +"px") and (max-width: $max-screen-size +"px") and (-webkit-min-device-pixel-ratio: $pixel-ratio) and (orientation: $orientation) {
+    @content;
+    }
+    }    
+// ------------END of Media Screen Mixing--------------//
+    
+
+// ---------------------Variable--------------------//
+
+$black:#000;
+$white:#fff;
+
+// Themes Layout color//
+
+// --font-color--//
+$color-5e5e5e:#5E5E5E;
+$color-F6F6F6: #F6F6F6;
+$color-EBEBEB:#EBEBEB;
+$color-bb8f1b:#bb8f1b;
+
+
+
+
+// font size//
+$font-12px:12px;
+$font-14px:14px;
+$font-16px:16px;
+$font-20px:20px;
+$font-22px:22px;
+$font-24px:24px;
+$font-26px:26px;
+
+
+
+
+
+
+html{
+    overflow-x: hidden;
+    body{
+        font-size:$font-14px + 1;
+        font-family: 'Sul Sans' !important;
+        font-weight: 300;
+        color:$color-5e5e5e;
+        line-height: 1;
+        word-break: break-all;
+        overflow-x: hidden;
+        
+    }
+}
+
+p{
+    font-size:$font-14px + 1;
+    color: $black;
+}
+
+h1,h2, h3{
+    font-size:$font-26px;
+
+}
+
+
+.padding-none{
+    padding-left:0px;
+    padding-right:0px;
+}
+label {
+    font-size: 16px;
+    font-family: "Sul Sans" !important;
+    color: #5E5E5E;
+    margin-bottom: 28px;
+    display: block;
+}
+
+.btn {
+    background: linear-gradient(90deg, #F5B822 0%, #FFD263 96.98%);
+    border-radius: 33.5px;
+    color:$color-5e5e5e;
+    font-size: $font-14px + 1;
+    font-weight: 600;
+    padding: 20px 12px;
+    display: inline-block;
+    line-height: 1;
+    &:hover{
+        background:$color-5e5e5e;
+        transition: 0.2s all ease-in-out;
+        color: $white;
+    }
+}
+
+// ----validation--------//
+// .invalid-feedback {
+//     top: auto;
+//     position: absolute;
+//     bottom: -20px;
+//     color: #ff0000;
+//     font-family: "Sul Sans" !important;
+//     left: 15px;
+//     right: auto;
+//     text-align: left;
+//     font-weight: 400;
+//     width: auto;
+//     line-height: 1;
+//     padding: 4px 10px;
+//     margin-top: 0;
+//     font-size: $font-12px + 1;
+// }
+
+
+// -----Modal Popup -----------//
+.cdk-overlay-container {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+
+// ---otp-modal-popup--//
+.otp-modal-main{
+    .mat-dialog-container {
+        width: 460px !important;
+        padding: 0 !important;
+        border-radius: 20px !important;
+        .heading-modal {
+            padding: 32px;
+            background: $color-F6F6F6;
+            text-align: center;
+            font-weight: bold;
+            font-size: $font-14px;
+            text-transform: capitalize;
+            color: $color-5e5e5e;
+            line-height: 14px;
+        }
+        .stat-content-modal {
+            padding: 40px 30px;
+            text-align: center;
+            span.we-have{
+                color: #5E5E5E;
+                font-size: 14px;
+                line-height: 14px;
+                font-weight: 400;
+            }
+            .img-otp {
+                margin-top: 25px;
+                margin-bottom: 25px;
+                display: flex;
+                justify-content: center;
+                .round-img{
+                    width: 64px !important;
+                    height: 64px !important;
+                    background: $color-5e5e5e;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 100%;
+                    box-shadow: 0px 7px 36px rgba(0, 0, 0, 0.2);
+                }
+            }
+            .otp-code-main{
+                margin-top:30px;
+                .otp-input {
+                    width: 40px !important;
+                    height: 40px !important;
+                    border: 1px solid $color-EBEBEB !important;
+                    background: $color-F6F6F6;
+                    border-radius: 40px !important;
+                    font-size: $font-16px + 2 !important;
+                    &:focus{
+                        outline: none !important;
+                    }
+                }
+                .btn{
+                    width: 80% !important;
+                    margin: auto !important;
+                    margin-top: 40px !important;
+                    margin-bottom: 30px !important;
+                }
+                .enter-btn{
+                    margin-top: 28px !important;
+                   
+                }
+            }
+            .main-links{
+                display: flex;
+                justify-content: space-between;
+                width: 80%;
+                margin: auto;
+                a{
+                    font-size: $font-12px;
+                    text-decoration: underline;
+                    color: $color-5e5e5e;
+                    &:hover{
+                        color:$color-bb8f1b;
+                    }
+                }
+            }
+            
+        }
+    }   
+}
+ 
+// ------------Enter-Mobile-popup-------//
+.mobilenum-input {
+    max-width: 80% !important;
+    width: 80% !important;
+    margin-top: 50px !important;
+    .form-width{
+        .mat-form-field {
+            width: 100% !important;
+            max-width: 100% !important;
+            .mat-form-field-wrapper {
+                padding-bottom: 0;
+                margin: 0 !important;
+                .mat-form-field-flex{
+                    .mat-form-field-outline {
+                        background: #F6F6F6 !important;
+                        border-radius: 33.5px !important;
+                        .mat-form-field-outline-start{
+                            outline: none !important;
+                            border: none !important;
+                        }
+                        .mat-form-field-outline-gap{
+                            outline: none !important;
+                            border: none !important;
+                        }
+                        .mat-form-field-outline-end{
+                            outline: none !important;
+                            border: none !important;
+                        }
+                    }
+                    .mat-form-field-infix {
+                        padding: 23px 0px !important;
+                        margin-top: 0px !important;
+                        border-top: none !important;
+                        .country-selector {
+                            opacity: 1 !important;
+                            outline: none !important;
+                            height: 30px;
+                            margin: auto;
+                            border-radius: 15px;
+                            span.mat-button-wrapper{
+                                span.country-selector-flag{
+                                    display: none !important;
+                                }
+                                span.country-selector-code {
+                                    font-size: 14px !important;
+                                    font-family: "Sul Sans" !important;
+                                    color: #5e5e5e;
+                                    padding-left:20px;
+                                    position: relative;
+                                    &::before{
+                                        position: absolute;
+                                        content: '';
+                                        background: url(assets/images/call-icon.svg) no-repeat;
+                                        width: 17px;
+                                        height: 17px;
+                                        background-size: cover;
+                                        left: -3px;
+                                        top: 0px;
+                                    }
+                                }
+                            }
+                        }
+                        .mat-input-element {
+                            font-size: 14px !important;
+                            padding-top: 1px !important;
+                            font-family: "Sul Sans" !important;
+                            color: #5e5e5e !important;
+                            padding-left: 100px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.mat-menu-panel {
+    position: absolute !important;
+    min-width: 210px !important;
+    max-width: 297px !important;
+    max-height: 160px !important;
+}
+
+
+
+// ---------------page-wrpping----------//
+.body-color{
+    background: #f5f5f5;
+}
+.page-wrapper {
+    // height: 100%;
+    // max-height: 100%;
+    // background: #f5f5f5;
+    margin-top: 90px;
+    margin-left: 250px;
+    // overflow: hidden;
+    @include max-mq(1320){
+        margin-left: 200px;
+    }
+}
+
+
+// ---------------comman-heading-----------------------//
+.heading-pannel {
+    display: flex;
+    align-items: center;
+    padding: 16px 15px;
+    .component-heading {
+        width: 50%;
+        span{
+            font-size: 15px;
+            font-weight: 500;
+        }
+    }
+    .component-btn {
+        width: 50%;
+        text-align: right;
+        .btn{
+            padding: 10px 20px;
+            font-size:$font-12px + 1;
+            padding-left: 40px;
+            font-weight: 300;
+            position: relative;
+            transition:0.3s all ease;
+            &::before{
+                position: absolute;
+                content: '';
+                left: 17px;
+                mask-image: url(assets/images/plus-icon.svg);
+                -webkit-mask-image: url(assets/images/plus-icon.svg);
+                height: 12px;
+                width: 12px;
+                mask-repeat: no-repeat;
+                -webkit-mask-repeat: no-repeat;
+                mask-size: 12px;
+                -webkit-mask-size: 12px;
+                background-color: #5e5e5e;
+                top: -3px;
+                bottom: 0;
+                margin: auto;
+               
+            }
+            &:hover{
+                &::before{
+                    background: #fff;
+                }
+            }
+        }
+    }
+}
+
+
+// -----------------------add-account-accordian-----------//
+.red-color{
+    color: #FD4755;
+    font-weight: 400;
+}
+.green-color {
+    color: #27AE60;
+    font-weight: 400;
+}
+.accordian-main{
+    padding-bottom: 10px;
+    .mat-expansion-panel {
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        .mat-expansion-panel-header {
+            height: auto !important;
+            padding: 8px 10px;
+            font-size: $font-12px;
+            background:$color-F6F6F6 !important;
+            font-weight: 400;
+            color: $color-5e5e5e;
+            margin-bottom: 10px;
+            .mat-expansion-panel-header-description{
+                span{
+                    display: block;
+                    width: 100%;
+                    text-align: right;
+                    padding-right: 20px;
+                }
+            }
+        }
+        .mat-expansion-panel-body{
+            @include max-mq(1000){
+                padding: 0 6px 10px;
+            }
+            .inner-expansion-main {
+                background: #F6F6F6;
+                margin-top: 18px;
+                padding: 8px 12px;
+                border-radius: 11px;
+                display: flex;
+                align-items: center;
+                .inner-sub-left{
+                    width:95%;
+                    margin-right:10px;
+                    .main-strips {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 15px;
+                        &:last-child{
+                            margin-bottom: 0;
+                        }
+                        .holder-name{
+                            font-size: $font-12px;
+                            color: $color-5e5e5e;
+                        }
+                        .price-tag {
+                            font-size: $font-12px;
+                        }
+                        .date-and-time{
+                            font-size: $font-12px - 2;
+                            color: $color-5e5e5e;
+                        }
+                        .account-type{
+                            font-size: $font-12px - 2;
+                            color: $color-5e5e5e;
+                        }
+                    }
+                }
+                .inner-sub-right{
+                    width:5%;
+                    a{
+                        img{
+                            width: 10px;
+                            position: relative;
+                            left: 4px;
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+}
+
+.list-main-filter{
+    .tab-content{
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        .tab-pane{
+            padding: 0;
+        }
+
+    }
+}
+
+
+
+// ------------------------------sub-compo--------------------//
+.sub-compo-wrap {
+    padding: 0px 15px;
+    margin-bottom:15px;
+}
+.white-box {
+    background: #fff;
+    padding: 20px 20px;
+    border-radius: 10px;
+}
+
+// ----Login Screen---//
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.cursor{
+    cursor: pointer;
+}

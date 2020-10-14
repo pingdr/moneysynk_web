@@ -1,0 +1,142 @@
+// ----Media query mixin-----------//
+@mixin min-mq($min-screen-size) {
+    @media (min-width: $min-screen-size +"px") {
+    @content;
+    }
+    }
+    
+    @mixin max-mq($max-screen-size) {
+    @media (max-width: $max-screen-size +"px") {
+    @content;
+    }
+    }
+    
+    // ----------------------------For Orientation-----------------------//
+    @mixin landscape-orientation($max-screen-size,
+    $orientation) {
+    @media (max-width: $max-screen-size +"px") and (orientation: $orientation) {
+    @content;
+    }
+    }
+    
+    @mixin btw-mq($min-screen-size,
+    $max-screen-size,
+    $pixel-ratio,
+    $orientation) {
+    @media only screen and (min-width: $min-screen-size +"px") and (max-width: $max-screen-size +"px") and (-webkit-min-device-pixel-ratio: $pixel-ratio) and (orientation: $orientation) {
+    @content;
+    }
+    }    
+ 
+    
+aside.sidenav-main {
+    position: fixed;
+    background: #313242;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    max-height: 100%;
+    width: 250px;
+    max-width:250px;
+    @include max-mq(1320){
+        width:200px;
+        max-width:210px;
+    }
+}
+
+.brand-sidebar {
+    height: 90px;
+    background: #292933;
+    .logo-wrapper{
+        height:100%;
+        margin-bottom:0px !important;
+        a.brand-logo{
+            display: inline-block;
+            height:100%;
+            width: 100%;
+            text-align: center;
+            img{
+                width:155px;
+            }
+            span.logo-text{
+                display: none;
+            }
+            
+        }
+        a.navbar-toggler{
+            display: none;
+        }
+    }
+}
+
+.main-nav-item {
+    height: 100%;
+    max-height: 67%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-top:50px;
+    ul.nav-item-inner {
+        padding-left: 0px;
+        list-style-type: none;
+        margin-bottom: 0;
+        height:100%;
+        .nav-list-parents {
+            padding: 18px 30px;
+            position: relative;
+            transition: 0.8s all ease;
+            &:hover{
+                &::before{
+                    position: absolute;
+                    content: '';
+                    background: #F5B822;
+                    width:4px;
+                    left:0;
+                    top:0px;
+                    bottom:0px;
+                    transition: 0.8s all ease;
+                }
+            }
+            .navlinks {
+                color: #fff;
+                font-size: 13px;
+                position: relative;
+                &:hover{
+                    color: #F5B822 !important;
+                    text-decoration: none;
+
+                }
+            }
+            
+        }
+        .active{
+            &::before{
+                position: absolute;
+                content: '';
+                background: #F5B822;
+                width:4px;
+                left:0;
+                top:0px;
+                bottom:0px;
+            }
+            .navlinks{
+                color: #F5B822 !important;
+            }
+        }
+        
+    }
+}
+
+.router-active {
+    color: red;
+  }
+
+.settings {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: #5a5b67;
+    padding: 12px 0px;
+    text-align: center;
+}

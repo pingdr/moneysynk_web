@@ -1,0 +1,215 @@
+<div class="first-wrapper"></div>
+
+<div class="charts-grid"> 
+    <div class="inner-grid white-box first-chart">
+        <div class="heading">
+            Expense VS Income
+        </div>
+        <div class="main-chart-part">
+            <div class="left-side">
+                <div class="item">
+                    <canvas width="250px" height="250px" baseChart chartType="doughnut" [data]="doughnutChartData" [labels]="doughnutChartLabels" [legend]="false" [colors]="donutColors">
+                    </canvas>
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="expanse-total">
+                    <div class="upper">
+                        <span class="left-head red-label">Expense</span>
+                        <span class="right-expanse com-font">$147.00</span>
+                    </div>
+                    <div class="upper">
+                        <span class="left-head green-label">Income</span>
+                        <span class="right-income com-font">$60.00</span>
+                    </div>
+                    <div class="savings">
+                        <span class="left-head">Savings</span>
+                        <span class="saving-income com-font"> -$87.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="inner-grid white-box second-button-chart">
+        <div class="heading">
+            <div class="account-reports">Account Reports</div>
+            <div class="link-detail">
+                <a href="#" title="Details">Details</a>
+            </div>
+        </div>
+        <div class="main-chart-part">
+            <div class="left-side">
+                <div class="item">
+                    <canvas  width="250px" height="250px" baseChart chartType="doughnut" [data]="accountreports" [labels]="accountreportsLabels" [legend]="false" [colors]="accountColors">
+                    </canvas>
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="expanse-total">
+                    <div class="expense-btn">
+                        <span class="left-head red-label">Expense</span>
+                        <span class="right-income">$147.00</span>
+                    </div>
+                    <div class="income-btn">
+                        <span class="left-head green-label">Income</span>
+                        <span class="right-income">$60.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="inner-grid white-box second-button-chart">
+        <div class="heading">
+            <div class="account-reports">Categories</div>
+            <div class="link-detail">
+                <a href="#" title="Details">Details</a>
+            </div>
+        </div>
+        <div class="main-chart-part">
+            <div class="left-side">
+                <div class="item">
+                    <canvas width="250px" height="250px" baseChart chartType="doughnut"  [data]="categories" [labels]="categoriesLabel" [legend]="false" [colors]="categoriesColors">
+                    </canvas>
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="expanse-total">
+                    <div class="expense-btn">
+                        <span class="left-head red-label">Expense</span>
+                        <span class="right-income">$147.00</span>
+                    </div>
+                    <div class="income-btn">
+                        <span class="left-head green-label">Income</span>
+                        <span class="right-income">$60.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="inner-grid white-box first-chart">
+        <div class="heading">
+            <div class="account-reports">Payees</div>
+            <div class="link-detail">
+                <a href="#" title="Details">Details</a>
+            </div>
+        </div>
+        <div class="main-chart-part">
+            <div class="left-side">
+                <div class="item">
+                    <canvas width="250px" height="250px" baseChart chartType="doughnut" [data]="payees" [labels]="payeesLabel" [legend]="false" [colors]="payeesColors">
+                    </canvas>
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="expanse-total">
+                    <div class="upper">
+                        <span class="left-head red-label">Expense</span>
+                        <span class="right-expanse com-font">$147.00</span>
+                    </div>
+                    <div class="upper">
+                        <span class="left-head green-label">Income</span>
+                        <span class="right-income com-font">$60.00</span>
+                    </div>
+                    <div class="savings">
+                        <span class="left-head">Savings</span>
+                        <span class="saving-income com-font"> -$87.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Budgets- Chart custom -->
+    <div class="inner-grid white-box first-chart">
+        <div class="heading">
+            <div class="account-reports">Budgets</div>
+            <div class="link-detail">
+                <a href="#" title="Details">Details</a>
+            </div>
+        </div>
+        <!-- <div class="main-chart-part">
+            <div class="left-side">
+                <div class="item">
+                    <canvas width="250px" height="250px" baseChart chartType="doughnut" [data]="payees" [labels]="payeesLabel" [legend]="false" [colors]="payeesColors">
+                    </canvas>
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="expanse-total">
+                    <div class="upper">
+                        <span class="left-head red-label">Expense</span>
+                        <span class="right-expanse com-font">$147.00</span>
+                    </div>
+                    <div class="upper">
+                        <span class="left-head green-label">Income</span>
+                        <span class="right-income com-font">$60.00</span>
+                    </div>
+                    <div class="savings">
+                        <span class="left-head">Savings</span>
+                        <span class="saving-income com-font"> -$87.00</span>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="budget-main-section">
+            <div class="first-section-budgets comman-budget">
+                <div class="left-dot-gray"></div>
+                <div class="price-label">
+                    <span class="green-label">$0.00</span>
+                    <span class="red-label">$0.00</span>
+                </div>
+            </div>
+            <div class="second-section-budgets comman-budget">
+                <div class="left-dot-gray"></div>
+                <div class="expanse-bud-label">
+                    <span class="green-label">$0.00</span>
+                    <span class="red-label">
+                        <span class="progress-label"></span>
+                        $62.00</span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="inner-grid white-box second-button-chart">
+        <div class="heading">
+            <div class="account-reports">Bills by categories</div>
+            <div class="link-detail">
+                <a href="#" title="Details">Details</a>
+            </div>
+        </div>
+        <div class="main-chart-part">
+            <div class="left-side">
+                <div class="item">
+                    <canvas width="250px" height="250px" baseChart chartType="doughnut"  [data]="bills" [labels]="billsLabel" [legend]="false" [colors]="billsColors">
+                    </canvas>
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="expanse-total">
+                    <div class="expense-btn">
+                        <span class="left-head red-label">Expense</span>
+                        <span class="right-income">$147.00</span>
+                    </div>
+                    <div class="income-btn">
+                        <span class="left-head green-label">Income</span>
+                        <span class="right-income">$60.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    
+    
+
+</div>
+
+
+
+
+
+
+
+
+

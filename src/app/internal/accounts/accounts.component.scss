@@ -1,0 +1,240 @@
+// ----Media query mixin-----------//
+@mixin min-mq($min-screen-size) {
+    @media (min-width: $min-screen-size +"px") {
+    @content;
+    }
+    }
+    
+    @mixin max-mq($max-screen-size) {
+    @media (max-width: $max-screen-size +"px") {
+    @content;
+    }
+    }
+    
+    // ----------------------------For Orientation-----------------------//
+    @mixin landscape-orientation($max-screen-size,
+    $orientation) {
+    @media (max-width: $max-screen-size +"px") and (orientation: $orientation) {
+    @content;
+    }
+    }
+    
+    @mixin btw-mq($min-screen-size,
+    $max-screen-size,
+    $pixel-ratio,
+    $orientation) {
+    @media only screen and (min-width: $min-screen-size +"px") and (max-width: $max-screen-size +"px") and (-webkit-min-device-pixel-ratio: $pixel-ratio) and (orientation: $orientation) {
+    @content;
+    }
+    }    
+// ------------END of Media Screen Mixing--------------//
+
+.white-box{
+    position: relative;
+    padding:20px 0px;
+    padding-bottom:0px;
+}
+
+.asset-main-tab {
+    margin-top:10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #cccccc;
+    
+    .nav-tabs {
+        border-bottom: 0 !important;
+        width: 65%;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-column-gap: 20px;
+        @include max-mq(1200){
+            width:85%;
+        }
+        .nav-item {
+            border: none !important;
+            font-size: 13px;
+            color: #5e5e5e;
+            font-weight: 400;
+            padding: 0;
+            position: relative;
+            .balance-btn {
+                display: block;
+                margin-top: 10px;
+                font-size: 12px;
+            }
+        }
+        .active{
+            color: #f5B822;
+            &::before{
+                position: absolute !important;
+                content: '';
+                background: #f5b822 !important;
+                bottom: -16px;
+                left: 0;
+                right: 0;
+                z-index: 999;
+                width: 19px !important;
+                height: 3px;
+                margin: auto;
+            }
+            .balance-btn{
+                color: #5e5e5e;
+            }
+        }
+    }
+}
+
+
+.tab-pane {
+    padding: 0px 25px;
+    @include max-mq(1200){
+        padding:0px 20px;
+    }
+}
+
+//----------- strips------------------
+.editable-account{
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 22px 25px;
+    display: flex;
+    margin-top: 10px;
+    .number {
+        width: 5%;
+    }
+    .account-type {
+        width: 60%;
+    }
+    .pricing-icon {
+        width: 25%;
+        .price{
+            margin-right:25px;
+           
+        }
+    }
+    .action-tab-main {
+        width: 10%;
+        .edit-btn{
+            margin-right:25px;
+            @include max-mq(1200){
+                margin-right:10px;
+            }
+        }
+    }
+}
+
+.active-step{
+        border-left: 10px solid #7299FF !important;
+}
+
+
+
+.list-main-filter{
+    border: 1px solid rgba(114, 153, 255, 0.25);
+    border-radius: 10px;
+    padding-bottom:20px;
+    margin-top: 10px;
+    .asset-main-tab{
+        display: flex;
+        align-items: center;
+        padding-bottom: 0;
+        margin-top: 0;
+        border-bottom: 0;
+        background: #7299FF;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 14px 10px;
+        .nav{
+            display: flex;
+            margin-top: 0;
+            width: 70%;  
+            grid-column-gap: 0;
+            @include max-mq(1200){
+                width:100%;
+            }
+            a{
+                background: rgba(255, 255, 255, 0.2);
+                color: #fff;
+                padding: 9px 5px;
+                border-radius: 18px !important;
+                &::before{
+                    display: none;
+                }
+                &:first-child{
+                    margin-right:10px;
+                }
+                &:hover{
+                    background: #fff;
+                    color: #000;
+                    transition:0.6s all ease;
+                }
+            }     
+        }
+        .filter-btn-group{
+            width:30%;
+            text-align: right;
+            .filter-btn {
+                background: transparent !important;
+                padding: 0;
+            }
+        }
+    }
+    
+}
+
+
+
+// -----------------------------------total-expanse--------------------------//
+.total-expanse-panal-bottom-main{
+    margin-top: 20px;
+    background: rgba(255, 164, 18, 0.3);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 40px 20px;
+    position: relative;
+    &::before{
+        position: absolute;
+        content: '';
+        background: rgba(0, 0, 0, 0.2);
+        width: 1px;
+        top: 0;
+        bottom: 0;
+        left: auto;
+        right: 25%;
+    }
+    .inner-expanse-panal-main{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .left-panal{
+            width: 70%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .com-col{
+                .label {
+                    text-transform: uppercase;
+                    font-size: 13px;
+                }
+                .value {
+                    margin-left: 10px;
+                    font-size: 13px;
+                }
+            }
+        }
+        .right-total-panal{
+            width:20%;
+            .total-cleared-balance{
+                .label{
+                    display: block;
+                    font-size: 13px;
+                    text-transform: uppercase;
+                    margin-bottom: 10px;
+                }
+                .bold{
+                    font-size: 20px;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}

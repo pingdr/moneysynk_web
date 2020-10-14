@@ -1,0 +1,123 @@
+import { BrowserModule, Title } from '@angular/platform-browser';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import {LoginComponent} from './external/login/login.component';
+import { FormsModule} from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SignupComponent } from './external/signup/signup.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { EmailOtpComponent } from './shared/modals/email-otp/email-otp.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgOtpInputModule } from  'ng-otp-input';
+import {MatInputModule} from '@angular/material/input';
+import { EnterMobilenumComponent } from './shared/modals/enter-mobilenum/enter-mobilenum.component';
+import { NgxMatIntlTelInputModule } from 'ngx-mat-intl-tel-input';
+import { VerifyMobileOtpComponent } from './shared/modals/verify-mobile-otp/verify-mobile-otp.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { LoginLayoutComponent } from './base/layouts/login-layout/login-layout.component';
+import { ChartsModule } from 'ng2-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { MatTabsModule} from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { HttpService } from './services/http.service';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {ToastrModule} from 'ngx-toastr';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { AsyncPipe } from '@angular/common';
+ import { ExternalAuthguardService } from './services/externalAuthguard.service';
+import { InterceptorService } from './services/interceptor.service';
+import { AccountModule } from './internal/accounts/accounts.module';
+import { SharedService } from './services/shared.service';
+import { ForgotPasswordComponent } from './shared/modals/forgot-password/forgot-password.component';
+import { ChangePasswordComponent } from './shared/modals/change-password/change-password.component';
+
+
+
+
+
+
+
+
+@NgModule({
+  declarations: [
+    AppComponent, 
+    LoginComponent, 
+    SignupComponent, 
+    EmailOtpComponent, 
+    EnterMobilenumComponent, 
+    VerifyMobileOtpComponent,
+    LoginLayoutComponent,
+    ForgotPasswordComponent,
+    ChangePasswordComponent
+     
+  
+
+   
+  ], 
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AccountModule,
+    FormsModule,
+    RouterModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    NgOtpInputModule,
+    NgxMatIntlTelInputModule, 
+    MatInputModule, 
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule, 
+    ChartsModule,
+    NgxChartsModule,
+    MatTabsModule,
+    MatExpansionModule,
+    HttpClientModule,
+    MatSnackBarModule,
+    ToastrModule.forRoot()
+    
+    
+
+    
+    
+
+  ],
+  entryComponents:[
+    EmailOtpComponent, EnterMobilenumComponent, VerifyMobileOtpComponent, ForgotPasswordComponent,ChangePasswordComponent
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+  },
+  HttpService,
+  SharedService,
+  AsyncPipe,
+  ExternalAuthguardService,
+  Title
+  ],
+  bootstrap: [AppComponent],
+  exports: [
+],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+  ],
+})
+export class AppModule { 
+
+constructor(){
+}
+
+}

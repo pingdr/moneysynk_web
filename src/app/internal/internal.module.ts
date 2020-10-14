@@ -1,0 +1,49 @@
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ClickOutsideModule} from 'ng-click-outside';
+import {ChartsModule} from 'ng2-charts';
+import {RouterModule, Routes} from '@angular/router';
+import { InternalComponent } from './internal.component';
+import {SharedModule} from '../shared/modules/shared.module';
+import { HeaderComponent } from '../base/controls/header/header.component';
+import { SidebarComponent } from '../base/controls/sidebar/sidebar.component';
+import { FooterComponent } from '../base/controls/footer/footer.component';
+
+
+const routes: Routes = [{
+    path: '', component: InternalComponent,
+    children: [
+        {
+            path: 'reports',
+            loadChildren: () => import('./reports/reports.module').then(m => m.ReportModule)
+        },
+        {
+            path: 'accounts',
+            loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountModule)
+        }
+    ]
+}];
+
+@NgModule({
+    imports: [
+        SharedModule,
+        ChartsModule,
+        ClickOutsideModule,
+        CommonModule,
+        RouterModule.forChild(routes)
+    ],
+    exports: [],
+    declarations: [
+        InternalComponent,
+        HeaderComponent,
+        SidebarComponent,
+        FooterComponent
+      
+        
+    ]
+})
+export class InternalModule {
+    constructor(){
+        console.log('in internal module..............')
+    }
+}
