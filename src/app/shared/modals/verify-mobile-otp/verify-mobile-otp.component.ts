@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SharedService } from 'src/app/services/shared.service';
 import { EnterMobilenumComponent } from '../enter-mobilenum/enter-mobilenum.component';
 import { ToastrService } from 'ngx-toastr';
@@ -33,9 +33,8 @@ export class VerifyMobileOtpComponent implements OnInit {
   constructor(public http: HttpService, public router: Router,public dialog:
      MatDialog,public sharedserive:SharedService,
      public dialogRef: MatDialogRef<VerifyMobileOtpComponent>,
-     private toastr: ToastrService) {
-    this.mobile = localStorage.getItem('otpMobile')
-    this.counctrycode = localStorage.getItem('ccode')
+     private toastr: ToastrService,
+     @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit(): void {
@@ -49,8 +48,8 @@ export class VerifyMobileOtpComponent implements OnInit {
   openOtpmodal() {
     let payload = {
       code:this.otp,
-      mobile:this.mobile,
-      countryCode:this.counctrycode
+      mobile:this.data.mobile,
+      countryCode:this.data.counctrycode
     }
     this.loader = true;
     this.http.verifyMobileOtp(ApiUrl.varifyotp, payload, false)
@@ -92,8 +91,8 @@ export class VerifyMobileOtpComponent implements OnInit {
 
     this.loader = true;
     let payload = {
-      mobile: this.mobile,
-      countryCode: this.counctrycode
+      mobile: this.data.mobile,
+      countryCode: this.data.counctrycode
     }
     this.http.sendMobileOtp(ApiUrl.varifyotpmobile, payload, false)
       .subscribe(data => {
@@ -121,15 +120,4 @@ export class VerifyMobileOtpComponent implements OnInit {
    
   }
 
-  
-  // setVal(val) {
-  //   this.ngOtpInput.setValue(val);
-  // }
-  // onConfigChange() {
-  //   this.showOtpComponent = false;
-  //   this.otp = null;
-  //   setTimeout(() => {
-  //     this.showOtpComponent = true;
-  //   }, 0);
-  // }
 }

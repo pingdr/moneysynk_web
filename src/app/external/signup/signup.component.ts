@@ -98,8 +98,7 @@ export class SignupComponent implements OnInit {
             this.toastr.success('otp send successfully', 'success', {
               timeOut: 2000
             });
-            localStorage.setItem('otpemail', this.SignupForm.value.email);
-            const dialogRef = this.dialog.open(EmailOtpComponent, { panelClass: 'otp-modal-main', data: { isforgot: false,email:this.SignupForm.value.email } });
+            const dialogRef = this.dialog.open(EmailOtpComponent, { panelClass: 'otp-modal-main', data: { isforgot: false, email: this.SignupForm.value.email } });
 
             dialogRef.afterClosed().subscribe(result => {
               console.log(`Dialog result: ${result}`);

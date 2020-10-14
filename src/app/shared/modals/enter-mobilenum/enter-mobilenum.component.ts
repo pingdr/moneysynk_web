@@ -68,16 +68,15 @@ export class EnterMobilenumComponent implements OnInit {
     this.http.sendMobileOtp(ApiUrl.varifyotpmobile, payload, false)
       .subscribe(data => {
         let response: any = data;
-        console.log('----------------------------');
+      
         console.log(response);
         if (response.statusCode == 200) {
 
           this.toastr.success('otp send successfully', 'success', {
             timeOut: 2000
           });
-          localStorage.setItem('otpMobile', payload.mobile);
-          localStorage.setItem('ccode', payload.countryCode)
-          const dialogRef = this.dialog.open(VerifyMobileOtpComponent, { panelClass: 'otp-modal-main' });
+          const dialogRef = this.dialog.open(VerifyMobileOtpComponent, { panelClass: 'otp-modal-main',
+          data: { mobile: payload.mobile,counctrycode:payload.countryCode } });
 
 
           dialogRef.afterClosed().subscribe(result => {
@@ -90,22 +89,7 @@ export class EnterMobilenumComponent implements OnInit {
           });
         }
 
-        // if(response.statusCode==200){
-        //   this.toastr.success('Hello world!', 'Toastr fun!', {
-        //     timeOut: 2000
-        //   });
-        //   localStorage.setItem('otpemail', this.SignupForm.value.email);
-        // const dialogRef = this.dialog.open(EmailOtpComponent, {panelClass: 'otp-modal-main'});
-
-        // dialogRef.afterClosed().subscribe(result => {
-        //   console.log(`Dialog result: ${result}`);
-        // });
-        // }else{
-        //   this.toastr.error('everything is broken', 'Major Error', {
-        //     timeOut: 3000
-        //   });
-        // }
-
+      
       },
         () => {
           console.log('failed');
@@ -113,12 +97,7 @@ export class EnterMobilenumComponent implements OnInit {
         });
 
   }
-  // get myForm(): FormGroup {
-  //   if(!this.testService.myForm){
-  //     return null;
-  //   }
-  //   return this.testService.myForm;
-  // }
+
   openOtpmodal() {
     const dialogRef = this.dialog.open(VerifyMobileOtpComponent, { panelClass: 'otp-modal-main' });
 

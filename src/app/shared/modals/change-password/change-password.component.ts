@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { CommonService } from 'src/app/services/common.service';
@@ -26,6 +26,7 @@ export class ChangePasswordComponent implements OnInit {
     public dialog: MatDialog,
     public http: HttpService,
     private toastr: ToastrService,
+    @Inject(MAT_DIALOG_DATA) public data: any
 
 
 
@@ -33,7 +34,7 @@ export class ChangePasswordComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.email = localStorage.getItem('otpemail');
+    // this.email = localStorage.getItem('otpemail');
 
     this.Password = this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
@@ -66,7 +67,7 @@ export class ChangePasswordComponent implements OnInit {
 
     if (this.http.isFormValid(this.Password)) {
       this.loader = true;
-      this.http.Forgotpassword(ApiUrl.Forgotpassword, this.email, this.Password.value.password, false)
+      this.http.Forgotpassword(ApiUrl.Forgotpassword, this.data.email, this.Password.value.password, false)
         .subscribe(data => {
           let response: any = data;
           console.log(response);

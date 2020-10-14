@@ -64,9 +64,8 @@ export class ForgotPasswordComponent implements OnInit {
             this.toastr.success('otp send successfully', 'success', {
               timeOut: 2000
             });
-            localStorage.setItem('otpemail', this.email.value.email);
-            localStorage.setItem('otpForgot', this.forgotFlag);
-            const dialogRef = this.dialog.open(EmailOtpComponent, { panelClass: 'otp-modal-main', data: { isforgot: true }, });
+            const dialogRef = this.dialog.open(EmailOtpComponent, { panelClass: 'otp-modal-main', data: { isforgot: true,
+              email: this.email.value.email } });
 
             dialogRef.afterClosed().subscribe(result => {
               console.log(`Dialog result: ${result}`);
