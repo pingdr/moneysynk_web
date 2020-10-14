@@ -39,11 +39,11 @@ export class EnterMobilenumComponent implements OnInit {
 
   }
 
-  get f() { return this.addmobile.controls; }
+  // get f() { return this.addmobile.controls; }
 
   addmobiles() {
     this.addmobile = this.formBuilder.group({
-      mobile_no: [''],
+      mobile_no: ['',Validators.maxLength(10)],
       countryCode: ['']
     });
   }
@@ -57,7 +57,9 @@ export class EnterMobilenumComponent implements OnInit {
 
   }
   save() {
-
+    if (this.addmobile.invalid) {
+      return;
+  }
     this.dialogRef.close(this.dialogRef);
 
     this.loader = true;
