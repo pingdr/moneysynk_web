@@ -158,8 +158,12 @@ export class HttpService {
         return this.http.get<any>(url, { params: params, reportProgress: isLoading });
     }
 
-    postData(url, obj, isLoading?: boolean) {
-        console.log(obj);
+    postData(url, user,password, isLoading?: boolean) {
+        
+       var obj = {
+           "user":user,
+           "password":password
+       }
 
         // const formData = new FormData();
         Object.keys(obj).forEach(key => {

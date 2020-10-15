@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
       
       user: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      rememberme: ['', Validators.required]
      
   }, {
       
@@ -56,7 +57,7 @@ export class LoginComponent implements OnInit {
 
     if (this.http.isFormValid(this.LoginForm)) {
       this.loader = true;
-      this.http.postData(ApiUrl.Login, this.LoginForm.value, false)
+      this.http.postData(ApiUrl.Login, this.LoginForm.value.user,this.LoginForm.value.password, false)
           .subscribe(res => {
               if (this.rememberMeControl.value) {
                   localStorage.setItem('rememberMe', this.rememberMeControl.value);
