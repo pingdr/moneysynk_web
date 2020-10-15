@@ -76,12 +76,12 @@ export class ChangePasswordComponent implements OnInit {
             this.toastr.success('password reset successfully', 'success', {
               timeOut: 2000
             });
+            localStorage.setItem('accessToken', response.data.accessToken);
+            localStorage.setItem('loginData', JSON.stringify(response.data));
+            console.log(response.data.accessToken);
+            this.http.navigate('reports');
 
-          } else {
-            this.toastr.error('otp not send', 'Error', {
-              timeOut: 3000
-            });
-          }
+          } 
 
         },
           () => {

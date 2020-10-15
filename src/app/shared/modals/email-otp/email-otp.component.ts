@@ -113,12 +113,13 @@ else{
         console.log(data);
         let response: any = data;
         if (response.statusCode == 200) {
-
+          console.log('this.data.isforgot');
+           console.log(this.data.isforgot);
           if (this.data.isforgot) {
 
             this.dialogRef.close(this.dialogRef);
             const dialogRef = this.dialog.open(ChangePasswordComponent, { panelClass: 'otp-modal-main',
-            data: { isforgot: true, email: this.data.email.value.email } },
+            data: { isforgot: true, email: this.data.email } },
             );
 
 
