@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ApiUrl } from 'src/app/services/apiurl';
 import { TableModel } from 'src/app/shared/models/table.common.model';
 import {HttpService} from '../../services/http.service';
 
@@ -11,6 +13,7 @@ import {HttpService} from '../../services/http.service';
 export class AccountsComponent implements OnInit {
 
   myModel: TableModel;
+  search = new FormControl();
 
   constructor(public http: HttpService,public activeRoute: ActivatedRoute) { 
     // this.myModel = new TableModel();
@@ -21,6 +24,7 @@ export class AccountsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+   this.getAccoundata();
   }
   step = 0;
 
@@ -36,7 +40,15 @@ export class AccountsComponent implements OnInit {
     this.step--;
   }
 
-  addAccount(){
+  getAccoundata(){
+
+  
+    this.http.getAccount(ApiUrl.getAccount).subscribe(res => {
+        this.myModel.data = res.data;
+        console.log('this.myModel.data');
+        console.log(this.myModel.data);
+        this.myModel.loader = false;
+    });
     
   }
 

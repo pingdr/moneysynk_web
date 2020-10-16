@@ -792,6 +792,19 @@ font-size: 12px;
 }
 }
 }
+.modal{
+
+    position: fixed;
+    top: 80px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99999;
+    display: none;
+    overflow: hidden;
+    outline: 0;
+
+}
 
 
 

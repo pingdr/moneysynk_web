@@ -30,7 +30,7 @@ export class InternalComponent {
             const obj: any = {};
             switch (data.name) {
                 case 'add-edit-account':
-                    this.http.showModal(AddEditAccountComponent, 'md');
+                    this.http.showModal(AddEditAccountComponent, 'lg');
                     break;
                
             }

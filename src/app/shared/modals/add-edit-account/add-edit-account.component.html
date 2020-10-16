@@ -1,7 +1,7 @@
 <div class="heading-modal">
-    <span>Add Account</span>
-    <button class="btn" [mat-dialog-close]>
-        <img src="../../../assets/images/close.svg">
+    <span>Close Account</span>
+    <button  (click)="http.hideModal()">
+        <img src="../../../../assets/images/close.svg">
     </button>
 </div>
 
@@ -10,16 +10,16 @@
       <div class="form-group">
         <label>Name</label>
         <mat-form-field appearance="fill">
-              <input matInput placeholder="Account Name"  formControlName="Accountname" 
-              [ngClass]="{ 'is-invalid': submitted && f.Accountname.errors }">
+              <input matInput maxlength="30" laceholder="Account Name"  formControlName="name" 
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
               
         </mat-form-field>
       </div>
       <div class="form-group">
         <label>Account No.</label>
         <mat-form-field appearance="fill">
-          <input matInput placeholder="Account Number" formControlName="Accoutnumber" 
-          [ngClass]="{ 'is-invalid': submitted && f.Accoutnumber.errors }">
+          <input maxlength="30" matInput placeholder="Account Number" formControlName="accountNo" 
+          [ngClass]="{ 'is-invalid': submitted && f.accountNo.errors }">
          
         </mat-form-field>
       </div>
@@ -27,12 +27,11 @@
         <label>Currency</label>
         <mat-form-field appearance="fill">
           <mat-label>USD - US Dollar</mat-label>
-          <mat-select formControlName="Usddollar" 
-          [ngClass]="{ 'is-invalid': submitted && f.Usddollar.errors }">
+          <mat-select formControlName="currency" 
+          [ngClass]="{ 'is-invalid': submitted && f.currency.errors }">
               <mat-option>None</mat-option>
-              <mat-option value="option1">Option 1</mat-option>
-              <mat-option value="option2">Option 2</mat-option>
-              <mat-option value="option3">Option 3</mat-option>
+              <mat-option value="Dollar">Dollar</mat-option>
+          
           </mat-select>
           
           
@@ -42,8 +41,8 @@
           <label>Open Date</label>
           <mat-form-field appearance="fill">
             
-              <input matInput [matDatepicker]="picker" formControlName="Opendate" 
-              [ngClass]="{ 'is-invalid': submitted && f.Opendate.errors }">
+              <input matInput [matDatepicker]="picker" formControlName="openDate" 
+              [ngClass]="{ 'is-invalid': submitted && f.openDate.errors }">
              
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
@@ -53,12 +52,12 @@
         <label>Opening Balance</label>
         <mat-form-field appearance="fill">
           <mat-label>0</mat-label>
-          <mat-select formControlName="Openingbalance" 
-          [ngClass]="{ 'is-invalid': submitted && f.Openingbalance.errors }">
+          <mat-select formControlName="openingBalance" 
+          [ngClass]="{ 'is-invalid': submitted && f.openingBalance.errors }">
               <mat-option>None</mat-option>
-              <mat-option value="option1">100</mat-option>
-              <mat-option value="option2">200</mat-option>
-              <mat-option value="option3">300</mat-option>
+              <mat-option value="100">100</mat-option>
+              <mat-option value="100">200</mat-option>
+              <mat-option value="300">300</mat-option>
           </mat-select>
        
         </mat-form-field>
@@ -66,8 +65,17 @@
       <div class="form-group">
         <label>Phone No.</label>
         <mat-form-field appearance="fill">
-          <input matInput  placeholder="Phone number" formControlName="Phonenumber" 
-          [ngClass]="{ 'is-invalid': submitted && f.Phonenumber.errors }">
+          <input matInput maxlength="13" minlength="10"  placeholder="Phone number" formControlName="phoneNumber" 
+          [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
+               <!-- <div *ngIf="mobile_no.errors"
+                        [ngClass]="'error'">
+                        <div *ngIf="mobile_no.errors.minlength">
+                            Invalid Number
+                        </div>
+                        <div *ngIf="mobile_no.errors.maxlength">
+                            Invalid Number
+                        </div>
+                    </div> -->
           
         </mat-form-field>
       </div>
@@ -75,16 +83,14 @@
         <label>Type</label>
         <mat-form-field appearance="fill">
           <mat-label>Asset</mat-label>
-          <mat-select  formControlName="Asset" 
-          [ngClass]="{ 'is-invalid': submitted && f.Asset.errors }">
-            <mat-option>None</mat-option>
-            <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option2">Option 2</mat-option>
-            <mat-option value="option3">Option 3</mat-option>
+          <mat-select  formControlName="accountType" 
+          [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
+            <mat-option>Select</mat-option>
+            <mat-option *ngFor="let data of accountModel"  value="data._id">{{ data.name }}</mat-option>
             <mat-form-field appearance="fill">
-              <input matInput placeholder="Add New Type" required>
+              <input (keyup)="addType($event.target.value)" matInput placeholder="Add New Type" required>
             </mat-form-field>
-            <button class="btn add-btn"> Add</button>
+            <button (click)="saveType()" class="btn add-btn"> Add</button>
           </mat-select>
         
         </mat-form-field>
@@ -93,8 +99,8 @@
       <div class="form-group">
         <label>Website</label>
         <mat-form-field appearance="fill">
-          <input matInput placeholder="Website" formControlName="Website" 
-          [ngClass]="{ 'is-invalid': submitted && f.Website.errors }">
+          <input matInput placeholder="Website" formControlName="website" 
+          [ngClass]="{ 'is-invalid': submitted && f.website.errors }">
          
         </mat-form-field>
          
@@ -102,8 +108,8 @@
       <div class="form-group">
         <label>Icon</label>
         <mat-form-field appearance="fill" >
-          <input matInput  formControlName="Icon" 
-          [ngClass]="{ 'is-invalid': submitted && f.Icon.errors }">
+          <input matInput  formControlName="icon" 
+          [ngClass]="{ 'is-invalid': submitted && f.icon.errors }">
         
           <a class="add-icon">
             <img src="../../../assets/images/plus-icon.svg">
@@ -114,8 +120,8 @@
       <div class="form-group">
         <label>Note</label>
         <mat-form-field appearance="fill">
-          <input matInput placeholder="Add note here" formControlName="Note" 
-          [ngClass]="{ 'is-invalid': submitted && f.Note.errors }">
+          <input matInput placeholder="Add note here" formControlName="note" 
+          [ngClass]="{ 'is-invalid': submitted && f.note.errors }">
          
         </mat-form-field>
       </div>

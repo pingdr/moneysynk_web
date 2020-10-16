@@ -5,7 +5,12 @@ export const ApiUrl = {
     signUp:'signup',
     Login:'login',
     Forgot:'request-otp-forgot-password',
-    Forgotpassword:'forgot-password'
+    Forgotpassword:'forgot-password',
+    addEditAccount:'accounts',
+    getAccount:'accounts',
+    addAccountType:'accountTypes',
+    getAllAccountType:'accountTypes'
+
 
 };
 

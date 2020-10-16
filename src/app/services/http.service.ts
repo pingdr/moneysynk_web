@@ -226,6 +226,7 @@ export class HttpService {
         this.modalRefArr.push(modalRef);
         return modalRef;
     }
+    
 
     hideModal() {
         const element = this.modalRefArr.pop();
@@ -390,6 +391,29 @@ export class HttpService {
 
     }
 
+    //addedit account
+
+    addEditAccount(url, payload, isLoading?: boolean) {
+        
+        return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
+
+    }
+
+    getAccount(url, isLoading?: boolean) {
+       
+        return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
+    }
+
+    addAccountType(url, payload, isLoading?: boolean) {
+        
+        return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
+
+    }
+
+    getAllAccountType(url, isLoading?: boolean) {
+       
+        return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
+    }
 
 
 }
