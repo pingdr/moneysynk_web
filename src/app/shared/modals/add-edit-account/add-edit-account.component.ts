@@ -111,7 +111,6 @@ export class AddEditAccountComponent implements OnInit {
 
   addType(value) {
     this.accountType = value;
-    console.log(this.accountType);
   }
 
   saveType() {
