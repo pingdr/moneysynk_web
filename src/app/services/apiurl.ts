@@ -9,7 +9,8 @@ export const ApiUrl = {
     addEditAccount:'accounts',
     getAccount:'accounts',
     addAccountType:'accountTypes',
-    getAllAccountType:'accountTypes'
+    getAllAccountType:'accountTypes',
+    deleteAccount:'accounts'
 
 
 };

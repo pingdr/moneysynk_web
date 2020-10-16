@@ -86,7 +86,7 @@
           <mat-select  formControlName="accountType" 
           [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
             <mat-option>Select</mat-option>
-            <mat-option *ngFor="let data of accountModel"  value="data._id">{{ data.name }}</mat-option>
+            <mat-option *ngFor="let data of accountModel"  value="{{data._id}}">{{ data.name }}</mat-option>
             <mat-form-field appearance="fill">
               <input (keyup)="addType($event.target.value)" matInput placeholder="Add New Type" required>
             </mat-form-field>

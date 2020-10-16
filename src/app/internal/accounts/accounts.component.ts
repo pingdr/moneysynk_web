@@ -14,6 +14,7 @@ export class AccountsComponent implements OnInit {
 
   myModel: TableModel;
   search = new FormControl();
+  accountList=[];
 
   constructor(public http: HttpService,public activeRoute: ActivatedRoute) { 
     // this.myModel = new TableModel();
@@ -44,12 +45,20 @@ export class AccountsComponent implements OnInit {
 
   
     this.http.getAccount(ApiUrl.getAccount).subscribe(res => {
-        this.myModel.data = res.data;
-        console.log('this.myModel.data');
-        console.log(this.myModel.data);
-        this.myModel.loader = false;
+        this.accountList = res.data;
+        console.log(this.accountList);
+       
     });
     
+  }
+
+  
+  deleteAccounts(id){
+    this.http.deleteAccount(ApiUrl.deleteAccount,id,false).subscribe(res => {
+      this.accountList = res.data;
+      console.log(this.accountList);
+     
+  });
   }
 
 }
