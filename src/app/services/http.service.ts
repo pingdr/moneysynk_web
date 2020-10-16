@@ -9,6 +9,9 @@ import { DOCUMENT } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder } from '@angular/forms';
 import * as _ from 'lodash';
+import { BsModalService} from 'ngx-bootstrap/modal';
+import {BsModalRef} from 'ngx-bootstrap/modal';
+
 
 @Injectable()
 export class HttpService {
@@ -16,6 +19,7 @@ export class HttpService {
     public filesData: any = [];
     modalRefArr: any = [];
     CONSTANT = constant;
+    modalRef: BsModalRef;
     public readonly apiEndpoint: String;
     private loaderSubject = new BehaviorSubject<any>(null);
     public loaderStatus = this.loaderSubject.asObservable();
@@ -40,7 +44,8 @@ export class HttpService {
     constructor(
         private router: Router, public http: HttpClient, public toastr: ToastrService,
         @Inject(DOCUMENT) public document: any, public fb: FormBuilder,
-        public _snackBar: MatSnackBar
+        public _snackBar: MatSnackBar,
+        public modalService: BsModalService
     ) {
         this.apiEndpoint = environment.apiBaseUrl;
         this.domain = this.document.location.origin;
@@ -75,6 +80,7 @@ export class HttpService {
     }
 
     openModal(name, data?) {
+       
         const obj: any = {
             name: name,
             data: data
@@ -208,6 +214,18 @@ export class HttpService {
     }
 
 
+
+    showModal(template, size?, data?) {
+        const initialState: any = {};
+        if (data) {
+            initialState.modalData = data;
+        }
+        const modalRef = this.modalService.show(template,
+                {initialState, class: `gray modal-${size ? size : 'md'}`}
+        );
+        this.modalRefArr.push(modalRef);
+        return modalRef;
+    }
 
     hideModal() {
         const element = this.modalRefArr.pop();

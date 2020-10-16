@@ -8,6 +8,7 @@ import {SharedModule} from '../shared/modules/shared.module';
 import { HeaderComponent } from '../base/controls/header/header.component';
 import { SidebarComponent } from '../base/controls/sidebar/sidebar.component';
 import { FooterComponent } from '../base/controls/footer/footer.component';
+import {BsModalRef, BsModalService, ModalModule} from 'ngx-bootstrap/modal';
 
 
 const routes: Routes = [{
@@ -30,7 +31,11 @@ const routes: Routes = [{
         ChartsModule,
         ClickOutsideModule,
         CommonModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        ModalModule.forRoot(),
+        
+        
+        
     ],
     exports: [],
     declarations: [
@@ -44,6 +49,5 @@ const routes: Routes = [{
 })
 export class InternalModule {
     constructor(){
-        console.log('in internal module..............')
     }
 }

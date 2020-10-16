@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TableModel } from 'src/app/shared/models/table.common.model';
+import {HttpService} from '../../services/http.service';
 
 @Component({
   selector: 'app-accounts',
@@ -7,7 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountsComponent implements OnInit {
 
-  constructor() { }
+  myModel: TableModel;
+
+  constructor(public http: HttpService,public activeRoute: ActivatedRoute) { 
+    // this.myModel = new TableModel();
+   
+    // const tab = this.activeRoute.snapshot.queryParams.tab;
+    // const search = this.activeRoute.snapshot.queryParams.search;
+
+  }
 
   ngOnInit(): void {
   }
@@ -23,6 +34,10 @@ export class AccountsComponent implements OnInit {
 
   prevStep() {
     this.step--;
+  }
+
+  addAccount(){
+    
   }
 
 }

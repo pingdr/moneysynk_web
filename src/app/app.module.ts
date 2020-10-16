@@ -37,6 +37,16 @@ import { AccountModule } from './internal/accounts/accounts.module';
 import { SharedService } from './services/shared.service';
 import { ForgotPasswordComponent } from './shared/modals/forgot-password/forgot-password.component';
 import { ChangePasswordComponent } from './shared/modals/change-password/change-password.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {MatSelectModule} from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { AddEditAccountComponent } from './shared/modals/add-edit-account/add-edit-account.component';
+
+
+
 
 
 
@@ -55,7 +65,8 @@ import { ChangePasswordComponent } from './shared/modals/change-password/change-
     VerifyMobileOtpComponent,
     LoginLayoutComponent,
     ForgotPasswordComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    AddEditAccountComponent
      
   
 
@@ -85,7 +96,16 @@ import { ChangePasswordComponent } from './shared/modals/change-password/change-
     MatExpansionModule,
     HttpClientModule,
     MatSnackBarModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ModalModule.forRoot(),
+    MatSelectModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatOptionModule,
+    BrowserModule,
+    RouterModule,
+    MatNativeDateModule,
+    MatMomentDateModule
     
     
 
@@ -94,7 +114,12 @@ import { ChangePasswordComponent } from './shared/modals/change-password/change-
 
   ],
   entryComponents:[
-    EmailOtpComponent, EnterMobilenumComponent, VerifyMobileOtpComponent, ForgotPasswordComponent,ChangePasswordComponent
+    EmailOtpComponent, 
+    EnterMobilenumComponent,
+    VerifyMobileOtpComponent,
+    ForgotPasswordComponent,
+    ChangePasswordComponent,
+  
   ],
   providers: [
     {
