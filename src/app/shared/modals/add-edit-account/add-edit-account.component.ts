@@ -129,7 +129,7 @@ export class AddEditAccountComponent implements OnInit {
             timeOut: 2000
           });
         }
-        this.http.hideModal();
+        this.dialogRef.close(this.dialogRef);
         this.http.navigate('accounts');
       },
         () => {
