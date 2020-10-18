@@ -416,12 +416,19 @@ export class HttpService {
     }
 
     deleteAccount(url, id, isLoading?: boolean) {
-        let params = new HttpParams();
        
-        params = id;
-          
-        return this.http.delete<any>(this.apiEndpoint + url, { params: params, reportProgress: isLoading });
+        return this.http.delete<any>(this.apiEndpoint + url+ '/' + id, { reportProgress: isLoading });
+
+        
     }
+
+    updateAccount(url,id, payload, isLoading?: boolean) {
+        
+        return this.http.post<any>(this.apiEndpoint + url+ '/' + id, payload, { reportProgress: isLoading });
+
+    }
+
+    
 
 
 }

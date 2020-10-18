@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { TableModel } from 'src/app/shared/models/table.common.model';
-import {HttpService} from '../../services/http.service';
+import { HttpService } from '../../services/http.service';
+import { NgxSpinnerService } from "ngx-spinner";
+import Swal, { SweetAlertOptions } from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { AddEditAccountComponent } from 'src/app/shared/modals/add-edit-account/add-edit-account.component';
+
+
 
 @Component({
   selector: 'app-accounts',
@@ -14,18 +21,25 @@ export class AccountsComponent implements OnInit {
 
   myModel: TableModel;
   search = new FormControl();
-  accountList=[];
+  accountList = [];
+  accountTypeList = [];
+  filter = [];
 
-  constructor(public http: HttpService,public activeRoute: ActivatedRoute) { 
+  constructor(public http: HttpService, public activeRoute: ActivatedRoute,
+    private SpinnerService: NgxSpinnerService,
+    private _router: Router,
+    private toastr: ToastrService,
+    public dialog: MatDialog,) {
     // this.myModel = new TableModel();
-   
+
     // const tab = this.activeRoute.snapshot.queryParams.tab;
     // const search = this.activeRoute.snapshot.queryParams.search;
 
   }
 
   ngOnInit(): void {
-   this.getAccoundata();
+    this.getAccountdata();
+    this.getAccountTypedata();
   }
   step = 0;
 
@@ -41,24 +55,73 @@ export class AccountsComponent implements OnInit {
     this.step--;
   }
 
-  getAccoundata(){
+  getAccountTypedata() {
 
-  
-    this.http.getAccount(ApiUrl.getAccount).subscribe(res => {
-        this.accountList = res.data;
-        console.log(this.accountList);
-       
+
+    this.http.getAllAccountType(ApiUrl.getAllAccountType).subscribe(res => {
+      this.SpinnerService.show();
+      if (res.data != undefined) {
+        this.accountTypeList = res.data;
+        console.log(this.accountTypeList);
+      }
     });
-    
+
   }
 
-  
-  deleteAccounts(id){
-    this.http.deleteAccount(ApiUrl.deleteAccount,id,false).subscribe(res => {
-      this.accountList = res.data;
-      console.log(this.accountList);
-     
-  });
+  getAccountdata() {
+
+
+    this.http.getAccount(ApiUrl.getAccount).subscribe(res => {
+      if (res.data != undefined) {
+        this.accountList = res.data;
+        this.filter = res.data;
+      }
+    });
+
   }
+
+
+  deleteAccounts(id) {
+    let self = this;
+    const options: SweetAlertOptions = {
+      title: 'Are you sure you want to delete this Account?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      focusCancel: true
+    };
+    Swal.fire(options).then((result) => {
+      if (result.value) {
+
+        this.http.deleteAccount(ApiUrl.deleteAccount, id, false).subscribe(res => {
+          this.toastr.success('Account deleted successfully', 'success', {
+            timeOut: 2000
+          });
+          this.getAccountdata();
+
+        });
+
+      }
+    })
+
+
+  }
+
+  filterData(id) {
+    this.accountList = this.filter.filter(filter => filter.accountType === id);
+  }
+
+  editAccounts(data) {
+    const dialogRef = this.dialog.open(AddEditAccountComponent, { panelClass: 'otp-modal-main', data: { isforgot: false, editdata: data } });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+
+
+
 
 }

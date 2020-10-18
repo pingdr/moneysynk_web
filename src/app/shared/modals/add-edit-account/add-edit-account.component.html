@@ -41,11 +41,24 @@
           <label>Open Date</label>
           <mat-form-field appearance="fill">
             
-              <input matInput [matDatepicker]="picker" formControlName="openDate" 
+              <input [min]="minDate" matInput [matDatepicker]="picker" formControlName="openDate" 
               [ngClass]="{ 'is-invalid': submitted && f.openDate.errors }">
              
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
+
+              <!-- <div class="input-field">
+                <p>Estimated date of delivery<span class="required-star">*</span></p>
+                
+            <input formControlName="edate"   class="col m6 s6" [min]="minDate" matInput [matDatepicker]="picker"
+            (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)" [ngClass]="{ 'invalid': submitted && f.edate.errors }">
+          
+            <mat-datepicker-toggle matSuffix [for]="picker"  ></mat-datepicker-toggle>
+         
+            <mat-datepicker #picker  ></mat-datepicker>
+           
+           
+        </div>  -->
           </mat-form-field>
       </div>
       <div class="form-group opening-balance">
@@ -88,7 +101,7 @@
             <mat-option>Select</mat-option>
             <mat-option *ngFor="let data of accountModel"  value="{{data._id}}">{{ data.name }}</mat-option>
             <mat-form-field appearance="fill">
-              <input (keyup)="addType($event.target.value)" matInput placeholder="Add New Type" required>
+              <input maxlength="20" (keyup)="addType($event.target.value)" matInput placeholder="Add New Type">
             </mat-form-field>
             <button (click)="saveType()" class="btn add-btn"> Add</button>
           </mat-select>
