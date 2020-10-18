@@ -6,7 +6,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { ToastrService } from 'ngx-toastr';
 import { TableModel } from '../../models/table.common.model';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-edit-account',
@@ -27,9 +27,12 @@ export class AddEditAccountComponent implements OnInit {
   
 
   constructor(private formBuilder: FormBuilder,
-    public http: HttpService, private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public data: any) {
+    public http: HttpService, private toastr: ToastrService,
+    @Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<AddEditAccountComponent>) {
 
       this.minDate = new Date();
+
+      if(this.data.editdata!=undefined){
 
     this.editaccount = this.formBuilder.group({
       groupId: [''],
@@ -45,7 +48,23 @@ export class AddEditAccountComponent implements OnInit {
       note: [this.data.editdata.note, Validators.required]
     });
 
+  }else{
 
+    this.editaccount = this.formBuilder.group({
+      groupId: [''],
+      name: ['', Validators.required],
+      accountNo: ['', Validators.required],
+      currency: ['', Validators.required],
+      openDate: ['', Validators.required],
+      openingBalance: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      accountType: ['', Validators.required],
+      website: ['', [Validators.required, Validators.pattern(this.http.CONSTANT.WebsiteUrl)]],
+      icon: ['office_icon', Validators.required],
+      note: ['', Validators.required]
+    });
+
+  }
 
   }
 
@@ -145,7 +164,7 @@ export class AddEditAccountComponent implements OnInit {
                 timeOut: 2000
               });
             }
-            this.http.hideModal();
+            this.dialogRef.close(this.dialogRef);
             this.http.navigate('accounts');
           },
             () => {
