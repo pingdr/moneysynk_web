@@ -206,4 +206,8 @@ export class AddEditAccountComponent implements OnInit {
       alert('please add account Type')
     }
   }
+
+  hideModal(){
+    this.dialogRef.close(this.dialogRef);
+  }
 }

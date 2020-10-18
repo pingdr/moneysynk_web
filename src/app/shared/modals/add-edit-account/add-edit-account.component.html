@@ -1,6 +1,6 @@
 <div class="heading-modal">
     <span>Close Account</span>
-    <button  (click)="http.hideModal()">
+    <button  (click)="hideModal()">
         <img src="../../../../assets/images/close.svg">
     </button>
 </div>
@@ -68,9 +68,9 @@
           <mat-select formControlName="openingBalance" 
           [ngClass]="{ 'is-invalid': submitted && f.openingBalance.errors }">
               <mat-option>None</mat-option>
-              <mat-option value="100">100</mat-option>
-              <mat-option value="100">200</mat-option>
-              <mat-option value="300">300</mat-option>
+              <mat-option value=100>100</mat-option>
+              <mat-option value=200>200</mat-option>
+              <mat-option value=300>300</mat-option>
           </mat-select>
        
         </mat-form-field>
