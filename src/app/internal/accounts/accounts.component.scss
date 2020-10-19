@@ -42,9 +42,9 @@
     
     .nav-tabs {
         border-bottom: 0 !important;
-        width: 65%;
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        width: 100%;
+        // display: grid;
+        // grid-template-columns: repeat(5, 1fr);
         grid-column-gap: 20px;
         @include max-mq(1200){
             width:85%;

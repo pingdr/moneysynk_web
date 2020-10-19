@@ -9,17 +9,14 @@
     </div>
 </div>
 
-
-
-
 <div class="sub-compo-wrap">
 
     <div class="white-box">
         
         <nav class="asset-main-tab">
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                <ng-container *ngFor="let data of accountTypeList">
-                <a style="cursor: pointer;" (click)="filterData(data._id)" class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"  role="tab"
+                <ng-container *ngFor="let data of accountTypeList; let i = index">
+                <a style="cursor: pointer;" (click)="filterData(i,data._id)" class="nav-item nav-link" [ngClass]="{ 'active' : isSelected == i }" id="nav-home-tab" data-toggle="tab"  role="tab"
                     aria-controls="nav-home" aria-selected="true">{{data.name}} <span class="balance-btn">Bal:
                         $1,913.00</span></a>
                     </ng-container>
@@ -30,7 +27,7 @@
             <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8">
-                        <div *ngFor="let data of accountList" class="editable-account active-step">
+                        <div *ngFor="let data of accountList; let i = index" [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account" (click)="recordSelected(i)">
                             <div class="number">
                                 <span>1</span></div>
                             <div class="account-type"><span>{{ data.name }}</span></div>

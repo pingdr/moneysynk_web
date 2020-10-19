@@ -24,7 +24,8 @@ export class AccountsComponent implements OnInit {
   accountList = [];
   accountTypeList = [];
   filter = [];
-
+  isSelected: any = 0;
+  isRecordSelected: any = 0;
   constructor(public http: HttpService, public activeRoute: ActivatedRoute,
     private SpinnerService: NgxSpinnerService,
     private _router: Router,
@@ -107,14 +108,21 @@ export class AccountsComponent implements OnInit {
 
 
   }
-
-  filterData(id) {
+  recordSelected(i) {
+    if (i || i == 0)
+    this.isRecordSelected = i;
+  }
+  filterData(i, id) {
+    if (i || i == 0)
+      this.isSelected = i;
     this.accountList = this.filter.filter(filter => filter.accountType === id);
   }
 
   editAccounts(data) {
-    const dialogRef = this.dialog.open(AddEditAccountComponent, { panelClass: 'account-modal-main',
-   data: { isforgot: false, editdata: data } });
+    const dialogRef = this.dialog.open(AddEditAccountComponent, {
+      panelClass: 'account-modal-main',
+      data: { isforgot: false, editdata: data }
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
