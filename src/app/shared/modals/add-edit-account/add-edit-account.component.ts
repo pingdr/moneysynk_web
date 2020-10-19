@@ -23,6 +23,7 @@ export class AddEditAccountComponent implements OnInit {
   myModel: TableModel;
   search = new FormControl();
   minDate;
+  addEditLable:any;
 
   
 
@@ -41,11 +42,11 @@ export class AddEditAccountComponent implements OnInit {
       currency: [this.data.editdata.currency, Validators.required],
       openDate: [this.data.editdata.openDate, Validators.required],
       openingBalance: [this.data.editdata.openingBalance, Validators.required],
-      phoneNumber: [this.data.editdata.phoneNumber, Validators.required],
+      phoneNumber: [this.data.editdata.phoneNumber],
       accountType: [this.data.editdata.accountType, Validators.required],
-      website: [this.data.editdata.website, [Validators.required, Validators.pattern(this.http.CONSTANT.WebsiteUrl)]],
+      website: [this.data.editdata.website, [Validators.pattern(this.http.CONSTANT.WebsiteUrl)]],
       icon: ['office_icon', Validators.required],
-      note: [this.data.editdata.note, Validators.required]
+      note: [this.data.editdata.note]
     });
 
   }else{
@@ -57,11 +58,11 @@ export class AddEditAccountComponent implements OnInit {
       currency: ['', Validators.required],
       openDate: ['', Validators.required],
       openingBalance: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: [''],
       accountType: ['', Validators.required],
-      website: ['', [Validators.required, Validators.pattern(this.http.CONSTANT.WebsiteUrl)]],
+      website: ['', [Validators.pattern(this.http.CONSTANT.WebsiteUrl)]],
       icon: ['office_icon', Validators.required],
-      note: ['', Validators.required]
+      note: ['']
     });
 
   }
@@ -75,6 +76,7 @@ export class AddEditAccountComponent implements OnInit {
     this.getAllAccountType();
     console.log('this.data.editdata');
     console.log(this.data.editdata);
+    this.addEditLable=this.data.editdata;
 
   }
 
@@ -194,11 +196,13 @@ export class AddEditAccountComponent implements OnInit {
         .subscribe(res => {
           let response = res;
           if (response.statusCode == 200) {
+            
             this.toastr.success('Account Type added successfully', 'success', {
               timeOut: 2000
             });
             
           }
+      
           this.getAllAccountType();
         });
 

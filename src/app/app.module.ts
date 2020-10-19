@@ -45,6 +45,7 @@ import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { AddEditAccountComponent } from './shared/modals/add-edit-account/add-edit-account.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { HeaderComponent } from './base/controls/header/header.component';
 
 
 
@@ -69,6 +70,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ForgotPasswordComponent,
     ChangePasswordComponent,
     AddEditAccountComponent,
+ 
      
   
 

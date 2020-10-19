@@ -113,7 +113,8 @@ export class AccountsComponent implements OnInit {
   }
 
   editAccounts(data) {
-    const dialogRef = this.dialog.open(AddEditAccountComponent, { panelClass: 'otp-modal-main', data: { isforgot: false, editdata: data } });
+    const dialogRef = this.dialog.open(AddEditAccountComponent, { panelClass: 'account-modal-main',
+   data: { isforgot: false, editdata: data } });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

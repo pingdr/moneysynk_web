@@ -9,6 +9,9 @@ import { HeaderComponent } from '../base/controls/header/header.component';
 import { SidebarComponent } from '../base/controls/sidebar/sidebar.component';
 import { FooterComponent } from '../base/controls/footer/footer.component';
 import {BsModalRef, BsModalService, ModalModule} from 'ngx-bootstrap/modal';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 
 
 const routes: Routes = [{
@@ -33,6 +36,9 @@ const routes: Routes = [{
         CommonModule,
         RouterModule.forChild(routes),
         ModalModule.forRoot(),
+        MatSelectModule,
+        MatOptionModule
+
         
         
         

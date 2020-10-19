@@ -1,5 +1,10 @@
 <div class="heading-modal">
-    <span>Close Account</span>
+   <ng-container *ngIf="addEditLable == undefined;else elseBlock">
+    <span>Add Account</span>
+  </ng-container>
+  <ng-template #elseBlock>
+    <span>Edit Account</span>
+  </ng-template>
     <button  (click)="hideModal()">
         <img src="../../../../assets/images/close.svg">
     </button>
@@ -10,7 +15,7 @@
       <div class="form-group">
         <label>Name</label>
         <mat-form-field appearance="fill">
-              <input matInput maxlength="30" laceholder="Account Name"  formControlName="name" 
+              <input matInput maxlength="26" placeholder="Account Name"  formControlName="name" 
               [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
               
         </mat-form-field>
@@ -18,7 +23,7 @@
       <div class="form-group">
         <label>Account No.</label>
         <mat-form-field appearance="fill">
-          <input maxlength="30" matInput placeholder="Account Number" formControlName="accountNo" 
+          <input maxlength="26" matInput placeholder="Account Number" formControlName="accountNo" 
           [ngClass]="{ 'is-invalid': submitted && f.accountNo.errors }">
          
         </mat-form-field>
@@ -29,7 +34,6 @@
           <mat-label>USD - US Dollar</mat-label>
           <mat-select formControlName="currency" 
           [ngClass]="{ 'is-invalid': submitted && f.currency.errors }">
-              <mat-option>None</mat-option>
               <mat-option value="Dollar">Dollar</mat-option>
           
           </mat-select>
@@ -64,16 +68,11 @@
       <div class="form-group opening-balance">
         <label>Opening Balance</label>
         <mat-form-field appearance="fill">
-          <mat-label>0</mat-label>
-          <mat-select formControlName="openingBalance" 
+          <input matInput maxlength="10" placeholder="Opening Balance"  formControlName="openingBalance" 
           [ngClass]="{ 'is-invalid': submitted && f.openingBalance.errors }">
-              <mat-option>None</mat-option>
-              <mat-option value=100>100</mat-option>
-              <mat-option value=200>200</mat-option>
-              <mat-option value=300>300</mat-option>
-          </mat-select>
-       
-        </mat-form-field>
+          
+    </mat-form-field>
+    
       </div>
       <div class="form-group">
         <label>Phone No.</label>
