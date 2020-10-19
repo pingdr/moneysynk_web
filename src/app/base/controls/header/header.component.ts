@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { ApiUrl } from 'src/app/services/apiurl';
 import { HttpService } from 'src/app/services/http.service';
 
 
@@ -9,15 +11,63 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class HeaderComponent implements OnInit {
   user:any;
-  constructor(public http: HttpService) { }
+  group:any;
+  groupList=[];
+  constructor(public http: HttpService,private toastr: ToastrService) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('loginData'));
+    this.getAllGroup();
   }
 
   Logout(){
     localStorage.clear();
     this.http.navigate('/login');
   }
+  addGroup(value) {
+    this.group = value;
+  }
+
+  saveGroup() {
+
+    if (this.group != null) {
+
+      var payload = {
+
+        "name": this.group,
+        "icon": this.group
+
+      }
+     
+      this.http.addGroup(ApiUrl.addGrop, payload, false)
+        .subscribe(res => {
+          let response = res;
+          if (response.statusCode == 200) {
+            
+            this.toastr.success('Group added successfully', 'success', {
+              timeOut: 2000
+            });
+            this.getAllGroup();
+            
+          }
+      
+        });
+
+    }else{
+      alert('please add group')
+    }
+  }
+
+  getAllGroup(){
+
+    this.http.getAllGroup(ApiUrl.addGrop).subscribe(res => {
+      if (res.data != undefined) {
+        this.groupList = res.data;
+      }
+    });
+
+  }
+
+ 
 
 }

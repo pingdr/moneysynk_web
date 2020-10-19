@@ -68,7 +68,7 @@
       <div class="form-group opening-balance">
         <label>Opening Balance</label>
         <mat-form-field appearance="fill">
-          <input matInput maxlength="10" placeholder="Opening Balance"  formControlName="openingBalance" 
+          <input  matInput maxlength="10" placeholder="Opening Balance"  formControlName="openingBalance" 
           [ngClass]="{ 'is-invalid': submitted && f.openingBalance.errors }">
           
     </mat-form-field>
@@ -111,7 +111,7 @@
       <div class="form-group">
         <label>Website</label>
         <mat-form-field appearance="fill">
-          <input matInput placeholder="Website" formControlName="website" 
+          <input class="dot" matInput placeholder="Website" formControlName="website" 
           [ngClass]="{ 'is-invalid': submitted && f.website.errors }">
          
         </mat-form-field>

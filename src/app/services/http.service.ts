@@ -12,6 +12,8 @@ import * as _ from 'lodash';
 import { BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 
+declare var $: any;
+
 
 @Injectable()
 export class HttpService {
@@ -101,6 +103,14 @@ export class HttpService {
         link.href = url;
         link.click();
     }
+
+    showLoader() {
+        $('.loader').show();
+      }
+    
+      hideLoader() {
+        $('.loader').hide();
+      }
 
     goToLink(url: string) {
         window.open(url, '_blank');
@@ -426,6 +436,17 @@ export class HttpService {
         
         return this.http.post<any>(this.apiEndpoint + url+ '/' + id, payload, { reportProgress: isLoading });
 
+    }
+
+    addGroup(url, payload, isLoading?: boolean) {
+        
+        return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
+
+    }
+
+    getAllGroup(url, isLoading?: boolean) {
+       
+        return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
     }
 
     

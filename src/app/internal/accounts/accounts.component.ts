@@ -73,6 +73,7 @@ export class AccountsComponent implements OnInit {
 
 
     this.http.getAccount(ApiUrl.getAccount).subscribe(res => {
+      this.http.showLoader();
       if (res.data != undefined) {
         this.accountList = res.data;
         this.filter = res.data;
@@ -125,7 +126,7 @@ export class AccountsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.getAccountdata();
     });
   }
 

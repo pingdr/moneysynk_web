@@ -12,6 +12,8 @@ import {BsModalRef, BsModalService, ModalModule} from 'ngx-bootstrap/modal';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 const routes: Routes = [{
@@ -37,7 +39,10 @@ const routes: Routes = [{
         RouterModule.forChild(routes),
         ModalModule.forRoot(),
         MatSelectModule,
-        MatOptionModule
+        MatOptionModule,
+        MatFormFieldModule,
+        MatInputModule
+        
 
         
         
