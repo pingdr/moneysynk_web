@@ -18,7 +18,7 @@ export class AddEditAccountComponent implements OnInit {
   editaccount: FormGroup;
   submitted = false;
   public loader = false;
-  accountType: any;
+  accountType: any= "";
   accountModel=[];
   myModel: TableModel;
   search = new FormControl();
@@ -183,7 +183,7 @@ export class AddEditAccountComponent implements OnInit {
 
   saveType() {
 
-    if (this.accountType != null) {
+    if (this.accountType != "") {
 
       var payload = {
 
@@ -196,7 +196,7 @@ export class AddEditAccountComponent implements OnInit {
         .subscribe(res => {
           let response = res;
           if (response.statusCode == 200) {
-            
+            this.accountType = "";
             this.toastr.success('Account Type added successfully', 'success', {
               timeOut: 2000
             });

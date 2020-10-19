@@ -100,7 +100,7 @@
             <mat-option>Select</mat-option>
             <mat-option *ngFor="let data of accountModel"  value="{{data._id}}">{{ data.name }}</mat-option>
             <mat-form-field appearance="fill">
-              <input maxlength="20" (keyup)="addType($event.target.value)" matInput placeholder="Add New Type">
+              <input maxlength="20" (keyup)="addType($event.target.value)" [value]="accountType"  matInput placeholder="Add New Type">
             </mat-form-field>
             <button (click)="saveType()" class="btn add-btn"> Add</button>
           </mat-select>
