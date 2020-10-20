@@ -95,10 +95,10 @@
         <label>Type</label>
         <mat-form-field appearance="fill">
           <mat-label>Asset</mat-label>
-          <mat-select  formControlName="accountType" 
+          <mat-select class="textTransform"  formControlName="accountType" 
           [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
           
-            <mat-option *ngFor="let data of accountModel"  value="{{data._id}}">{{ data.name }}</mat-option>
+            <mat-option  *ngFor="let data of accountModel"  value="{{data._id}}">{{ data.name }}</mat-option>
             <mat-form-field appearance="fill">
               <input maxlength="20"  [(ngModel)]="filterName" name="filterName" (keyup)="addType($event.target.value)" [value]="accountType"  matInput placeholder="Add New Type">
             </mat-form-field>
@@ -120,7 +120,7 @@
       <div class="form-group">
         <label>Icon</label>
         <mat-form-field appearance="fill" >
-          <input matInput  formControlName="icon" 
+          <input class="textTransform" matInput  formControlName="icon" 
           [ngClass]="{ 'is-invalid': submitted && f.icon.errors }">
         
           <a class="add-icon">
