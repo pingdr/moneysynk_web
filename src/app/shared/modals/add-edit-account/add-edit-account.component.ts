@@ -28,6 +28,7 @@ export class AddEditAccountComponent implements OnInit {
   public modeselect = 'Dollar';
   filterName:any;
   
+  
 
   
 
@@ -218,7 +219,5 @@ export class AddEditAccountComponent implements OnInit {
     this.dialogRef.close(this.dialogRef);
   }
 
-  capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  
 }

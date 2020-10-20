@@ -15,7 +15,7 @@
       <div class="form-group">
         <label>Name</label>
         <mat-form-field appearance="fill">
-              <input  matInput maxlength="26" placeholder="Account Name"  formControlName="name" 
+              <input class="textTransform"  matInput maxlength="26" placeholder="Account Name"  formControlName="name" 
               [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
               
         </mat-form-field>
@@ -23,7 +23,7 @@
       <div class="form-group">
         <label>Account No.</label>
         <mat-form-field appearance="fill">
-          <input maxlength="26" matInput placeholder="Account Number" formControlName="accountNo" 
+          <input class="textTransform" maxlength="26" matInput placeholder="Account Number" formControlName="accountNo" 
           [ngClass]="{ 'is-invalid': submitted && f.accountNo.errors }">
          
         </mat-form-field>
@@ -68,8 +68,8 @@
       <div class="form-group opening-balance">
         <label>Opening Balance</label>
         <mat-form-field appearance="fill">
-          <input  matInput maxlength="10" placeholder="Opening Balance"  formControlName="openingBalance" 
-          [ngClass]="{ 'is-invalid': submitted && f.openingBalance.errors }">
+          <input type="text" matInput maxlength="10" appOnlynumberDirective placeholder="Opening Balance"  formControlName="openingBalance" 
+          [ngClass]="{ 'is-invalid': submitted && f.openingBalance.errors }" />
           
     </mat-form-field>
     
@@ -77,7 +77,7 @@
       <div class="form-group">
         <label>Phone No.</label>
         <mat-form-field appearance="fill">
-          <input matInput maxlength="13" minlength="10"  placeholder="Phone number" formControlName="phoneNumber" 
+          <input type="text" matInput maxlength="13" minlength="10" appOnlynumberDirective  placeholder="Phone number" formControlName="phoneNumber" 
           [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
                <!-- <div *ngIf="mobile_no.errors"
                         [ngClass]="'error'">
@@ -111,7 +111,7 @@
       <div class="form-group">
         <label>Website</label>
         <mat-form-field appearance="fill">
-          <input class="dot" matInput placeholder="Website" formControlName="website" 
+          <input class="dot textTransform" matInput placeholder="Website" formControlName="website" 
           [ngClass]="{ 'is-invalid': submitted && f.website.errors }">
          
         </mat-form-field>
@@ -132,7 +132,7 @@
       <div class="form-group">
         <label>Note</label>
         <mat-form-field appearance="fill">
-          <input matInput placeholder="Add note here" formControlName="note" 
+          <input class="textTransform" matInput placeholder="Add note here" formControlName="note" 
           [ngClass]="{ 'is-invalid': submitted && f.note.errors }">
          
         </mat-form-field>

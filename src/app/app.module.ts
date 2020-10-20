@@ -46,6 +46,7 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { AddEditAccountComponent } from './shared/modals/add-edit-account/add-edit-account.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HeaderComponent } from './base/controls/header/header.component';
+import { OnlynumberDirectiveDirective } from './onlynumber-directive.directive';
 
 
 
@@ -70,6 +71,7 @@ import { HeaderComponent } from './base/controls/header/header.component';
     ForgotPasswordComponent,
     ChangePasswordComponent,
     AddEditAccountComponent,
+    OnlynumberDirectiveDirective
  
      
   
