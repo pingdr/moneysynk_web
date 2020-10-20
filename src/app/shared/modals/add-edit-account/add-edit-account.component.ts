@@ -24,6 +24,10 @@ export class AddEditAccountComponent implements OnInit {
   search = new FormControl();
   minDate;
   addEditLable:any;
+  group_id:any;
+  public modeselect = 'Dollar';
+  filterName:any;
+  
 
   
 
@@ -36,7 +40,6 @@ export class AddEditAccountComponent implements OnInit {
       if(this.data.editdata!=undefined){
 
     this.editaccount = this.formBuilder.group({
-      groupId: [''],
       name: [this.data.editdata.name, Validators.required],
       accountNo: [this.data.editdata.accountNo, Validators.required],
       currency: [this.data.editdata.currency, Validators.required],
@@ -52,7 +55,6 @@ export class AddEditAccountComponent implements OnInit {
   }else{
 
     this.editaccount = this.formBuilder.group({
-      groupId: [''],
       name: ['', Validators.required],
       accountNo: ['', Validators.required],
       currency: ['', Validators.required],
@@ -74,9 +76,8 @@ export class AddEditAccountComponent implements OnInit {
   ngOnInit(): void {
    
     this.getAllAccountType();
-    console.log('this.data.editdata');
-    console.log(this.data.editdata);
     this.addEditLable=this.data.editdata;
+    this.group_id=localStorage.getItem('group_id');
 
   }
 
@@ -95,6 +96,7 @@ export class AddEditAccountComponent implements OnInit {
   get f() { return this.editaccount.controls; }
 
   onSubmit() {
+    
     this.submitted = true;
 
     // stop here if form is invalid
@@ -106,7 +108,7 @@ export class AddEditAccountComponent implements OnInit {
 
     var payload = {
 
-      "groupId": "5f69df929af94d089d937622",
+      "groupId": this.group_id,
       "name": this.editaccount.value.name,
       "accountNo": this.editaccount.value.accountNo,
       "currency": this.editaccount.value.currency,
@@ -141,7 +143,7 @@ export class AddEditAccountComponent implements OnInit {
 
         var payload = {
            
-          "groupId": "5f69df929af94d089d937622",
+          "groupId":  this.group_id,
           "name": this.editaccount.value.name,
           "accountNo": this.editaccount.value.accountNo,
           "currency": this.editaccount.value.currency,
@@ -182,6 +184,7 @@ export class AddEditAccountComponent implements OnInit {
   }
 
   saveType() {
+    this.filterName = '';
 
     if (this.accountType != "") {
 
@@ -213,5 +216,9 @@ export class AddEditAccountComponent implements OnInit {
 
   hideModal(){
     this.dialogRef.close(this.dialogRef);
+  }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }

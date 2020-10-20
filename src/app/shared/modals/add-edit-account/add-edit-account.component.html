@@ -6,7 +6,7 @@
     <span>Edit Account</span>
   </ng-template>
     <button  (click)="hideModal()">
-        <img src="../../../../assets/images/close.svg">
+      <i class="fa fa-times" aria-hidden="true"></i>
     </button>
 </div>
 
@@ -15,7 +15,7 @@
       <div class="form-group">
         <label>Name</label>
         <mat-form-field appearance="fill">
-              <input matInput maxlength="26" placeholder="Account Name"  formControlName="name" 
+              <input  matInput maxlength="26" placeholder="Account Name"  formControlName="name" 
               [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
               
         </mat-form-field>
@@ -32,9 +32,9 @@
         <label>Currency</label>
         <mat-form-field appearance="fill">
           <mat-label>USD - US Dollar</mat-label>
-          <mat-select formControlName="currency" 
+          <mat-select [(ngModel)]="modeselect" formControlName="currency" 
           [ngClass]="{ 'is-invalid': submitted && f.currency.errors }">
-              <mat-option value="Dollar">Dollar</mat-option>
+              <mat-option value="Dollar">USD - US Dollar</mat-option>
           
           </mat-select>
           
@@ -97,10 +97,10 @@
           <mat-label>Asset</mat-label>
           <mat-select  formControlName="accountType" 
           [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
-            <mat-option>Select</mat-option>
+          
             <mat-option *ngFor="let data of accountModel"  value="{{data._id}}">{{ data.name }}</mat-option>
             <mat-form-field appearance="fill">
-              <input maxlength="20" (keyup)="addType($event.target.value)" [value]="accountType"  matInput placeholder="Add New Type">
+              <input maxlength="20"  [(ngModel)]="filterName" name="filterName" (keyup)="addType($event.target.value)" [value]="accountType"  matInput placeholder="Add New Type">
             </mat-form-field>
             <button (click)="saveType()" class="btn add-btn"> Add</button>
           </mat-select>

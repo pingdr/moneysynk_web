@@ -31,11 +31,11 @@
                             <div class="number">
                                 <span>1</span></div>
                             <div class="account-type"><span>{{ data.name }}</span></div>
+                            <a  class="view-btn">
+                                <img style="margin-left: -57px;" src="../../../assets/images/view-eye.svg">
+                            </a>
                             <div class="pricing-icon">
                                 <span class="price">${{data.openingBalance}}</span>
-                                <a class="view-btn">
-                                    <img src="../../../assets/images/view-eye.svg">
-                                </a>
                             </div>
                             <div class="action-tab-main">
                                 <a style="cursor: pointer;" (click)="editAccounts(data)"  class="edit-btn" title="edit">

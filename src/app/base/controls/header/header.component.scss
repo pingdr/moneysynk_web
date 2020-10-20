@@ -172,6 +172,7 @@
         display: block;
         transition: 0.6s all ease;
         z-index: -1;
+        width: 228px;
     }
     .show{
         display: block;
@@ -180,4 +181,18 @@
         transition: 0.6s all ease;
         z-index: 99;
     }
+    .add-btn {
+        background: transparent !important;
+        padding: 0;
+        position: absolute;
+        right: 18px;
+        bottom: 1px;
+        line-height: 42px;
+        font-size: 11px;
+        color: #7299FF !important;
+        font-weight: 100;
+        &:hover{
+        text-decoration: underline;
+        }
+        }
 }

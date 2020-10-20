@@ -13,6 +13,8 @@ export class HeaderComponent implements OnInit {
   user:any;
   group:any;
   groupList=[];
+  groupName:any;
+  filterName:any;
   constructor(public http: HttpService,private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -29,6 +31,7 @@ export class HeaderComponent implements OnInit {
   }
 
   saveGroup() {
+    this.filterName = '';
 
     if (this.group != null) {
 
@@ -63,9 +66,20 @@ export class HeaderComponent implements OnInit {
     this.http.getAllGroup(ApiUrl.addGrop).subscribe(res => {
       if (res.data != undefined) {
         this.groupList = res.data;
+        this.groupName=this.groupList[0].name;
+        localStorage.setItem('group_id', this.groupList[0]._id);
+
+     
       }
     });
 
+  }
+  groupSelect(value){
+   
+    this.groupName=value.name;
+    localStorage.setItem('group_id', value._id);
+
+  
   }
 
  
