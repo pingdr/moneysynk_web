@@ -10,7 +10,7 @@ export const sideBarAdmin = [
     {path: 'reports', title: 'Reports'},
     {path: '/moneysynk/', title: 'Add Entry'},
     {path: 'accounts', title: 'Accounts'},
-    {path: 'category', title: 'Categories'},
+    {path: 'categories', title: 'Categories'},
     {path: '/moneysynk/', title: 'Payee / Payers'},
     {path: '/moneysynk/', title: 'Budget'},
     {path: '/moneysynk/', title: 'Transaction'},

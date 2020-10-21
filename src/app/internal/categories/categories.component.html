@@ -1,0 +1,954 @@
+<div class="heading-pannel">
+    <div class="component-heading"> 
+        <span>Categories</span>
+    </div>
+    <div class="component-btn">
+        
+            <button class="btn" (click)="openCategorymodal()">Add Category</button>
+        
+    </div>
+</div>
+
+
+<div class="sub-compo-wrap">
+
+    <div class="white-box">
+        <nav class="asset-main-tab">
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" (click)="setType('EXPENSE')" href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Expense</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" (click)="setType('INCOME')" href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Income</a>
+            
+            </div>
+        </nav>
+        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+            <!-- --------------------------first-tab----------------------- -->
+            <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="row">
+                    <div class="col-8 col-md-8 col-lg-8">
+                        <!-------------------------------- categories-Expansion-------------------------------->
+                        <div class="categories-accordian-main">
+                        <mat-accordion>
+                            <!-------------------- First-tab--------------------------->
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title>
+                                    <span>Auto</span>
+                                    <img src="../../../assets/images/auto.svg">
+                                  </mat-panel-title>
+                                  <mat-panel-description>
+                                    <div class="main-right-heading">
+                                        <div class="left-col">
+                                            <span class="red-color">$ 120.00</span>
+                                            <span class="subtract-expanse">($85.00 + $62.00)</span>
+                                        </div>
+                                        <div class="right-col">
+                                            <a href="#" title="Delete">
+                                                <img src="../../../assets/images/delete-trash.svg">
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                  </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                    <div class="expansion-description-main">
+                                        <div class="inner-strips">
+                                            <div class="left-col">
+                                                <img src="../../../assets/images/gas.svg">
+                                                <span>Gas</span>
+                                            </div>
+                                            <div class="right-col">
+                                                <span class="red-color">$ 62.00</span>
+                                            </div>
+                                        </div>
+                                        <div class="inner-strips">
+                                            <div class="left-col">
+                                                <img src="../../../assets/images/gas.svg">
+                                                <span>Insurance</span>
+                                            </div>
+                                            <div class="right-col">
+                                                <span class="red-color">$ 0.00</span>
+                                            </div>
+                                        </div>
+                                        <div class="inner-strips">
+                                            <div class="left-col">
+                                                <img src="../../../assets/images/gas.svg">
+                                                <span>Parking</span>
+                                            </div>
+                                            <div class="right-col">
+                                                <span class="red-color">$ 0.00</span>
+                                            </div>
+                                        </div>
+
+                                        
+                                    </div>
+                                      
+                          
+                              </mat-expansion-panel>
+
+                              <!------------------------- Second-tab-------------------------------------------->
+                              <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title>
+                                    <span>Charity</span>
+                                    <img src="../../../assets/images/charity.svg">
+                                  </mat-panel-title>
+                                  <mat-panel-description>
+                                    <div class="main-right-heading">
+                                       
+                                        <div class="right-col">
+                                            <a href="#" title="Delete">
+                                                <img src="../../../assets/images/delete-trash.svg">
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                  </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                    <div class="expansion-description-main">
+                                        <div class="inner-strips">
+                                            <div class="left-col">
+                                                <img src="../../../assets/images/gas.svg">
+                                                <span>Gas</span>
+                                            </div>
+                                            <div class="right-col">
+                                                <span class="red-color">$ 62.00</span>
+                                            </div>
+                                        </div>
+                                        <div class="inner-strips">
+                                            <div class="left-col">
+                                                <img src="../../../assets/images/gas.svg">
+                                                <span>Insurance</span>
+                                            </div>
+                                            <div class="right-col">
+                                                <span class="red-color">$ 0.00</span>
+                                            </div>
+                                        </div>
+                                        <div class="inner-strips">
+                                            <div class="left-col">
+                                                <img src="../../../assets/images/gas.svg">
+                                                <span>Parking</span>
+                                            </div>
+                                            <div class="right-col">
+                                                <span class="red-color">$ 0.00</span>
+                                            </div>
+                                        </div>
+
+                                        
+                                    </div>
+                              </mat-expansion-panel>
+                              <!----------------------------Third-tab--------------------------------------->
+                              <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title>
+                                    <span>Entertainment</span>
+                                    <img src="../../../assets/images/entertainment.svg">
+                                  </mat-panel-title>
+                                  <mat-panel-description>
+                                    <div class="main-right-heading">
+                                       
+                                        <div class="right-col">
+                                            <a href="#" title="Delete">
+                                                <img src="../../../assets/images/delete-trash.svg">
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                  </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                    <div class="expansion-description-main">
+                                        <div class="inner-strips">
+                                            <div class="left-col">
+                                                <img src="../../../assets/images/gas.svg">
+                                                <span>Gas</span>
+                                            </div>
+                                            <div class="right-col">
+                                                <span class="red-color">$ 62.00</span>
+                                            </div>
+                                        </div>
+                                        <div class="inner-strips">
+                                            <div class="left-col">
+                                                <img src="../../../assets/images/gas.svg">
+                                                <span>Insurance</span>
+                                            </div>
+                                            <div class="right-col">
+                                                <span class="red-color">$ 0.00</span>
+                                            </div>
+                                        </div>
+                                        <div class="inner-strips">
+                                            <div class="left-col">
+                                                <img src="../../../assets/images/gas.svg">
+                                                <span>Parking</span>
+                                            </div>
+                                            <div class="right-col">
+                                                <span class="red-color">$ 0.00</span>
+                                            </div>
+                                        </div>
+
+                                        
+                                    </div>
+                              </mat-expansion-panel>
+                              <!------------------------------Fourth-tab------------------------------------->
+                              <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title>
+                                    <span>Food</span>
+                                    <img src="../../../assets/images/food.svg">
+                                  </mat-panel-title>
+                                  <mat-panel-description>
+                                    <div class="main-right-heading">
+                                       
+                                        <div class="right-col">
+                                            <a href="#" title="Delete">
+                                                <img src="../../../assets/images/delete-trash.svg">
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                  </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                    <div class="expansion-description-main">
+                                        <div class="inner-strips">
+                                            <div class="left-col">
+                                                <img src="../../../assets/images/gas.svg">
+                                                <span>Gas</span>
+                                            </div>
+                                            <div class="right-col">
+                                                <span class="red-color">$ 62.00</span>
+                                            </div>
+                                        </div>
+                                        <div class="inner-strips">
+                                            <div class="left-col">
+                                                <img src="../../../assets/images/gas.svg">
+                                                <span>Insurance</span>
+                                            </div>
+                                            <div class="right-col">
+                                                <span class="red-color">$ 0.00</span>
+                                            </div>
+                                        </div>
+                                        <div class="inner-strips">
+                                            <div class="left-col">
+                                                <img src="../../../assets/images/gas.svg">
+                                                <span>Parking</span>
+                                            </div>
+                                            <div class="right-col">
+                                                <span class="red-color">$ 0.00</span>
+                                            </div>
+                                        </div>
+
+                                        
+                                    </div>
+                              </mat-expansion-panel>
+                         
+                        </mat-accordion>
+                        </div>
+                       
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4">   
+                        <div class="list-main-filter">
+                            <nav class="asset-main-tab">
+                                
+                                <span>Auto</span>
+                            </nav>
+                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                                <!-- list -->
+                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel" aria-labelledby="nav-list-tab">
+                                    <div class="accordian-main">
+                                        <mat-accordion>
+                                            <!-- first-panal -->
+                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                                              <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                  Aug 2020 
+                                                </mat-panel-title>
+                                                <mat-panel-description>
+                                                  <span class="red-color">$ 120.00</span>
+                                                </mat-panel-description>
+                                              </mat-expansion-panel-header>
+                                              
+                                                    <div class="inner-expansion-main">
+                                                        <div class="inner-sub-left">
+                                                            <div class="main-strips">
+                                                                <div class="holder-name">Bike</div>
+                                                                <div class="price-tag green-color">$ 85.00</div>
+                                                            </div>
+                                                            <div class="main-strips">
+                                                                <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                <div class="account-type">My Account</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="inner-sub-right">
+                                                            <a href="#" title="edit">
+                                                                <img src="../../../assets/images/edit-pencil.svg">
+                                                            </a>
+                                                        </div>
+                                        
+                                                    </div>
+                                                    <!-- --------strips ---------------------->
+                                                    <div class="inner-expansion-main">
+                                                        <div class="inner-sub-left">
+                                                            <div class="main-strips">
+                                                                <div class="holder-name">Bike</div>
+                                                                <div class="price-tag red-color">$ 85.00</div>
+                                                            </div>
+                                                            <div class="main-strips">
+                                                                <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                <div class="account-type">My Account</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="inner-sub-right">
+                                                            <a href="#" title="edit">
+                                                                <img src="../../../assets/images/edit-pencil.svg">
+                                                            </a>
+                                                        </div>
+                                        
+                                                    </div>
+                                                    <!------------------strips------------------------>
+                                                    <div class="inner-expansion-main">
+                                                        <div class="inner-sub-left">
+                                                            <div class="main-strips">
+                                                                <div class="holder-name">Bike</div>
+                                                                <div class="price-tag red-color">$ 85.00</div>
+                                                            </div>
+                                                            <div class="main-strips">
+                                                                <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                <div class="account-type">My Account</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="inner-sub-right">
+                                                            <a href="#" title="edit">
+                                                                <img src="../../../assets/images/edit-pencil.svg">
+                                                            </a>
+                                                        </div>
+                                        
+                                                    </div>
+                                        
+                                            </mat-expansion-panel>
+                                            <!-- second-panal -->
+                                            <mat-expansion-panel>
+                                                <mat-expansion-panel-header>
+                                                  <mat-panel-title>
+                                                    Aug 2020
+                                                  </mat-panel-title>
+                                                  <mat-panel-description>
+                                                    <span class="red-color">$ 120.00</span>
+                                                  </mat-panel-description>
+                                                </mat-expansion-panel-header>
+                                                      <div class="inner-expansion-main">
+                                                          <div class="inner-sub-left">
+                                                              <div class="main-strips">
+                                                                  <div class="holder-name">Bike</div>
+                                                                  <div class="price-tag red-color">$ 85.00</div>
+                                                              </div>
+                                                              <div class="main-strips">
+                                                                  <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                  <div class="account-type">My Account</div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="inner-sub-right">
+                                                              <a href="#" title="edit">
+                                                                  <img src="../../../assets/images/edit-pencil.svg">
+                                                              </a>
+                                                          </div>
+                                  
+                                                      </div>
+                                                      <!-- --------strips ---------------------->
+                                                      <div class="inner-expansion-main">
+                                                          <div class="inner-sub-left">
+                                                              <div class="main-strips">
+                                                                  <div class="holder-name">Bike</div>
+                                                                  <div class="price-tag red-color">$ 85.00</div>
+                                                              </div>
+                                                              <div class="main-strips">
+                                                                  <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                  <div class="account-type">My Account</div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="inner-sub-right">
+                                                              <a href="#" title="edit">
+                                                                  <img src="../../../assets/images/edit-pencil.svg">
+                                                              </a>
+                                                          </div>
+                                  
+                                                      </div>
+                                                      <!------------------strips------------------------>
+                                                      <div class="inner-expansion-main">
+                                                          <div class="inner-sub-left">
+                                                              <div class="main-strips">
+                                                                  <div class="holder-name">Bike</div>
+                                                                  <div class="price-tag red-color">$ 85.00</div>
+                                                              </div>
+                                                              <div class="main-strips">
+                                                                  <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                  <div class="account-type">My Account</div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="inner-sub-right">
+                                                              <a href="#" title="edit">
+                                                                  <img src="../../../assets/images/edit-pencil.svg">
+                                                              </a>
+                                                          </div>
+                                  
+                                                      </div>
+                                  
+                                              </mat-expansion-panel>
+                                              <!-- third-panal -->
+                                              <mat-expansion-panel>
+                                                <mat-expansion-panel-header>
+                                                  <mat-panel-title>
+                                                    Aug 2020
+                                                  </mat-panel-title>
+                                                  <mat-panel-description>
+                                                    <span class="red-color">$ 120.00</span>
+                                                  </mat-panel-description>
+                                                </mat-expansion-panel-header>
+                                                      <div class="inner-expansion-main">
+                                                          <div class="inner-sub-left">
+                                                              <div class="main-strips">
+                                                                  <div class="holder-name">Bike</div>
+                                                                  <div class="price-tag red-color">$ 85.00</div>
+                                                              </div>
+                                                              <div class="main-strips">
+                                                                  <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                  <div class="account-type">My Account</div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="inner-sub-right">
+                                                              <a href="#" title="edit">
+                                                                  <img src="../../../assets/images/edit-pencil.svg">
+                                                              </a>
+                                                          </div>
+                                  
+                                                      </div>
+                                                      <!-- --------strips ---------------------->
+                                                      <div class="inner-expansion-main">
+                                                          <div class="inner-sub-left">
+                                                              <div class="main-strips">
+                                                                  <div class="holder-name">Bike</div>
+                                                                  <div class="price-tag red-color">$ 85.00</div>
+                                                              </div>
+                                                              <div class="main-strips">
+                                                                  <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                  <div class="account-type">My Account</div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="inner-sub-right">
+                                                              <a href="#" title="edit">
+                                                                  <img src="../../../assets/images/edit-pencil.svg">
+                                                              </a>
+                                                          </div>
+                                  
+                                                      </div>
+                                                      <!------------------strips------------------------>
+                                                      <div class="inner-expansion-main">
+                                                          <div class="inner-sub-left">
+                                                              <div class="main-strips">
+                                                                  <div class="holder-name">Bike</div>
+                                                                  <div class="price-tag red-color">$ 85.00</div>
+                                                              </div>
+                                                              <div class="main-strips">
+                                                                  <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                  <div class="account-type">My Account</div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="inner-sub-right">
+                                                              <a href="#" title="edit">
+                                                                  <img src="../../../assets/images/edit-pencil.svg">
+                                                              </a>
+                                                          </div>
+                                  
+                                                      </div>
+                                  
+                                              </mat-expansion-panel>
+                                            
+                                          </mat-accordion>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-------------------------second tab--------------------------- -->
+            <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="row">
+                    <div class="col-8 col-md-8 col-lg-8">
+                        <div class="categories-accordian-main">
+                            <mat-accordion>
+                                <!-------------------- First-tab--------------------------->
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                      <mat-panel-title>
+                                        <span>Auto</span>
+                                        <img src="../../../assets/images/auto.svg">
+                                      </mat-panel-title>
+                                      <mat-panel-description>
+                                        <div class="main-right-heading">
+                                            <div class="left-col">
+                                                <span class="red-color">$ 120.00</span>
+                                                <span class="subtract-expanse">($85.00 + $62.00)</span>
+                                            </div>
+                                            <div class="right-col">
+                                                <a href="#" title="Delete">
+                                                    <img src="../../../assets/images/delete-trash.svg">
+                                                </a>
+                                            </div>
+    
+                                        </div>
+                                      </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                        <div class="expansion-description-main">
+                                            <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Gas</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 62.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Insurance</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 0.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Parking</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 0.00</span>
+                                                </div>
+                                            </div>
+    
+                                            
+                                        </div>
+                                          
+                              
+                                  </mat-expansion-panel>
+    
+                                  <!------------------------- Second-tab-------------------------------------------->
+                                  <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                      <mat-panel-title>
+                                        <span>Charity</span>
+                                        <img src="../../../assets/images/charity.svg">
+                                      </mat-panel-title>
+                                      <mat-panel-description>
+                                        <div class="main-right-heading">
+                                           
+                                            <div class="right-col">
+                                                <a href="#" title="Delete">
+                                                    <img src="../../../assets/images/delete-trash.svg">
+                                                </a>
+                                            </div>
+    
+                                        </div>
+                                      </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                        <div class="expansion-description-main">
+                                            <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Gas</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 62.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Insurance</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 0.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Parking</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 0.00</span>
+                                                </div>
+                                            </div>
+    
+                                            
+                                        </div>
+                                  </mat-expansion-panel>
+                                  <!----------------------------Third-tab--------------------------------------->
+                                  <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                      <mat-panel-title>
+                                        <span>Entertainment</span>
+                                        <img src="../../../assets/images/entertainment.svg">
+                                      </mat-panel-title>
+                                      <mat-panel-description>
+                                        <div class="main-right-heading">
+                                           
+                                            <div class="right-col">
+                                                <a href="#" title="Delete">
+                                                    <img src="../../../assets/images/delete-trash.svg">
+                                                </a>
+                                            </div>
+    
+                                        </div>
+                                      </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                        <div class="expansion-description-main">
+                                            <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Gas</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 62.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Insurance</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 0.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Parking</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 0.00</span>
+                                                </div>
+                                            </div>
+    
+                                            
+                                        </div>
+                                  </mat-expansion-panel>
+                                  <!------------------------------Fourth-tab------------------------------------->
+                                  <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                      <mat-panel-title>
+                                        <span>Food</span>
+                                        <img src="../../../assets/images/food.svg">
+                                      </mat-panel-title>
+                                      <mat-panel-description>
+                                        <div class="main-right-heading">
+                                           
+                                            <div class="right-col">
+                                                <a href="#" title="Delete">
+                                                    <img src="../../../assets/images/delete-trash.svg">
+                                                </a>
+                                            </div>
+    
+                                        </div>
+                                      </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                        <div class="expansion-description-main">
+                                            <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Gas</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 62.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Insurance</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 0.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Parking</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 0.00</span>
+                                                </div>
+                                            </div>
+    
+                                            
+                                        </div>
+                                  </mat-expansion-panel>
+                             
+                            </mat-accordion>
+                            </div>                        
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4">   
+                        <div class="list-main-filter">
+                            <nav class="asset-main-tab">
+                               
+                                <span>Auto</span>
+                            </nav>
+                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                                <!-- list -->
+                                <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel" aria-labelledby="nav-list-tab">
+                                    <div class="accordian-main">
+                                        <mat-accordion>
+                                            <!-- first-panal -->
+                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                                              <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                  Aug 2020 
+                                                </mat-panel-title>
+                                                <mat-panel-description>
+                                                  <span class="red-color">$ 120.00</span>
+                                                </mat-panel-description>
+                                              </mat-expansion-panel-header>
+                                              
+                                                    <div class="inner-expansion-main">
+                                                        <div class="inner-sub-left">
+                                                            <div class="main-strips">
+                                                                <div class="holder-name">Bike</div>
+                                                                <div class="price-tag green-color">$ 85.00</div>
+                                                            </div>
+                                                            <div class="main-strips">
+                                                                <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                <div class="account-type">My Account</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="inner-sub-right">
+                                                            <a href="#" title="edit">
+                                                                <img src="../../../assets/images/edit-pencil.svg">
+                                                            </a>
+                                                        </div>
+                                        
+                                                    </div>
+                                                    <!-- --------strips ---------------------->
+                                                    <div class="inner-expansion-main">
+                                                        <div class="inner-sub-left">
+                                                            <div class="main-strips">
+                                                                <div class="holder-name">Bike</div>
+                                                                <div class="price-tag red-color">$ 85.00</div>
+                                                            </div>
+                                                            <div class="main-strips">
+                                                                <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                <div class="account-type">My Account</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="inner-sub-right">
+                                                            <a href="#" title="edit">
+                                                                <img src="../../../assets/images/edit-pencil.svg">
+                                                            </a>
+                                                        </div>
+                                        
+                                                    </div>
+                                                    <!------------------strips------------------------>
+                                                    <div class="inner-expansion-main">
+                                                        <div class="inner-sub-left">
+                                                            <div class="main-strips">
+                                                                <div class="holder-name">Bike</div>
+                                                                <div class="price-tag red-color">$ 85.00</div>
+                                                            </div>
+                                                            <div class="main-strips">
+                                                                <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                <div class="account-type">My Account</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="inner-sub-right">
+                                                            <a href="#" title="edit">
+                                                                <img src="../../../assets/images/edit-pencil.svg">
+                                                            </a>
+                                                        </div>
+                                        
+                                                    </div>
+                                        
+                                            </mat-expansion-panel>
+                                            <!-- second-panal -->
+                                            <mat-expansion-panel>
+                                                <mat-expansion-panel-header>
+                                                  <mat-panel-title>
+                                                    Aug 2020
+                                                  </mat-panel-title>
+                                                  <mat-panel-description>
+                                                    <span class="red-color">$ 120.00</span>
+                                                  </mat-panel-description>
+                                                </mat-expansion-panel-header>
+                                                      <div class="inner-expansion-main">
+                                                          <div class="inner-sub-left">
+                                                              <div class="main-strips">
+                                                                  <div class="holder-name">Bike</div>
+                                                                  <div class="price-tag red-color">$ 85.00</div>
+                                                              </div>
+                                                              <div class="main-strips">
+                                                                  <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                  <div class="account-type">My Account</div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="inner-sub-right">
+                                                              <a href="#" title="edit">
+                                                                  <img src="../../../assets/images/edit-pencil.svg">
+                                                              </a>
+                                                          </div>
+                                  
+                                                      </div>
+                                                      <!-- --------strips ---------------------->
+                                                      <div class="inner-expansion-main">
+                                                          <div class="inner-sub-left">
+                                                              <div class="main-strips">
+                                                                  <div class="holder-name">Bike</div>
+                                                                  <div class="price-tag red-color">$ 85.00</div>
+                                                              </div>
+                                                              <div class="main-strips">
+                                                                  <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                  <div class="account-type">My Account</div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="inner-sub-right">
+                                                              <a href="#" title="edit">
+                                                                  <img src="../../../assets/images/edit-pencil.svg">
+                                                              </a>
+                                                          </div>
+                                  
+                                                      </div>
+                                                      <!------------------strips------------------------>
+                                                      <div class="inner-expansion-main">
+                                                          <div class="inner-sub-left">
+                                                              <div class="main-strips">
+                                                                  <div class="holder-name">Bike</div>
+                                                                  <div class="price-tag red-color">$ 85.00</div>
+                                                              </div>
+                                                              <div class="main-strips">
+                                                                  <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                  <div class="account-type">My Account</div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="inner-sub-right">
+                                                              <a href="#" title="edit">
+                                                                  <img src="../../../assets/images/edit-pencil.svg">
+                                                              </a>
+                                                          </div>
+                                  
+                                                      </div>
+                                  
+                                              </mat-expansion-panel>
+                                              <!-- third-panal -->
+                                              <mat-expansion-panel>
+                                                <mat-expansion-panel-header>
+                                                  <mat-panel-title>
+                                                    Aug 2020
+                                                  </mat-panel-title>
+                                                  <mat-panel-description>
+                                                    <span class="red-color">$ 120.00</span>
+                                                  </mat-panel-description>
+                                                </mat-expansion-panel-header>
+                                                      <div class="inner-expansion-main">
+                                                          <div class="inner-sub-left">
+                                                              <div class="main-strips">
+                                                                  <div class="holder-name">Bike</div>
+                                                                  <div class="price-tag red-color">$ 85.00</div>
+                                                              </div>
+                                                              <div class="main-strips">
+                                                                  <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                  <div class="account-type">My Account</div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="inner-sub-right">
+                                                              <a href="#" title="edit">
+                                                                  <img src="../../../assets/images/edit-pencil.svg">
+                                                              </a>
+                                                          </div>
+                                  
+                                                      </div>
+                                                      <!-- --------strips ---------------------->
+                                                      <div class="inner-expansion-main">
+                                                          <div class="inner-sub-left">
+                                                              <div class="main-strips">
+                                                                  <div class="holder-name">Bike</div>
+                                                                  <div class="price-tag red-color">$ 85.00</div>
+                                                              </div>
+                                                              <div class="main-strips">
+                                                                  <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                  <div class="account-type">My Account</div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="inner-sub-right">
+                                                              <a href="#" title="edit">
+                                                                  <img src="../../../assets/images/edit-pencil.svg">
+                                                              </a>
+                                                          </div>
+                                  
+                                                      </div>
+                                                      <!------------------strips------------------------>
+                                                      <div class="inner-expansion-main">
+                                                          <div class="inner-sub-left">
+                                                              <div class="main-strips">
+                                                                  <div class="holder-name">Bike</div>
+                                                                  <div class="price-tag red-color">$ 85.00</div>
+                                                              </div>
+                                                              <div class="main-strips">
+                                                                  <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                                  <div class="account-type">My Account</div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="inner-sub-right">
+                                                              <a href="#" title="edit">
+                                                                  <img src="../../../assets/images/edit-pencil.svg">
+                                                              </a>
+                                                          </div>
+                                  
+                                                      </div>
+                                  
+                                              </mat-expansion-panel>
+                                            
+                                          </mat-accordion>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+           
+        </div>
+
+            
+        <!------------------------------ total Expanse Panal-------------------------->
+        <div class="total-expanse-panal-bottom-main">
+            <div class="inner-expanse-panal-main">
+                <div class="left-panal">
+                    <div class="first-col com-col">
+                        <span class="label red-total-expanse">Total Expanse</span>
+                        <span class="value red-total-expanse">$ 147.00</span>
+                    </div>
+                    <div class="second-col com-col">
+                        <span class="label green-cleared">Cleared</span>
+                        <span class="value green-cleared">$60.00</span>
+                    </div>
+                    <div class="first-col com-col">
+                        <span class="label">Out Standing</span>
+                        <span class="value">$ 0.00</span>
+                    </div>
+                </div>
+                <!-- <div class="right-total-panal">
+                    <div class="total-cleared-balance">
+                        <span class="label">Total Cleared Balance</span>
+                        <span class="bold value">$ 4000</span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+

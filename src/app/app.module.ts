@@ -47,6 +47,7 @@ import { AddEditAccountComponent } from './shared/modals/add-edit-account/add-ed
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HeaderComponent } from './base/controls/header/header.component';
 import { OnlynumberDirectiveDirective } from './onlynumber-directive.directive';
+import { AddCategoryPopupComponent } from './shared/modals/add-category-popup/add-category-popup.component';
 
 
 
@@ -71,8 +72,8 @@ import { OnlynumberDirectiveDirective } from './onlynumber-directive.directive';
     ForgotPasswordComponent,
     ChangePasswordComponent,
     AddEditAccountComponent,
-    OnlynumberDirectiveDirective
- 
+    OnlynumberDirectiveDirective,
+    AddCategoryPopupComponent,
      
   
 
@@ -127,7 +128,7 @@ import { OnlynumberDirectiveDirective } from './onlynumber-directive.directive';
     VerifyMobileOtpComponent,
     ForgotPasswordComponent,
     ChangePasswordComponent,
-  
+    AddCategoryPopupComponent,
   ],
   providers: [
     {
