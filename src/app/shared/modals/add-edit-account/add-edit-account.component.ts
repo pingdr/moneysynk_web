@@ -43,13 +43,13 @@ export class AddEditAccountComponent implements OnInit {
     this.editaccount = this.formBuilder.group({
       name: [this.data.editdata.name, Validators.required],
       accountNo: [this.data.editdata.accountNo, Validators.required],
-      currency: [this.data.editdata.currency, Validators.required],
+      currency:  ['Dollar'],
       openDate: [this.data.editdata.openDate, Validators.required],
       openingBalance: [this.data.editdata.openingBalance, Validators.required],
       phoneNumber: [this.data.editdata.phoneNumber],
       accountType: [this.data.editdata.accountType, Validators.required],
       website: [this.data.editdata.website, [Validators.pattern(this.http.CONSTANT.WebsiteUrl)]],
-      icon: ['office_icon', Validators.required],
+      icon: ['office_icon'],
       note: [this.data.editdata.note]
     });
 
@@ -58,13 +58,13 @@ export class AddEditAccountComponent implements OnInit {
     this.editaccount = this.formBuilder.group({
       name: ['', Validators.required],
       accountNo: ['', Validators.required],
-      currency: ['', Validators.required],
+      currency: ['Dollar'],
       openDate: ['', Validators.required],
       openingBalance: ['', Validators.required],
       phoneNumber: [''],
       accountType: ['', Validators.required],
       website: ['', [Validators.pattern(this.http.CONSTANT.WebsiteUrl)]],
-      icon: ['office_icon', Validators.required],
+      icon: ['office_icon'],
       note: ['']
     });
 

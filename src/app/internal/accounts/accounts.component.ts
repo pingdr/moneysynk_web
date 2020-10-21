@@ -126,7 +126,9 @@ export class AccountsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.getAccountTypedata();
       this.getAccountdata();
+     
     });
   }
 

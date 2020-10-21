@@ -33,8 +33,8 @@ export class SignupComponent implements OnInit {
         "username": this.SignupForm.value.fullName,
         "email": this.SignupForm.value.email,
         "password": this.SignupForm.value.password,
-        "phoneNumber": localStorage.getItem('otpMobile'),
-        "countryCode": localStorage.getItem('ccode'),
+        "phoneNumber":  this.sharedService.mobile_number,
+        "countryCode": this.sharedService.country_code,
         "role": "ADMIN"
       }
       this.http.signUp(ApiUrl.signUp, payload, false).subscribe((res) => {

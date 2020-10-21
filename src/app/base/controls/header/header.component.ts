@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   groupList=[];
   groupName:any;
   filterName:any;
+  public modeselect:any;
   constructor(public http: HttpService,private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -37,8 +38,7 @@ export class HeaderComponent implements OnInit {
 
       var payload = {
 
-        "name": this.group,
-        "icon": this.group
+        "name": this.group
 
       }
      
@@ -66,8 +66,8 @@ export class HeaderComponent implements OnInit {
     this.http.getAllGroup(ApiUrl.addGrop).subscribe(res => {
       if (res.data != undefined) {
         this.groupList = res.data;
-        this.groupName=this.groupList[0].name;
-        localStorage.setItem('group_id', this.groupList[0]._id);
+        this.modeselect=this.groupList[0]._id;
+      
 
      
       }
@@ -77,8 +77,8 @@ export class HeaderComponent implements OnInit {
   groupSelect(value){
    
     this.groupName=value.name;
-    localStorage.setItem('group_id', value._id);
-
+    this.groupName=value._id;
+    console.log(this.groupName);
   
   }
 

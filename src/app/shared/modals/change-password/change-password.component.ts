@@ -26,6 +26,7 @@ export class ChangePasswordComponent implements OnInit {
     public dialog: MatDialog,
     public http: HttpService,
     private toastr: ToastrService,
+    public dialogRef: MatDialogRef<ChangePasswordComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
 
 
@@ -76,6 +77,7 @@ export class ChangePasswordComponent implements OnInit {
             this.toastr.success('password reset successfully', 'success', {
               timeOut: 2000
             });
+            this.dialogRef.close(this.dialogRef);
             localStorage.setItem('accessToken', response.data.accessToken);
             localStorage.setItem('loginData', JSON.stringify(response.data));
             console.log(response.data.accessToken);

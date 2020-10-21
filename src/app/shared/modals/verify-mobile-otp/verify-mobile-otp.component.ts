@@ -38,6 +38,7 @@ export class VerifyMobileOtpComponent implements OnInit {
   }
 
   ngOnInit(): void {
+console.log(this.data);
   }
 
   onOtpChange(otp) {
@@ -60,6 +61,8 @@ export class VerifyMobileOtpComponent implements OnInit {
           this.toastr.success('otp verify successfully', 'success', {
             timeOut: 2000
           });
+          this.sharedserive.mobile_number=this.data.mobile
+          this.sharedserive.country_code=this.data.counctrycode
           this.loader = false;
           this.dialog.closeAll();
           this.sharedserive.mobileVerificationComplete.next();

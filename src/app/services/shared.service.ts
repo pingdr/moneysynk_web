@@ -7,5 +7,9 @@ import { Subject } from 'rxjs';
 export class SharedService {
   mobileVerificationComplete = new Subject();
 
+  public mobile_number:any;
+  public country_code:any;
+
+
   constructor() { }
 }

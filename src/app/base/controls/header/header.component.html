@@ -1,16 +1,43 @@
 <header class="page-topbar" id="header">
   <div class="navbar navbar-fixed">
     <div class="header-main-area">
-      <div class="dropdown header-first-drop-down">
+      <div style="width: 200px;" class="groupadd">
 
-        <!-- drop-down-button -->
+      <mat-form-field class="groupRight">
+        <mat-select  [(ngModel)]="modeselect">
+          <mat-option (click)="groupSelect(data)" *ngFor="let data of groupList" value="{{data._id}}">{{ data.name }}</mat-option>
+          <mat-form-field appearance="fill">
+            <input maxlength="26" [(ngModel)]="filterName" name="filterName" (keyup)="addGroup($event.target.value)"
+              matInput placeholder="Add New Group">
+              <button style="  background: transparent !important;
+              padding: 0;
+              position: absolute;
+              right: 18px;
+              bottom: 1px;
+              line-height: 42px;
+              font-size: 11px;
+              color: #7299FF !important;
+              font-weight: 100;
+              &:hover{
+              text-decoration: underline;
+              }" class="btn" (click)="saveGroup()"> Add</button>
+          </mat-form-field>
+        
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+      
+      <!-- <div class="dropdown header-first-drop-down">
+
+     
 
         <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           <img src="../../../../assets/images/my-private-group.svg">
           {{groupName}}
         </a>
-        <!-- drop-down-menu -->
+     
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <ng-container *ngFor="let data of groupList">
             <a (click)="groupSelect(data)" class="dropdown-item">
@@ -25,7 +52,7 @@
           <button class="btn add-btn" (click)="saveGroup()"> Add</button>
 
         </div>
-      </div>
+      </div> -->
 
       <!-- <label>Add Group</label>
           <mat-form-field>

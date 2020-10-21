@@ -40,23 +40,23 @@
 
                             </div>
                             <div class="form-group Password">
-                                <input type="password" class="form-control" placeholder="Password"
+                                <input maxlength="12" type="password" class="form-control" placeholder="Password"
                                     formControlName="password"
                                     [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                                 <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                                    <div *ngIf="f.password.errors.required">Please enter password</div>
-                                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-                                    <div *ngIf="f.password.errors.maxlength">password should not
-                                        be more than 12 characters</div>
+                                    <div *ngIf="f.password.errors.required"></div>
+                                    <div *ngIf="f.password.errors.minlength">Please enter password between 6-12
+                                        character</div>
+                                    <div *ngIf="f.password.errors.maxlength"></div>
                                 </div>
                             </div>
                             <div class="form-group Password">
-                                <input type="password" class="form-control" placeholder="Confirm Password"
-                                    formControlName="confirmPassword"
+                                <input maxlength="12" type="password" class="form-control"
+                                    placeholder="Confirm Password" formControlName="confirmPassword"
                                     [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }">
                                 <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                                    <div *ngIf="f.confirmPassword.errors.required">Please enter confirm password</div>
-                                    <div *ngIf="f.confirmPassword.errors.mustMatch">Password & confirm password must match</div>
+                                    <div *ngIf="f.confirmPassword.errors.required"></div>
+                                    <div *ngIf="f.confirmPassword.errors.mustMatch"></div>
                                 </div>
                             </div>
 
@@ -66,8 +66,7 @@
                                         class="form-check-input"
                                         [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }">
                                     <label for="vehicle1"> Agree to terms and conditions </label>
-                                    <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">Accept Ts &
-                                        Cs is required</div>
+                                    <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback"></div>
                                 </div>
 
                             </div>
