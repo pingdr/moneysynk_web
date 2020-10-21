@@ -408,12 +408,17 @@ export class HttpService {
         return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
 
     }
-
+    addEditCategory(url, payload, isLoading?: boolean) {
+        return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
+    }
     getAccount(url, isLoading?: boolean) {
        
         return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
     }
-
+    getCategories(url, isLoading?: boolean) {
+       
+        return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
+    }
     addAccountType(url, payload, isLoading?: boolean) {
         
         return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
