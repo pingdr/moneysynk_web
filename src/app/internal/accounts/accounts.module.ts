@@ -6,6 +6,7 @@ import { AuthGuardService } from 'src/app/services/authguard.service';
 import {SharedModule} from '../../shared/modules/shared.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxSlickJsModule } from 'ngx-slickjs';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 const routes: Routes = [
     {
@@ -29,6 +30,7 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         MatExpansionModule,
+        MatPaginatorModule,
         NgxSlickJsModule.forRoot({
             links: {
               jquery: "https://code.jquery.com/jquery-3.4.0.min.js",

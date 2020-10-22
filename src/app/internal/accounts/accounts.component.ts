@@ -26,7 +26,7 @@ export class AccountsComponent implements OnInit {
   config: Slick.Config = {
       infinite: true,
       slidesToShow: 6,
-      // slidesToScroll: 2,
+      slidesToScroll: 2,
       // dots: true,
       // autoplay: true,
       // autoplaySpeed: 2000 
@@ -45,6 +45,10 @@ export class AccountsComponent implements OnInit {
   filter = [];
   isSelected: any = 0;
   isRecordSelected: any = 0;
+  accountType_id:any;
+
+
+
   constructor(public http: HttpService, public activeRoute: ActivatedRoute,public sharedserive:SharedService,
     private _router: Router,
     private toastr: ToastrService,
@@ -58,7 +62,6 @@ export class AccountsComponent implements OnInit {
     this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
      if(data){
-      this.getAccountdata();
       this.getAccountTypedata();
      }
     });
@@ -86,6 +89,11 @@ export class AccountsComponent implements OnInit {
     this.http.getAllAccountType(ApiUrl.getAllAccountType,payload).subscribe(res => {
       if (res.data != undefined) {
         this.accountTypeList = res.data;
+        console.log('this.accountTypeList');
+        console.log(this.accountTypeList);
+        this.accountType_id = res.data[0]._id;
+
+        this.getAccountdata();
        
       }
     });
@@ -95,12 +103,16 @@ export class AccountsComponent implements OnInit {
   getAccountdata() {
 
     var payload = {
-      "groupId":this.groupId
+      "groupId":this.groupId,
+      "pageIndex":0,
+      "limit":2,
+      "accountType":this.accountType_id
+
     }
   
 
     this.http.getAccount(ApiUrl.getAccount,payload).subscribe(res => {
-      this.http.showLoader();
+    
       if (res.data != undefined) {
         this.accountList = res.data;
         // this.filter = res.data;
@@ -153,8 +165,9 @@ export class AccountsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.accountTypeList = [];
+      this.accountList = [];
       this.getAccountTypedata();
-      this.getAccountdata();
      
     });
   }
