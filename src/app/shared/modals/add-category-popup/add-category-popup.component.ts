@@ -23,13 +23,13 @@ export class AddCategoryPopupComponent implements OnInit {
       icon: ['', Validators.required],
       parent: ['', Validators.required],
       note: [''],
-      type:[this.data.type],
-      groupId:[localStorage.getItem('group_id')]
+      type: [this.data.type],
+      groupId: [this.data.groupId]
     });
     this.getCategoriesData();
   }
   getCategoriesData() {
-    this.http.getCategories(ApiUrl.getCategories + "?parent=true").subscribe(res => {
+    this.http.getCategories(ApiUrl.getCategories + "?parent=true&groupId=" + this.data.groupId).subscribe(res => {
       this.http.showLoader();
       if (res.data != undefined) {
         this.allParents = res.data;
@@ -57,7 +57,7 @@ export class AddCategoryPopupComponent implements OnInit {
           });
         }
         this.dialogRef.close(this.dialogRef);
-        this.http.navigate('accounts');
+        this.http.navigate('categories');
       },
         () => {
           this.loader = false;

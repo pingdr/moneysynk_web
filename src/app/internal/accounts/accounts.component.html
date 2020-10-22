@@ -19,11 +19,19 @@
             <div slickContainer #slickController="slick" [slickConfig]="config" class="nav nav-tabs nav-fill"
                 id="nav-tab" role="tablist">
                 <!-- <ng-container slickItem *ngFor="let data of accountTypeList; let i = index"> -->
-              
-                <a slickItem *ngFor="let data of accountTypeList; let i = index" (click)="getType(data._id)" 
-                    style="cursor: pointer; width: 78px;" class="nav-item nav-link"
-                    [ngClass]="{ 'active' : isSelected == i }" id="nav-home-tab" data-toggle="tab" role="tab"
-                    aria-controls="nav-home" aria-selected="true">{{data.name }}  <span class="balance-btn">Bal:
+
+                <a slickItem *ngFor="let data of accountTypeList; let i = index" style="cursor: pointer; width: 78px;"
+                    class="nav-item nav-link" [ngClass]="{ 'active' : isSelected == i }" id="nav-home-tab"
+                    data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">
+                    <span style="position: relative;" (click)="getType(data._id,i)">
+                        {{data.name }}
+                        <span style="position: absolute;right: -18px;">
+                            <i (click)="deleteType(data._id)"><img style="font-size: 13px;"
+                                    src="../../../assets/images/delete-trash.svg"></i>
+                        </span>
+                    </span>
+
+                    <span class="balance-btn">Bal:
                         $1,913.00</span></a>
                 <!-- </ng-container> -->
                 <!-- <i (click)="deleteType(data._id)"><img

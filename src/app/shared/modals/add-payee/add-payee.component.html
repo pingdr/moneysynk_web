@@ -1,0 +1,55 @@
+<div class="heading-modal">
+    <span>Add Payee</span>
+    <button class="btn" [mat-dialog-close]>
+        <img src="../../../assets/images/close.svg">
+    </button>
+</div>
+
+
+<div class="form-group-main add-account-section">
+    <form class="add-account-entry" [formGroup]="Addaccountentry" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Name</label>
+          <mat-form-field appearance="fill">
+                <input matInput placeholder="Payee Name" formControlName="name" 
+                [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                  <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+              </div>
+          </mat-form-field>
+        </div>   
+        
+        <div class="form-group opening-balance">
+            <label>Category</label>
+            <mat-form-field appearance="fill">
+              <mat-label>0</mat-label>
+              <mat-select formControlName="categoryId" 
+              [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
+                  <mat-option value="">None</mat-option>
+                  <mat-option *ngFor="let cat of categories" [value]="cat._id">{{cat.name}}</mat-option>
+                  <!-- <mat-option value="option2">200</mat-option>
+                  <mat-option value="option3">300</mat-option> -->
+              </mat-select>
+              <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback">
+                <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+              </div>
+            </mat-form-field>
+          </div>
+        <div class="form-group">
+          <label>Note</label>
+          <mat-form-field appearance="fill">
+            <input matInput placeholder="Add note here" formControlName="note" 
+            [ngClass]="{ 'is-invalid': submitted && f.note.errors }">
+            <div *ngIf="submitted && f.note.errors" class="invalid-feedback">
+              <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+            </div>
+          </mat-form-field>
+        </div>
+   
+    <div class="last-section">
+      <button class="btn"> Save</button>
+    </div>
+  </form>
+  
+  </div>
+    

@@ -24,7 +24,7 @@ export class AccountsComponent implements OnInit {
   arrayLength = 10;
 
   config: Slick.Config = {
-      infinite: true,
+      infinite: false,
       slidesToShow: 6,
       slidesToScroll: 2,
       // dots: true,
@@ -40,8 +40,8 @@ export class AccountsComponent implements OnInit {
   groupId:any;
   myModel: TableModel;
   search = new FormControl();
-  accountList = [];
-  accountTypeList = [];
+  accountList:any = [];
+  accountTypeList:any = [];
   filter = [];
   isSelected: any = 0;
   isRecordSelected: any = 0;
@@ -62,6 +62,9 @@ export class AccountsComponent implements OnInit {
     this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
      if(data){
+      this.accountList = [];
+      this.accountTypeList = [];
+      this.getAccountdata();
       this.getAccountTypedata();
      }
     });
@@ -88,6 +91,7 @@ export class AccountsComponent implements OnInit {
   
     this.http.getAllAccountType(ApiUrl.getAllAccountType,payload).subscribe(res => {
       if (res.data != undefined) {
+        this.accountTypeList = [];
         this.accountTypeList = res.data;
         console.log('this.accountTypeList');
         console.log(this.accountTypeList);
@@ -114,6 +118,7 @@ export class AccountsComponent implements OnInit {
     this.http.getAccount(ApiUrl.getAccount,payload).subscribe(res => {
     
       if (res.data != undefined) {
+        this.accountList = [];
         this.accountList = res.data;
         // this.filter = res.data;
       }
@@ -172,8 +177,10 @@ export class AccountsComponent implements OnInit {
     });
   }
 
-  getType(id){
-
+  getType(id,i?: any){
+    if (i || i == 0)
+    this.isSelected = i;
+    
     var payload = {
       "groupId":this.groupId,
       "pageIndex":0,

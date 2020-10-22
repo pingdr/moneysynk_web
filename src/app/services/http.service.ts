@@ -406,7 +406,9 @@ export class HttpService {
     addEditCategory(url, payload, isLoading?: boolean) {
         return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
     }
-
+    post(url, payload, isLoading?: boolean) {
+        return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
+    }
     // getAccount(url, isLoading?: boolean) {
        
     //     return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
@@ -438,6 +440,10 @@ export class HttpService {
 
     
     getCategories(url, isLoading?: boolean) {
+       
+        return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
+    }
+    get(url, isLoading?: boolean) {
        
         return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
     }

@@ -1,10 +1,10 @@
 <div class="heading-pannel">
     <div class="component-heading"> 
-        <span>Categories</span>
+        <span>Payees / Payers</span>
     </div>
     <div class="component-btn">
         
-            <button class="btn" (click)="openCategorymodal()">Add Category</button>
+            <button class="btn" (click)="openCategorymodal()">Add Payee</button>
         
     </div>
 </div>
@@ -15,8 +15,8 @@
     <div class="white-box">
         <nav class="asset-main-tab">
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" (click)="setType('EXPENSE')" href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Expense</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" (click)="setType('INCOME')" href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Income</a>
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" (click)="setType('PAYEE')" href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Payees</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" (click)="setType('PAYER')" href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Payers</a>
             
             </div>
         </nav>
@@ -25,226 +25,59 @@
             <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8">
+                        <div *ngFor="let payee of payeesArray; let i = index"
+                        [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account"
+                        (click)="recordSelected(i)">
+                        <!-- <div class="number">
+                            <span>1</span>
+                        </div> -->
+                        <div class="account-type"><span>{{ payee.name }}</span></div>
+                       
+                        <div class="pricing-icon">
+                            <span class="price">$100</span>
+                        </div>
+                        <div class="action-tab-main">
+                            <!-- <a style="cursor: pointer;" (click)="editAccounts(data)" class="edit-btn" title="edit">
+                                <img src="../../../assets/images/edit-pencil.svg">
+                            </a> -->
+                            <a class="delete-btn" style="cursor: pointer;" (click)="deleteAccounts(data._id)"
+                                title="edit">
+                                <img src="../../../assets/images/delete-trash.svg">
+                            </a>
+                        </div>
+
+                    </div>
                         <!-------------------------------- categories-Expansion-------------------------------->
-                        <div class="categories-accordian-main">
+                        <!-- <div class="categories-accordian-main">
                         <mat-accordion>
-                            <!-------------------- First-tab--------------------------->
-                            <mat-expansion-panel *ngFor="let cat of expenseArray;let i = index">
+                            <mat-expansion-panel *ngFor="let payee of payeesArray">
                                 <mat-expansion-panel-header>
                                   <mat-panel-title>
-                                    <span>{{cat.name}}</span>
-                                    <img src="../../../assets/images/auto.svg">
+                                    <span>{{payee.name}}</span>
                                   </mat-panel-title>
                                   <mat-panel-description>
                                     <div class="main-right-heading">
                                         <div class="left-col">
                                             <span class="red-color">$ 120.00</span>
-                                            <span class="subtract-expanse">($85.00 + $62.00)</span>
                                         </div>
                                         <div class="right-col">
                                             <a href="#" title="Delete">
                                                 <img src="../../../assets/images/delete-trash.svg">
                                             </a>
                                         </div>
-
                                     </div>
                                   </mat-panel-description>
                                 </mat-expansion-panel-header>
-                                    <div class="expansion-description-main">
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Gas</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 62.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Insurance</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Parking</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-
-                                        
-                                    </div>
-                                      
-                          
                               </mat-expansion-panel>
-
-                              <!-- <mat-expansion-panel>
-                                <mat-expansion-panel-header>
-                                  <mat-panel-title>
-                                    <span>Charity</span>
-                                    <img src="../../../assets/images/charity.svg">
-                                  </mat-panel-title>
-                                  <mat-panel-description>
-                                    <div class="main-right-heading">
-                                       
-                                        <div class="right-col">
-                                            <a href="#" title="Delete">
-                                                <img src="../../../assets/images/delete-trash.svg">
-                                            </a>
-                                        </div>
-
-                                    </div>
-                                  </mat-panel-description>
-                                </mat-expansion-panel-header>
-                                    <div class="expansion-description-main">
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Gas</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 62.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Insurance</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Parking</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-
-                                        
-                                    </div>
-                              </mat-expansion-panel>
-                              <mat-expansion-panel>
-                                <mat-expansion-panel-header>
-                                  <mat-panel-title>
-                                    <span>Entertainment</span>
-                                    <img src="../../../assets/images/entertainment.svg">
-                                  </mat-panel-title>
-                                  <mat-panel-description>
-                                    <div class="main-right-heading">
-                                       
-                                        <div class="right-col">
-                                            <a href="#" title="Delete">
-                                                <img src="../../../assets/images/delete-trash.svg">
-                                            </a>
-                                        </div>
-
-                                    </div>
-                                  </mat-panel-description>
-                                </mat-expansion-panel-header>
-                                    <div class="expansion-description-main">
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Gas</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 62.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Insurance</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Parking</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-
-                                        
-                                    </div>
-                              </mat-expansion-panel>
-                              <mat-expansion-panel>
-                                <mat-expansion-panel-header>
-                                  <mat-panel-title>
-                                    <span>Food</span>
-                                    <img src="../../../assets/images/food.svg">
-                                  </mat-panel-title>
-                                  <mat-panel-description>
-                                    <div class="main-right-heading">
-                                       
-                                        <div class="right-col">
-                                            <a href="#" title="Delete">
-                                                <img src="../../../assets/images/delete-trash.svg">
-                                            </a>
-                                        </div>
-
-                                    </div>
-                                  </mat-panel-description>
-                                </mat-expansion-panel-header>
-                                    <div class="expansion-description-main">
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Gas</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 62.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Insurance</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Parking</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-
-                                        
-                                    </div>
-                              </mat-expansion-panel> -->
-                         
                         </mat-accordion>
-                        </div>
+                        </div> -->
                        
                     </div>
                     <div class="col-4 col-md-4 col-lg-4">   
                         <div class="list-main-filter">
                             <nav class="asset-main-tab">
                                 
-                                <span>Auto</span>
+                                <span>Bike</span>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->
@@ -474,17 +307,17 @@
                         <div class="categories-accordian-main">
                             <mat-accordion>
                                 <!-------------------- First-tab--------------------------->
-                                <mat-expansion-panel *ngFor="let inc of incomeArray">
+                                <mat-expansion-panel *ngFor="let payer of payersArray">
                                     <mat-expansion-panel-header>
                                       <mat-panel-title>
-                                        <span>{{inc.name}}</span>
-                                        <img src="../../../assets/images/auto.svg">
+                                        <span>{{payer.name}}</span>
+                                        <!-- <img src="../../../assets/images/auto.svg"> -->
                                       </mat-panel-title>
                                       <mat-panel-description>
                                         <div class="main-right-heading">
                                             <div class="left-col">
                                                 <span class="red-color">$ 120.00</span>
-                                                <span class="subtract-expanse">($85.00 + $62.00)</span>
+                                                <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
                                             </div>
                                             <div class="right-col">
                                                 <a href="#" title="Delete">
@@ -688,7 +521,7 @@
                         <div class="list-main-filter">
                             <nav class="asset-main-tab">
                                
-                                <span>Auto</span>
+                                <span>Bike</span>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->
