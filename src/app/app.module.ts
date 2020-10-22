@@ -46,6 +46,7 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { AddEditAccountComponent } from './shared/modals/add-edit-account/add-edit-account.component';
 import { OnlynumberDirectiveDirective } from './onlynumber-directive.directive';
 import { AddCategoryPopupComponent } from './shared/modals/add-category-popup/add-category-popup.component';
+import { AddPayeeComponent } from './shared/modals/add-payee/add-payee.component';
 
 
 
@@ -75,7 +76,7 @@ import { AddCategoryPopupComponent } from './shared/modals/add-category-popup/ad
     AddEditAccountComponent,
     OnlynumberDirectiveDirective,
     AddCategoryPopupComponent,
-   
+    AddPayeeComponent
      
   
 
@@ -131,6 +132,7 @@ import { AddCategoryPopupComponent } from './shared/modals/add-category-popup/ad
     ForgotPasswordComponent,
     ChangePasswordComponent,
     AddCategoryPopupComponent,
+    AddPayeeComponent,
   ],
   providers: [
     {

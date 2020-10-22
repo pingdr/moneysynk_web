@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
+import { SharedService } from 'src/app/services/shared.service';
 // import { AddCategoryPopupComponent } from 'src/app/popup/add-category-popup/add-category-popup.component';
 
 @Component({
@@ -18,14 +19,23 @@ export class CategoriesComponent implements OnInit {
   categories: any;
   type: any = "EXPENSE"
   dialogRefofOtpModal: MatDialogRef<AddCategoryPopupComponent>;
+  groupId: any;
+  expenseArray:any = [];
+  incomeArray:any = [];
   constructor(public http: HttpService, public activeRoute: ActivatedRoute,
     private SpinnerService: NgxSpinnerService,
     private _router: Router,
+    public sharedserive: SharedService,
     private toastr: ToastrService,
     public dialog: MatDialog, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.getCategoriesData();
+    this.sharedserive.groupChange.subscribe((data) => {
+      this.groupId = data;
+      if (data) {
+        this.getCategoriesData();
+      }
+    });
   }
   step = 0;
 
@@ -36,10 +46,17 @@ export class CategoriesComponent implements OnInit {
     this.type = type;
   }
   getCategoriesData() {
-    this.http.getCategories(ApiUrl.getCategories).subscribe(res => {
+    this.http.getCategories(ApiUrl.getCategories + "?groupId=" + this.groupId).subscribe(res => {
       this.http.showLoader();
       if (res.data != undefined) {
-        this.categories = res.data;
+        for (let index = 0; index < res.data.length; index++) {
+            if(res.data[index].type === "EXPENSE") {
+              this.expenseArray.push(res.data[index]);
+            } else {
+              this.incomeArray.push(res.data[index]);
+            }         
+        }
+        // this.categories = res.data;
         // this.filter = res.data;
       }
     });
@@ -57,13 +74,15 @@ export class CategoriesComponent implements OnInit {
   openCategorymodal(): void {
     const dialogRef = this.dialog.open(AddCategoryPopupComponent, {
       width: '523px',
-      panelClass: 'edit-account-main', data: { type: this.type }
+      panelClass: 'edit-account-main', data: { type: this.type, groupId: this.groupId }
 
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-
+      this.incomeArray = [];
+      this.expenseArray = [];
+      this.getCategoriesData();
     });
   }
 

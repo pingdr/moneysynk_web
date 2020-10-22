@@ -7,6 +7,8 @@ export const ApiUrl = {
     Forgot:'request-otp-forgot-password',
     Forgotpassword:'forgot-password',
     addEditAccount:'accounts',
+    addEditPayee:'financialBeneficiaries',
+    getAllPayees:'financialBeneficiaries',
     addEditCategory:'categories',
     getAccount:'accounts',
     getCategories:'categories',
