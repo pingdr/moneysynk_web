@@ -20,14 +20,14 @@
                 id="nav-tab" role="tablist">
                 <!-- <ng-container slickItem *ngFor="let data of accountTypeList; let i = index"> -->
               
-                <a (click)="getType(data._id)" slickItem *ngFor="let data of accountTypeList; let i = index"
+                <a slickItem *ngFor="let data of accountTypeList; let i = index" (click)="getType(data._id)" 
                     style="cursor: pointer; width: 78px;" class="nav-item nav-link"
                     [ngClass]="{ 'active' : isSelected == i }" id="nav-home-tab" data-toggle="tab" role="tab"
-                    aria-controls="nav-home" aria-selected="true">{{data.name }} <span class="balance-btn">Bal:
+                    aria-controls="nav-home" aria-selected="true">{{data.name }}  <span class="balance-btn">Bal:
                         $1,913.00</span></a>
                 <!-- </ng-container> -->
-                <!-- <a (click)="deleteType(data._id)"><img
-                    src="../../../assets/images/delete-trash.svg"></a> -->
+                <!-- <i (click)="deleteType(data._id)"><img
+                    src="../../../assets/images/delete-trash.svg"></i> -->
             </div>
         </nav>
         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">

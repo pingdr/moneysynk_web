@@ -25,7 +25,7 @@ export class AccountsComponent implements OnInit {
 
   config: Slick.Config = {
       infinite: true,
-      // slidesToShow: 4,
+      slidesToShow: 6,
       // slidesToScroll: 2,
       // dots: true,
       // autoplay: true,
@@ -103,7 +103,7 @@ export class AccountsComponent implements OnInit {
       this.http.showLoader();
       if (res.data != undefined) {
         this.accountList = res.data;
-        this.filter = res.data;
+        // this.filter = res.data;
       }
     });
 
@@ -140,11 +140,11 @@ export class AccountsComponent implements OnInit {
     if (i || i == 0)
     this.isRecordSelected = i;
   }
-  filterData(i, id) {
-    if (i || i == 0)
-      this.isSelected = i;
-    this.accountList = this.filter.filter(filter => filter.accountType === id);
-  }
+  // filterData(i, id) {
+  //   if (i || i == 0)
+  //     this.isSelected = i;
+  //   this.accountList = this.filter.filter(filter => filter.accountType === id);
+  // }
 
   editAccounts(data) {
     const dialogRef = this.dialog.open(AddEditAccountComponent, {
@@ -160,7 +160,23 @@ export class AccountsComponent implements OnInit {
   }
 
   getType(id){
-    console.log(id);
+
+    var payload = {
+      "groupId":this.groupId,
+      "pageIndex":0,
+      "limit":2,
+      "accountType":id
+
+    }
+  
+
+    this.http.getAccountById(ApiUrl.getAccountById,payload).subscribe(res => {
+      this.http.showLoader();
+      if (res.data != undefined) {
+        this.accountList = res.data;
+        // this.filter = res.data;
+      }
+    });
   }
 
   deleteType(id){
