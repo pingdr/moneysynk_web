@@ -14,7 +14,8 @@ export const ApiUrl = {
     getAllAccountType:'accountTypes',
     deleteAccount:'accounts',
     updateAccount:'accounts',
-    addGrop:'groups'
+    addGrop:'groups',
+    deleteAccountTypes:'accountTypes',
 
 
 };

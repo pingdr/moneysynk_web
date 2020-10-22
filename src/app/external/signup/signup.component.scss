@@ -273,3 +273,17 @@
   .example-full-width {
     width: 100%;
   }
+
+
+  .in-remember{
+      .is-invalid{
+          position: relative;
+          &::before{
+              position: absolute;
+              content: '';
+              width: 20px;
+              height: 20px;
+              border: 1px solid red;
+          }
+      }
+  }

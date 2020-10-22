@@ -17,6 +17,9 @@ import { MatInputModule } from '@angular/material/input';
 
 
 
+
+
+
 const routes: Routes = [{
     path: '', component: InternalComponent,
     children: [
@@ -46,19 +49,23 @@ const routes: Routes = [{
         MatSelectModule,
         MatOptionModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+      
+    
+    ],
         
 
         
         
         
-    ],
+   
     exports: [],
     declarations: [
         InternalComponent,
         HeaderComponent,
         SidebarComponent,
-        FooterComponent
+        FooterComponent,
+      
       
         
     ]

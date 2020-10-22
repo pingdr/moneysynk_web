@@ -27,6 +27,7 @@ export class AddEditAccountComponent implements OnInit {
   group_id:any;
   public modeselect = 'Dollar';
   filterName:any;
+  groupId:any;
   
   
 
@@ -75,16 +76,22 @@ export class AddEditAccountComponent implements OnInit {
 
 
   ngOnInit(): void {
-   
+    this.groupId=this.data.groupId;
     this.getAllAccountType();
     this.addEditLable=this.data.editdata;
-    this.group_id=localStorage.getItem('group_id');
+    
+
+
 
   }
 
   getAllAccountType(){
 
-    this.http.getAllAccountType(ApiUrl.getAllAccountType).subscribe(res => {
+    var payload = {
+      "groupId":this.groupId
+    }
+
+    this.http.getAllAccountType(ApiUrl.getAllAccountType,payload).subscribe(res => {
       if(res.data!=undefined){
         this.accountModel = res.data;
       }
@@ -109,7 +116,7 @@ export class AddEditAccountComponent implements OnInit {
 
     var payload = {
 
-      "groupId": this.group_id,
+      "groupId": this.groupId,
       "name": this.editaccount.value.name,
       "accountNo": this.editaccount.value.accountNo,
       "currency": this.editaccount.value.currency,
@@ -144,7 +151,7 @@ export class AddEditAccountComponent implements OnInit {
 
         var payload = {
            
-          "groupId":  this.group_id,
+          "groupId":  this.groupId,
           "name": this.editaccount.value.name,
           "accountNo": this.editaccount.value.accountNo,
           "currency": this.editaccount.value.currency,
@@ -191,7 +198,7 @@ export class AddEditAccountComponent implements OnInit {
 
       var payload = {
 
-        "groupId": "5f69df929af94d089d937622",
+        "groupId": this.groupId,
         "name": this.accountType,
 
       }

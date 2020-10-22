@@ -9,17 +9,25 @@
     </div>
 </div>
 
+
+
 <div class="sub-compo-wrap">
 
     <div class="white-box">
-        
+
         <nav class="asset-main-tab">
-            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                <ng-container *ngFor="let data of accountTypeList; let i = index">
-                <a style="cursor: pointer;" (click)="filterData(i,data._id)" class="nav-item nav-link" [ngClass]="{ 'active' : isSelected == i }" id="nav-home-tab" data-toggle="tab"  role="tab"
-                    aria-controls="nav-home" aria-selected="true">{{data.name}} <span class="balance-btn">Bal:
+            <div slickContainer #slickController="slick" [slickConfig]="config" class="nav nav-tabs nav-fill"
+                id="nav-tab" role="tablist">
+                <!-- <ng-container slickItem *ngFor="let data of accountTypeList; let i = index"> -->
+              
+                <a (click)="getType(data._id)" slickItem *ngFor="let data of accountTypeList; let i = index"
+                    style="cursor: pointer; width: 78px;" class="nav-item nav-link"
+                    [ngClass]="{ 'active' : isSelected == i }" id="nav-home-tab" data-toggle="tab" role="tab"
+                    aria-controls="nav-home" aria-selected="true">{{data.name }} <span class="balance-btn">Bal:
                         $1,913.00</span></a>
-                    </ng-container>
+                <!-- </ng-container> -->
+                <!-- <a (click)="deleteType(data._id)"><img
+                    src="../../../assets/images/delete-trash.svg"></a> -->
             </div>
         </nav>
         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
@@ -27,24 +35,26 @@
             <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8">
-                        <div *ngFor="let data of accountList; let i = index" [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account" (click)="recordSelected(i)">
+                        <div *ngFor="let data of accountList; let i = index"
+                            [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account"
+                            (click)="recordSelected(i)">
                             <div class="number">
                                 <span>1</span></div>
                             <div class="account-type"><span>{{ data.name }}</span></div>
-                            <a  class="view-btn">
+                            <a class="view-btn">
                                 <img style="margin-left: -57px;" src="../../../assets/images/view-eye.svg">
                             </a>
                             <div class="pricing-icon">
                                 <span class="price">${{data.openingBalance}}</span>
                             </div>
                             <div class="action-tab-main">
-                                <a style="cursor: pointer;" (click)="editAccounts(data)"  class="edit-btn" title="edit">
+                                <a style="cursor: pointer;" (click)="editAccounts(data)" class="edit-btn" title="edit">
                                     <img src="../../../assets/images/edit-pencil.svg">
                                 </a>
-                                <a class="delete-btn" style="cursor: pointer;" (click)="deleteAccounts(data._id)" 
+                                <a class="delete-btn" style="cursor: pointer;" (click)="deleteAccounts(data._id)"
                                     title="edit">
                                     <img src="../../../assets/images/delete-trash.svg">
-                            </a>
+                                </a>
                             </div>
 
                         </div>
@@ -344,12 +354,17 @@
                                 <!-- summry -->
                                 <div class="tab-pane fade" id="nav-summary-tab" role="tabpanel"
                                     aria-labelledby="nav-summary-tab">
-                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat
-                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam
+                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit
+                                    occaecat
+                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur
+                                    veniam
                                     sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure
-                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do
-                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit.
-                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore.
+                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet
+                                    duis do
+                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui
+                                    sit.
+                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do
+                                    dolore.
                                     Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
                                 </div>
                             </div>
@@ -678,12 +693,17 @@
                                 <!-- summry -->
                                 <div class="tab-pane fade" id="nav-summary-tab-2" role="tabpanel"
                                     aria-labelledby="nav-summary-tab">
-                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat
-                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam
+                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit
+                                    occaecat
+                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur
+                                    veniam
                                     sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure
-                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do
-                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit.
-                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore.
+                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet
+                                    duis do
+                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui
+                                    sit.
+                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do
+                                    dolore.
                                     Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
                                 </div>
                             </div>
@@ -1012,12 +1032,17 @@
                                 <!-- summry -->
                                 <div class="tab-pane fade" id="nav-summary-tab-3" role="tabpanel"
                                     aria-labelledby="nav-summary-tab">
-                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat
-                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam
+                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit
+                                    occaecat
+                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur
+                                    veniam
                                     sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure
-                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do
-                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit.
-                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore.
+                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet
+                                    duis do
+                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui
+                                    sit.
+                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do
+                                    dolore.
                                     Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
                                 </div>
                             </div>
@@ -1345,12 +1370,17 @@
                                 <!-- summry -->
                                 <div class="tab-pane fade" id="nav-summary-tab-4" role="tabpanel"
                                     aria-labelledby="nav-summary-tab">
-                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat
-                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam
+                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit
+                                    occaecat
+                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur
+                                    veniam
                                     sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure
-                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do
-                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit.
-                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore.
+                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet
+                                    duis do
+                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui
+                                    sit.
+                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do
+                                    dolore.
                                     Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
                                 </div>
                             </div>
@@ -1681,12 +1711,17 @@
                                 <!-- summry -->
                                 <div class="tab-pane fade" id="nav-summary-tab-5" role="tabpanel"
                                     aria-labelledby="nav-summary-tab">
-                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat
-                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam
+                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit
+                                    occaecat
+                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur
+                                    veniam
                                     sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure
-                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do
-                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit.
-                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore.
+                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet
+                                    duis do
+                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui
+                                    sit.
+                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do
+                                    dolore.
                                     Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
                                 </div>
                             </div>

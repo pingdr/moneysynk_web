@@ -43,7 +43,9 @@
                                 <input maxlength="12" type="password" class="form-control" placeholder="Password"
                                     formControlName="password"
                                     [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-                                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                <div style="position: absolute;
+                                left: 0;
+                                right: 0;" *ngIf="submitted && f.password.errors" class="invalid-feedback">
                                     <div *ngIf="f.password.errors.required"></div>
                                     <div *ngIf="f.password.errors.minlength">Please enter password between 6-12
                                         character</div>
@@ -66,7 +68,7 @@
                                         class="form-check-input"
                                         [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }">
                                     <label for="vehicle1"> Agree to terms and conditions </label>
-                                    <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback"></div>
+                                    <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback" style="display: none"></div>
                                 </div>
 
                             </div>

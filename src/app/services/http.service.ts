@@ -368,12 +368,7 @@ export class HttpService {
 
     sendMobileOtp(url, payload, isLoading?: boolean) {
         console.log(url);
-        // console.log(mobile);
-
-
-        // var body = {
-        //    "mobile": mobile
-        //   }
+   
 
         return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
     }
@@ -411,10 +406,25 @@ export class HttpService {
     addEditCategory(url, payload, isLoading?: boolean) {
         return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
     }
-    getAccount(url, isLoading?: boolean) {
+
+    // getAccount(url, isLoading?: boolean) {
        
-        return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
+    //     return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
+    // }
+
+    getAccount(url, obj?, isLoading?: boolean) {
+        let params = new HttpParams();
+        if (obj) {
+            Object.keys(obj).forEach(key => {
+                if (obj[key] !== '' && obj[key] !== undefined) {
+                    params = params.set(key, obj[key]);
+                }
+            });
+        }
+        return this.http.get<any>(this.apiEndpoint + url, { params: params, reportProgress: isLoading });
     }
+
+    
     getCategories(url, isLoading?: boolean) {
        
         return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
@@ -425,10 +435,19 @@ export class HttpService {
 
     }
 
-    getAllAccountType(url, isLoading?: boolean) {
-       
-        return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
+
+    getAllAccountType(url, obj?, isLoading?: boolean) {
+        let params = new HttpParams();
+        if (obj) {
+            Object.keys(obj).forEach(key => {
+                if (obj[key] !== '' && obj[key] !== undefined) {
+                    params = params.set(key, obj[key]);
+                }
+            });
+        }
+        return this.http.get<any>(this.apiEndpoint + url, { params: params, reportProgress: isLoading });
     }
+
 
     deleteAccount(url, id, isLoading?: boolean) {
        
@@ -453,6 +472,15 @@ export class HttpService {
        
         return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
     }
+
+
+    deleteAccountTypes(url, id, isLoading?: boolean) {
+       
+        return this.http.delete<any>(this.apiEndpoint + url+ '/' + id, { reportProgress: isLoading });
+
+        
+    }
+
 
     
 

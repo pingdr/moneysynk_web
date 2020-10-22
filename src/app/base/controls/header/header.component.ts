@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { HttpService } from 'src/app/services/http.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -16,7 +17,9 @@ export class HeaderComponent implements OnInit {
   groupName:any;
   filterName:any;
   public modeselect:any;
-  constructor(public http: HttpService,private toastr: ToastrService) { }
+  constructor(public http: HttpService,
+    private toastr: ToastrService,
+    public sharedserive:SharedService) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('loginData'));
@@ -67,6 +70,8 @@ export class HeaderComponent implements OnInit {
       if (res.data != undefined) {
         this.groupList = res.data;
         this.modeselect=this.groupList[0]._id;
+        this.sharedserive.groupUpdateData(this.groupList[0]._id);
+        // this.sharedserive.groupUpdateData.next();
       
 
      
@@ -78,8 +83,7 @@ export class HeaderComponent implements OnInit {
    
     this.groupName=value.name;
     this.groupName=value._id;
-    console.log(this.groupName);
-  
+    this.sharedserive.groupUpdateData(value._id);
   }
 
  

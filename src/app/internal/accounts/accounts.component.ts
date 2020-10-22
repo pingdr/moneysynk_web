@@ -4,11 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { TableModel } from 'src/app/shared/models/table.common.model';
 import { HttpService } from '../../services/http.service';
-import { NgxSpinnerService } from "ngx-spinner";
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditAccountComponent } from 'src/app/shared/modals/add-edit-account/add-edit-account.component';
+import { SharedService } from 'src/app/services/shared.service';
+import { Slick } from 'ngx-slickjs';
 
 
 
@@ -19,6 +20,24 @@ import { AddEditAccountComponent } from 'src/app/shared/modals/add-edit-account/
 })
 export class AccountsComponent implements OnInit {
 
+
+  arrayLength = 10;
+
+  config: Slick.Config = {
+      infinite: true,
+      // slidesToShow: 4,
+      // slidesToScroll: 2,
+      // dots: true,
+      // autoplay: true,
+      // autoplaySpeed: 2000 
+    }
+
+  getArray(count: number) {
+    return new Array(count)
+  }
+
+ 
+  groupId:any;
   myModel: TableModel;
   search = new FormControl();
   accountList = [];
@@ -26,21 +45,23 @@ export class AccountsComponent implements OnInit {
   filter = [];
   isSelected: any = 0;
   isRecordSelected: any = 0;
-  constructor(public http: HttpService, public activeRoute: ActivatedRoute,
-    private SpinnerService: NgxSpinnerService,
+  constructor(public http: HttpService, public activeRoute: ActivatedRoute,public sharedserive:SharedService,
     private _router: Router,
     private toastr: ToastrService,
-    public dialog: MatDialog,) {
-    // this.myModel = new TableModel();
-
-    // const tab = this.activeRoute.snapshot.queryParams.tab;
-    // const search = this.activeRoute.snapshot.queryParams.search;
+    public dialog: MatDialog) {
+   
 
   }
 
   ngOnInit(): void {
-    this.getAccountdata();
-    this.getAccountTypedata();
+
+    this.sharedserive.groupChange.subscribe((data) => {
+      this.groupId = data;
+     if(data){
+      this.getAccountdata();
+      this.getAccountTypedata();
+     }
+    });
   }
   step = 0;
 
@@ -58,12 +79,14 @@ export class AccountsComponent implements OnInit {
 
   getAccountTypedata() {
 
-
-    this.http.getAllAccountType(ApiUrl.getAllAccountType).subscribe(res => {
-      this.SpinnerService.show();
+    var payload = {
+      "groupId":this.groupId
+    }
+  
+    this.http.getAllAccountType(ApiUrl.getAllAccountType,payload).subscribe(res => {
       if (res.data != undefined) {
         this.accountTypeList = res.data;
-        console.log(this.accountTypeList);
+       
       }
     });
 
@@ -71,8 +94,12 @@ export class AccountsComponent implements OnInit {
 
   getAccountdata() {
 
+    var payload = {
+      "groupId":this.groupId
+    }
+  
 
-    this.http.getAccount(ApiUrl.getAccount).subscribe(res => {
+    this.http.getAccount(ApiUrl.getAccount,payload).subscribe(res => {
       this.http.showLoader();
       if (res.data != undefined) {
         this.accountList = res.data;
@@ -122,7 +149,7 @@ export class AccountsComponent implements OnInit {
   editAccounts(data) {
     const dialogRef = this.dialog.open(AddEditAccountComponent, {
       panelClass: 'account-modal-main',
-      data: { isforgot: false, editdata: data }
+      data: { isforgot: false, editdata: data,groupId:this.groupId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -130,6 +157,34 @@ export class AccountsComponent implements OnInit {
       this.getAccountdata();
      
     });
+  }
+
+  getType(id){
+    console.log(id);
+  }
+
+  deleteType(id){
+    const options: SweetAlertOptions = {
+      title: 'Are you sure you want to delete this Account type?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      focusCancel: true
+    };
+    Swal.fire(options).then((result) => {
+      if (result.value) {
+
+        this.http.deleteAccountTypes(ApiUrl.deleteAccountTypes, id, false).subscribe(res => {
+          this.toastr.success('Account type deleted successfully', 'success', {
+            timeOut: 2000
+          });
+          this.getAccountTypedata();
+
+        });
+
+      }
+    })
   }
 
 

@@ -44,10 +44,11 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { AddEditAccountComponent } from './shared/modals/add-edit-account/add-edit-account.component';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { HeaderComponent } from './base/controls/header/header.component';
 import { OnlynumberDirectiveDirective } from './onlynumber-directive.directive';
 import { AddCategoryPopupComponent } from './shared/modals/add-category-popup/add-category-popup.component';
+
+
+
 
 
 
@@ -74,6 +75,7 @@ import { AddCategoryPopupComponent } from './shared/modals/add-category-popup/ad
     AddEditAccountComponent,
     OnlynumberDirectiveDirective,
     AddCategoryPopupComponent,
+   
      
   
 
@@ -113,7 +115,7 @@ import { AddCategoryPopupComponent } from './shared/modals/add-category-popup/ad
     RouterModule,
     MatNativeDateModule,
     MatMomentDateModule,
-    NgxSpinnerModule
+    
   
     
     
