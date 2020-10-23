@@ -36,24 +36,34 @@ export class AccountsComponent implements OnInit {
     return new Array(count)
   }
 
- 
-  groupId:any;
+
+  groupId: any;
   myModel: TableModel;
   search = new FormControl();
-  accountList:any = [];
-  accountTypeList:any = [];
+  accountList: any = [];
+  accountTypeList: any = [];
+  public accountreportsLabels: string[] = ['Income', 'Expense'];
+  public accountreports: number[] = [600, 100];
+
+  public accountColors: any[] = [
+    {
+      backgroundColor: [
+        '#CA858B',
+        '#8BC9D1',
+      ]
+    }
+  ];
+
   filter = [];
   isSelected: any = 0;
   isRecordSelected: any = 0;
+  resultsLength: any;
   accountType_id:any;
-
-
-
-  constructor(public http: HttpService, public activeRoute: ActivatedRoute,public sharedserive:SharedService,
+  constructor(public http: HttpService, public activeRoute: ActivatedRoute, public sharedserive: SharedService,
     private _router: Router,
     private toastr: ToastrService,
     public dialog: MatDialog) {
-   
+
 
   }
 
@@ -61,12 +71,12 @@ export class AccountsComponent implements OnInit {
 
     this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
-     if(data){
-      this.accountList = [];
-      this.accountTypeList = [];
-      this.getAccountdata();
-      this.getAccountTypedata();
-     }
+      if (data) {
+        this.accountList = [];
+        this.accountTypeList = [];
+        this.getAccountdata();
+        this.getAccountTypedata();
+      }
     });
   }
   step = 0;
@@ -86,10 +96,10 @@ export class AccountsComponent implements OnInit {
   getAccountTypedata() {
 
     var payload = {
-      "groupId":this.groupId
+      "groupId": this.groupId
     }
-  
-    this.http.getAllAccountType(ApiUrl.getAllAccountType,payload).subscribe(res => {
+
+    this.http.getAllAccountType(ApiUrl.getAllAccountType, payload).subscribe(res => {
       if (res.data != undefined) {
         this.accountTypeList = [];
         this.accountTypeList = res.data;
@@ -107,25 +117,27 @@ export class AccountsComponent implements OnInit {
   getAccountdata() {
 
     var payload = {
-      "groupId":this.groupId,
-      "pageIndex":0,
-      "limit":2,
-      "accountType":this.accountType_id
-
+      "groupId": this.groupId
     }
-  
 
-    this.http.getAccount(ApiUrl.getAccount,payload).subscribe(res => {
-    
+
+    this.http.getAccount(ApiUrl.getAccount, payload).subscribe(res => {
+      this.http.showLoader();
       if (res.data != undefined) {
         this.accountList = [];
-        this.accountList = res.data;
+        this.resultsLength = res.data.data.length;
+        this.accountList = res.data.data;
+        for (let i = 0; i < this.accountList.length; i++) {
+          this.accountList[i]['isViewAmount'] = true;
+        }
         // this.filter = res.data;
       }
     });
 
   }
-
+  toggleAmount(i) {
+    this.accountList[i]['isViewAmount'] = !this.accountList[i]['isViewAmount']
+  }
 
   deleteAccounts(id) {
     let self = this;
@@ -155,7 +167,7 @@ export class AccountsComponent implements OnInit {
   }
   recordSelected(i) {
     if (i || i == 0)
-    this.isRecordSelected = i;
+      this.isRecordSelected = i;
   }
   // filterData(i, id) {
   //   if (i || i == 0)
@@ -166,31 +178,30 @@ export class AccountsComponent implements OnInit {
   editAccounts(data) {
     const dialogRef = this.dialog.open(AddEditAccountComponent, {
       panelClass: 'account-modal-main',
-      data: { isforgot: false, editdata: data,groupId:this.groupId }
+      data: { isforgot: false, editdata: data, groupId: this.groupId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.accountTypeList = [];
-      this.accountList = [];
-      this.getAccountTypedata();
-     
+      // this.getAccountTypedata();
+      // this.getAccountdata();
+      window.location.reload()
     });
   }
 
-  getType(id,i?: any){
+  getType(id, i?: any) {
     if (i || i == 0)
-    this.isSelected = i;
-    
+      this.isSelected = i;
+
     var payload = {
-      "groupId":this.groupId,
-      "pageIndex":0,
-      "limit":2,
-      "accountType":id
+      "groupId": this.groupId,
+      "pageIndex": 0,
+      "limit": 2,
+      "accountType": id
 
     }
-  
 
-    this.http.getAccountById(ApiUrl.getAccountById,payload).subscribe(res => {
+
+    this.http.getAccountById(ApiUrl.getAccountById, payload).subscribe(res => {
       this.http.showLoader();
       if (res.data != undefined) {
         this.accountList = res.data;
@@ -199,7 +210,7 @@ export class AccountsComponent implements OnInit {
     });
   }
 
-  deleteType(id){
+  deleteType(id) {
     const options: SweetAlertOptions = {
       title: 'Are you sure you want to delete this Account type?',
       type: 'warning',

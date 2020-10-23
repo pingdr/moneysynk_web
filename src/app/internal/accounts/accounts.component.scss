@@ -121,10 +121,102 @@
         }
     }
 }
-
+.editable-tran{
+    background: #F6F6F6;
+    border-radius: 10px;
+    padding: 22px 25px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    .number {
+    }
+    .account-type {
+    }
+    .pricing-icon {
+        .price{
+           color: #FD4755;
+        }
+    }
+    .action-tab-main {
+        width: 10%;
+        .edit-btn{
+            margin-right:25px;
+            @include max-mq(1200){
+                margin-right:10px;
+            }
+        }
+    }
+}
+.main-chart-part {
+    display: flex;
+    align-items: center;
+    
+    .left-side{
+        width:40%;
+        .item{
+            position: relative;
+        }
+    }
+    .right-side{
+        width:60%;
+    }
+}
 .active-step{
         border-left: 10px solid #7299FF !important;
 }
+.main-chart-part{
+    align-items: flex-start;
+    padding: 20px;
+    justify-content: space-between;
+    .right-side{
+        margin-left: 13px;
+        margin-top:13px;
+        .expanse-total {
+            width: 70%;
+            float: right;
+        .expense-btn {
+            display: flex;
+            justify-content: space-around;
+            background: #F6F6F6;
+            color: #FD4755;
+            border-color: #FD4755;
+            padding: 14px 9px;
+            border-radius: 10px;
+            border:1px solid;
+            align-items: center;
+            margin-bottom: 20px;
+            .red-label {
+                // color: #fff;
+                font-size:10px;
+            }
+            .right-income{
+                // color: #fff;
+            }
+        }
+    }
+
+        .income-btn {
+            display: flex;
+            justify-content: space-around;
+            background: #F6F6F6;
+            color: #27AE60;
+            border-color: #27AE60;
+            border:1px solid;
+            padding: 14px 9px;
+            border-radius: 10px;
+            align-items: center;
+            
+            .green-label {
+                // color: #fff;
+                font-size:10px;
+            }
+            .right-income{
+                // color: #fff;
+            }
+        }
+    }
+}
+
 
 
 

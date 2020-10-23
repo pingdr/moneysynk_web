@@ -50,10 +50,12 @@
                                 <span>1</span></div>
                             <div class="account-type"><span>{{ data.name }}</span></div>
                             <a class="view-btn">
-                                <img style="margin-left: -57px;" src="../../../assets/images/view-eye.svg">
+                                <img style="margin-left: -57px;" (click)="toggleAmount(i)"
+                                    src="../../../assets/images/view-eye.svg">
                             </a>
                             <div class="pricing-icon">
-                                <span class="price">${{data.openingBalance}}</span>
+                                <span class="price" *ngIf="data.isViewAmount">${{data.openingBalance}}</span>
+                                <span class="price" *ngIf="!data.isViewAmount">*********</span>
                             </div>
                             <div class="action-tab-main">
                                 <a style="cursor: pointer;" (click)="editAccounts(data)" class="edit-btn" title="edit">
@@ -66,17 +68,7 @@
                             </div>
 
                         </div>
-
-                        <!-- <mat-paginator #paginator
-                        [length]="totalLength"
-                        [pageIndex]="pageIndex"
-                        [pageSize]="pageSize"
-                        [pageSizeOptions]="[10, 25, 50, 100]"
-                        (page)="getAccountdata($event)" showFirstLastButtons>
-                        </mat-paginator> -->
-
-                        
-                  
+                        <mat-paginator [length]="resultsLength" [pageSize]="10"></mat-paginator>
                         <!-- <div class="editable-account">
                             <div class="number">
                                 <span>2</span></div>
@@ -373,18 +365,44 @@
                                 <!-- summry -->
                                 <div class="tab-pane fade" id="nav-summary-tab" role="tabpanel"
                                     aria-labelledby="nav-summary-tab">
-                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit
-                                    occaecat
-                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur
-                                    veniam
-                                    sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure
-                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet
-                                    duis do
-                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui
-                                    sit.
-                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do
-                                    dolore.
-                                    Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+                                    <div class="inner-grid white-box second-button-chart">
+                                        <div class="main-chart-part">
+                                            <div class="left-side">
+                                                <div class="item">
+                                                    <canvas width="250px" height="250px" baseChart chartType="doughnut"
+                                                        [data]="accountreports" [labels]="accountreportsLabels"
+                                                        [legend]="false" [colors]="accountColors">
+                                                    </canvas>
+                                                </div>
+                                            </div>
+                                            <div class="right-side">
+                                                <div class="expanse-total">
+                                                    <div class="expense-btn">
+                                                        <span class="left-head red-label">Expense</span>
+                                                        <span class="right-income">$147.00</span>
+                                                    </div>
+                                                    <div class="income-btn">
+                                                        <span class="left-head green-label">Income</span>
+                                                        <span class="right-income">$60.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div style="padding: 20px;">
+                                            <div *ngFor="let data of [1,2,3]; let i = index" class="editable-tran">
+                                                <div class="account-type"><span>Auto</span></div>
+                                                <div class="pricing-icon">
+                                                    <span class="price"
+                                                        >$15</span>
+                                                </div>
+                                                <div class="pricing-icon">
+                                                    <span class="price-per"
+                                                        >$15</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -1,12 +1,14 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {AccountsComponent } from './accounts.component';
-import {Routes, RouterModule} from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AccountsComponent } from './accounts.component';
+import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from 'src/app/services/authguard.service';
-import {SharedModule} from '../../shared/modules/shared.module';
+import { SharedModule } from '../../shared/modules/shared.module';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgxSlickJsModule } from 'ngx-slickjs';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { ChartsModule } from 'ng2-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 const routes: Routes = [
     {
@@ -15,7 +17,7 @@ const routes: Routes = [
                 path: '',
                 component: AccountsComponent,
                 canActivate: [AuthGuardService],
-                data: {title: 'Accounts'},
+                data: { title: 'Accounts' },
             }
         ]
     }
@@ -27,20 +29,23 @@ const routes: Routes = [
     ],
     imports: [
         SharedModule,
+        ChartsModule,
+        NgxChartsModule,
         CommonModule,
+        MatPaginatorModule,
         RouterModule.forChild(routes),
         MatExpansionModule,
         MatPaginatorModule,
         NgxSlickJsModule.forRoot({
             links: {
-              jquery: "https://code.jquery.com/jquery-3.4.0.min.js",
-              slickJs: "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js",
-              slickCss: "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css",
-              slickThemeCss: "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
+                jquery: "https://code.jquery.com/jquery-3.4.0.min.js",
+                slickJs: "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js",
+                slickCss: "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css",
+                slickThemeCss: "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
             }
         })
     ],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class AccountModule {
