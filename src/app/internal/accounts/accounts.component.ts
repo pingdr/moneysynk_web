@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiUrl } from 'src/app/services/apiurl';
@@ -24,13 +24,13 @@ export class AccountsComponent implements OnInit {
   arrayLength = 10;
 
   config: Slick.Config = {
-      infinite: false,
-      slidesToShow: 6,
-      slidesToScroll: 2,
-      // dots: true,
-      // autoplay: true,
-      // autoplaySpeed: 2000 
-    }
+    infinite: false,
+    slidesToShow: 5,
+    slidesToScroll: 2,
+    // dots: true,
+    // autoplay: true,
+    // autoplaySpeed: 2000 
+  }
 
   getArray(count: number) {
     return new Array(count)
@@ -58,8 +58,8 @@ export class AccountsComponent implements OnInit {
   isSelected: any = 0;
   isRecordSelected: any = 0;
   resultsLength: any;
-  accountType_id:any;
-  constructor(public http: HttpService, public activeRoute: ActivatedRoute, public sharedserive: SharedService,
+  // accountType_id: any;
+  constructor(public http: HttpService, public activeRoute: ActivatedRoute, public changeDetect: ChangeDetectorRef, public sharedserive: SharedService,
     private _router: Router,
     private toastr: ToastrService,
     public dialog: MatDialog) {
@@ -74,8 +74,10 @@ export class AccountsComponent implements OnInit {
       if (data) {
         this.accountList = [];
         this.accountTypeList = [];
-        this.getAccountdata();
+        this.isSelected = 0
+        this.changeDetect.detectChanges();
         this.getAccountTypedata();
+        this.getAccountdata();
       }
     });
   }
@@ -105,10 +107,10 @@ export class AccountsComponent implements OnInit {
         this.accountTypeList = res.data;
         console.log('this.accountTypeList');
         console.log(this.accountTypeList);
-        this.accountType_id = res.data[0]._id;
+        // this.accountType_id = res.data[0]._id;
 
         this.getAccountdata();
-       
+
       }
     });
 

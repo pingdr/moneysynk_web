@@ -32,7 +32,7 @@
                     </span>
 
                     <span class="balance-btn">Bal:
-                        $1,913.00</span></a>
+                        ${{data.balance}}</span></a>
                 <!-- </ng-container> -->
                 <!-- <i (click)="deleteType(data._id)"><img
                     src="../../../assets/images/delete-trash.svg"></i> -->
@@ -68,7 +68,9 @@
                             </div>
 
                         </div>
-                        <mat-paginator [length]="resultsLength" [pageSize]="10"></mat-paginator>
+                        <div *ngIf="accountList.length > 10">
+                            <mat-paginator [length]="resultsLength" [pageSize]="10"></mat-paginator>
+                        </div>
                         <!-- <div class="editable-account">
                             <div class="number">
                                 <span>2</span></div>
@@ -1774,12 +1776,12 @@
             <div class="inner-expanse-panal-main">
                 <div class="left-panal">
                     <div class="first-col com-col">
-                        <span class="label">Total Expanse:</span>
-                        <span class="value">$ 147.00</span>
+                        <span class="label red-total-expanse">Total Expanse:</span>
+                        <span class="value red-total-expanse">$ 147.00</span>
                     </div>
                     <div class="second-col com-col">
-                        <span class="label">Total Income:</span>
-                        <span class="value">$60.00</span>
+                        <span class="label green-cleared">Total Income:</span>
+                        <span class="value green-cleared">$60.00</span>
                     </div>
                     <div class="first-col com-col">
                         <span class="label">Total Balance:</span>

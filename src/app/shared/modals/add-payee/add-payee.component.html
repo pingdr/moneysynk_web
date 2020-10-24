@@ -11,7 +11,7 @@
         <div class="form-group">
           <label>Name</label>
           <mat-form-field appearance="fill">
-                <input matInput placeholder="Payee Name" formControlName="name" 
+                <input matInput maxlength="26" placeholder="Payee Name" formControlName="name" 
                 [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                   <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
@@ -25,7 +25,7 @@
               <mat-label>0</mat-label>
               <mat-select formControlName="categoryId" 
               [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
-                  <mat-option value="">None</mat-option>
+                  <!-- <mat-option value="">None</mat-option> -->
                   <mat-option *ngFor="let cat of categories" [value]="cat._id">{{cat.name}}</mat-option>
                   <!-- <mat-option value="option2">200</mat-option>
                   <mat-option value="option3">300</mat-option> -->

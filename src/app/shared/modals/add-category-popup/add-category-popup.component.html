@@ -11,7 +11,7 @@
         <div class="form-group">
           <label>Name</label>
           <mat-form-field appearance="fill">
-                <input matInput placeholder="Category name" formControlName="name" 
+                <input matInput maxlength="26" placeholder="Category name" formControlName="name" 
                 [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                   <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
