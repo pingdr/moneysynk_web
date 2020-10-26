@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FormBuilder } from '@angular/forms';
 import { AddCategoryPopupComponent } from 'src/app/shared/modals/add-category-popup/add-category-popup.component';
@@ -16,12 +16,16 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
+
+  @ViewChild('deleteCategoryDialog') DeleteCategoryDialog: TemplateRef<any>;
+
   categories: any;
   type: any = "EXPENSE"
   dialogRefofOtpModal: MatDialogRef<AddCategoryPopupComponent>;
   groupId: any;
-  expenseArray:any = [];
-  incomeArray:any = [];
+  expenseArray: any = [];
+  incomeArray: any = [];
+  isApiCalling: boolean = false;
   constructor(public http: HttpService, public activeRoute: ActivatedRoute,
     private SpinnerService: NgxSpinnerService,
     private _router: Router,
@@ -46,15 +50,17 @@ export class CategoriesComponent implements OnInit {
     this.type = type;
   }
   getCategoriesData() {
+    this.isApiCalling = true;
     this.http.getCategories(ApiUrl.getCategories + "?groupId=" + this.groupId).subscribe(res => {
+      this.isApiCalling = false;
       this.http.showLoader();
       if (res.data != undefined) {
         for (let index = 0; index < res.data.length; index++) {
-            if(res.data[index].type === "EXPENSE") {
-              this.expenseArray.push(res.data[index]);
-            } else {
-              this.incomeArray.push(res.data[index]);
-            }         
+          if (res.data[index].type === "EXPENSE") {
+            this.expenseArray.push(res.data[index]);
+          } else {
+            this.incomeArray.push(res.data[index]);
+          }
         }
         // this.categories = res.data;
         // this.filter = res.data;
@@ -84,6 +90,18 @@ export class CategoriesComponent implements OnInit {
       this.expenseArray = [];
       this.getCategoriesData();
     });
+  }
+
+  deleteCategory(id) {
+    let typeDialogRef = this.dialog.open(this.DeleteCategoryDialog);
+
+    typeDialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        if (result === 'yes') {
+          console.log('clicked yes');
+        }
+      }
+    })
   }
 
 }

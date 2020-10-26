@@ -16,6 +16,7 @@ export class AddCategoryPopupComponent implements OnInit {
   submitted = false;
   public loader = false;
   allParents: any;
+  isApiCalling: boolean = false;
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, public http: HttpService, private toastr: ToastrService, public dialogRef: MatDialogRef<AddEditAccountComponent>) {
     this.Addaccountentry = this.formBuilder.group({
       // title: ['', Validators.required],
@@ -29,7 +30,9 @@ export class AddCategoryPopupComponent implements OnInit {
     this.getCategoriesData();
   }
   getCategoriesData() {
+    this.isApiCalling = true;
     this.http.getCategories(ApiUrl.getCategories + "?parent=true&groupId=" + this.data.groupId).subscribe(res => {
+      this.isApiCalling = false;
       this.http.showLoader();
       if (res.data != undefined) {
         this.allParents = res.data;
@@ -47,9 +50,12 @@ export class AddCategoryPopupComponent implements OnInit {
     if (this.Addaccountentry.invalid) {
       return;
     }
+
     this.loader = true;
+    this.isApiCalling = true;
     this.http.addEditCategory(ApiUrl.addEditCategory, this.Addaccountentry.value, false)
       .subscribe(res => {
+        this.isApiCalling = false;
         let response = res;
         if (response.statusCode == 200) {
           this.toastr.success('Account added successfully', 'success', {
@@ -60,6 +66,7 @@ export class AddCategoryPopupComponent implements OnInit {
         this.http.navigate('categories');
       },
         () => {
+          this.isApiCalling = false;
           this.loader = false;
         });
     // display form values on success

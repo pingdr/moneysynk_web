@@ -9,6 +9,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgxSlickJsModule } from 'ngx-slickjs';
 import { ChartsModule } from 'ng2-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 const routes: Routes = [
     {
@@ -35,7 +37,9 @@ const routes: Routes = [
         MatPaginatorModule,
         RouterModule.forChild(routes),
         MatExpansionModule,
+        MatDialogModule,
         MatPaginatorModule,
+        MatButtonModule,
         NgxSlickJsModule.forRoot({
             links: {
                 jquery: "https://code.jquery.com/jquery-3.4.0.min.js",
@@ -45,7 +49,7 @@ const routes: Routes = [
             }
         })
     ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 
 export class AccountModule {

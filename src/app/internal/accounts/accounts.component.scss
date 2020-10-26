@@ -1,53 +1,48 @@
 // ----Media query mixin-----------//
 @mixin min-mq($min-screen-size) {
     @media (min-width: $min-screen-size +"px") {
-    @content;
+        @content;
     }
-    }
-    
-    @mixin max-mq($max-screen-size) {
-    @media (max-width: $max-screen-size +"px") {
-    @content;
-    }
-    }
-    
-    // ----------------------------For Orientation-----------------------//
-    @mixin landscape-orientation($max-screen-size,
-    $orientation) {
-    @media (max-width: $max-screen-size +"px") and (orientation: $orientation) {
-    @content;
-    }
-    }
-    
-    @mixin btw-mq($min-screen-size,
-    $max-screen-size,
-    $pixel-ratio,
-    $orientation) {
-    @media only screen and (min-width: $min-screen-size +"px") and (max-width: $max-screen-size +"px") and (-webkit-min-device-pixel-ratio: $pixel-ratio) and (orientation: $orientation) {
-    @content;
-    }
-    }    
-// ------------END of Media Screen Mixing--------------//
+}
 
-.white-box{
+@mixin max-mq($max-screen-size) {
+    @media (max-width: $max-screen-size +"px") {
+        @content;
+    }
+}
+
+// ----------------------------For Orientation-----------------------//
+@mixin landscape-orientation($max-screen-size, $orientation) {
+    @media (max-width: $max-screen-size +"px") and (orientation: $orientation) {
+        @content;
+    }
+}
+
+@mixin btw-mq($min-screen-size, $max-screen-size, $pixel-ratio, $orientation) {
+    @media only screen and (min-width: $min-screen-size +"px") and (max-width: $max-screen-size +"px") and (-webkit-min-device-pixel-ratio: $pixel-ratio) and (orientation: $orientation) {
+        @content;
+    }
+}
+
+// ------------END of Media Screen Mixing--------------//
+.white-box {
     position: relative;
-    padding:20px 0px;
-    padding-bottom:0px;
+    padding: 20px 0px;
+    padding-bottom: 0px;
 }
 
 .asset-main-tab {
-    margin-top:10px;
+    margin-top: 10px;
     padding-bottom: 15px;
     border-bottom: 1px solid #cccccc;
-    
     .nav-tabs {
         border-bottom: 0 !important;
         width: 100%;
         // display: grid;
         // grid-template-columns: repeat(5, 1fr);
         grid-column-gap: 20px;
-        @include max-mq(1200){
-            width:85%;
+        @include max-mq(1200) {
+            width: 85%;
         }
         .nav-item {
             border: none !important;
@@ -62,9 +57,9 @@
                 font-size: 12px;
             }
         }
-        .active{
+        .active {
             color: #f5B822;
-            &::before{
+            &::before {
                 position: absolute !important;
                 content: '';
                 background: #f5b822 !important;
@@ -76,23 +71,22 @@
                 height: 3px;
                 margin: auto;
             }
-            .balance-btn{
+            .balance-btn {
                 color: #5e5e5e;
             }
         }
     }
 }
 
-
 .tab-pane {
     padding: 0px 25px;
-    @include max-mq(1200){
-        padding:0px 20px;
+    @include max-mq(1200) {
+        padding: 0px 20px;
     }
 }
 
 //----------- strips------------------
-.editable-account{
+.editable-account {
     border: 1px solid #EBEBEB;
     border-radius: 10px;
     padding: 22px 25px;
@@ -106,126 +100,121 @@
     }
     .pricing-icon {
         width: 25%;
-        .price{
-            margin-right:25px;
-           
+        .price {
+            margin-right: 25px;
         }
     }
     .action-tab-main {
         width: 10%;
-        .edit-btn{
-            margin-right:25px;
-            @include max-mq(1200){
-                margin-right:10px;
+        .edit-btn {
+            margin-right: 25px;
+            @include max-mq(1200) {
+                margin-right: 10px;
             }
         }
     }
 }
-.editable-tran{
+
+.editable-tran {
     background: #F6F6F6;
     border-radius: 10px;
     padding: 22px 25px;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-    .number {
-    }
-    .account-type {
-    }
+    .number {}
+    .account-type {}
     .pricing-icon {
-        .price{
-           color: #FD4755;
+        .price {
+            color: #FD4755;
         }
     }
     .action-tab-main {
         width: 10%;
-        .edit-btn{
-            margin-right:25px;
-            @include max-mq(1200){
-                margin-right:10px;
+        .edit-btn {
+            margin-right: 25px;
+            @include max-mq(1200) {
+                margin-right: 10px;
             }
         }
     }
 }
+
 .main-chart-part {
     display: flex;
     align-items: center;
-    
-    .left-side{
-        width:40%;
-        .item{
+    .left-side {
+        width: 40%;
+        .item {
             position: relative;
         }
     }
-    .right-side{
-        width:60%;
+    .right-side {
+        width: 60%;
     }
 }
-.active-step{
-        border-left: 10px solid #7299FF !important;
+
+.active-step {
+    border-left: 10px solid #7299FF !important;
 }
-.main-chart-part{
+
+.main-chart-part {
     align-items: flex-start;
     padding: 20px;
     justify-content: space-between;
-    .right-side{
+    .right-side {
         margin-left: 13px;
-        margin-top:13px;
+        margin-top: 13px;
         .expanse-total {
             width: 70%;
             float: right;
-        .expense-btn {
-            display: flex;
-            justify-content: space-around;
-            background: #F6F6F6;
-            color: #FD4755;
-            border-color: #FD4755;
-            padding: 14px 9px;
-            border-radius: 10px;
-            border:1px solid;
-            align-items: center;
-            margin-bottom: 20px;
-            .red-label {
-                // color: #fff;
-                font-size:10px;
-            }
-            .right-income{
-                // color: #fff;
+            .expense-btn {
+                display: flex;
+                justify-content: space-around;
+                background: #F6F6F6;
+                color: #FD4755;
+                border-color: #FD4755;
+                padding: 14px 9px;
+                border-radius: 10px;
+                border: 1px solid;
+                align-items: center;
+                margin-bottom: 20px;
+                .red-label {
+                    // color: #fff;
+                    font-size: 10px;
+                }
+                .right-income {
+                    // color: #fff;
+                }
             }
         }
-    }
-
         .income-btn {
             display: flex;
             justify-content: space-around;
             background: #F6F6F6;
             color: #27AE60;
             border-color: #27AE60;
-            border:1px solid;
+            border: 1px solid;
             padding: 14px 9px;
             border-radius: 10px;
             align-items: center;
-            
             .green-label {
                 // color: #fff;
-                font-size:10px;
+                font-size: 10px;
             }
-            .right-income{
+            .right-income {
                 // color: #fff;
             }
         }
     }
 }
 
-
-
-
-.list-main-filter{
+.list-main-filter {
     border: 1px solid rgba(114, 153, 255, 0.25);
     border-radius: 10px;
-    padding-bottom:20px;
+    padding-bottom: 20px;
     margin-top: 10px;
-    .asset-main-tab{
+    .asset-main-tab {
         display: flex;
         align-items: center;
         padding-bottom: 0;
@@ -235,34 +224,34 @@
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         padding: 14px 10px;
-        .nav{
+        .nav {
             display: flex;
             margin-top: 0;
-            width: 70%;  
+            width: 70%;
             grid-column-gap: 0;
-            @include max-mq(1200){
-                width:100%;
+            @include max-mq(1200) {
+                width: 100%;
             }
-            a{
+            a {
                 background: rgba(255, 255, 255, 0.2);
                 color: #fff;
                 padding: 9px 5px;
                 border-radius: 18px !important;
-                &::before{
+                &::before {
                     display: none;
                 }
-                &:first-child{
-                    margin-right:10px;
+                &:first-child {
+                    margin-right: 10px;
                 }
-                &:hover{
+                &:hover {
                     background: #fff;
                     color: #000;
-                    transition:0.6s all ease;
+                    transition: 0.6s all ease;
                 }
-            }     
+            }
         }
-        .filter-btn-group{
-            width:30%;
+        .filter-btn-group {
+            width: 30%;
             text-align: right;
             .filter-btn {
                 background: transparent !important;
@@ -270,20 +259,17 @@
             }
         }
     }
-    
 }
 
-
-
 // -----------------------------------total-expanse--------------------------//
-.total-expanse-panal-bottom-main{
+.total-expanse-panal-bottom-main {
     margin-top: 20px;
     background: rgba(255, 164, 18, 0.3);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 20px 20px;
     position: relative;
-    &::before{
+    &::before {
         position: absolute;
         content: '';
         background: rgba(0, 0, 0, 0.2);
@@ -293,36 +279,36 @@
         left: auto;
         right: 25%;
     }
-    .inner-expanse-panal-main{
+    .inner-expanse-panal-main {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        .left-panal{
+        .left-panal {
             width: 70%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            .com-col{
+            .com-col {
                 .label {
                     text-transform: uppercase;
                     font-size: 13px;
-                }               
+                }
                 .value {
                     margin-left: 10px;
                     font-size: 13px;
                 }
             }
         }
-        .right-total-panal{
-            width:20%;
-            .total-cleared-balance{
-                .label{
+        .right-total-panal {
+            width: 20%;
+            .total-cleared-balance {
+                .label {
                     display: block;
                     font-size: 13px;
                     text-transform: uppercase;
                     margin-bottom: 10px;
                 }
-                .bold{
+                .bold {
                     font-size: 20px;
                     font-weight: 500;
                 }
@@ -330,6 +316,7 @@
         }
     }
 }
+
 .red-total-expanse {
     color: #FD4755;
 }
@@ -337,6 +324,7 @@
 .green-cleared {
     color: #27AE60;
 }
+
 // .asset-main-tab{
 //     overflow-y:hidden;
 //     overflow-x: auto;
@@ -344,7 +332,3 @@
 //         min-width: 1500px;
 //     }
 // }
-
-
-
-

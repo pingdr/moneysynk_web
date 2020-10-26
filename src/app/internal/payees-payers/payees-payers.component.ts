@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { HttpService } from 'src/app/services/http.service';
@@ -17,7 +17,10 @@ export class PayeesPayersComponent implements OnInit {
   payersArray: any = [];
   groupId: any;
   isRecordSelected: any = 0;
+  isApiCalling: boolean = false;
   constructor(public dialog: MatDialog, public sharedserive: SharedService, public http: HttpService,) { }
+
+  @ViewChild('deletePayeeDialog') DeletePayeeDialog: TemplateRef<any>;
 
   ngOnInit(): void {
     this.sharedserive.groupChange.subscribe((data) => {
@@ -28,8 +31,11 @@ export class PayeesPayersComponent implements OnInit {
     });
   }
   step = 0;
+
   getPayees() {
+    this.isApiCalling = true;
     this.http.get(ApiUrl.getAllPayees + "?groupId=" + this.groupId).subscribe(res => {
+      this.isApiCalling = false;
       this.http.showLoader();
       if (res.data != undefined) {
         for (let index = 0; index < res.data.length; index++) {
@@ -46,7 +52,7 @@ export class PayeesPayersComponent implements OnInit {
   }
   recordSelected(i) {
     if (i || i == 0)
-    this.isRecordSelected = i;
+      this.isRecordSelected = i;
   }
 
   setStep(index: number) {
@@ -77,4 +83,17 @@ export class PayeesPayersComponent implements OnInit {
     });
   }
 
+  deletePayee(id) {
+    let typeDialogRef = this.dialog.open(this.DeletePayeeDialog);
+
+    typeDialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        if (result === 'yes') {
+          console.log('clicked yes');
+        } else {
+          this.dialog.closeAll();
+        }
+      }
+    })
+  }
 }

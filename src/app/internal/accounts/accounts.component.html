@@ -1,10 +1,11 @@
+<app-progress-bar *ngIf="isApiCalling"></app-progress-bar>
 <div class="heading-pannel">
     <div class="component-heading">
         <span>Accounts</span>
     </div>
     <div class="component-btn">
 
-        <button (click)="editAccounts()" class="btn">Add Account</button>
+        <button (click)="editAccounts()" class="btn">Add  Account</button>
 
     </div>
 </div>
@@ -16,42 +17,31 @@
     <div class="white-box">
 
         <nav class="asset-main-tab">
-            <div slickContainer #slickController="slick" [slickConfig]="config" class="nav nav-tabs nav-fill"
-                id="nav-tab" role="tablist">
-                <!-- <ng-container slickItem *ngFor="let data of accountTypeList; let i = index"> -->
+            <div slickContainer #slickController="slick" [slickConfig]="config" class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
 
-                <a slickItem *ngFor="let data of accountTypeList; let i = index" style="cursor: pointer; width: 78px;"
-                    class="nav-item nav-link" [ngClass]="{ 'active' : isSelected == i }" id="nav-home-tab"
-                    data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">
+                <a slickItem *ngFor="let data of accountTypeList; let i = index" style="cursor: pointer; width: 78px;" class="nav-item nav-link" [ngClass]="{ 'active' : isSelected == i }" id="nav-home-tab" data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">
                     <span style="position: relative;" (click)="getType(data._id,i)">
                         {{data.name }}
                         <span style="position: absolute;right: -18px;">
-                            <i (click)="deleteType(data._id)"><img style="font-size: 13px;"
+                            <i (click)="deleteType(data._id,data.name)"><img style="font-size: 13px;"
                                     src="../../../assets/images/delete-trash.svg"></i>
                         </span>
                     </span>
 
                     <span class="balance-btn">Bal:
                         ${{data.balance}}</span></a>
-                <!-- </ng-container> -->
-                <!-- <i (click)="deleteType(data._id)"><img
-                    src="../../../assets/images/delete-trash.svg"></i> -->
             </div>
         </nav>
-        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-            <!-- --------------------------first-tab----------------------- -->
-            <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
-                <div class="row">
+        <!-- <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent"> -->
+            <!-- <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab"> -->
+                <div style="padding:20px;" class="row">
                     <div class="col-8 col-md-8 col-lg-8">
-                        <div *ngFor="let data of accountList; let i = index"
-                            [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account"
-                            (click)="recordSelected(i)">
+                        <div *ngFor="let data of accountList; let i = index" [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account" (click)="recordSelected(i)">
                             <div class="number">
                                 <span>1</span></div>
                             <div class="account-type"><span>{{ data.name }}</span></div>
                             <a class="view-btn">
-                                <img style="margin-left: -57px;" (click)="toggleAmount(i)"
-                                    src="../../../assets/images/view-eye.svg">
+                                <img style="margin-left: -57px;" (click)="toggleAmount(i)" src="../../../assets/images/view-eye.svg">
                             </a>
                             <div class="pricing-icon">
                                 <span class="price" *ngIf="data.isViewAmount">${{data.openingBalance}}</span>
@@ -61,87 +51,19 @@
                                 <a style="cursor: pointer;" (click)="editAccounts(data)" class="edit-btn" title="edit">
                                     <img src="../../../assets/images/edit-pencil.svg">
                                 </a>
-                                <a class="delete-btn" style="cursor: pointer;" (click)="deleteAccounts(data._id)"
-                                    title="edit">
+                                <a class="delete-btn" href="javascript:;" style="cursor: pointer;" (click)="deleteAccounts(data._id,data.name)" title="edit">
                                     <img src="../../../assets/images/delete-trash.svg">
                                 </a>
                             </div>
 
                         </div>
-                        <div *ngIf="accountList.length > 10">
-                            <mat-paginator [length]="resultsLength" [pageSize]="10"></mat-paginator>
-                        </div>
-                        <!-- <div class="editable-account">
-                            <div class="number">
-                                <span>2</span></div>
-                            <div class="account-type"><span>My New Account</span></div>
-                            <div class="pricing-icon">
-                                <span class="price">$1,913</span>
-                                <a class="view-btn" href="#">
-                                    <img src="../../../assets/images/view-eye.svg">
-                                </a>
-                            </div>
-                            <div class="action-tab-main">
-                                <a class="edit-btn" href="#" title="edit">
-                                    <img src="../../../assets/images/edit-pencil.svg">
-                                </a>
-                                <a class="delete-btn" href="#" title="edit">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
-                            </div>
-
-                        </div>
-                        <div class="editable-account">
-                            <div class="number">
-                                <span>3</span></div>
-                            <div class="account-type"><span>Personal Account</span></div>
-                            <div class="pricing-icon">
-                                <span class="price">$1,913</span>
-                                <a class="view-btn" href="#">
-                                    <img src="../../../assets/images/view-eye.svg">
-                                </a>
-                            </div>
-                            <div class="action-tab-main">
-                                <a class="edit-btn" href="#" title="edit">
-                                    <img src="../../../assets/images/edit-pencil.svg">
-                                </a>
-                                <a class="delete-btn" href="#" title="edit">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
-                            </div>
-
-                        </div>
-                        <div class="editable-account">
-                            <div class="number">
-                                <span>4</span></div>
-                            <div class="account-type"><span>Test Account</span></div>
-                            <div class="pricing-icon">
-                                <span class="price">$1,913</span>
-                                <a class="view-btn" href="#">
-                                    <img src="../../../assets/images/view-eye.svg">
-                                </a>
-                            </div>
-                            <div class="action-tab-main">
-                                <a class="edit-btn" href="#" title="edit">
-                                    <img src="../../../assets/images/edit-pencil.svg">
-                                </a>
-                                <a class="delete-btn" href="#" title="edit">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
-                            </div>
-
-                        </div> -->
                     </div>
                     <div class="col-4 col-md-4 col-lg-4">
                         <div class="list-main-filter">
                             <nav class="asset-main-tab">
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab"
-                                        href="#nav-list-tab" role="tab" aria-controls="nav-home"
-                                        aria-selected="true">List</a>
-                                    <a class="nav-item nav-link summary-btn" id="nav-profile-tab" data-toggle="tab"
-                                        href="#nav-summary-tab" role="tab" aria-controls="nav-profile"
-                                        aria-selected="false">Summary</a>
+                                    <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab" href="#nav-list-tab" role="tab" aria-controls="nav-home" aria-selected="true">List</a>
+                                    <a class="nav-item nav-link summary-btn" id="nav-profile-tab" data-toggle="tab" href="#nav-summary-tab" role="tab" aria-controls="nav-profile" aria-selected="false">Summary</a>
                                 </div>
                                 <div class="filter-btn-group">
                                     <a href="#" class="btn filter-btn" title="Summary">
@@ -150,13 +72,10 @@
                                 </div>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                                <!-- list -->
-                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
-                                    aria-labelledby="nav-list-tab">
+                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel" aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
-                                            <!-- first-panal -->
-                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                                            <mat-expansion-panel expanded="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
                                                         Aug 2020
@@ -184,7 +103,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -203,7 +122,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -224,7 +143,6 @@
                                                 </div>
 
                                             </mat-expansion-panel>
-                                            <!-- second-panal -->
                                             <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -252,7 +170,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -271,7 +189,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -292,7 +210,6 @@
                                                 </div>
 
                                             </mat-expansion-panel>
-                                            <!-- third-panal -->
                                             <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -320,7 +237,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -339,7 +256,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -364,16 +281,12 @@
                                         </mat-accordion>
                                     </div>
                                 </div>
-                                <!-- summry -->
-                                <div class="tab-pane fade" id="nav-summary-tab" role="tabpanel"
-                                    aria-labelledby="nav-summary-tab">
+                                <div class="tab-pane fade" id="nav-summary-tab" role="tabpanel" aria-labelledby="nav-summary-tab">
                                     <div class="inner-grid white-box second-button-chart">
                                         <div class="main-chart-part">
                                             <div class="left-side">
                                                 <div class="item">
-                                                    <canvas width="250px" height="250px" baseChart chartType="doughnut"
-                                                        [data]="accountreports" [labels]="accountreportsLabels"
-                                                        [legend]="false" [colors]="accountColors">
+                                                    <canvas width="250px" height="250px" baseChart chartType="doughnut" [data]="accountreports" [labels]="accountreportsLabels" [legend]="false" [colors]="accountColors">
                                                     </canvas>
                                                 </div>
                                             </div>
@@ -395,12 +308,10 @@
                                             <div *ngFor="let data of [1,2,3]; let i = index" class="editable-tran">
                                                 <div class="account-type"><span>Auto</span></div>
                                                 <div class="pricing-icon">
-                                                    <span class="price"
-                                                        >$15</span>
+                                                    <span class="price">$15</span>
                                                 </div>
                                                 <div class="pricing-icon">
-                                                    <span class="price-per"
-                                                        >$15</span>
+                                                    <span class="price-per">$15</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -411,9 +322,8 @@
                     </div>
                 </div>
 
-            </div>
-            <!-------------------------second tab--------------------------- -->
-            <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <!-- </div> -->
+            <!-- <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8">
                         <div class="editable-account active-step">
@@ -501,12 +411,8 @@
                         <div class="list-main-filter">
                             <nav class="asset-main-tab">
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab"
-                                        href="#nav-list-tab-2" role="tab" aria-controls="nav-home"
-                                        aria-selected="true">List</a>
-                                    <a class="nav-item nav-link summary-btn" id="nav-profile-tab" data-toggle="tab"
-                                        href="#nav-summary-tab-2" role="tab" aria-controls="nav-profile"
-                                        aria-selected="false">Summary</a>
+                                    <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab" href="#nav-list-tab-2" role="tab" aria-controls="nav-home" aria-selected="true">List</a>
+                                    <a class="nav-item nav-link summary-btn" id="nav-profile-tab" data-toggle="tab" href="#nav-summary-tab-2" role="tab" aria-controls="nav-profile" aria-selected="false">Summary</a>
                                 </div>
                                 <div class="filter-btn-group">
                                     <a href="#" class="btn filter-btn" title="Summary">
@@ -515,12 +421,9 @@
                                 </div>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                                <!-- list -->
-                                <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel"
-                                    aria-labelledby="nav-list-tab">
+                                <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel" aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
-                                            <!-- first-panal -->
                                             <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -549,7 +452,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -568,7 +471,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -589,7 +492,6 @@
                                                 </div>
 
                                             </mat-expansion-panel>
-                                            <!-- second-panal -->
                                             <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -617,7 +519,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -636,7 +538,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -657,7 +559,6 @@
                                                 </div>
 
                                             </mat-expansion-panel>
-                                            <!-- third-panal -->
                                             <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -685,7 +586,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -704,7 +605,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -729,21 +630,10 @@
                                         </mat-accordion>
                                     </div>
                                 </div>
-                                <!-- summry -->
-                                <div class="tab-pane fade" id="nav-summary-tab-2" role="tabpanel"
-                                    aria-labelledby="nav-summary-tab">
-                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit
-                                    occaecat
-                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur
-                                    veniam
-                                    sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure
-                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet
-                                    duis do
-                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui
-                                    sit.
-                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do
-                                    dolore.
-                                    Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+                                <div class="tab-pane fade" id="nav-summary-tab-2" role="tabpanel" aria-labelledby="nav-summary-tab">
+                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt
+                                    irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit
+                                    do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
                                 </div>
                             </div>
                         </div>
@@ -751,7 +641,6 @@
                 </div>
 
             </div>
-            <!-----------------------------third-tab ----------------------->
             <div class="tab-pane fade" id="nav-checking" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8">
@@ -840,12 +729,8 @@
                         <div class="list-main-filter">
                             <nav class="asset-main-tab">
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab"
-                                        href="#nav-list-tab-3" role="tab" aria-controls="nav-home"
-                                        aria-selected="true">List</a>
-                                    <a class="nav-item nav-link summary-btn" id="nav-profile-tab" data-toggle="tab"
-                                        href="#nav-summary-tab-3" role="tab" aria-controls="nav-profile"
-                                        aria-selected="false">Summary</a>
+                                    <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab" href="#nav-list-tab-3" role="tab" aria-controls="nav-home" aria-selected="true">List</a>
+                                    <a class="nav-item nav-link summary-btn" id="nav-profile-tab" data-toggle="tab" href="#nav-summary-tab-3" role="tab" aria-controls="nav-profile" aria-selected="false">Summary</a>
                                 </div>
                                 <div class="filter-btn-group">
                                     <a href="#" class="btn filter-btn" title="Summary">
@@ -854,12 +739,9 @@
                                 </div>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                                <!-- list -->
-                                <div class="tab-pane fade show active" id="nav-list-tab-3" role="tabpanel"
-                                    aria-labelledby="nav-list-tab">
+                                <div class="tab-pane fade show active" id="nav-list-tab-3" role="tabpanel" aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
-                                            <!-- first-panal -->
                                             <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -888,7 +770,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -907,7 +789,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -928,7 +810,6 @@
                                                 </div>
 
                                             </mat-expansion-panel>
-                                            <!-- second-panal -->
                                             <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -956,7 +837,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -975,7 +856,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -996,7 +877,6 @@
                                                 </div>
 
                                             </mat-expansion-panel>
-                                            <!-- third-panal -->
                                             <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -1024,7 +904,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1043,7 +923,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1068,28 +948,16 @@
                                         </mat-accordion>
                                     </div>
                                 </div>
-                                <!-- summry -->
-                                <div class="tab-pane fade" id="nav-summary-tab-3" role="tabpanel"
-                                    aria-labelledby="nav-summary-tab">
-                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit
-                                    occaecat
-                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur
-                                    veniam
-                                    sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure
-                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet
-                                    duis do
-                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui
-                                    sit.
-                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do
-                                    dolore.
-                                    Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+                                <div class="tab-pane fade" id="nav-summary-tab-3" role="tabpanel" aria-labelledby="nav-summary-tab">
+                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt
+                                    irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit
+                                    do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-----------------------------fourth-tab----------------------->
             <div class="tab-pane fade" id="nav-card" role="tabpanel" aria-labelledby="nav-about-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8">
@@ -1178,12 +1046,8 @@
                         <div class="list-main-filter">
                             <nav class="asset-main-tab">
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab"
-                                        href="#nav-list-tab-4" role="tab" aria-controls="nav-home"
-                                        aria-selected="true">List</a>
-                                    <a class="nav-item nav-link summary-btn" id="nav-profile-tab" data-toggle="tab"
-                                        href="#nav-summary-tab-4" role="tab" aria-controls="nav-profile"
-                                        aria-selected="false">Summary</a>
+                                    <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab" href="#nav-list-tab-4" role="tab" aria-controls="nav-home" aria-selected="true">List</a>
+                                    <a class="nav-item nav-link summary-btn" id="nav-profile-tab" data-toggle="tab" href="#nav-summary-tab-4" role="tab" aria-controls="nav-profile" aria-selected="false">Summary</a>
                                 </div>
                                 <div class="filter-btn-group">
                                     <a href="#" class="btn filter-btn" title="Summary">
@@ -1192,12 +1056,9 @@
                                 </div>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                                <!-- list -->
-                                <div class="tab-pane fade show active" id="nav-list-tab-4" role="tabpanel"
-                                    aria-labelledby="nav-list-tab">
+                                <div class="tab-pane fade show active" id="nav-list-tab-4" role="tabpanel" aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
-                                            <!-- first-panal -->
                                             <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -1226,7 +1087,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1245,7 +1106,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1266,7 +1127,6 @@
                                                 </div>
 
                                             </mat-expansion-panel>
-                                            <!-- second-panal -->
                                             <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -1294,7 +1154,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1313,7 +1173,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1334,7 +1194,6 @@
                                                 </div>
 
                                             </mat-expansion-panel>
-                                            <!-- third-panal -->
                                             <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -1362,7 +1221,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1381,7 +1240,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1406,21 +1265,10 @@
                                         </mat-accordion>
                                     </div>
                                 </div>
-                                <!-- summry -->
-                                <div class="tab-pane fade" id="nav-summary-tab-4" role="tabpanel"
-                                    aria-labelledby="nav-summary-tab">
-                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit
-                                    occaecat
-                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur
-                                    veniam
-                                    sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure
-                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet
-                                    duis do
-                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui
-                                    sit.
-                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do
-                                    dolore.
-                                    Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+                                <div class="tab-pane fade" id="nav-summary-tab-4" role="tabpanel" aria-labelledby="nav-summary-tab">
+                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt
+                                    irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit
+                                    do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
                                 </div>
                             </div>
                         </div>
@@ -1428,7 +1276,6 @@
                 </div>
             </div>
 
-            <!-----------------------------fifth-tab----------------------->
             <div class="tab-pane fade" id="nav-debit" role="tabpanel" aria-labelledby="nav-about-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8">
@@ -1517,12 +1364,8 @@
                         <div class="list-main-filter">
                             <nav class="asset-main-tab">
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab"
-                                        href="#nav-list-tab-5" role="tab" aria-controls="nav-home"
-                                        aria-selected="true">List</a>
-                                    <a class="nav-item nav-link summary-btn" id="nav-profile-tab" data-toggle="tab"
-                                        href="#nav-summary-tab-5" role="tab" aria-controls="nav-profile"
-                                        aria-selected="false">Summary</a>
+                                    <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab" href="#nav-list-tab-5" role="tab" aria-controls="nav-home" aria-selected="true">List</a>
+                                    <a class="nav-item nav-link summary-btn" id="nav-profile-tab" data-toggle="tab" href="#nav-summary-tab-5" role="tab" aria-controls="nav-profile" aria-selected="false">Summary</a>
                                 </div>
                                 <div class="filter-btn-group">
                                     <a href="#" class="btn filter-btn" title="Summary">
@@ -1531,13 +1374,9 @@
                                 </div>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                                <!-- list -->
-                                <div class="tab-pane fade show active" id="nav-list-tab-5" role="tabpanel"
-                                    aria-labelledby="nav-list-tab">
-                                    <!-- first-expansion -->
+                                <div class="tab-pane fade show active" id="nav-list-tab-5" role="tabpanel" aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
-                                            <!-- first-panal -->
                                             <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -1566,7 +1405,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1585,7 +1424,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1606,7 +1445,6 @@
                                                 </div>
 
                                             </mat-expansion-panel>
-                                            <!-- second-panal -->
                                             <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -1634,7 +1472,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1653,7 +1491,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1674,7 +1512,6 @@
                                                 </div>
 
                                             </mat-expansion-panel>
-                                            <!-- third-panal -->
                                             <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
@@ -1702,7 +1539,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1721,7 +1558,7 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
+                                                
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -1747,31 +1584,21 @@
                                     </div>
 
                                 </div>
-                                <!-- summry -->
-                                <div class="tab-pane fade" id="nav-summary-tab-5" role="tabpanel"
-                                    aria-labelledby="nav-summary-tab">
-                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit
-                                    occaecat
-                                    qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur
-                                    veniam
-                                    sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure
-                                    incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet
-                                    duis do
-                                    nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui
-                                    sit.
-                                    Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do
-                                    dolore.
-                                    Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+                                <div class="tab-pane fade" id="nav-summary-tab-5" role="tabpanel" aria-labelledby="nav-summary-tab">
+                                    Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt
+                                    irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit
+                                    do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
+        <!-- </div> -->
+        <div *ngIf="accountList.length > 10">
+            <mat-paginator [length]="resultsLength" [pageSize]="10"></mat-paginator>
         </div>
 
-
-        <!------------------------------ total Expanse Panal-------------------------->
         <div class="total-expanse-panal-bottom-main">
             <div class="inner-expanse-panal-main">
                 <div class="left-panal">
@@ -1799,4 +1626,27 @@
 
     </div>
 
-</div>
+    <div class="delete-dialog">
+        <ng-template #deleteAccountTypeDialog>
+            <h2 matDialogTitle>Delete Account Type?</h2>
+            <p style="margin: 15px 0 20px 0;color: gray;font-size: 16px;">
+                Are you sure you want to delete <br/> {{accountName}} Account Type?
+            </p>
+            <mat-dialog-actions>
+                <button mat-raised-button color="warn" matDialogClose="yes">Confirm</button>
+                <button mat-stroked-button color="primary" matDialogClose="no">Cancle</button>
+            </mat-dialog-actions>
+        </ng-template>
+    </div>
+    <div class="delete-category-dialog">
+        <ng-template #deleteAccountDialog>
+            <h2 matDialogTitle>Delete Account?</h2>
+            <p style="margin: 15px 0 20px 0;color: gray;font-size: 16px;">
+                Are you sure you want to delete <br/> {{accountName}} Account?
+            </p>
+            <mat-dialog-actions>
+                <button mat-raised-button color="warn" matDialogClose="yes">Confirm</button>
+                <button mat-stroked-button color="primary" matDialogClose="no">Cancle</button>
+            </mat-dialog-actions>
+        </ng-template>
+    </div>

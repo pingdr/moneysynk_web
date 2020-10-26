@@ -1,10 +1,11 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Routes, RouterModule} from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from 'src/app/services/authguard.service';
-import {SharedModule} from '../../shared/modules/shared.module';
+import { SharedModule } from '../../shared/modules/shared.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PayeesPayersComponent } from './payees-payers.component';
+import { MatButtonModule } from '@angular/material/button';
 
 const routes: Routes = [
     {
@@ -13,7 +14,7 @@ const routes: Routes = [
                 path: '',
                 component: PayeesPayersComponent,
                 canActivate: [AuthGuardService],
-                data: {title: 'Categories'},
+                data: { title: 'Categories' },
             }
         ]
     }
@@ -27,9 +28,10 @@ const routes: Routes = [
         SharedModule,
         CommonModule,
         RouterModule.forChild(routes),
-        MatExpansionModule
+        MatExpansionModule,
+        MatButtonModule
     ],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class PayessPayersModule {

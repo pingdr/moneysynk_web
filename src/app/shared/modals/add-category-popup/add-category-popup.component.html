@@ -5,62 +5,57 @@
     </button>
 </div>
 
-
+<mat-progress-bar *ngIf="isApiCalling" mode="indeterminate"></mat-progress-bar>
 <div class="form-group-main add-account-section">
     <form class="add-account-entry" [formGroup]="Addaccountentry" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label>Name</label>
-          <mat-form-field appearance="fill">
-                <input matInput maxlength="26" placeholder="Category name" formControlName="name" 
-                [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+            <label>Name</label>
+            <mat-form-field appearance="fill">
+                <input matInput maxlength="26" placeholder="Category name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                  <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
-              </div>
-          </mat-form-field>
-        </div>   
+                    <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                </div>
+            </mat-form-field>
+        </div>
         <div class="form-group">
-          <label>Icon</label>
-          <mat-form-field appearance="fill">
-            <input matInput formControlName="icon" 
-            [ngClass]="{ 'is-invalid': submitted && f.icon.errors }">
-            <div *ngIf="submitted && f.icon.errors" class="invalid-feedback">
-              <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
-            </div>
-            <a class="add-icon">
-              <img src="../../../assets/images/plus-icon.svg">
-            </a>
-          </mat-form-field>
-  
+            <label>Icon</label>
+            <mat-form-field appearance="fill">
+                <input matInput formControlName="icon" [ngClass]="{ 'is-invalid': submitted && f.icon.errors }">
+                <div *ngIf="submitted && f.icon.errors" class="invalid-feedback">
+                    <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                </div>
+                <a class="add-icon">
+                    <img src="../../../assets/images/plus-icon.svg">
+                </a>
+            </mat-form-field>
+
         </div>
         <div class="form-group opening-balance">
             <label>Parent category</label>
             <mat-form-field appearance="fill">
-              <mat-label>0</mat-label>
-              <mat-select formControlName="parent" 
-              [ngClass]="{ 'is-invalid': submitted && f.parent.errors }">
-                  <mat-option>None</mat-option>
-                  <mat-option *ngFor="let p of allParents" [value]="p._id">{{p.name}}</mat-option>
-              </mat-select>
-              <div *ngIf="submitted && f.parent.errors" class="invalid-feedback">
-                <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
-              </div>
+                <mat-label>0</mat-label>
+                <mat-select formControlName="parent" [ngClass]="{ 'is-invalid': submitted && f.parent.errors }">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let p of allParents" [value]="p._id">{{p.name}}</mat-option>
+                </mat-select>
+                <div *ngIf="submitted && f.parent.errors" class="invalid-feedback">
+                    <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                </div>
             </mat-form-field>
-          </div>
-        <div class="form-group">
-          <label>Note</label>
-          <mat-form-field appearance="fill">
-            <input matInput placeholder="Add note here" formControlName="note" 
-            [ngClass]="{ 'is-invalid': submitted && f.note.errors }">
-            <div *ngIf="submitted && f.note.errors" class="invalid-feedback">
-              <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
-            </div>
-          </mat-form-field>
         </div>
-   
-    <div class="last-section">
-      <button class="btn"> Save</button>
-    </div>
-  </form>
-  
-  </div>
-    
+        <div class="form-group">
+            <label>Note</label>
+            <mat-form-field appearance="fill">
+                <input matInput placeholder="Add note here" formControlName="note" [ngClass]="{ 'is-invalid': submitted && f.note.errors }">
+                <div *ngIf="submitted && f.note.errors" class="invalid-feedback">
+                    <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                </div>
+            </mat-form-field>
+        </div>
+
+        <div class="last-section">
+            <button class="btn"> Save</button>
+        </div>
+    </form>
+
+</div>

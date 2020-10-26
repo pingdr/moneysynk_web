@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiUrl } from 'src/app/services/apiurl';
@@ -20,9 +20,12 @@ import { Slick } from 'ngx-slickjs';
 })
 export class AccountsComponent implements OnInit {
 
+  @ViewChild('deleteAccountDialog') DeleteAccountDialog: TemplateRef<any>;
+  @ViewChild('deleteAccountTypeDialog') DeleteAccountTypeDialog: TemplateRef<any>;
 
   arrayLength = 10;
-
+  isApiCalling: boolean = false;
+  accountName: string = '';
   config: Slick.Config = {
     infinite: false,
     slidesToShow: 5,
@@ -58,7 +61,7 @@ export class AccountsComponent implements OnInit {
   isSelected: any = 0;
   isRecordSelected: any = 0;
   resultsLength: any;
-  // accountType_id: any;
+  accountType_id: any;
   constructor(public http: HttpService, public activeRoute: ActivatedRoute, public changeDetect: ChangeDetectorRef, public sharedserive: SharedService,
     private _router: Router,
     private toastr: ToastrService,
@@ -77,7 +80,7 @@ export class AccountsComponent implements OnInit {
         this.isSelected = 0
         this.changeDetect.detectChanges();
         this.getAccountTypedata();
-        this.getAccountdata();
+        // this.getAccountdata();
       }
     });
   }
@@ -95,6 +98,7 @@ export class AccountsComponent implements OnInit {
     this.step--;
   }
 
+
   getAccountTypedata() {
 
     var payload = {
@@ -107,7 +111,7 @@ export class AccountsComponent implements OnInit {
         this.accountTypeList = res.data;
         console.log('this.accountTypeList');
         console.log(this.accountTypeList);
-        // this.accountType_id = res.data[0]._id;
+        this.accountType_id = res.data[0]._id;
 
         this.getAccountdata();
 
@@ -119,11 +123,15 @@ export class AccountsComponent implements OnInit {
   getAccountdata() {
 
     var payload = {
-      "groupId": this.groupId
+      "groupId": this.groupId,
+      pageIndex: 0,
+      limit:10,
+      accountType:this.accountType_id
     }
 
-
+    this.isApiCalling = true;
     this.http.getAccount(ApiUrl.getAccount, payload).subscribe(res => {
+      this.isApiCalling = false;
       this.http.showLoader();
       if (res.data != undefined) {
         this.accountList = [];
@@ -141,32 +149,55 @@ export class AccountsComponent implements OnInit {
     this.accountList[i]['isViewAmount'] = !this.accountList[i]['isViewAmount']
   }
 
-  deleteAccounts(id) {
+  deleteAccounts(id, name) {
     let self = this;
-    const options: SweetAlertOptions = {
-      title: 'Are you sure you want to delete this Account?',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
-      focusCancel: true
-    };
-    Swal.fire(options).then((result) => {
-      if (result.value) {
-
-        this.http.deleteAccount(ApiUrl.deleteAccount, id, false).subscribe(res => {
-          this.toastr.success('Account deleted successfully', 'success', {
-            timeOut: 2000
+    this.accountName = name;
+    let dialogRef = this.dialog.open(this.DeleteAccountDialog);
+    dialogRef.afterClosed().subscribe(result => {
+      // Note: If the user clicks outside the dialog or presses the escape key, there'll be no result
+      if (result !== undefined) {
+        if (result === 'yes') {
+          this.http.deleteAccount(ApiUrl.deleteAccount, id, false).subscribe(res => {
+            this.toastr.success('Account deleted successfully', 'success', {
+              timeOut: 2000
+            });
+            this.getAccountdata();
           });
-          this.getAccountdata();
-
-        });
-
+        } else if (result === 'no') {
+          console.log('User clicked no.');
+        }
       }
     })
 
+    // const options: SweetAlertOptions = {
+    //   title: 'Are you sure you want to delete this Account?',
+    //   type: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonText: "Confirm",
+    //   cancelButtonText: "No",
+    //   focusCancel: true,
+    // };
+    // Swal.fire(options).then((result) => {
+    //   if (result.value) {
 
+    //     this.http.deleteAccount(ApiUrl.deleteAccount, id, false).subscribe(res => {
+    //       this.toastr.success('Account deleted successfully', 'success', {
+    //         timeOut: 2000
+    //       });
+    //       this.getAccountdata();
+
+    //     });
+
+    //   }
+    // })
   }
+
+
+  // }
+
+  // openDeleteAccountDialog(id) {
+  //     this.dialog.open()
+  // }
   recordSelected(i) {
     if (i || i == 0)
       this.isRecordSelected = i;
@@ -193,51 +224,71 @@ export class AccountsComponent implements OnInit {
   getType(id, i?: any) {
     if (i || i == 0)
       this.isSelected = i;
-
+    this.accountType_id = id
     var payload = {
       "groupId": this.groupId,
       "pageIndex": 0,
-      "limit": 2,
+      "limit": 10,
       "accountType": id
 
     }
 
-
+    this.isApiCalling = true;
     this.http.getAccountById(ApiUrl.getAccountById, payload).subscribe(res => {
+      this.isApiCalling = false;
       this.http.showLoader();
       if (res.data != undefined) {
-        this.accountList = res.data;
+        this.accountList = res.data.data;
         // this.filter = res.data;
       }
     });
   }
 
-  deleteType(id) {
-    const options: SweetAlertOptions = {
-      title: 'Are you sure you want to delete this Account type?',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
-      focusCancel: true
-    };
-    Swal.fire(options).then((result) => {
-      if (result.value) {
+  deleteType(id, categoryName) {
+    this.accountName = categoryName;
+    let typeDialogRef = this.dialog.open(this.DeleteAccountTypeDialog);
 
-        this.http.deleteAccountTypes(ApiUrl.deleteAccountTypes, id, false).subscribe(res => {
-          this.toastr.success('Account type deleted successfully', 'success', {
-            timeOut: 2000
+    typeDialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        if (result === 'yes') {
+          this.http.deleteAccountTypes(ApiUrl.deleteAccountTypes, id, false).subscribe(res => {
+            this.toastr.success('Account type deleted successfully', 'success', {
+              timeOut: 2000
+            });
+            this.getAccountTypedata();
+
+          }, () => {
+            this.toastr.error('Something went wrong', 'OOPS!');
           });
-          this.getAccountTypedata();
-
-        });
-
+        }
       }
     })
+
+
+    // const options: SweetAlertOptions = {
+    //   title: 'Are you sure you want to delete this Account type?',
+    //   type: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonText: "Yes",
+    //   cancelButtonText: "No",
+    //   focusCancel: true
+    // };
+    // Swal.fire(options).then((result) => {
+    //   if (result.value) {
+
+    //     this.http.deleteAccountTypes(ApiUrl.deleteAccountTypes, id, false).subscribe(res => {
+    //       this.toastr.success('Account type deleted successfully', 'success', {
+    //         timeOut: 2000
+    //       });
+    //       this.getAccountTypedata();
+
+    //     });
+
+    //   }
+    // })
   }
 
-
-
-
-
 }
+
+
+

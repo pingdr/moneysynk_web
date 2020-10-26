@@ -45,7 +45,7 @@ export class SignupComponent implements OnInit {
           localStorage.removeItem('rememberMe');
           localStorage.removeItem('rememberData');
         }
-        localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
+        localStorage.setItem('accessToken', res.data.accessToken);
         localStorage.setItem('loginData', JSON.stringify(res.data));
         console.log('signup');
         console.log(res.data);
