@@ -4,18 +4,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from 'src/app/services/authguard.service';
 import { SharedModule } from '../../shared/modules/shared.module';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { PayeesPayersComponent } from './payees-payers.component';
 import { MatButtonModule } from '@angular/material/button';
-import { ToastrModule } from 'ngx-toastr';
+import { TransactionComponent } from './transaction.component';
 
 const routes: Routes = [
     {
         path: '', children: [
             {
                 path: '',
-                component: PayeesPayersComponent,
+                component: TransactionComponent,
                 canActivate: [AuthGuardService],
-                data: { title: 'Categories' },
+                data: { title: 'Budget' },
             }
         ]
     }
@@ -23,18 +22,17 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        PayeesPayersComponent
+        TransactionComponent
     ],
     imports: [
         SharedModule,
         CommonModule,
         RouterModule.forChild(routes),
         MatExpansionModule,
-        MatButtonModule,
-        ToastrModule
+        MatButtonModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
-export class PayessPayersModule {
+export class TransactionModule {
 }

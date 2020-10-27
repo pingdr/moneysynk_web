@@ -961,3 +961,75 @@ body {
         outline: none !important;
     }
 }
+.budget-main {
+    border: 1px solid #EBEBEB;
+    border-radius: 11px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    margin-bottom: 8px;
+    cursor: pointer;
+    &:last-child{
+        margin-bottom: 0px;
+    }
+    .progress-inner{
+        width: 50%;
+        .first-row{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            .name-budget{
+                font-size: 12px;
+                line-height: 12px;
+            }
+            .link-name{
+                a{
+                    color: #7299FF;
+                    font-size: 11px;
+                }
+            }
+        }
+        .second-row{
+            .mat-progress-bar{
+                height: 6px !important;
+                border-radius: 3px !important;
+                .mat-progress-bar-buffer {
+                    background-color: #F6F6F6 !important;
+                }
+                .mat-progress-bar-fill{
+                    &::after{
+                        background-color: #FBC646 !important;
+                    }
+                }
+            }
+        }
+    }
+    .dollar-priceing{
+        display: flex;
+        align-items: center;
+        .red{
+            color: #FD4755;
+        }
+        .color-grey{
+            font-size: 10px;
+            margin-left: 8px;
+        }
+    }
+}
+
+
+.active-budget{
+    position: relative;
+    &::before{
+        position: absolute;
+        content: '';
+        background: #7299FF;
+        width: 13px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: 10px 0px 0px 10px;
+    }
+}

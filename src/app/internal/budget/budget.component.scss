@@ -1,40 +1,45 @@
 // ----Media query mixin-----------//
 @mixin min-mq($min-screen-size) {
     @media (min-width: $min-screen-size +"px") {
-        @content;
+    @content;
     }
-}
-
-@mixin max-mq($max-screen-size) {
+    }
+    
+    @mixin max-mq($max-screen-size) {
     @media (max-width: $max-screen-size +"px") {
-        @content;
+    @content;
     }
-}
-
-// ----------------------------For Orientation-----------------------//
-@mixin landscape-orientation($max-screen-size, $orientation) {
+    }
+    
+    // ----------------------------For Orientation-----------------------//
+    @mixin landscape-orientation($max-screen-size,
+    $orientation) {
     @media (max-width: $max-screen-size +"px") and (orientation: $orientation) {
-        @content;
+    @content;
     }
-}
-
-@mixin btw-mq($min-screen-size, $max-screen-size, $pixel-ratio, $orientation) {
+    }
+    
+    @mixin btw-mq($min-screen-size,
+    $max-screen-size,
+    $pixel-ratio,
+    $orientation) {
     @media only screen and (min-width: $min-screen-size +"px") and (max-width: $max-screen-size +"px") and (-webkit-min-device-pixel-ratio: $pixel-ratio) and (orientation: $orientation) {
-        @content;
+    @content;
     }
-}
-
+    }    
 // ------------END of Media Screen Mixing--------------//
-.white-box {
+
+.white-box{
     position: relative;
-    padding: 20px 0px;
-    padding-bottom: 0px;
+    padding:20px 0px;
+    padding-bottom:0px;
 }
 
 .asset-main-tab {
-    margin-top: 5px;
-    padding-bottom: 20px;
+    margin-top:5px;
+    padding-bottom:20px;
     border-bottom: 1px solid #cccccc;
+    
     .nav-tabs {
         border-bottom: 0 !important;
         width: 19%;
@@ -42,8 +47,8 @@
         grid-template-columns: repeat(2, 1fr);
         grid-column-gap: 20px;
         margin-left: 20px;
-        @include max-mq(1200) {
-            width: 30%;
+        @include max-mq(1200){
+            width:30%;
         }
         .nav-item {
             border: none !important;
@@ -55,27 +60,30 @@
             padding: 9px 0px;
             border-radius: 18px !important;
             background: #f6f6f6;
-            &:hover {
+    
+            &:hover{
                 background: #7299FF;
-                color: #fff;
+                color:#fff;
             }
         }
-        .active {
+        .active{
             background: #7299FF;
-            color: #fff;
+            color:#fff;
+           
         }
     }
 }
 
+
 .tab-pane {
     padding: 0px 25px;
-    @include max-mq(1200) {
-        padding: 0px 20px;
+    @include max-mq(1200){
+        padding:0px 20px;
     }
 }
 
 //----------- strips------------------
-.editable-account {
+.editable-account{
     border: 1px solid #EBEBEB;
     border-radius: 10px;
     padding: 22px 25px;
@@ -89,32 +97,35 @@
     }
     .pricing-icon {
         width: 25%;
-        .price {
-            margin-right: 25px;
+        .price{
+            margin-right:25px;
+           
         }
     }
     .action-tab-main {
         width: 10%;
-        .edit-btn {
-            margin-right: 25px;
+        .edit-btn{
+            margin-right:25px;
             cursor: pointer;
-            @include max-mq(1200) {
-                margin-right: 10px;
+            @include max-mq(1200){
+                margin-right:10px;
             }
         }
     }
 }
 
-.active-step {
-    border-left: 10px solid #7299FF !important;
+.active-step{
+        border-left: 10px solid #7299FF !important;
 }
 
-.list-main-filter {
+
+
+.list-main-filter{
     border: 1px solid rgba(114, 153, 255, 0.25);
     border-radius: 10px;
-    padding-bottom: 20px;
+    padding-bottom:20px;
     margin-top: 0px;
-    .asset-main-tab {
+    .asset-main-tab{
         display: flex;
         align-items: center;
         padding-bottom: 0;
@@ -124,16 +135,19 @@
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         padding: 20px 20px;
-        span {
-            color: #fff;
-            font-weight: 700;
-            font-size: 15px;
-        }
+       span{
+        color: #fff;
+        font-weight: 700;
+        font-size: 15px;
+       }
     }
+    
 }
 
+
+
 // -----------------------------------total-expanse--------------------------//
-.total-expanse-panal-bottom-main {
+.total-expanse-panal-bottom-main{
     margin-top: 20px;
     background: rgba(255, 164, 18, 0.3);
     border-bottom-left-radius: 10px;
@@ -150,16 +164,16 @@
     //     left: auto;
     //     right: 25%;
     // }
-    .inner-expanse-panal-main {
+    .inner-expanse-panal-main{
         display: flex;
         align-items: center;
         justify-content: space-between;
-        .left-panal {
+        .left-panal{
             width: 100%;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             text-align: center;
-            .com-col {
+            .com-col{
                 .label {
                     text-transform: uppercase;
                     font-size: 13px;
@@ -167,13 +181,17 @@
                     margin-bottom: 15px;
                 }
                 .value {
+                    
                     font-size: 20px;
                     font-weight: bold;
                 }
             }
         }
+        
     }
 }
+
+
 
 .red-total-expanse {
     color: #FD4755;
@@ -203,11 +221,45 @@
     right: 33%;
 }
 
-.display-flex {
+
+.list-main-filter{
+    .asset-main-tab{
+        justify-content: space-between;
+        .add-insurance{
+            a{
+                background: rgba(255, 255, 255, 0.3);
+                padding: 7px 8px;
+                border-radius: 100%;
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}
+
+
+.transfer-main{
     display: flex;
-    width: 100%;
-    margin-top: 40px;
-    button {
-        width: 100%;
+    align-items: center;
+    justify-content: center;
+    .transfer {
+        font-size: 14px;
+        color: #5E5E5E;
+        border: 1px solid #5e5e5e;
+        padding: 10px 30px !important;
+        border-radius: 300px;
+        line-height: 21px;
+        padding-left: 60px !important;
+        position: relative;
+        text-decoration: none !important;
+        &::before{
+            position: absolute;
+            content: '';
+            background: url(../../../assets/images/transfer-icon.svg) no-repeat;
+            background-size: 100% 100%;
+            width: 20px;
+            height: 20px;
+            left: 25px;
+        }
     }
 }

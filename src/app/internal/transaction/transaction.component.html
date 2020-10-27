@@ -1,0 +1,723 @@
+<div class="heading-pannel">
+    <div class="component-heading"> 
+        <span>Transaction</span>
+    </div>
+    <div class="component-btn">
+           
+        <button class="btn">Add Transaction</button>
+    </div>
+</div>
+
+
+
+<!-------------------------------trasaction table-start-------------------------- -->
+
+<div class="white-box">
+    <nav class="asset-main-tab">
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Daily</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Weekly</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-monthly" role="tab" aria-controls="nav-profile" aria-selected="false">Monthly</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-quaterly" role="tab" aria-controls="nav-profile" aria-selected="false">Quaterly</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-yearly" role="tab" aria-controls="nav-profile" aria-selected="false">Yearly</a>
+        
+        </div>
+        <div class="filter-main">
+            <div class="left-col">
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <mat-form-field appearance="fill">
+                      
+                        <input matInput [matDatepicker]="picker1" formControlName="Opendate" >
+                        
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <label>End Date</label>
+                    <mat-form-field appearance="fill">
+                      
+                        <input matInput [matDatepicker]="picker2" formControlName="Opendate" >
+                        
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="search-btn right-col">
+                <button class="btn search-btn">
+                        <img src="../../../assets/images/search-mirror.svg">
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+        <!-- --------------------------first-tab----------------------- -->
+        <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="search-and-print-panal">
+                <div class="left-search-bar">
+                    <input type="text" formcontrolname="Search" placeholder="Search Here..." class="form-control">
+                </div>
+                <div class="right-print-btn">
+                    <a class="report-print" href="#">Export CSV</a>
+                </div>
+            </div>
+        
+            <!---------------------------Table--------------------------------------->
+            <div class="table-main">
+                <table class="tran-table">
+                    <thead>
+                        <tr>
+                            <th class="sr-no">Sr No.</th>
+                            <th class="payee">Payee</th>
+                            <th class="amount">Amount</th>
+                            <th class="account-type">Account Type</th>
+                            <th class="category">Category</th>
+                            <th class="created-date"> Created Date </th>
+                            <th class="class-name">Class</th>
+                            <th class="action"> Actions</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sr-no">1</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span> </td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">2</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">3</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">4</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">5</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                    </tbody>
+        
+                </table>
+        
+            </div>
+        </div>
+        <!-------------------------second tab--------------------------- -->
+        <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="search-and-print-panal">
+                <div class="left-search-bar">
+                    <input type="text" formcontrolname="Search" placeholder="Search Here..." class="form-control">
+                </div>
+                <div class="right-print-btn">
+                    <a class="report-print" href="#">Export CSV</a>
+                </div>
+            </div>
+        
+            <!---------------------------Table--------------------------------------->
+            <div class="table-main">
+                <table class="tran-table">
+                    <thead>
+                        <tr>
+                            <th class="sr-no">Sr No.</th>
+                            <th class="payee">Payee</th>
+                            <th class="amount">Amount</th>
+                            <th class="account-type">Account Type</th>
+                            <th class="category">Category</th>
+                            <th class="created-date"> Created Date </th>
+                            <th class="class-name">Class</th>
+                            <th class="action"> Actions</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sr-no">1</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span> </td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">2</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">3</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">4</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">5</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                    </tbody>
+        
+                </table>
+        
+            </div>
+
+        </div>
+          <!-------------------------third tab--------------------------- -->
+          <div class="tab-pane fade" id="nav-monthly" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="search-and-print-panal">
+                <div class="left-search-bar">
+                    <input type="text" formcontrolname="Search" placeholder="Search Here..." class="form-control">
+                </div>
+                <div class="right-print-btn">
+                    <a class="report-print" href="#">Export CSV</a>
+                </div>
+            </div>
+        
+            <!---------------------------Table--------------------------------------->
+            <div class="table-main">
+                <table class="tran-table">
+                    <thead>
+                        <tr>
+                            <th class="sr-no">Sr No.</th>
+                            <th class="payee">Payee</th>
+                            <th class="amount">Amount</th>
+                            <th class="account-type">Account Type</th>
+                            <th class="category">Category</th>
+                            <th class="created-date"> Created Date </th>
+                            <th class="class-name">Class</th>
+                            <th class="action"> Actions</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sr-no">1</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span> </td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">2</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">3</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">4</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">5</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                    </tbody>
+        
+                </table>
+        
+            </div>
+
+        </div>
+
+          <!-------------------------Fourth tab--------------------------- -->
+          <div class="tab-pane fade" id="nav-quaterly" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="search-and-print-panal">
+                <div class="left-search-bar">
+                    <input type="text" formcontrolname="Search" placeholder="Search Here..." class="form-control">
+                </div>
+                <div class="right-print-btn">
+                    <a class="report-print" href="#">Export CSV</a>
+                </div>
+            </div>
+        
+            <!---------------------------Table--------------------------------------->
+            <div class="table-main">
+                <table class="tran-table">
+                    <thead>
+                        <tr>
+                            <th class="sr-no">Sr No.</th>
+                            <th class="payee">Payee</th>
+                            <th class="amount">Amount</th>
+                            <th class="account-type">Account Type</th>
+                            <th class="category">Category</th>
+                            <th class="created-date"> Created Date </th>
+                            <th class="class-name">Class</th>
+                            <th class="action"> Actions</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sr-no">1</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span> </td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">2</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">3</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">4</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">5</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                    </tbody>
+        
+                </table>
+        
+            </div>
+
+        </div>
+         <!-------------------------Fifth tab--------------------------- -->
+         <div class="tab-pane fade" id="nav-yearly" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="search-and-print-panal">
+                <div class="left-search-bar">
+                    <input type="text" formcontrolname="Search" placeholder="Search Here..." class="form-control">
+                </div>
+                <div class="right-print-btn">
+                    <a class="report-print" href="#">Export CSV</a>
+                </div>
+            </div>
+        
+            <!---------------------------Table--------------------------------------->
+            <div class="table-main">
+                <table class="tran-table">
+                    <thead>
+                        <tr>
+                            <th class="sr-no">Sr No.</th>
+                            <th class="payee">Payee</th>
+                            <th class="amount">Amount</th>
+                            <th class="account-type">Account Type</th>
+                            <th class="category">Category</th>
+                            <th class="created-date"> Created Date </th>
+                            <th class="class-name">Class</th>
+                            <th class="action"> Actions</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sr-no">1</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span> </td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">2</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">3</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">4</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                        <tr>
+                            <td class="sr-no">5</td>
+                            <td class="payee">Payee1</td>
+                            <td class="amount">$100.00</td>
+                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
+                            <td class="category">Category-2</td>
+                            <td class="created-date"> 24/09/2020 </td>
+                            <td class="class-name">First Class</td>
+                            <td class="action">
+                                <a href="#" title="edit" class="edit-icon">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a href="#" title="Delete" class="delete-icon">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </td>
+                            
+                            
+        
+                        </tr>
+                    </tbody>
+        
+                </table>
+        
+            </div>
+
+        </div>
+    
+    </div>
+</div>

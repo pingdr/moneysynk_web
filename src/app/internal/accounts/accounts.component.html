@@ -33,287 +33,285 @@
             </div>
         </nav>
         <!-- <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent"> -->
-            <!-- <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab"> -->
-                <div style="padding:20px;" class="row">
-                    <div class="col-8 col-md-8 col-lg-8">
-                        <div *ngFor="let data of accountList; let i = index" [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account" (click)="recordSelected(i)">
-                            <div class="number">
-                                <span>1</span></div>
-                            <div class="account-type"><span>{{ data.name }}</span></div>
-                            <a class="view-btn">
-                                <img style="margin-left: -57px;" (click)="toggleAmount(i)" src="../../../assets/images/view-eye.svg">
-                            </a>
-                            <div class="pricing-icon">
-                                <span class="price" *ngIf="data.isViewAmount">${{data.openingBalance}}</span>
-                                <span class="price" *ngIf="!data.isViewAmount">*********</span>
-                            </div>
-                            <div class="action-tab-main">
-                                <a style="cursor: pointer;" (click)="editAccounts(data)" class="edit-btn" title="edit">
-                                    <img src="../../../assets/images/edit-pencil.svg">
-                                </a>
-                                <a class="delete-btn" href="javascript:;" style="cursor: pointer;" (click)="deleteAccounts(data._id,data.name)" title="edit">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
-                            </div>
-
-                        </div>
+        <!-- <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab"> -->
+        <div style="padding:20px;" class="row">
+            <div class="col-8 col-md-8 col-lg-8">
+                <div *ngFor="let data of accountList; let i = index" [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account" (click)="recordSelected(i)">
+                    <div class="number">
+                        <span>1</span></div>
+                    <div class="account-type"><span>{{ data.name }}</span></div>
+                    <a class="view-btn">
+                        <img style="margin-left: -57px;" (click)="toggleAmount(i)" src="../../../assets/images/view-eye.svg">
+                    </a>
+                    <div class="pricing-icon">
+                        <span class="price" *ngIf="data.isViewAmount">${{data.openingBalance}}</span>
+                        <span class="price" *ngIf="!data.isViewAmount">*********</span>
                     </div>
-                    <div class="col-4 col-md-4 col-lg-4">
-                        <div class="list-main-filter">
-                            <nav class="asset-main-tab">
-                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab" href="#nav-list-tab" role="tab" aria-controls="nav-home" aria-selected="true">List</a>
-                                    <a class="nav-item nav-link summary-btn" id="nav-profile-tab" data-toggle="tab" href="#nav-summary-tab" role="tab" aria-controls="nav-profile" aria-selected="false">Summary</a>
-                                </div>
-                                <div class="filter-btn-group">
-                                    <a href="#" class="btn filter-btn" title="Summary">
-                                        <img src="../../../assets/images/fillter.svg">
-                                    </a>
-                                </div>
-                            </nav>
-                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel" aria-labelledby="nav-list-tab">
-                                    <div class="accordian-main">
-                                        <mat-accordion>
-                                            <mat-expansion-panel expanded="step === 0" (opened)="setStep(0)">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        Aug 2020
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
+                    <div class="action-tab-main">
+                        <a style="cursor: pointer;" (click)="editAccounts(data)" class="edit-btn" title="edit">
+                            <img src="../../../assets/images/edit-pencil.svg">
+                        </a>
+                        <a class="delete-btn" href="javascript:;" style="cursor: pointer;" (click)="deleteAccounts(data._id,data.name)" title="edit">
+                            <img src="../../../assets/images/delete-trash.svg">
+                        </a>
+                    </div>
 
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag green-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
+                </div>
+            </div>
+            <div class="col-4 col-md-4 col-lg-4">
+                <div class="list-main-filter">
+                    <nav class="asset-main-tab">
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab" href="#nav-list-tab" role="tab" aria-controls="nav-home" aria-selected="true">List</a>
+                            <a class="nav-item nav-link summary-btn" id="nav-profile-tab" data-toggle="tab" href="#nav-summary-tab" role="tab" aria-controls="nav-profile" aria-selected="false">Summary</a>
+                        </div>
+                        <div class="filter-btn-group">
+                            <a href="#" class="btn filter-btn" title="Summary">
+                                <img src="../../../assets/images/fillter.svg">
+                            </a>
+                        </div>
+                    </nav>
+                    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel" aria-labelledby="nav-list-tab">
+                            <div class="accordian-main">
+                                <mat-accordion>
+                                    <mat-expansion-panel expanded="step === 0" (opened)="setStep(0)">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Aug 2020
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                <span class="red-color">$ 120.00</span>
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
 
+                                        <div class="inner-expansion-main">
+                                            <div class="inner-sub-left">
+                                                <div class="main-strips">
+                                                    <div class="holder-name">Bike</div>
+                                                    <div class="price-tag green-color">$ 85.00</div>
                                                 </div>
-                                                
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-
-                                            </mat-expansion-panel>
-                                            <mat-expansion-panel>
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        Aug 2020
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-
-                                            </mat-expansion-panel>
-                                            <mat-expansion-panel>
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        Aug 2020
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-
-                                            </mat-expansion-panel>
-
-                                        </mat-accordion>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="nav-summary-tab" role="tabpanel" aria-labelledby="nav-summary-tab">
-                                    <div class="inner-grid white-box second-button-chart">
-                                        <div class="main-chart-part">
-                                            <div class="left-side">
-                                                <div class="item">
-                                                    <canvas width="250px" height="250px" baseChart chartType="doughnut" [data]="accountreports" [labels]="accountreportsLabels" [legend]="false" [colors]="accountColors">
-                                                    </canvas>
+                                                <div class="main-strips">
+                                                    <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                    <div class="account-type">My Account</div>
                                                 </div>
                                             </div>
-                                            <div class="right-side">
-                                                <div class="expanse-total">
-                                                    <div class="expense-btn">
-                                                        <span class="left-head red-label">Expense</span>
-                                                        <span class="right-income">$147.00</span>
-                                                    </div>
-                                                    <div class="income-btn">
-                                                        <span class="left-head green-label">Income</span>
-                                                        <span class="right-income">$60.00</span>
-                                                    </div>
+                                            <div class="inner-sub-right">
+                                                <a href="#" title="edit">
+                                                    <img src="../../../assets/images/edit-pencil.svg">
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="inner-expansion-main">
+                                            <div class="inner-sub-left">
+                                                <div class="main-strips">
+                                                    <div class="holder-name">Bike</div>
+                                                    <div class="price-tag red-color">$ 85.00</div>
                                                 </div>
+                                                <div class="main-strips">
+                                                    <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                    <div class="account-type">My Account</div>
+                                                </div>
+                                            </div>
+                                            <div class="inner-sub-right">
+                                                <a href="#" title="edit">
+                                                    <img src="../../../assets/images/edit-pencil.svg">
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="inner-expansion-main">
+                                            <div class="inner-sub-left">
+                                                <div class="main-strips">
+                                                    <div class="holder-name">Bike</div>
+                                                    <div class="price-tag red-color">$ 85.00</div>
+                                                </div>
+                                                <div class="main-strips">
+                                                    <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                    <div class="account-type">My Account</div>
+                                                </div>
+                                            </div>
+                                            <div class="inner-sub-right">
+                                                <a href="#" title="edit">
+                                                    <img src="../../../assets/images/edit-pencil.svg">
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                    </mat-expansion-panel>
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Aug 2020
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                <span class="red-color">$ 120.00</span>
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <div class="inner-expansion-main">
+                                            <div class="inner-sub-left">
+                                                <div class="main-strips">
+                                                    <div class="holder-name">Bike</div>
+                                                    <div class="price-tag red-color">$ 85.00</div>
+                                                </div>
+                                                <div class="main-strips">
+                                                    <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                    <div class="account-type">My Account</div>
+                                                </div>
+                                            </div>
+                                            <div class="inner-sub-right">
+                                                <a href="#" title="edit">
+                                                    <img src="../../../assets/images/edit-pencil.svg">
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="inner-expansion-main">
+                                            <div class="inner-sub-left">
+                                                <div class="main-strips">
+                                                    <div class="holder-name">Bike</div>
+                                                    <div class="price-tag red-color">$ 85.00</div>
+                                                </div>
+                                                <div class="main-strips">
+                                                    <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                    <div class="account-type">My Account</div>
+                                                </div>
+                                            </div>
+                                            <div class="inner-sub-right">
+                                                <a href="#" title="edit">
+                                                    <img src="../../../assets/images/edit-pencil.svg">
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="inner-expansion-main">
+                                            <div class="inner-sub-left">
+                                                <div class="main-strips">
+                                                    <div class="holder-name">Bike</div>
+                                                    <div class="price-tag red-color">$ 85.00</div>
+                                                </div>
+                                                <div class="main-strips">
+                                                    <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                    <div class="account-type">My Account</div>
+                                                </div>
+                                            </div>
+                                            <div class="inner-sub-right">
+                                                <a href="#" title="edit">
+                                                    <img src="../../../assets/images/edit-pencil.svg">
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                    </mat-expansion-panel>
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Aug 2020
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                <span class="red-color">$ 120.00</span>
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <div class="inner-expansion-main">
+                                            <div class="inner-sub-left">
+                                                <div class="main-strips">
+                                                    <div class="holder-name">Bike</div>
+                                                    <div class="price-tag red-color">$ 85.00</div>
+                                                </div>
+                                                <div class="main-strips">
+                                                    <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                    <div class="account-type">My Account</div>
+                                                </div>
+                                            </div>
+                                            <div class="inner-sub-right">
+                                                <a href="#" title="edit">
+                                                    <img src="../../../assets/images/edit-pencil.svg">
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="inner-expansion-main">
+                                            <div class="inner-sub-left">
+                                                <div class="main-strips">
+                                                    <div class="holder-name">Bike</div>
+                                                    <div class="price-tag red-color">$ 85.00</div>
+                                                </div>
+                                                <div class="main-strips">
+                                                    <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                    <div class="account-type">My Account</div>
+                                                </div>
+                                            </div>
+                                            <div class="inner-sub-right">
+                                                <a href="#" title="edit">
+                                                    <img src="../../../assets/images/edit-pencil.svg">
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="inner-expansion-main">
+                                            <div class="inner-sub-left">
+                                                <div class="main-strips">
+                                                    <div class="holder-name">Bike</div>
+                                                    <div class="price-tag red-color">$ 85.00</div>
+                                                </div>
+                                                <div class="main-strips">
+                                                    <div class="date-and-time">18 Aug 2020 5.00 pm</div>
+                                                    <div class="account-type">My Account</div>
+                                                </div>
+                                            </div>
+                                            <div class="inner-sub-right">
+                                                <a href="#" title="edit">
+                                                    <img src="../../../assets/images/edit-pencil.svg">
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                    </mat-expansion-panel>
+
+                                </mat-accordion>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-summary-tab" role="tabpanel" aria-labelledby="nav-summary-tab">
+                            <div class="inner-grid white-box second-button-chart">
+                                <div class="main-chart-part">
+                                    <div class="left-side">
+                                        <div class="item">
+                                            <canvas width="250px" height="250px" baseChart chartType="doughnut" [data]="accountreports" [labels]="accountreportsLabels" [legend]="false" [colors]="accountColors">
+                                                    </canvas>
+                                        </div>
+                                    </div>
+                                    <div class="right-side">
+                                        <div class="expanse-total">
+                                            <div class="expense-btn">
+                                                <span class="left-head red-label">Expense</span>
+                                                <span class="right-income">$147.00</span>
+                                            </div>
+                                            <div class="income-btn">
+                                                <span class="left-head green-label">Income</span>
+                                                <span class="right-income">$60.00</span>
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div style="padding: 20px;">
-                                            <div *ngFor="let data of [1,2,3]; let i = index" class="editable-tran">
-                                                <div class="account-type"><span>Auto</span></div>
-                                                <div class="pricing-icon">
-                                                    <span class="price">$15</span>
-                                                </div>
-                                                <div class="pricing-icon">
-                                                    <span class="price-per">$15</span>
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div style="padding: 20px;">
+                                    <div *ngFor="let data of [1,2,3]; let i = index" class="editable-tran">
+                                        <div class="account-type"><span>Auto</span></div>
+                                        <div class="pricing-icon">
+                                            <span class="price">$15</span>
+                                        </div>
+                                        <div class="pricing-icon">
+                                            <span class="price-per">$15</span>
                                         </div>
                                     </div>
                                 </div>
@@ -321,9 +319,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-            <!-- </div> -->
-            <!-- <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <!-- </div> -->
+        <!-- <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8">
                         <div class="editable-account active-step">
@@ -1632,21 +1632,28 @@
             <p style="margin: 15px 0 20px 0;color: gray;font-size: 16px;">
                 Are you sure you want to delete <br/> {{accountName}} Account Type?
             </p>
+            <app-progress-bar *ngIf="isApiCalling"></app-progress-bar>
+
             <mat-dialog-actions>
-                <button mat-raised-button color="warn" matDialogClose="yes">Confirm</button>
-                <button mat-stroked-button color="primary" matDialogClose="no">Cancle</button>
+                <div class="display-flex">
+                    <button mat-raised-button color="warn" matDialogClose="yes">Confirm</button>
+                    <button mat-stroked-button color="primary" style="border: none;" matDialogClose="no">Cancle</button>
+                </div>
             </mat-dialog-actions>
         </ng-template>
     </div>
     <div class="delete-category-dialog">
         <ng-template #deleteAccountDialog>
             <h2 matDialogTitle>Delete Account?</h2>
-            <p style="margin: 15px 0 20px 0;color: gray;font-size: 16px;">
+            <p style="margin: 15px 0 0px 0;color: gray;font-size: 16px;">
                 Are you sure you want to delete <br/> {{accountName}} Account?
             </p>
+            <app-progress-bar *ngIf="isApiCalling"></app-progress-bar>
             <mat-dialog-actions>
-                <button mat-raised-button color="warn" matDialogClose="yes">Confirm</button>
-                <button mat-stroked-button color="primary" matDialogClose="no">Cancle</button>
+                <div class="display-flex">
+                    <button mat-raised-button color="warn" matDialogClose="yes">Confirm</button>
+                    <button mat-stroked-button color="primary" matDialogClose="no" style="border: none;">Cancle</button>
+                </div>
             </mat-dialog-actions>
         </ng-template>
     </div>

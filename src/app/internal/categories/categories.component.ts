@@ -26,6 +26,8 @@ export class CategoriesComponent implements OnInit {
   expenseArray: any = [];
   incomeArray: any = [];
   isApiCalling: boolean = false;
+  categoryId;
+  categoryName;
   constructor(public http: HttpService, public activeRoute: ActivatedRoute,
     private SpinnerService: NgxSpinnerService,
     private _router: Router,
@@ -92,16 +94,31 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
-  deleteCategory(id) {
-    let typeDialogRef = this.dialog.open(this.DeleteCategoryDialog);
-
-    typeDialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        if (result === 'yes') {
-          console.log('clicked yes');
-        }
-      }
-    })
+  openDeleteCategoryDialog(id, name) {
+    this.categoryId = id;
+    this.categoryName = name;
+    this.dialog.open(this.DeleteCategoryDialog, {
+      width: '350px'
+    });
   }
 
+  deleteCategory() {
+    this.isApiCalling = true;
+    this.http.deleteCategory(this.categoryId).subscribe(
+      (data: any) => {
+        this.toastr.success("Category Delete Successfully", "Success");
+        this.closeAllModal();
+        this.getCategoriesData();
+        this.isApiCalling = false;
+      }, err => {
+        this.toastr.error("Oops! Something went wrong", 'Error');
+        this.isApiCalling = false;
+        this.closeAllModal();
+      }
+    )
+  }
+
+  closeAllModal() {
+    this.dialog.closeAll();
+  }
 }

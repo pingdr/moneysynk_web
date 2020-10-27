@@ -125,8 +125,8 @@ export class AccountsComponent implements OnInit {
     var payload = {
       "groupId": this.groupId,
       pageIndex: 0,
-      limit:10,
-      accountType:this.accountType_id
+      limit: 10,
+      accountType: this.accountType_id
     }
 
     this.isApiCalling = true;
@@ -152,18 +152,23 @@ export class AccountsComponent implements OnInit {
   deleteAccounts(id, name) {
     let self = this;
     this.accountName = name;
-    let dialogRef = this.dialog.open(this.DeleteAccountDialog);
+    let dialogRef = this.dialog.open(this.DeleteAccountDialog, {
+      width: '350px'
+    });
     dialogRef.afterClosed().subscribe(result => {
       // Note: If the user clicks outside the dialog or presses the escape key, there'll be no result
       if (result !== undefined) {
         if (result === 'yes') {
+          this.isApiCalling = true;
           this.http.deleteAccount(ApiUrl.deleteAccount, id, false).subscribe(res => {
             this.toastr.success('Account deleted successfully', 'success', {
               timeOut: 2000
             });
+            this.isApiCalling = false;
             this.getAccountdata();
           });
         } else if (result === 'no') {
+
           console.log('User clicked no.');
         }
       }
@@ -246,19 +251,23 @@ export class AccountsComponent implements OnInit {
 
   deleteType(id, categoryName) {
     this.accountName = categoryName;
-    let typeDialogRef = this.dialog.open(this.DeleteAccountTypeDialog);
+    let typeDialogRef = this.dialog.open(this.DeleteAccountTypeDialog, {
+      width: '350px'
+    });
 
     typeDialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         if (result === 'yes') {
+          this.isApiCalling = true;
           this.http.deleteAccountTypes(ApiUrl.deleteAccountTypes, id, false).subscribe(res => {
             this.toastr.success('Account type deleted successfully', 'success', {
               timeOut: 2000
             });
             this.getAccountTypedata();
-
+            this.isApiCalling = false;
           }, () => {
             this.toastr.error('Something went wrong', 'OOPS!');
+            this.isApiCalling = false;
           });
         }
       }

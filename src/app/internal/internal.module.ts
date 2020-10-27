@@ -38,6 +38,14 @@ const routes: Routes = [{
         {
             path: 'payees',
             loadChildren: () => import('./payees-payers/payees-payers.module').then(m => m.PayessPayersModule)
+        }, 
+        {
+            path: 'budget',
+            loadChildren: () => import('./budget/budget.module').then(m => m.BudgetModule)
+        }, 
+        {
+            path: 'transactions',
+            loadChildren: () => import('./transaction/transaction.module').then(m => m.TransactionModule)
         }
     ]
 }];

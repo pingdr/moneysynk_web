@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { HttpService } from 'src/app/services/http.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -18,7 +19,9 @@ export class PayeesPayersComponent implements OnInit {
   groupId: any;
   isRecordSelected: any = 0;
   isApiCalling: boolean = false;
-  constructor(public dialog: MatDialog, public sharedserive: SharedService, public http: HttpService,) { }
+  payeeId;
+  payeeName;
+  constructor(public dialog: MatDialog, public sharedserive: SharedService, public http: HttpService, private toastr: ToastrService) { }
 
   @ViewChild('deletePayeeDialog') DeletePayeeDialog: TemplateRef<any>;
 
@@ -83,17 +86,33 @@ export class PayeesPayersComponent implements OnInit {
     });
   }
 
-  deletePayee(id) {
-    let typeDialogRef = this.dialog.open(this.DeletePayeeDialog);
+  openDeleteDialog(id, name) {
+    console.log(id);
+    this.payeeId = id;
+    this.payeeName = name;
+    this.dialog.open(this.DeletePayeeDialog, {
+      width: '350px'
+    });
 
-    typeDialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        if (result === 'yes') {
-          console.log('clicked yes');
-        } else {
-          this.dialog.closeAll();
-        }
+  }
+
+  deletePayee() {
+    this.isApiCalling = true;
+    this.http.deletePayees(this.payeeId).subscribe(
+      (data: any) => {
+        this.toastr.success("Payees Delete Successfully", "Success");
+        this.isApiCalling = false;
+        this.closeDeleteModal();
+        this.getPayees();
+      }, err => {
+        this.toastr.error("Oops! Something went wrong", 'Error');
+        this.isApiCalling = false;
+        this.closeDeleteModal();
       }
-    })
+    )
+  }
+
+  closeDeleteModal() {
+    this.dialog.closeAll();
   }
 }

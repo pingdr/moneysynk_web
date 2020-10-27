@@ -48,6 +48,7 @@ import { OnlynumberDirectiveDirective } from './onlynumber-directive.directive';
 import { AddCategoryPopupComponent } from './shared/modals/add-category-popup/add-category-popup.component';
 import { AddPayeeComponent } from './shared/modals/add-payee/add-payee.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { AddBudgetModalComponent } from './shared/modals/add-budget-modal/add-budget-modal.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     OnlynumberDirectiveDirective,
     AddCategoryPopupComponent,
     AddPayeeComponent,
+    AddBudgetModalComponent
   ],
   imports: [
     BrowserModule,
@@ -109,6 +111,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ChangePasswordComponent,
     AddCategoryPopupComponent,
     AddPayeeComponent,
+    AddBudgetModalComponent
   ],
   providers: [
     {

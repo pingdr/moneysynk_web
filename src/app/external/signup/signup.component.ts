@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
         "password": this.SignupForm.value.password,
         "phoneNumber":  this.sharedService.mobile_number,
         "countryCode": this.sharedService.country_code,
-        "role": "ADMIN"
+        "role": "USER"
       }
       this.http.signUp(ApiUrl.signUp, payload, false).subscribe((res) => {
         if (this.rememberMeControl.value) {

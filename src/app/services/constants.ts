@@ -12,8 +12,8 @@ export const sideBarAdmin = [
     {path: 'accounts', title: 'Accounts'},
     {path: 'categories', title: 'Categories'},
     {path: 'payees', title: 'Payee / Payers'},
-    {path: '/moneysynk/', title: 'Budget'},
-    {path: '/moneysynk/', title: 'Transaction'},
+    {path: 'budget', title: 'Budget'},
+    {path: 'transactions', title: 'Transaction'},
     {path: '/moneysynk/', title: 'Bill'},
     {path: '/moneysynk/', title: 'Splitwise'}
     

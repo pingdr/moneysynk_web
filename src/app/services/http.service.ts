@@ -9,8 +9,8 @@ import { DOCUMENT } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder } from '@angular/forms';
 import * as _ from 'lodash';
-import { BsModalService} from 'ngx-bootstrap/modal';
-import {BsModalRef} from 'ngx-bootstrap/modal';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 declare var $: any;
 
@@ -82,7 +82,7 @@ export class HttpService {
     }
 
     openModal(name, data?) {
-       
+
         const obj: any = {
             name: name,
             data: data
@@ -106,11 +106,11 @@ export class HttpService {
 
     showLoader() {
         $('.loader').show();
-      }
-    
-      hideLoader() {
+    }
+
+    hideLoader() {
         $('.loader').hide();
-      }
+    }
 
     goToLink(url: string) {
         window.open(url, '_blank');
@@ -174,12 +174,12 @@ export class HttpService {
         return this.http.get<any>(url, { params: params, reportProgress: isLoading });
     }
 
-    postData(url, user,password, isLoading?: boolean) {
-        
-       var obj = {
-           "user":user,
-           "password":password
-       }
+    postData(url, user, password, isLoading?: boolean) {
+
+        var obj = {
+            "user": user,
+            "password": password
+        }
 
         // const formData = new FormData();
         Object.keys(obj).forEach(key => {
@@ -231,12 +231,12 @@ export class HttpService {
             initialState.modalData = data;
         }
         const modalRef = this.modalService.show(template,
-                {initialState, class: `gray modal-${size ? size : 'md'}`}
+            { initialState, class: `gray modal-${size ? size : 'md'}` }
         );
         this.modalRefArr.push(modalRef);
         return modalRef;
     }
-    
+
 
     hideModal() {
         const element = this.modalRefArr.pop();
@@ -368,7 +368,7 @@ export class HttpService {
 
     sendMobileOtp(url, payload, isLoading?: boolean) {
         console.log(url);
-   
+
 
         return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
     }
@@ -384,12 +384,12 @@ export class HttpService {
 
     }
 
-    Forgotpassword(url, email,Password, isLoading?: boolean) {
+    Forgotpassword(url, email, Password, isLoading?: boolean) {
         console.log(url);
 
         var body = {
             "email": email,
-            "password":Password
+            "password": Password
         }
 
         return this.http.post<any>(this.apiEndpoint + url, body, { reportProgress: isLoading });
@@ -399,7 +399,7 @@ export class HttpService {
     //addedit account
 
     addEditAccount(url, payload, isLoading?: boolean) {
-        
+
         return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
 
     }
@@ -410,7 +410,7 @@ export class HttpService {
         return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
     }
     // getAccount(url, isLoading?: boolean) {
-       
+
     //     return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
     // }
 
@@ -438,17 +438,17 @@ export class HttpService {
         return this.http.get<any>(this.apiEndpoint + url, { params: params, reportProgress: isLoading });
     }
 
-    
+
     getCategories(url, isLoading?: boolean) {
-       
-        return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
+
+        return this.http.get<any>(this.apiEndpoint + url, { reportProgress: isLoading });
     }
     get(url, isLoading?: boolean) {
-       
-        return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
+
+        return this.http.get<any>(this.apiEndpoint + url, { reportProgress: isLoading });
     }
     addAccountType(url, payload, isLoading?: boolean) {
-        
+
         return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
 
     }
@@ -468,39 +468,47 @@ export class HttpService {
 
 
     deleteAccount(url, id, isLoading?: boolean) {
-       
-        return this.http.delete<any>(this.apiEndpoint + url+ '/' + id, { reportProgress: isLoading });
 
-        
+        return this.http.delete<any>(this.apiEndpoint + url + '/' + id, { reportProgress: isLoading });
+
+
     }
 
-    updateAccount(url,id, payload, isLoading?: boolean) {
-        
-        return this.http.post<any>(this.apiEndpoint + url+ '/' + id, payload, { reportProgress: isLoading });
+    updateAccount(url, id, payload, isLoading?: boolean) {
+
+        return this.http.post<any>(this.apiEndpoint + url + '/' + id, payload, { reportProgress: isLoading });
 
     }
 
     addGroup(url, payload, isLoading?: boolean) {
-        
+
         return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
 
     }
 
     getAllGroup(url, isLoading?: boolean) {
-       
-        return this.http.get<any>(this.apiEndpoint + url, {reportProgress: isLoading});
+
+        return this.http.get<any>(this.apiEndpoint + url, { reportProgress: isLoading });
     }
 
 
     deleteAccountTypes(url, id, isLoading?: boolean) {
-       
-        return this.http.delete<any>(this.apiEndpoint + url+ '/' + id, { reportProgress: isLoading });
 
-        
+        return this.http.delete<any>(this.apiEndpoint + url + '/' + id, { reportProgress: isLoading });
+
+
+    }
+
+    deletePayees(id) {
+        return this.http.delete(this.apiEndpoint + 'financialBeneficiaries/' + id);
+    }
+
+    deleteCategory(id) {
+        return this.http.delete(this.apiEndpoint + 'categories/' + id);
     }
 
 
-    
+
 
 
 }

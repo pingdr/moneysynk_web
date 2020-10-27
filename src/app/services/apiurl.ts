@@ -12,6 +12,7 @@ export const ApiUrl = {
     addEditCategory:'categories',
     getAccount:'accounts',
     getCategories:'categories',
+    getBudget:'financialSources',
     addAccountType:'accountTypes',
     getAllAccountType:'accountTypes',
     deleteAccount:'accounts',

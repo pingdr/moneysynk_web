@@ -39,7 +39,7 @@
                                 <!-- <a style="cursor: pointer;" (click)="editAccounts(data)" class="edit-btn" title="edit">
                                 <img src="../../../assets/images/edit-pencil.svg">
                             </a> -->
-                                <a class="delete-btn" style="cursor: pointer;" (click)="deletePayee()">
+                                <a class="delete-btn" style="cursor: pointer;" (click)="openDeleteDialog(payee._id,payee.name)">
                                     <img src="../../../assets/images/delete-trash.svg">
                                 </a>
                             </div>
@@ -779,11 +779,14 @@
     <ng-template #deletePayeeDialog>
         <h2 matDialogTitle>Delete Payee?</h2>
         <p style="margin: 15px 0 20px 0;color: gray;font-size: 16px;">
-            Are you sure you want to delete <br/> this Payee?
+            Are you sure you want to delete <br/> {{payeeName}} Payee?
         </p>
+        <app-progress-bar *ngIf="isApiCalling"></app-progress-bar>
         <mat-dialog-actions>
-            <button mat-raised-button color="warn" matDialogClose="yes">Confirm</button>&nbsp;
-            <button mat-stroked-button color="primary" matDialogClose="no">Cancle</button>
+            <div class="display-flex">
+                <button mat-raised-button color="warn" (click)="deletePayee()" matDialogClose="yes">Confirm</button>&nbsp;
+                <button mat-stroked-button color="primary" style="border:none" (click)="closeDeleteModal()" matDialogClose="no">Cancle</button>
+            </div>
         </mat-dialog-actions>
     </ng-template>
 </div>
