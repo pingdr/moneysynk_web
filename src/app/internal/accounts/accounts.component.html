@@ -38,7 +38,7 @@
             <div class="col-8 col-md-8 col-lg-8">
                 <div *ngFor="let data of accountList; let i = index" [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account" (click)="recordSelected(i)">
                     <div class="number">
-                        <span>1</span></div>
+                        <span>{{i+1}}</span></div>
                     <div class="account-type"><span>{{ data.name }}</span></div>
                     <a class="view-btn">
                         <img style="margin-left: -57px;" (click)="toggleAmount(i)" src="../../../assets/images/view-eye.svg">
@@ -1595,8 +1595,8 @@
                 </div>
             </div> -->
         <!-- </div> -->
-        <div *ngIf="accountList.length > 10">
-            <mat-paginator [length]="resultsLength" [pageSize]="10"></mat-paginator>
+        <div style="display: flex;" *ngIf="resultsLength > 10">
+            <mat-paginator (page)="pageChange($event)" [length]="resultsLength" [pageSize]="10"></mat-paginator>
         </div>
 
         <div class="total-expanse-panal-bottom-main">

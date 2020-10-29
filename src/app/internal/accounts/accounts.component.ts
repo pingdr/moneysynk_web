@@ -62,6 +62,7 @@ export class AccountsComponent implements OnInit {
   isRecordSelected: any = 0;
   resultsLength: any;
   accountType_id: any;
+  pageIndex:any = 0;
   constructor(public http: HttpService, public activeRoute: ActivatedRoute, public changeDetect: ChangeDetectorRef, public sharedserive: SharedService,
     private _router: Router,
     private toastr: ToastrService,
@@ -124,7 +125,7 @@ export class AccountsComponent implements OnInit {
 
     var payload = {
       "groupId": this.groupId,
-      pageIndex: 0,
+      pageIndex: this.pageIndex,
       limit: 10,
       accountType: this.accountType_id
     }
@@ -135,7 +136,7 @@ export class AccountsComponent implements OnInit {
       this.http.showLoader();
       if (res.data != undefined) {
         this.accountList = [];
-        this.resultsLength = res.data.data.length;
+        this.resultsLength = res.data.total;
         this.accountList = res.data.data;
         for (let i = 0; i < this.accountList.length; i++) {
           this.accountList[i]['isViewAmount'] = true;
@@ -144,6 +145,11 @@ export class AccountsComponent implements OnInit {
       }
     });
 
+  }
+  pageChange(event) {
+    console.log(event);
+    this.pageIndex = event.pageIndex;
+    this.getAccountdata();
   }
   toggleAmount(i) {
     this.accountList[i]['isViewAmount'] = !this.accountList[i]['isViewAmount']
@@ -230,9 +236,10 @@ export class AccountsComponent implements OnInit {
     if (i || i == 0)
       this.isSelected = i;
     this.accountType_id = id
+    this.pageIndex = 0;
     var payload = {
       "groupId": this.groupId,
-      "pageIndex": 0,
+      "pageIndex": this.pageIndex,
       "limit": 10,
       "accountType": id
 
@@ -243,6 +250,7 @@ export class AccountsComponent implements OnInit {
       this.isApiCalling = false;
       this.http.showLoader();
       if (res.data != undefined) {
+        this.resultsLength = res.data.total;
         this.accountList = res.data.data;
         // this.filter = res.data;
       }

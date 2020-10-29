@@ -26,6 +26,7 @@ export class AddEditAccountComponent implements OnInit {
   minDate;
   addEditLable: any;
   group_id: any;
+  icons:any;
   public modeselect = 'Dollar';
   filterName: any;
   groupId: any;
@@ -39,7 +40,7 @@ export class AddEditAccountComponent implements OnInit {
     this.minDate = new Date();
 
     if (this.data.editdata != undefined) {
-
+      console.log(this.data.editdata);
       this.editaccount = this.formBuilder.group({
         name: [this.data.editdata.name, Validators.required],
         accountNo: [this.data.editdata.accountNo, Validators.required],
@@ -49,7 +50,7 @@ export class AddEditAccountComponent implements OnInit {
         phoneNumber: [this.data.editdata.phoneNumber],
         accountType: [this.data.editdata.accountType, Validators.required],
         website: [this.data.editdata.website, [Validators.pattern(this.http.CONSTANT.WebsiteUrl)]],
-        icon: ['office_icon'],
+        icon: [this.data.icon],
         note: [this.data.editdata.note]
       });
 
@@ -64,7 +65,7 @@ export class AddEditAccountComponent implements OnInit {
         phoneNumber: [''],
         accountType: ['', Validators.required],
         website: ['', [Validators.pattern(this.http.CONSTANT.WebsiteUrl)]],
-        icon: ['office_icon'],
+        icon: [''],
         note: ['']
       });
 
@@ -78,12 +79,18 @@ export class AddEditAccountComponent implements OnInit {
     this.groupId = this.data.groupId;
     this.getAllAccountType();
     this.addEditLable = this.data.editdata;
-
+    this.getAllIcon();
 
 
 
   }
-
+  getAllIcon() {
+    this.isApiCalling =  true;
+    this.http.get(ApiUrl.icons).subscribe((res)=> {
+      this.isApiCalling =  false;
+      this.icons = res.data
+    })
+  }
   getAllAccountType() {
 
     var payload = {

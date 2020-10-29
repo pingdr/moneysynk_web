@@ -34,7 +34,7 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <span>{{cat.name}}</span>
-                                            <img src="../../../assets/images/auto.svg">
+                                            <img src="{{cat.icon}}">
                                         </mat-panel-title>
                                         <mat-panel-description>
                                             <div class="main-right-heading">
@@ -239,7 +239,7 @@
 
                             </mat-accordion>
                         </div>
-
+                      
                     </div>
                     <div class="col-4 col-md-4 col-lg-4">
                         <div class="list-main-filter">
@@ -466,7 +466,9 @@
                         </div>
                     </div>
                 </div>
-
+                <div style="display: flex;" *ngIf="total > 10">
+                    <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
+                </div>
             </div>
             <!-------------------------second tab--------------------------- -->
             <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">

@@ -21,6 +21,8 @@ export class PayeesPayersComponent implements OnInit {
   isApiCalling: boolean = false;
   payeeId;
   payeeName;
+  total: any;
+  pageIndex: any = 0;
   constructor(public dialog: MatDialog, public sharedserive: SharedService, public http: HttpService, private toastr: ToastrService) { }
 
   @ViewChild('deletePayeeDialog') DeletePayeeDialog: TemplateRef<any>;
@@ -37,21 +39,31 @@ export class PayeesPayersComponent implements OnInit {
 
   getPayees() {
     this.isApiCalling = true;
-    this.http.get(ApiUrl.getAllPayees + "?groupId=" + this.groupId).subscribe(res => {
+    var payload = {
+      "groupId": this.groupId,
+      "pageIndex": this.pageIndex,
+      "limit": 10,
+    }
+    this.http.get(ApiUrl.getAllPayees,payload).subscribe(res => {
       this.isApiCalling = false;
       this.http.showLoader();
-      if (res.data != undefined) {
-        for (let index = 0; index < res.data.length; index++) {
-          if (res.data[index].type === "PAYEE") {
-            this.payeesArray.push(res.data[index]);
+      if (res.data.data != undefined) {
+        this.total = res.data.totalFinancialBeneficiaries;
+        for (let index = 0; index < res.data.data.length; index++) {
+          if (res.data.data[index].type === "PAYEE") {
+            this.payeesArray.push(res.data.data[index]);
           } else {
-            this.payersArray.push(res.data[index]);
+            this.payersArray.push(res.data.data[index]);
           }
         }
         // this.categories = res.data;
         // this.filter = res.data;
       }
     });
+  }
+  pageChange(event) {
+    this.pageIndex = event.pageIndex;
+    this.getPayees();
   }
   recordSelected(i) {
     if (i || i == 0)

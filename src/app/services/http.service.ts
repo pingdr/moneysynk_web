@@ -439,13 +439,27 @@ export class HttpService {
     }
 
 
-    getCategories(url, isLoading?: boolean) {
-
-        return this.http.get<any>(this.apiEndpoint + url, { reportProgress: isLoading });
+    getCategories(url, obj?, isLoading?: boolean) {
+        let params = new HttpParams();
+        if (obj) {
+            Object.keys(obj).forEach(key => {
+                if (obj[key] !== '' && obj[key] !== undefined) {
+                    params = params.set(key, obj[key]);
+                }
+            });
+        }
+        return this.http.get<any>(this.apiEndpoint + url, { params: params, reportProgress: isLoading });
     }
-    get(url, isLoading?: boolean) {
-
-        return this.http.get<any>(this.apiEndpoint + url, { reportProgress: isLoading });
+    get(url, obj?, isLoading?: boolean) {
+        let params = new HttpParams();
+        if (obj) {
+            Object.keys(obj).forEach(key => {
+                if (obj[key] !== '' && obj[key] !== undefined) {
+                    params = params.set(key, obj[key]);
+                }
+            });
+        }
+        return this.http.get<any>(this.apiEndpoint + url, { params: params, reportProgress: isLoading });
     }
     addAccountType(url, payload, isLoading?: boolean) {
 

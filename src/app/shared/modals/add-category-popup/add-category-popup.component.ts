@@ -17,6 +17,7 @@ export class AddCategoryPopupComponent implements OnInit {
   public loader = false;
   allParents: any;
   isApiCalling: boolean = false;
+  icons:any;
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, public http: HttpService, private toastr: ToastrService, public dialogRef: MatDialogRef<AddEditAccountComponent>) {
     this.Addaccountentry = this.formBuilder.group({
       // title: ['', Validators.required],
@@ -28,14 +29,22 @@ export class AddCategoryPopupComponent implements OnInit {
       groupId: [this.data.groupId]
     });
     this.getCategoriesData();
+    this.getAllIcon();
   }
-  getCategoriesData() {
+  getAllIcon() {
+    this.isApiCalling =  true;
+    this.http.get(ApiUrl.icons).subscribe((res)=> {
+      this.isApiCalling =  false;
+      this.icons = res.data
+    })
+  }
+   getCategoriesData() {
     this.isApiCalling = true;
     this.http.getCategories(ApiUrl.getCategories + "?parent=true&groupId=" + this.data.groupId).subscribe(res => {
       this.isApiCalling = false;
       this.http.showLoader();
       if (res.data != undefined) {
-        this.allParents = res.data;
+        this.allParents = res.data.data;
         // this.filter = res.data;
       }
     });

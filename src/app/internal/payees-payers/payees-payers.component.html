@@ -296,7 +296,9 @@
                         </div>
                     </div>
                 </div>
-
+                <div style="display: flex;" *ngIf="total > 10">
+                    <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
+                </div>
             </div>
             <!-------------------------second tab--------------------------- -->
             <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">

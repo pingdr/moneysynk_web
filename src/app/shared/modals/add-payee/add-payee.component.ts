@@ -63,12 +63,17 @@ export class AddPayeeComponent implements OnInit {
   }
 
   getAllCategories() {
+    var payload = {
+      "groupId": this.data.groupId,
+      // "pageIndex": this.pageIndex,
+      // "limit": 10,
+    }
     this.isApiCalling = true;
-    this.http.getCategories(ApiUrl.getCategories + "?groupId=" + this.data.groupId).subscribe(res => {
+    this.http.getCategories(ApiUrl.getCategories,payload).subscribe(res => {
       this.isApiCalling = false;
       this.http.showLoader();
-      if (res.data != undefined) {
-        this.categories = res.data;
+      if (res.data.data != undefined) {
+        this.categories = res.data.data;
         // this.filter = res.data;
       }
     });

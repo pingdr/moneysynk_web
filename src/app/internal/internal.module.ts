@@ -46,6 +46,10 @@ const routes: Routes = [{
         {
             path: 'transactions',
             loadChildren: () => import('./transaction/transaction.module').then(m => m.TransactionModule)
+        },
+        {
+            path: 'settings',
+            loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
         }
     ]
 }];

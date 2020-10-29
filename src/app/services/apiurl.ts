@@ -11,6 +11,7 @@ export const ApiUrl = {
     getAllPayees:'financialBeneficiaries',
     addEditCategory:'categories',
     getAccount:'accounts',
+    icons:'icons',
     getCategories:'categories',
     getBudget:'financialSources',
     addAccountType:'accountTypes',

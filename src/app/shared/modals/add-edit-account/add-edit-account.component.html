@@ -133,11 +133,17 @@
         <div class="form-group">
             <label>Icon</label>
             <mat-form-field appearance="fill">
-                <input class="textTransform" matInput formControlName="icon" [ngClass]="{ 'is-invalid': submitted && f.icon.errors }">
+                <!-- <input class="textTransform" matInput formControlName="icon" [ngClass]="{ 'is-invalid': submitted && f.icon.errors }">
 
                 <a class="add-icon">
                     <img src="../../../assets/images/plus-icon.svg">
-                </a>
+                </a> -->
+                <mat-select class="textTransform" formControlName="icon" [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
+
+                    <mat-option *ngFor="let data of icons" value="{{data.link[0].original}}">{{ data.name }}<span style="float: right;"><img style="width: 32px;" src="{{data.link[0].original}}"></span></mat-option>
+                  
+  
+                </mat-select>
             </mat-form-field>
 
         </div>
