@@ -67,7 +67,7 @@
         <div class="form-group opening-balance">
             <label>Opening Balance</label>
             <mat-form-field appearance="fill">
-                <input type="text" matInput maxlength="15" appOnlynumberDirective placeholder="Opening Balance" formControlName="openingBalance" [ngClass]="{ 'is-invalid': submitted && f.openingBalance.errors }" />
+                <input type="text" matInput maxlength="15" appOnlynumberDirective placeholder="Opening Balance" formControlName="currentBalance" [ngClass]="{ 'is-invalid': submitted && f.currentBalance.errors }" />
 
             </mat-form-field>
 
@@ -138,9 +138,14 @@
                 <a class="add-icon">
                     <img src="../../../assets/images/plus-icon.svg">
                 </a> -->
+                <!-- <div class="row">
+                    <div *ngFor="let data of icons" class="col-md-4">
+                        <img style="width: 32px;" src="{{data.path}}">
+                    </div>
+                </div> -->
                 <mat-select class="textTransform" formControlName="icon" [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
 
-                    <mat-option *ngFor="let data of icons" value="{{data.link[0].original}}">{{ data.name }}<span style="float: right;"><img style="width: 32px;" src="{{data.link[0].original}}"></span></mat-option>
+                    <mat-option *ngFor="let data of icons" value="{{data.path}}"><span style="display: flex;justify-content: center;"><img style="width: 32px;" src="{{data.path}}"></span></mat-option>
                   
   
                 </mat-select>

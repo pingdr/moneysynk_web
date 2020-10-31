@@ -76,6 +76,7 @@ $color-bb8f1b:#bb8f1b;
 $font-12px:12px;
 $font-14px:14px;
 $font-16px:16px;
+$font-17px:17px;
 $font-20px:20px;
 $font-22px:22px;
 $font-24px:24px;
@@ -116,7 +117,12 @@ label {
     margin-bottom: 28px;
     display: block;
 }
-
+.mat-option-text {
+    font-family: "Sul Sans" !important;
+}
+.orange-back {
+    background:linear-gradient(90deg, #F5B822 0%, #FFD263 96.98%) !important;
+}
 .btn {
     background: linear-gradient(90deg, #F5B822 0%, #FFD263 96.98%);
     border-radius: 33.5px;
@@ -170,7 +176,7 @@ label {
             background: $color-F6F6F6;
             text-align: center;
             font-weight: bold;
-            font-size: $font-14px;
+            font-size: $font-17px;
             text-transform: capitalize;
             color: $color-5e5e5e;
             line-height: 14px;
@@ -251,7 +257,7 @@ label {
             background: #F6F6F6;
             text-align: center;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 17px;
             text-transform: capitalize;
             color: #5E5E5E;
             line-height: 14px;
@@ -956,7 +962,7 @@ body {
 
 .mat-dialog-container {
     border-radius: 12px !important;
-    padding: 40px 30px !important;
+    // padding: 40px 30px !important;
     button {
         outline: none !important;
     }

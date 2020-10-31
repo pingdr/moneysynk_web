@@ -43,19 +43,25 @@ export class PayeesPayersComponent implements OnInit {
       "groupId": this.groupId,
       "pageIndex": this.pageIndex,
       "limit": 10,
+      type: this.type
     }
-    this.http.get(ApiUrl.getAllPayees,payload).subscribe(res => {
+    this.http.get(ApiUrl.getAllPayees, payload).subscribe(res => {
       this.isApiCalling = false;
       this.http.showLoader();
       if (res.data.data != undefined) {
-        this.total = res.data.totalFinancialBeneficiaries;
-        for (let index = 0; index < res.data.data.length; index++) {
-          if (res.data.data[index].type === "PAYEE") {
-            this.payeesArray.push(res.data.data[index]);
-          } else {
-            this.payersArray.push(res.data.data[index]);
-          }
+        if (this.type === "PAYEE") {
+          this.payeesArray = res.data.data;
+        } else {
+          this.payeesArray = res.data.data;
         }
+        this.total = res.data.totalFinancialBeneficiaries;
+        // for (let index = 0; index < res.data.data.length; index++) {
+        //   if (res.data.data[index].type === "PAYEE") {
+        //     this.payeesArray.push(res.data.data[index]);
+        //   } else {
+        //     this.payersArray.push(res.data.data[index]);
+        //   }
+        // }
         // this.categories = res.data;
         // this.filter = res.data;
       }
@@ -75,6 +81,8 @@ export class PayeesPayersComponent implements OnInit {
   }
   setType(type) {
     this.type = type;
+    this.pageIndex = 0;
+    this.getPayees();
   }
   nextStep() {
     this.step++;

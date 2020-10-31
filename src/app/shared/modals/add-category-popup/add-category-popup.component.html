@@ -21,7 +21,7 @@
             <label>Icon</label>
             <mat-form-field appearance="fill">
                     <mat-select class="textTransform" formControlName="icon" [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
-                        <mat-option *ngFor="let data of icons" value="{{data.link[0].original}}">{{ data.name }}<span style="float: right;"><img style="width: 32px;" src="{{data.link[0].original}}"></span></mat-option>
+                        <mat-option *ngFor="let data of icons" value="{{data.path}}"><span style="display: flex;justify-content: center;"><img style="width: 32px;" src="{{data.path}}"></span></mat-option>
                     </mat-select>
             </mat-form-field>
         </div>

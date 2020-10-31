@@ -16,7 +16,7 @@
 
     <div class="white-box">
 
-        <nav class="asset-main-tab">
+        <nav class="asset-main-tab" *ngIf="accountTypeList.length > 0">
             <div slickContainer #slickController="slick" [slickConfig]="config" class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
 
                 <a slickItem *ngFor="let data of accountTypeList; let i = index" style="cursor: pointer; width: 78px;" class="nav-item nav-link" [ngClass]="{ 'active' : isSelected == i }" id="nav-home-tab" data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">
@@ -41,11 +41,12 @@
                         <span>{{i+1}}</span></div>
                     <div class="account-type"><span>{{ data.name }}</span></div>
                     <a class="view-btn">
-                        <img style="margin-left: -57px;" (click)="toggleAmount(i)" src="../../../assets/images/view-eye.svg">
+                        <img style="margin-left: -57px;" *ngIf="!data.isViewAmount" (click)="toggleAmount(i)" src="../../../assets/images/view-eye.svg">
+                        <img style="margin-left: -57px;width: 22px;" *ngIf="data.isViewAmount" (click)="toggleAmount(i)" src="../../../assets/images/close-eyes.svg">
                     </a>
                     <div class="pricing-icon">
-                        <span class="price" *ngIf="data.isViewAmount">${{data.openingBalance}}</span>
-                        <span class="price" *ngIf="!data.isViewAmount">*********</span>
+                        <span class="price" *ngIf="data.isViewAmount">${{data.currentBalance}}</span>
+                        <span class="price" *ngIf="!data.isViewAmount">*******</span>
                     </div>
                     <div class="action-tab-main">
                         <a style="cursor: pointer;" (click)="editAccounts(data)" class="edit-btn" title="edit">
@@ -282,40 +283,38 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-summary-tab" role="tabpanel" aria-labelledby="nav-summary-tab">
-                            <div class="inner-grid white-box second-button-chart">
-                                <div class="main-chart-part">
-                                    <div class="left-side">
-                                        <div class="item">
-                                            <canvas width="250px" height="250px" baseChart chartType="doughnut" [data]="accountreports" [labels]="accountreportsLabels" [legend]="false" [colors]="accountColors">
-                                                    </canvas>
-                                        </div>
-                                    </div>
-                                    <div class="right-side">
-                                        <div class="expanse-total">
-                                            <div class="expense-btn">
-                                                <span class="left-head red-label">Expense</span>
-                                                <span class="right-income">$147.00</span>
-                                            </div>
-                                            <div class="income-btn">
-                                                <span class="left-head green-label">Income</span>
-                                                <span class="right-income">$60.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="summary-charts-main">
+                                <div class="item left-charts">
+                                    <canvas width="150px" height="150px" baseChart chartType="doughnut" [data]="doughnutChartData" [labels]="doughnutChartLabels" [legend]="false" [colors]="donutColors">
+                                    </canvas>
                                 </div>
-                                <hr>
-                                <div style="padding: 20px;">
-                                    <div *ngFor="let data of [1,2,3]; let i = index" class="editable-tran">
-                                        <div class="account-type"><span>Auto</span></div>
-                                        <div class="pricing-icon">
-                                            <span class="price">$15</span>
-                                        </div>
-                                        <div class="pricing-icon">
-                                            <span class="price-per">$15</span>
-                                        </div>
+                                <div class="right-col-charts">
+                                    <div class="strips-main" style="border: 1px solid #FD4755;">
+                                        <span class="sub-heading red">Expanse</span>
+                                        <span class="priceing-main red">$ 147.00</span>
+                                    </div>
+                                    <div class="strips-main">
+                                        <span class="sub-heading income green">Expanse</span>
+                                        <span class="priceing-main green">$ 60.00</span>
                                     </div>
                                 </div>
                             </div>
+                            <!------------------------after-charts------------------------------------>
+                            <div class="after-charts-main">
+
+                                <div class="after-charts-strips-main">
+                                    <div class="comm-col first-col">Bike</div>
+                                    <div class= "comm-col red second-col">$ 85.00</div>
+                                    <div class=" comm-col third-col"> 52.82%</div>
+                                </div>
+                                <div class="after-charts-strips-main">
+                                    <div class="comm-col first-col">Gas Line</div>
+                                    <div class= "comm-col red second-col">$ 62.00</div>
+                                    <div class=" comm-col third-col"> 52.82%</div>
+                                </div>
+
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -1632,11 +1631,11 @@
             <p style="margin: 15px 0 20px 0;color: gray;font-size: 16px;">
                 Are you sure you want to delete <br/> {{accountName}} Account Type?
             </p>
-            <app-progress-bar *ngIf="isApiCalling"></app-progress-bar>
+            <!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
 
             <mat-dialog-actions>
                 <div class="display-flex">
-                    <button mat-raised-button color="warn" matDialogClose="yes">Confirm</button>
+                    <button mat-raised-button class="orange-back" matDialogClose="yes">Confirm</button>
                     <button mat-stroked-button color="primary" style="border: none;" matDialogClose="no">Cancle</button>
                 </div>
             </mat-dialog-actions>
@@ -1648,10 +1647,10 @@
             <p style="margin: 15px 0 0px 0;color: gray;font-size: 16px;">
                 Are you sure you want to delete <br/> {{accountName}} Account?
             </p>
-            <app-progress-bar *ngIf="isApiCalling"></app-progress-bar>
+            <!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
             <mat-dialog-actions>
                 <div class="display-flex">
-                    <button mat-raised-button color="warn" matDialogClose="yes">Confirm</button>
+                    <button mat-raised-button class="orange-back" matDialogClose="yes">Confirm</button>
                     <button mat-stroked-button color="primary" matDialogClose="no" style="border: none;">Cancle</button>
                 </div>
             </mat-dialog-actions>

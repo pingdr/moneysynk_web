@@ -340,3 +340,82 @@
         width: 100% !important;
     }
 }
+.summary-charts-main {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #E8E8E8;
+    .left-charts{
+        width: 140px !important;
+        height: 140px !important;
+        margin-right: 20px !important;
+        display: flex;
+        align-items: center;
+    }
+    .right-col-charts{
+        width: 70%;
+    }
+}
+
+
+.strips-main {
+    background: #E8E8E8;
+    margin-bottom: 14px;
+    padding: 7px 20px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    align-items: center;
+    &:last-child{
+        margin-bottom: 0px;
+    }
+    span{
+        display: block;
+    }
+    .sub-heading{
+        font-size: 10px;
+        line-height: 216.5%;
+        
+    }
+    .priceing-main{
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 216.5%;
+        
+    }
+}
+
+
+.red {
+    color: #FD4755;
+}
+
+.green {
+    color: #27AE60;
+}
+
+
+// -----------------------summary-charts-after-strips-------------------------//
+.after-charts-main {
+    padding: 15px 26px;
+}
+
+.after-charts-strips-main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    background: #F6F6F6;
+    padding: 20px 20px;
+    border-radius: 11px;
+    margin-bottom: 12px;
+    &:last-child{
+        margin-bottom: 0px;
+    }
+    .second-col{
+        text-align: center;
+    }
+    .third-col{
+        text-align: right;
+        font-size: 10px;
+    }
+}

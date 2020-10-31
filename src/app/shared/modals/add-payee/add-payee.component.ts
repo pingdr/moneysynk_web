@@ -67,6 +67,8 @@ export class AddPayeeComponent implements OnInit {
       "groupId": this.data.groupId,
       // "pageIndex": this.pageIndex,
       // "limit": 10,
+      type: this.data.type === "PAYEE" ? "EXPENSE" : "INCOME"
+
     }
     this.isApiCalling = true;
     this.http.getCategories(ApiUrl.getCategories,payload).subscribe(res => {

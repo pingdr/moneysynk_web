@@ -45,15 +45,22 @@ export class AccountsComponent implements OnInit {
   search = new FormControl();
   accountList: any = [];
   accountTypeList: any = [];
-  public accountreportsLabels: string[] = ['Income', 'Expense'];
-  public accountreports: number[] = [600, 100];
+  chartOptions = {
+    responsive: true,
+    weight:4
+  };
 
-  public accountColors: any[] = [
+//  ----------------for first chart-----------//
+  public doughnutChartLabels: string[] = ['Income', 'Expense'];
+  public doughnutChartData: number[] = [100, 600];
+  
+  public donutColors: any[]= [
     {
       backgroundColor: [
         '#CA858B',
         '#8BC9D1',
-      ]
+        
+    ]
     }
   ];
 
@@ -67,23 +74,26 @@ export class AccountsComponent implements OnInit {
     private _router: Router,
     private toastr: ToastrService,
     public dialog: MatDialog) {
-
+      this.sharedserive.groupChange.subscribe((data) => {
+        this.isSelected = null;
+        if (data) {
+          this.groupId = data;
+          console.log(data);
+          
+          this.accountList = [];
+          this.accountTypeList = [];
+          // this.isSelected = 0
+          this.accountType_id = "";
+          this.getAccountTypedata();
+          // this.getAccountdata();
+        }
+      });
 
   }
 
   ngOnInit(): void {
 
-    this.sharedserive.groupChange.subscribe((data) => {
-      this.groupId = data;
-      if (data) {
-        this.accountList = [];
-        this.accountTypeList = [];
-        this.isSelected = 0
-        this.changeDetect.detectChanges();
-        this.getAccountTypedata();
-        // this.getAccountdata();
-      }
-    });
+  
   }
   step = 0;
 
@@ -107,15 +117,14 @@ export class AccountsComponent implements OnInit {
     }
 
     this.http.getAllAccountType(ApiUrl.getAllAccountType, payload).subscribe(res => {
+      this.accountTypeList = [];
       if (res.data != undefined) {
-        this.accountTypeList = [];
         this.accountTypeList = res.data;
         console.log('this.accountTypeList');
         console.log(this.accountTypeList);
         this.accountType_id = res.data[0]._id;
-
+        this.isSelected = 0;
         this.getAccountdata();
-
       }
     });
 
