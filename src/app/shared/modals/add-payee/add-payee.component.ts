@@ -17,7 +17,8 @@ export class AddPayeeComponent implements OnInit {
   public loader = false;
   categories: any;
   isApiCalling: boolean = false;
-
+  selectedChild:any
+  childs:any 
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, public http: HttpService, private toastr: ToastrService, public dialogRef: MatDialogRef<AddPayeeComponent>) {
     this.Addaccountentry = this.formBuilder.group({
       // title: ['', Validators.required],
@@ -26,13 +27,21 @@ export class AddPayeeComponent implements OnInit {
       categoryId: ['', Validators.required],
       groupId: [this.data.groupId],
       type: [this.data.type],
-      note: ['', Validators.required]
+      note: ['']
     });
 
   }
 
   get f() { return this.Addaccountentry.controls; }
-
+  parentSelected(event) {
+    console.log(event.value);
+    this.childs = this.categories[this.categories.findIndex(x => x._id === event.value)].child;
+  }
+  subSelected(event) {
+    if(event.value != "") {
+      this.selectedChild = event.value;
+    }
+  }
   onSubmit() {
     this.submitted = true;
 
@@ -42,6 +51,9 @@ export class AddPayeeComponent implements OnInit {
     }
     this.loader = true;
     this.isApiCalling = true;
+    if(this.selectedChild) {
+      this.Addaccountentry.value.categoryId = this.selectedChild;
+    }
     this.http.post(ApiUrl.addEditPayee, this.Addaccountentry.value, false)
       .subscribe(res => {
         this.isApiCalling = false;
@@ -67,6 +79,7 @@ export class AddPayeeComponent implements OnInit {
       "groupId": this.data.groupId,
       // "pageIndex": this.pageIndex,
       // "limit": 10,
+      parent:true,
       type: this.data.type === "PAYEE" ? "EXPENSE" : "INCOME"
 
     }

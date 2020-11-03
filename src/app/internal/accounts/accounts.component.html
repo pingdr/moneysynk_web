@@ -38,7 +38,7 @@
             <div class="col-8 col-md-8 col-lg-8">
                 <div *ngFor="let data of accountList; let i = index" [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account" (click)="recordSelected(i)">
                     <div class="number">
-                        <span>{{i+1}}</span></div>
+                        <span><img style="width: 32px;" src="{{data.icon}}"></span></div>
                     <div class="account-type"><span>{{ data.name }}</span></div>
                     <a class="view-btn">
                         <img style="margin-left: -57px;" *ngIf="!data.isViewAmount" (click)="toggleAmount(i)" src="../../../assets/images/view-eye.svg">
@@ -1635,8 +1635,8 @@
 
             <mat-dialog-actions>
                 <div class="display-flex">
-                    <button mat-raised-button class="orange-back" matDialogClose="yes">Confirm</button>
-                    <button mat-stroked-button color="primary" style="border: none;" matDialogClose="no">Cancle</button>
+                    <button style="border-radius: 20px;" mat-raised-button class="orange-back" matDialogClose="yes">Confirm</button>
+                    <button style="border-radius: 20px;" mat-stroked-button color="primary" style="border: none;" matDialogClose="no">Cancle</button>
                 </div>
             </mat-dialog-actions>
         </ng-template>
@@ -1650,8 +1650,8 @@
             <!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
             <mat-dialog-actions>
                 <div class="display-flex">
-                    <button mat-raised-button class="orange-back" matDialogClose="yes">Confirm</button>
-                    <button mat-stroked-button color="primary" matDialogClose="no" style="border: none;">Cancle</button>
+                    <button style="border-radius: 20px;" mat-raised-button class="orange-back" matDialogClose="yes">Confirm</button>
+                    <button style="border-radius: 20px;" mat-stroked-button color="primary" matDialogClose="no" style="border: none;">Cancle</button>
                 </div>
             </mat-dialog-actions>
         </ng-template>

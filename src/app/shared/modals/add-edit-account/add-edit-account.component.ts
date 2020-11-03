@@ -26,12 +26,12 @@ export class AddEditAccountComponent implements OnInit {
   minDate;
   addEditLable: any;
   group_id: any;
-  icons:any;
+  icons: any;
   public modeselect = 'Dollar';
   filterName: any;
   groupId: any;
   isApiCalling: boolean = false;;
-
+  isSelected: any = 0;
   constructor(private formBuilder: FormBuilder,
     private router: Router,
     public http: HttpService, private toastr: ToastrService,
@@ -50,7 +50,7 @@ export class AddEditAccountComponent implements OnInit {
         phoneNumber: [this.data.editdata.phoneNumber],
         accountType: [this.data.editdata.accountType, Validators.required],
         website: [this.data.editdata.website, [Validators.pattern(this.http.CONSTANT.WebsiteUrl)]],
-        icon: [this.data.icon],
+        icon: [this.data.editdata.icon],
         note: [this.data.editdata.note]
       });
 
@@ -85,10 +85,13 @@ export class AddEditAccountComponent implements OnInit {
 
   }
   getAllIcon() {
-    this.isApiCalling =  true;
-    this.http.get(ApiUrl.icons).subscribe((res)=> {
-      this.isApiCalling =  false;
-      this.icons = res.data
+    this.isApiCalling = true;
+    this.http.get(ApiUrl.icons).subscribe((res) => {
+      this.isApiCalling = false;
+      this.icons = res.data;
+      if (this.data.editdata != undefined) {
+        this.isSelected = this.icons.findIndex(x => x.path === this.data.editdata.icon);
+      }
     })
   }
   getAllAccountType() {
@@ -204,7 +207,11 @@ export class AddEditAccountComponent implements OnInit {
   addType(value) {
     this.accountType = value;
   }
-
+  selectIcon(i, path) {
+    if (i || i == 0)
+      this.isSelected = i;
+    this.editaccount.controls.icon.setValue(path);
+  }
   saveType() {
     this.filterName = '';
 

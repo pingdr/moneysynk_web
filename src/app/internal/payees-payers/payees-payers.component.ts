@@ -23,6 +23,7 @@ export class PayeesPayersComponent implements OnInit {
   payeeName;
   total: any;
   pageIndex: any = 0;
+  AddText:any = "Add Payee"
   constructor(public dialog: MatDialog, public sharedserive: SharedService, public http: HttpService, private toastr: ToastrService) { }
 
   @ViewChild('deletePayeeDialog') DeletePayeeDialog: TemplateRef<any>;
@@ -52,7 +53,7 @@ export class PayeesPayersComponent implements OnInit {
         if (this.type === "PAYEE") {
           this.payeesArray = res.data.data;
         } else {
-          this.payeesArray = res.data.data;
+          this.payersArray = res.data.data;
         }
         this.total = res.data.totalFinancialBeneficiaries;
         // for (let index = 0; index < res.data.data.length; index++) {
@@ -81,7 +82,12 @@ export class PayeesPayersComponent implements OnInit {
   }
   setType(type) {
     this.type = type;
+    if(type === "PAYEE")
+    this.AddText = "Add Payee"
+    else
+    this.AddText = "Add Payer"
     this.pageIndex = 0;
+    this.isRecordSelected = 0;
     this.getPayees();
   }
   nextStep() {
@@ -111,7 +117,8 @@ export class PayeesPayersComponent implements OnInit {
     this.payeeId = id;
     this.payeeName = name;
     this.dialog.open(this.DeletePayeeDialog, {
-      width: '350px'
+      width: '350px',
+      panelClass: 'custom-modalbox'
     });
 
   }
@@ -120,7 +127,7 @@ export class PayeesPayersComponent implements OnInit {
     this.isApiCalling = true;
     this.http.deletePayees(this.payeeId).subscribe(
       (data: any) => {
-        this.toastr.success("Payees Delete Successfully", "Success");
+        this.toastr.error("Payees Delete Successfully", "Success");
         this.isApiCalling = false;
         this.closeDeleteModal();
         this.getPayees();

@@ -49,6 +49,8 @@ import { AddCategoryPopupComponent } from './shared/modals/add-category-popup/ad
 import { AddPayeeComponent } from './shared/modals/add-payee/add-payee.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AddBudgetModalComponent } from './shared/modals/add-budget-modal/add-budget-modal.component';
+import { AddGroupComponent } from './shared/modals/add-group/add-group.component';
+import { AddExpenseComponent } from './shared/modals/add-expense/add-expense.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { AddBudgetModalComponent } from './shared/modals/add-budget-modal/add-bu
     OnlynumberDirectiveDirective,
     AddCategoryPopupComponent,
     AddPayeeComponent,
-    AddBudgetModalComponent
+    AddBudgetModalComponent,
+    AddGroupComponent,
+    AddExpenseComponent
   ],
   imports: [
     BrowserModule,

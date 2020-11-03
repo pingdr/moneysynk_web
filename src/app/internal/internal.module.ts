@@ -50,6 +50,10 @@ const routes: Routes = [{
         {
             path: 'settings',
             loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
+        },
+        {
+            path: 'spliwise',
+            loadChildren: () => import('./splitwise/splitwise.module').then(m => m.SplitwiseModule)
         }
     ]
 }];

@@ -61,6 +61,7 @@ export class CategoriesComponent implements OnInit {
       "groupId": this.groupId,
       "pageIndex": this.pageIndex,
       "limit": 10,
+      parent:true,
       type: this.type
     }
     this.expenseArray = [];
@@ -120,7 +121,8 @@ export class CategoriesComponent implements OnInit {
     this.categoryId = id;
     this.categoryName = name;
     this.dialog.open(this.DeleteCategoryDialog, {
-      width: '350px'
+      width: '350px',
+      panelClass: 'custom-modalbox'
     });
   }
 
@@ -128,7 +130,7 @@ export class CategoriesComponent implements OnInit {
     this.isApiCalling = true;
     this.http.deleteCategory(this.categoryId).subscribe(
       (data: any) => {
-        this.toastr.success("Category Delete Successfully", "Success");
+        this.toastr.error("Category Delete Successfully", "Success");
         this.closeAllModal();
         this.getCategoriesData();
         this.isApiCalling = false;

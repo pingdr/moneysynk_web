@@ -96,7 +96,7 @@
       <div class="form-group">
         <label>Note</label>
         <mat-form-field appearance="fill">
-          <input matInput placeholder="Add note here" formControlName="note" 
+          <input matInput placeholder="Add note here" formControlName="note" maxlength="150"
           [ngClass]="{ 'is-invalid': submitted && f.note.errors }">
           <div *ngIf="submitted && f.note.errors" class="invalid-feedback">
             <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->

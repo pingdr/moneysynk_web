@@ -486,8 +486,8 @@
                                         <mat-panel-description>
                                             <div class="main-right-heading">
                                                 <div class="left-col">
-                                                    <span class="red-color">$ 120.00</span>
-                                                    <span class="subtract-expanse">($85.00 + $62.00)</span>
+                                                    <span class="red-color">$ {{inc.incomeTotal}}</span>
+                                                    <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
                                                 </div>
                                                 <div class="right-col">
                                                     <a href="#" title="Delete">
@@ -499,16 +499,16 @@
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <div class="expansion-description-main">
-                                        <div class="inner-strips">
+                                        <div *ngFor="let c of inc.child" class="inner-strips">
                                             <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Gas</span>
+                                                <img src="{{c.icon}}">
+                                                <span>{{c.name}}</span>
                                             </div>
                                             <div class="right-col">
-                                                <span class="red-color">$ 62.00</span>
+                                                <span class="red-color">$ {{c.incomeTotal}}</span>
                                             </div>
                                         </div>
-                                        <div class="inner-strips">
+                                        <!-- <div class="inner-strips">
                                             <div class="left-col">
                                                 <img src="../../../assets/images/gas.svg">
                                                 <span>Insurance</span>
@@ -525,7 +525,7 @@
                                             <div class="right-col">
                                                 <span class="red-color">$ 0.00</span>
                                             </div>
-                                        </div>
+                                        </div> -->
 
 
                                     </div>
@@ -959,8 +959,8 @@
         <!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
         <mat-dialog-actions>
             <div class="display-flex">
-                <button mat-raised-button class="orange-back" (click)="deleteCategory()" matDialogClose="yes">Confirm</button>&nbsp;
-                <button mat-stroked-button color="primary" matDialogClose="no" style="border:none" (click)="closeAllModal()">Cancle</button>
+                <button style="border-radius: 20px;" mat-raised-button class="orange-back" (click)="deleteCategory()" matDialogClose="yes">Confirm</button>&nbsp;
+                <button style="border-radius: 20px;" mat-stroked-button color="primary" matDialogClose="no" style="border:none" (click)="closeAllModal()">Cancle</button>
             </div>
         </mat-dialog-actions>
     </ng-template>

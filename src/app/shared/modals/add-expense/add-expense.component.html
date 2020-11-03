@@ -1,0 +1,86 @@
+<div class="heading-modal">
+    <span>Add Expense</span>
+    <button class="btn" [mat-dialog-close]>
+        <img src="../../../assets/images/close.svg">
+    </button>
+</div>
+
+
+<div class="form-group-main add-account-section">
+    <form class="add-account-entry" [formGroup]="Addaccountentry" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Title</label>
+          <mat-form-field appearance="fill">
+                <input matInput placeholder="Expense Title" formControlName="categoryname" 
+                [ngClass]="{ 'is-invalid': submitted && f.categoryname.errors }">
+                <div *ngIf="submitted && f.categoryname.errors" class="invalid-feedback">
+                  <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+              </div>
+          </mat-form-field>
+        </div>   
+        <div class="form-group">
+            <label>Amount</label>
+            <mat-form-field appearance="fill">
+                  <input matInput placeholder="$ 0" formControlName="amount" 
+                  [ngClass]="{ 'is-invalid': submitted && f.amount.errors }">
+                  <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
+                    <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                </div>
+            </mat-form-field>
+          </div>   
+        
+        <div class="form-group opening-balance">
+            <label>Paid By</label>
+            <mat-form-field appearance="fill">
+              <mat-label>Select Group member</mat-label>
+              <mat-select formControlName="Parentcategory" 
+              [ngClass]="{ 'is-invalid': submitted && f.Parentcategory.errors }">
+                  <mat-option>None</mat-option>
+                  <mat-option value="option1">Membar 1</mat-option>
+                  <mat-option value="option2">Membar 2</mat-option>
+                  <mat-option value="option3">Membar 3</mat-option>
+              </mat-select>
+              <div *ngIf="submitted && f.Parentcategory.errors" class="invalid-feedback">
+                <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+              </div>
+            </mat-form-field>
+          </div>
+          <div class="form-group opening-balance">
+            <label>Split</label>
+            <mat-form-field appearance="fill">
+              <mat-label>Equally</mat-label>
+              <mat-select formControlName="Grouptype" 
+              [ngClass]="{ 'is-invalid': submitted && f.Grouptype.errors }">
+                  <mat-option>None</mat-option>
+                  <mat-option value="option1">Equally 1</mat-option>
+                  <mat-option value="option2">Equally 2</mat-option>
+                  <mat-option value="option3">Equally 3</mat-option>
+              </mat-select>
+              <div *ngIf="submitted && f.Grouptype.errors" class="invalid-feedback">
+                <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+              </div>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <label>Date</label>
+            <mat-form-field appearance="fill">
+            
+              <input matInput [matDatepicker]="picker" formControlName="Opendate" 
+              [ngClass]="{ 'is-invalid': submitted && f.Opendate.errors }">
+              <div *ngIf="submitted && f.Opendate.errors" class="invalid-feedback">
+                <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+              </div>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          </div>
+       
+   
+    <div class="last-section">
+      <button class="btn"> Save</button>
+    </div>
+  </form>
+  
+  </div>
+    
+ 

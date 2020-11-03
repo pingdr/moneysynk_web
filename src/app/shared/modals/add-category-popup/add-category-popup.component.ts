@@ -17,14 +17,16 @@ export class AddCategoryPopupComponent implements OnInit {
   public loader = false;
   allParents: any;
   isApiCalling: boolean = false;
-  icons:any;
+  icons: any;
+  isSelected: any = 0;
+
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, public http: HttpService, private toastr: ToastrService, public dialogRef: MatDialogRef<AddEditAccountComponent>) {
     this.Addaccountentry = this.formBuilder.group({
       // title: ['', Validators.required],
       name: ['', Validators.required],
       icon: ['', Validators.required],
       parent: ['', Validators.required],
-      note: [''],
+      note: [null],
       type: [this.data.type],
       groupId: [this.data.groupId]
     });
@@ -32,15 +34,15 @@ export class AddCategoryPopupComponent implements OnInit {
     this.getAllIcon();
   }
   getAllIcon() {
-    this.isApiCalling =  true;
-    this.http.get(ApiUrl.icons).subscribe((res)=> {
-      this.isApiCalling =  false;
+    this.isApiCalling = true;
+    this.http.get(ApiUrl.icons).subscribe((res) => {
+      this.isApiCalling = false;
       this.icons = res.data
     })
   }
-   getCategoriesData() {
+  getCategoriesData() {
     this.isApiCalling = true;
-    this.http.getCategories(ApiUrl.getCategories + "?parent=true&groupId=" + this.data.groupId).subscribe(res => {
+    this.http.getCategories(ApiUrl.getCategories + "?parent=true&type=" + this.data.type + "&groupId=" + this.data.groupId).subscribe(res => {
       this.isApiCalling = false;
       this.http.showLoader();
       if (res.data != undefined) {
@@ -51,10 +53,16 @@ export class AddCategoryPopupComponent implements OnInit {
 
   }
   get f() { return this.Addaccountentry.controls; }
+  selectIcon(i,path) {
+    if (i || i == 0)
+      this.isSelected = i;
+      this.Addaccountentry.controls.icon.setValue(path);
+  }
 
   onSubmit() {
     this.submitted = true;
-
+    console.log(this.Addaccountentry.invalid);
+    
     // stop here if form is invalid
     if (this.Addaccountentry.invalid) {
       return;
@@ -62,6 +70,7 @@ export class AddCategoryPopupComponent implements OnInit {
 
     this.loader = true;
     this.isApiCalling = true;
+
     this.http.addEditCategory(ApiUrl.addEditCategory, this.Addaccountentry.value, false)
       .subscribe(res => {
         this.isApiCalling = false;

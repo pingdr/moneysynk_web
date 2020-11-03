@@ -1,5 +1,5 @@
 <div class="heading-modal">
-    <span>Add Payee</span>
+    <span>{{data.type === "PAYEE" ? 'Add Payee' : 'Add Payer'}}</span>
     <button class="btn" [mat-dialog-close]>
         <img src="../../../assets/images/close.svg">
     </button>
@@ -11,7 +11,7 @@
         <div class="form-group">
             <label>Name</label>
             <mat-form-field appearance="fill">
-                <input matInput maxlength="26" placeholder="Payee Name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <input matInput maxlength="26" placeholder="{{data.type === 'PAYEE' ? 'Add Payee' : 'Add Payer'}}" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                     <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                 </div>
@@ -21,10 +21,10 @@
         <div class="form-group opening-balance">
             <label>Category</label>
             <mat-form-field appearance="fill">
-                <mat-label>0</mat-label>
-                <mat-select formControlName="categoryId" [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
+                <!-- <mat-label>0</mat-label> -->
+                <mat-select formControlName="categoryId" (selectionChange)="parentSelected($event)" [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
                     <!-- <mat-option value="">None</mat-option> -->
-                    <mat-option *ngFor="let cat of categories" [value]="cat._id">{{cat.name}}</mat-option>
+                    <mat-option *ngFor="let cat of categories" [value]="cat._id"><span><img style="width: 30px;padding-right: 5px;" src="{{cat.icon}}" ></span>{{cat.name}}</mat-option>
                     <!-- <mat-option value="option2">200</mat-option>
                   <mat-option value="option3">300</mat-option> -->
                 </mat-select>
@@ -33,13 +33,21 @@
                 </div>
             </mat-form-field>
         </div>
+        <div *ngIf="f.categoryId.value" class="form-group opening-balance">
+            <label>Sub category</label>
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>0</mat-label> -->
+                <mat-select (selectionChange)="subSelected($event)">
+                    <mat-option value="">None</mat-option>
+                    <mat-option *ngFor="let p of childs" [value]="p._id"><span><img style="width: 30px;padding-right: 5px;" src="{{p.icon}}" ></span>{{p.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
         <div class="form-group">
             <label>Note</label>
             <mat-form-field appearance="fill">
-                <input matInput placeholder="Add note here" formControlName="note" [ngClass]="{ 'is-invalid': submitted && f.note.errors }">
-                <div *ngIf="submitted && f.note.errors" class="invalid-feedback">
-                    <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
-                </div>
+                <input matInput placeholder="Add note here" maxlength="150" formControlName="note">
+            
             </mat-form-field>
         </div>
 

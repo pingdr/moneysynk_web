@@ -132,30 +132,27 @@
         </div>
         <div class="form-group">
             <label>Icon</label>
-            <mat-form-field appearance="fill">
+            <!-- <mat-form-field appearance="fill"> -->
                 <!-- <input class="textTransform" matInput formControlName="icon" [ngClass]="{ 'is-invalid': submitted && f.icon.errors }">
 
                 <a class="add-icon">
                     <img src="../../../assets/images/plus-icon.svg">
                 </a> -->
-                <!-- <div class="row">
-                    <div *ngFor="let data of icons" class="col-md-4">
-                        <img style="width: 32px;" src="{{data.path}}">
+                <div class="icon-div-main">
+                    <div class="icon-inner-main" *ngFor="let data of icons;let i = index" [ngClass]="{ 'active' : isSelected == i }">
+                        <img src="{{data.path}}" (click)="selectIcon(i,data.path)">
                     </div>
-                </div> -->
-                <mat-select class="textTransform" formControlName="icon" [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
-
+                </div>
+                <!-- <mat-select class="textTransform" formControlName="icon" [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
                     <mat-option *ngFor="let data of icons" value="{{data.path}}"><span style="display: flex;justify-content: center;"><img style="width: 32px;" src="{{data.path}}"></span></mat-option>
-                  
-  
                 </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
 
         </div>
         <div class="form-group">
             <label>Note</label>
             <mat-form-field appearance="fill">
-                <input class="textTransform" matInput placeholder="Add note here" formControlName="note" [ngClass]="{ 'is-invalid': submitted && f.note.errors }">
+                <input class="textTransform" maxlength="150" matInput placeholder="Add note here" formControlName="note">
 
             </mat-form-field>
         </div>

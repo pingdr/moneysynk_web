@@ -19,32 +19,38 @@
         </div>
         <div class="form-group">
             <label>Icon</label>
-            <mat-form-field appearance="fill">
+            <div class="icon-div-main">
+                <div class="icon-inner-main" *ngFor="let data of icons;let i = index" [ngClass]="{ 'active' : isSelected == i }">
+                    <img src="{{data.path}}" (click)="selectIcon(i,data.path)">
+                </div>
+            </div>
+            <!-- <mat-form-field appearance="fill">
                     <mat-select class="textTransform" formControlName="icon" [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
                         <mat-option *ngFor="let data of icons" value="{{data.path}}"><span style="display: flex;justify-content: center;"><img style="width: 32px;" src="{{data.path}}"></span></mat-option>
                     </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
         </div>
         <div class="form-group opening-balance">
             <label>Parent category</label>
             <mat-form-field appearance="fill">
-                <mat-label>0</mat-label>
+                <!-- <mat-label>0</mat-label> -->
                 <mat-select formControlName="parent" [ngClass]="{ 'is-invalid': submitted && f.parent.errors }">
                     <mat-option>None</mat-option>
-                    <mat-option *ngFor="let p of allParents" [value]="p._id">{{p.name}}</mat-option>
+                    <mat-option *ngFor="let p of allParents" [value]="p._id"><span><img style="width: 30px;padding-right: 5px;" src="{{p.icon}}" ></span>{{p.name}}</mat-option>
                 </mat-select>
                 <div *ngIf="submitted && f.parent.errors" class="invalid-feedback">
                     <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                 </div>
             </mat-form-field>
         </div>
+   
         <div class="form-group">
             <label>Note</label>
             <mat-form-field appearance="fill">
-                <input matInput placeholder="Add note here" formControlName="note" [ngClass]="{ 'is-invalid': submitted && f.note.errors }">
-                <div *ngIf="submitted && f.note.errors" class="invalid-feedback">
+                <input matInput placeholder="Add note here" maxlength="150" formControlName="note">
+                <!-- <div *ngIf="submitted && f.note.errors" class="invalid-feedback"> -->
                     <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
-                </div>
+                <!-- </div> -->
             </mat-form-field>
         </div>
 
