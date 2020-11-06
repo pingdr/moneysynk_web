@@ -371,8 +371,8 @@
                         </div> -->
                             <div class="account-type"><span>{{ payee.name }}</span></div>
 
-                            <div class="pricing-icon">
-                                <span class="price">${{payee.expenseTotal}}</span>
+                            <div class="price-icon">
+                                <span class="price">${{payee.incomeTotal}}</span>
                             </div>
                             <div class="action-tab-main">
                                 <!-- <a style="cursor: pointer;" (click)="editAccounts(data)" class="edit-btn" title="edit">
@@ -654,8 +654,8 @@
         <!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
         <mat-dialog-actions>
             <div class="display-flex">
-                <button style="border-radius: 20px;" mat-raised-button class="orange-back" (click)="deletePayee()" matDialogClose="yes">Confirm</button>&nbsp;
-                <button style="border-radius: 20px;" mat-stroked-button color="primary" style="border:none" (click)="closeDeleteModal()" matDialogClose="no">Cancle</button>
+                <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button class="orange-back" (click)="deletePayee()" matDialogClose="yes">Confirm</button>&nbsp;
+                <button mat-stroked-button color="primary" style="border:none;border-radius: 20px;" (click)="closeDeleteModal()" matDialogClose="no">Cancle</button>
             </div>
         </mat-dialog-actions>
     </ng-template>

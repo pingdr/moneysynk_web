@@ -104,6 +104,9 @@ export class AddEditAccountComponent implements OnInit {
       this.isApiCalling = false;
       if (res.data != undefined) {
         this.accountModel = res.data;
+        if (this.data.editdata == undefined) {
+          this.editaccount.controls.accountType.setValue(this.accountModel[0]._id);
+        }
       }
     });
 

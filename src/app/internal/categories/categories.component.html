@@ -486,7 +486,7 @@
                                         <mat-panel-description>
                                             <div class="main-right-heading">
                                                 <div class="left-col">
-                                                    <span class="red-color">$ {{inc.incomeTotal}}</span>
+                                                    <span class="green-cleared">$ {{inc.incomeTotal}}</span>
                                                     <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
                                                 </div>
                                                 <div class="right-col">
@@ -505,7 +505,7 @@
                                                 <span>{{c.name}}</span>
                                             </div>
                                             <div class="right-col">
-                                                <span class="red-color">$ {{c.incomeTotal}}</span>
+                                                <span class="green-cleared">$ {{c.incomeTotal}}</span>
                                             </div>
                                         </div>
                                         <!-- <div class="inner-strips">
@@ -959,8 +959,8 @@
         <!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
         <mat-dialog-actions>
             <div class="display-flex">
-                <button style="border-radius: 20px;" mat-raised-button class="orange-back" (click)="deleteCategory()" matDialogClose="yes">Confirm</button>&nbsp;
-                <button style="border-radius: 20px;" mat-stroked-button color="primary" matDialogClose="no" style="border:none" (click)="closeAllModal()">Cancle</button>
+                <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button class="orange-back" (click)="deleteCategory()" matDialogClose="yes">Confirm</button>&nbsp;
+                <button mat-stroked-button color="primary" matDialogClose="no" style="box-shadow: none !important;border-radius: 20px;border:none" (click)="closeAllModal()">Cancle</button>
             </div>
         </mat-dialog-actions>
     </ng-template>

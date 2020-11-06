@@ -6,6 +6,12 @@ import { SharedModule } from '../../shared/modules/shared.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { SettingsComponent } from './settings.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatPseudoCheckboxModule } from '@angular/material/core';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 const routes: Routes = [
     {
@@ -27,6 +33,12 @@ const routes: Routes = [
     imports: [
         SharedModule,
         CommonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatPseudoCheckboxModule,
+        MatCheckboxModule,
+        MatSelectModule,
         RouterModule.forChild(routes),
         MatExpansionModule,
         MatButtonModule

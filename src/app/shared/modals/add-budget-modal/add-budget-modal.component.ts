@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ApiUrl } from 'src/app/services/apiurl';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-add-budget-modal',
@@ -13,7 +15,11 @@ export class AddBudgetModalComponent implements OnInit {
   editaccount: FormGroup;
   submitted = false;
   type:any;
-  constructor(public dialogRef: MatDialogRef<AddBudgetModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) {
+  icons: any;
+  isApiCalling: boolean = false;;
+  isSelected: any = 0;
+
+  constructor(public http: HttpService,public dialogRef: MatDialogRef<AddBudgetModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) {
     this.type = this.data.type
     this.editaccount = this.formBuilder.group({
       name: ['', Validators.required],
@@ -48,9 +54,18 @@ export class AddBudgetModalComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.getAllIcon();
   }
-
+  getAllIcon() {
+    this.isApiCalling = true;
+    this.http.get(ApiUrl.icons).subscribe((res) => {
+      this.isApiCalling = false;
+      this.icons = res.data;
+      if (this.data.editdata != undefined) {
+        this.isSelected = this.icons.findIndex(x => x.path === this.data.editdata.icon);
+      }
+    })
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }

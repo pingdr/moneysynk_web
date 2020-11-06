@@ -177,6 +177,7 @@ export class AccountsComponent implements OnInit {
         if (result === 'yes') {
           this.isApiCalling = true;
           this.http.deleteAccount(ApiUrl.deleteAccount, id, false).subscribe(res => {
+            this.accountList = [];
             this.toastr.error('Account deleted successfully', 'success', {
               timeOut: 2000
             });
@@ -236,9 +237,11 @@ export class AccountsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // this.getAccountTypedata();
+      this.accountTypeList = [];
+      this.accountList = [];
+      this.getAccountTypedata();
       // this.getAccountdata();
-      window.location.reload()
+      // window.location.reload()
     });
   }
 
@@ -279,6 +282,7 @@ export class AccountsComponent implements OnInit {
         if (result === 'yes') {
           this.isApiCalling = true;
           this.http.deleteAccountTypes(ApiUrl.deleteAccountTypes, id, false).subscribe(res => {
+            this.accountTypeList = [];
             this.toastr.error('Account type deleted successfully', 'success', {
               timeOut: 2000
             });
