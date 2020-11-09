@@ -183,6 +183,7 @@ export class AccountsComponent implements OnInit {
             });
             this.isApiCalling = false;
             this.getAccountdata();
+            this.getAccountTypedata();
           });
         } else if (result === 'no') {
 
@@ -240,6 +241,7 @@ export class AccountsComponent implements OnInit {
       this.accountTypeList = [];
       this.accountList = [];
       this.getAccountTypedata();
+      this.getAccountdata();
       // this.getAccountdata();
       // window.location.reload()
     });

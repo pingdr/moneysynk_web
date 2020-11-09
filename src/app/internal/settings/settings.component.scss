@@ -1,5 +1,67 @@
 
 
+@mixin min-mq($min-screen-size) {
+    @media (min-width: $min-screen-size +"px") {
+        @content;
+    }
+}
+
+@mixin max-mq($max-screen-size) {
+    @media (max-width: $max-screen-size +"px") {
+        @content;
+    }
+}
+
+// ----------------------------For Orientation-----------------------//
+@mixin landscape-orientation($max-screen-size, $orientation) {
+    @media (max-width: $max-screen-size +"px") and (orientation: $orientation) {
+        @content;
+    }
+}
+
+@mixin btw-mq($min-screen-size, $max-screen-size, $pixel-ratio, $orientation) {
+    @media only screen and (min-width: $min-screen-size +"px") and (max-width: $max-screen-size +"px") and (-webkit-min-device-pixel-ratio: $pixel-ratio) and (orientation: $orientation) {
+        @content;
+    }
+}
+.editable-account {
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 22px 25px;
+    display: flex;
+    margin-top: 10px;
+    .number {
+        width: 5%;
+    }
+    .account-type {
+        width: 70%;
+    }
+    .pricing-icon {
+        width: 25%;
+        color: red;
+        .price {
+            margin-right: 25px;
+        }
+    }
+    .price-icon {
+        width: 25%;
+        color: green;
+        .price {
+            margin-right: 25px;
+        }  
+    }
+    .action-tab-main {
+        width: 10%;
+        text-align: right;
+        .edit-btn {
+            margin-right: 25px;
+            cursor: pointer;
+            @include max-mq(1200) {
+                margin-right: 10px;
+            }
+        }
+    }
+}
 .main-settings-tabination {
     display: flex;
     margin: 0px 15px;
