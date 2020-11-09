@@ -22,14 +22,14 @@
                 <a slickItem *ngFor="let data of accountTypeList; let i = index" style="cursor: pointer; width: 78px;" class="nav-item nav-link" [ngClass]="{ 'active' : isSelected == i }" id="nav-home-tab" data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">
                     <span style="position: relative;" (click)="getType(data._id,i)">
                         {{data.name }}
-                        <span style="position: absolute;right: -18px;">
+                        <span *ngIf="!data.default" style="position: absolute;right: -18px;">
                             <i (click)="deleteType(data._id,data.name)"><img style="font-size: 13px;"
                                     src="../../../assets/images/delete-trash.svg"></i>
                         </span>
                     </span>
 
                     <span class="balance-btn">Bal:
-                        ${{data.balance}}</span></a>
+                        ${{data.currentBalance}}</span></a>
             </div>
         </nav>
         <!-- <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent"> -->

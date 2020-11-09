@@ -24,6 +24,9 @@
         @content;
     }
 }
+.display-flex {
+    display: flex;
+}
 .editable-account {
     border: 1px solid #EBEBEB;
     border-radius: 10px;

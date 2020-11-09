@@ -1,3 +1,5 @@
+<app-progress-bar *ngIf="isApiCalling"></app-progress-bar>
+
 <div class="heading-pannel">
     <div class="component-heading">
         <span>Settings</span>
@@ -225,7 +227,7 @@
                                 <img src="../../../assets/images/edit-pencil.svg">
                             </a>
                             <a class="delete-btn" style="cursor: pointer;"
-                                (click)="openDeleteDialog(group._id,group.name)">
+                                (click)="openDeleteGroupDialog(group._id,group.name)">
                                 <img src="../../../assets/images/delete-trash.svg">
                             </a>
                         </div>
@@ -446,4 +448,25 @@
             ullamco ad duis occaecat ex.
         </div>
     </div>
+</div>
+
+
+
+<div class="delete-category-dialog">
+    <ng-template #deleteGroupDialog>
+        <h2 matDialogTitle>Delete Group?</h2>
+        <p style="margin: 15px 0 20px 0;color: gray;font-size: 16px;">
+            Are you sure you want to delete <br /> {{groupName}} ?
+        </p>
+        <!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
+        <mat-dialog-actions>
+            <div class="display-flex">
+                <button style="width:50%;box-shadow: none !important;border-radius: 20px;" mat-raised-button class="orange-back"
+                    (click)="deleteGroup()" matDialogClose="yes">Confirm</button>&nbsp;
+                <button mat-stroked-button color="primary" matDialogClose="no"
+                    style="width:50%;box-shadow: none !important;border-radius: 20px;border:none"
+                    (click)="closeAllModal()">Cancle</button>
+            </div>
+        </mat-dialog-actions>
+    </ng-template>
 </div>

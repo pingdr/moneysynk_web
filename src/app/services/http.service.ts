@@ -505,6 +505,10 @@ export class HttpService {
         return this.http.get<any>(this.apiEndpoint + url, { reportProgress: isLoading });
     }
 
+    deleteGroup(id) {
+        return this.http.delete(this.apiEndpoint + 'groups/' + id);
+    }
+
 
     deleteAccountTypes(url, id, isLoading?: boolean) {
 
@@ -522,7 +526,11 @@ export class HttpService {
     }
 
 
+    // Add Edit Or Get All Budget
 
+    addEditBudget(url, payload, isLoading?: boolean) {
+        return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
+    }
 
 
 }

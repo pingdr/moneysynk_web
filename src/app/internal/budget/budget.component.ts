@@ -17,7 +17,7 @@ export class BudgetComponent implements OnInit {
   isApiCalling: boolean = false;
   type: any = "EXPENSE"
   dialogRefofOtpModal: MatDialogRef<AddBudgetModalComponent>;
-  constructor(public http: HttpService,private formBuilder: FormBuilder, public sharedserive: SharedService, public dialog: MatDialog) { }
+  constructor(public http: HttpService, private formBuilder: FormBuilder, public sharedserive: SharedService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.sharedserive.groupChange.subscribe((data) => {
@@ -32,11 +32,17 @@ export class BudgetComponent implements OnInit {
   setStep(index: number) {
     this.step = index;
   }
+
   getBudgets() {
     this.isApiCalling = true;
-    this.http.getCategories(ApiUrl.getBudget + "?groupId=" + this.groupId).subscribe(res => {
+    var payload = {
+      "groupId": this.groupId,
+      "type": this.type
+    }
+    this.http.getCategories(ApiUrl.getBudget, payload).subscribe(res => {
       this.isApiCalling = false;
       this.http.showLoader();
+      console.log(res);
       // if (res.data != undefined) {
       //   for (let index = 0; index < res.data.length; index++) {
       //     if (res.data[index].type === "EXPENSE") {
@@ -53,10 +59,12 @@ export class BudgetComponent implements OnInit {
   }
   setType(type) {
     this.type = type;
+    this.getBudgets();
   }
   prevStep() {
     this.step--;
   }
+  
 
 
   openEditmodal(): void {

@@ -53,9 +53,8 @@ export class AddEditAccountComponent implements OnInit {
         icon: [this.data.editdata.icon],
         note: [this.data.editdata.note]
       });
-
+      this.editaccount.controls.currentBalance.disable({onlySelf:true})
     } else {
-
       this.editaccount = this.formBuilder.group({
         name: ['', Validators.required],
         accountNo: ['', Validators.required],
