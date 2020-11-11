@@ -27,13 +27,13 @@
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8">
                         <!------------ Budget-strips----------------->
-                        <div class="budget-main active-budget">
+                        <div *ngFor="let b of expenseArray;let i = index" class="budget-main" [ngClass]="{ 'active-budget' : recordSelected == i }" (click)="selectRecord(i)">
                             <div class="img-col-main">
                                 <img src="../../../assets/images/auto.svg">
                             </div>
                             <div class="progress-inner">
                                 <div class="first-row">
-                                    <div class="name-budget">Insurance</div>
+                                    <div class="name-budget">{{b.name}}</div>
                                     <div class="link-name">
                                         <a class="link-btn" href="#" title="Bi-Daily">Bi-Daily</a>
                                     </div>
@@ -53,7 +53,7 @@
                             </div>
 
                         </div>
-                        <div class="budget-main">
+                        <!-- <div class="budget-main">
                             <div class="img-col-main">
                                 <img src="/assets/images/auto.svg">
                             </div>
@@ -78,7 +78,7 @@
                                 </a>
                             </div>
 
-                        </div>
+                        </div> -->
 
 
                     </div>
@@ -320,7 +320,7 @@
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8">
                         <!------------ Budget-strips----------------->
-                        <div class="budget-main active-budget">
+                        <div *ngFor="let b of incomeArray;let i = index" class="budget-main" [ngClass]="{ 'active-budget' : recordSelected == i }" (click)="selectRecord(i)" class="budget-main">
                             <div class="img-col-main">
                                 <img src="../../../assets/images/auto.svg">
                             </div>
@@ -346,7 +346,7 @@
                             </div>
 
                         </div>
-                        <div class="budget-main">
+                        <!-- <div class="budget-main">
                             <div class="img-col-main">
                                 <img src="../../../assets/images/auto.svg">
                             </div>
@@ -371,7 +371,7 @@
                                 </a>
                             </div>
 
-                        </div>
+                        </div> -->
 
                     </div>
                     <div class="col-4 col-md-4 col-lg-4">

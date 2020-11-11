@@ -47,20 +47,20 @@ export class AccountsComponent implements OnInit {
   accountTypeList: any = [];
   chartOptions = {
     responsive: true,
-    weight:4
+    weight: 4
   };
 
-//  ----------------for first chart-----------//
+  //  ----------------for first chart-----------//
   public doughnutChartLabels: string[] = ['Income', 'Expense'];
   public doughnutChartData: number[] = [100, 600];
-  
-  public donutColors: any[]= [
+
+  public donutColors: any[] = [
     {
       backgroundColor: [
         '#CA858B',
         '#8BC9D1',
-        
-    ]
+
+      ]
     }
   ];
 
@@ -69,31 +69,31 @@ export class AccountsComponent implements OnInit {
   isRecordSelected: any = 0;
   resultsLength: any;
   accountType_id: any;
-  pageIndex:any = 0;
+  pageIndex: any = 0;
   constructor(public http: HttpService, public activeRoute: ActivatedRoute, public changeDetect: ChangeDetectorRef, public sharedserive: SharedService,
     private _router: Router,
     private toastr: ToastrService,
     public dialog: MatDialog) {
-      this.sharedserive.groupChange.subscribe((data) => {
-        this.isSelected = null;
-        if (data) {
-          this.groupId = data;
-          console.log(data);
-          
-          this.accountList = [];
-          this.accountTypeList = [];
-          // this.isSelected = 0
-          this.accountType_id = "";
-          this.getAccountTypedata();
-          // this.getAccountdata();
-        }
-      });
+    this.sharedserive.groupChange.subscribe((data) => {
+      this.isSelected = null;
+      if (data) {
+        this.groupId = data;
+        console.log(data);
+
+        this.accountList = [];
+        this.accountTypeList = [];
+        // this.isSelected = 0
+        this.accountType_id = "";
+        this.getAccountTypedata();
+        // this.getAccountdata();
+      }
+    });
 
   }
 
   ngOnInit(): void {
 
-  
+
   }
   step = 0;
 
@@ -178,6 +178,9 @@ export class AccountsComponent implements OnInit {
           this.isApiCalling = true;
           this.http.deleteAccount(ApiUrl.deleteAccount, id, false).subscribe(res => {
             this.accountList = [];
+            this.accountTypeList = [];
+            this.isSelected = 0;
+            this.isRecordSelected = 0;
             this.toastr.error('Account deleted successfully', 'success', {
               timeOut: 2000
             });
@@ -285,6 +288,9 @@ export class AccountsComponent implements OnInit {
           this.isApiCalling = true;
           this.http.deleteAccountTypes(ApiUrl.deleteAccountTypes, id, false).subscribe(res => {
             this.accountTypeList = [];
+            this.accountList = [];
+            this.isSelected = 0;
+            this.isRecordSelected = 0;
             this.toastr.error('Account type deleted successfully', 'success', {
               timeOut: 2000
             });

@@ -1308,3 +1308,96 @@ body {
 
 
 
+  .start-entry {
+    padding: 30px 0px;
+    .add-entry-main-form{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 20px;
+        width: 65%;
+        grid-row-gap: 20px;
+        @include max-mq(1500){
+            width: 80%;
+        }
+        .form-group{
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            > label{
+                margin-bottom: 0;
+                width: 20%;
+                text-align: right;
+                margin-right: 20px;
+                font-size: 10px;
+                line-height: 10px;
+            }
+            .mat-form-field{
+                width: 80% !important;
+            }
+            .mat-checkbox{
+                width: 40% !important;
+            }
+        }
+        .check-box-cleared{
+            .example-margin{
+                .mat-checkbox-layout{
+                    margin-bottom: 0px;
+                    .mat-checkbox-label{
+                        font-size: 10px;
+                    }
+                }
+            }
+            .mat-checkbox-checked{
+                .mat-checkbox-inner-container{
+                    .mat-checkbox-background{
+                        background: #27AE60;
+                    }
+                }
+            }
+        }
+        .file-input{
+            .inner-file-upload{
+                position: relative;
+                width: 80%;
+                .text-type{
+                    max-width: 100%;
+                    background: #F9F9F9 url(assets/images/plus-icon.svg) no-repeat;
+                    background-size: 12px;
+                    padding: 18px 19px !important;
+                    width: 100% !important;
+                    border-radius: 100px !important;
+                    font-size: 12px;
+                    font-family: "Sul Sans" !important;
+                    position: relative;
+                    margin-top: 0 !important;
+                    border: none;
+                    background-position: center right 15px;
+                }
+                .upload-option {
+                    position: absolute;
+                    left: 0;
+                    opacity: 0;
+                    right: 0;
+                    width: 100%;
+                    top: 0;
+                    bottom: 0;
+                    cursor: pointer;
+                }
+            }
+
+        }
+        .Add-not-main {
+            grid-column-start: 2;
+            grid-column-end: -1;
+        }
+        .last-section {
+            grid-column-start: 2;
+            grid-column-end: -1;
+            text-align: right;
+            .btn{
+                padding: 14px 41px;
+                font-weight: 300;
+            }
+        }
+    }
+}

@@ -172,7 +172,7 @@ export class AddEditAccountComponent implements OnInit {
         "accountNo": this.editaccount.value.accountNo,
         "currency": this.editaccount.value.currency,
         "openDate": this.editaccount.value.openDate._d,
-        "currentBalance": this.editaccount.value.currentBalance,
+        "currentBalance": this.data.editdata.currentBalance,
         "phoneNumber": this.editaccount.value.phoneNumber,
         "accountType": this.editaccount.value.accountType,
         "website": this.editaccount.value.website,

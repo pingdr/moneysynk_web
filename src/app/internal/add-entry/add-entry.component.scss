@@ -1,0 +1,77 @@
+.add-entry-main {
+    .component-heading {
+        width: auto;
+        margin-right: 27px;
+    }  
+    .component-btn{
+        width: auto;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        .btn-compo-main {
+            display: flex;
+            margin-right: 40px;
+            .plus-btn{
+                border: none;
+                padding: 0px 12px;
+                font-size: 18px;
+                border-radius: 33.5px;
+                width: 36px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                // color: #fff;
+                margin-right: 14px;
+                &:focus{
+                    outline: none !important;
+                }
+            }
+            .minus-btn{
+                width: 36px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                margin-right: 14px;
+                padding: 0px 13px;
+                font-size: 24px;
+                border: 1px solid #CCCCCC;
+                background: #fff;
+                border-radius: 18px;
+                &:focus{
+                    outline: none !important;
+                }
+            }
+            .refresh-btn {
+                height: 36px;
+                width: 36px;
+                font-size: 0;
+                background: #fff url('../../../assets/images/refresh-icon.svg') no-repeat;
+                background-size: 13px;
+                border: 1px solid #ccc;
+                border-radius: 18px;
+                background-position: center;
+                &:focus{
+                    outline: none !important;
+                }
+            }
+        }
+        .main-input-filed-entry{
+            input{
+                width: 45%;
+                padding: 10px 20px;
+                background: #FFFFFF;
+                border: 1px solid #CCCCCC;
+                border-radius: 100px;
+                &:focus{
+                    outline: none !important;
+                }
+            }
+        }
+    }  
+}
+
+.active-btn{
+    background: linear-gradient(90deg, #F5B822 0%, #FFD263 96.98%) !important;
+    color: white !important;
+}
+

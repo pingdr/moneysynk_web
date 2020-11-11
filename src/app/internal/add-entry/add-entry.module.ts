@@ -5,17 +5,21 @@ import { AuthGuardService } from 'src/app/services/authguard.service';
 import { SharedModule } from '../../shared/modules/shared.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
-import { TransactionComponent } from './transaction.component';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { AddEntryComponent } from './add-entry.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 const routes: Routes = [
     {
         path: '', children: [
             {
                 path: '',
-                component: TransactionComponent,
+                component: AddEntryComponent,
                 canActivate: [AuthGuardService],
-                data: { title: 'Budget' },
+                data: { title: 'Settings' },
             }
         ]
     }
@@ -23,12 +27,16 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        TransactionComponent
+        AddEntryComponent
     ],
     imports: [
         SharedModule,
-        MatProgressBarModule,
         CommonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatCheckboxModule,
+        MatDatepickerModule,
         RouterModule.forChild(routes),
         MatExpansionModule,
         MatButtonModule
@@ -36,5 +44,5 @@ const routes: Routes = [
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
-export class TransactionModule {
+export class AddEntryModule {
 }

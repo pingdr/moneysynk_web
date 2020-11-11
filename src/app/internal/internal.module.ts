@@ -54,6 +54,10 @@ const routes: Routes = [{
         {
             path: 'spliwise',
             loadChildren: () => import('./splitwise/splitwise.module').then(m => m.SplitwiseModule)
+        },
+        {
+            path: 'add-entry',
+            loadChildren: () => import('./add-entry/add-entry.module').then(m => m.AddEntryModule)
         }
     ]
 }];

@@ -76,15 +76,6 @@ export class CategoriesComponent implements OnInit {
         } else {
           this.incomeArray = res.data.data;
         }
-        // for (let index = 0; index < res.data.data.length; index++) {
-        //   if (res.data.data[index].type === "EXPENSE") {
-        //     this.expenseArray.push(res.data.data[index]);
-        //   } else {
-        //     this.incomeArray.push(res.data.data[index]);
-        //   }
-        // }
-        // this.categories = res.data;
-        // this.filter = res.data;
       }
     });
 

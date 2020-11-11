@@ -8,7 +8,7 @@ export const phoneTypes = ['work', 'home', 'mobile', 'other'];
 
 export const sideBarAdmin = [
     {path: 'reports', title: 'Reports'},
-    {path: '/moneysynk/', title: 'Add Entry'},
+    {path: 'add-entry', title: 'Add Entry'},
     {path: 'accounts', title: 'Accounts'},
     {path: 'categories', title: 'Categories'},
     {path: 'payees', title: 'Payee / Payers'},

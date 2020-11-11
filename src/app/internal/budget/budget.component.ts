@@ -15,7 +15,11 @@ export class BudgetComponent implements OnInit {
 
   groupId: any;
   isApiCalling: boolean = false;
-  type: any = "EXPENSE"
+  type: any = "EXPENSE";
+  expenseArray: any = [];
+  incomeArray: any = [];
+  budgets: any = [];
+  recordSelected: any = 0;
   dialogRefofOtpModal: MatDialogRef<AddBudgetModalComponent>;
   constructor(public http: HttpService, private formBuilder: FormBuilder, public sharedserive: SharedService, public dialog: MatDialog) { }
 
@@ -32,26 +36,29 @@ export class BudgetComponent implements OnInit {
   setStep(index: number) {
     this.step = index;
   }
-
+  selectRecord(i) {
+    if (i || i == 0)
+    this.recordSelected = i;
+  }
   getBudgets() {
     this.isApiCalling = true;
     var payload = {
       "groupId": this.groupId,
       "type": this.type
     }
+    this.recordSelected = 0;
     this.http.getCategories(ApiUrl.getBudget, payload).subscribe(res => {
       this.isApiCalling = false;
       this.http.showLoader();
       console.log(res);
-      // if (res.data != undefined) {
-      //   for (let index = 0; index < res.data.length; index++) {
-      //     if (res.data[index].type === "EXPENSE") {
-      //       this.expenseArray.push(res.data[index]);
-      //     } else {
-      //       this.incomeArray.push(res.data[index]);
-      //     }
-      //   }
-      // }
+      if (res.data != undefined) {
+        // this.budgets = res.data.data;
+          if (this.type === "EXPENSE") {
+            this.expenseArray = res.data.data;
+          } else {
+            this.incomeArray = res.data.data;
+          }
+      }
     });
   }
   nextStep() {
@@ -64,7 +71,7 @@ export class BudgetComponent implements OnInit {
   prevStep() {
     this.step--;
   }
-  
+
 
 
   openEditmodal(): void {
