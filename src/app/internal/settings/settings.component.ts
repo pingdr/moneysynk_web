@@ -17,6 +17,7 @@ export class SettingsComponent implements OnInit {
   groupName: any = '';
 
   @ViewChild('deleteGroupDialog') deleteGroupDialog: TemplateRef<any>;
+  @ViewChild('editGroupDialog') editGroupDialog: TemplateRef<any>;
 
   constructor(public http: HttpService,
     private toastr: ToastrService,
@@ -44,7 +45,25 @@ export class SettingsComponent implements OnInit {
       panelClass: 'custom-modalbox'
     });
   }
-
+  openEditGroupDialog(id, name) {
+    this.groupId = id;
+    this.groupName = name;
+    this.dialog.open(this.editGroupDialog, {
+      width: '350px',
+      panelClass: 'custom-modalbox'
+    });
+  }
+  editGroup() {
+    if(this.groupName != '') {
+      this.isApiCalling = true;
+      this.http.editGroup(this.groupId,{name:this.groupName}).subscribe((res)=> {
+        console.log(res);
+        this.closeAllModal();
+        this.isApiCalling = false;
+        this.getAllGroup();
+      })
+    }
+  }
   deleteGroup() {
     this.isApiCalling = true;
     this.http.deleteGroup(this.groupId).subscribe(

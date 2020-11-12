@@ -69,7 +69,20 @@
         }
     }  
 }
-
+.add-btn {
+    background: transparent !important;
+    padding: 0;
+    position: absolute;
+    right: 18px;
+    bottom: 1px;
+    line-height: 42px;
+    font-size: 11px;
+    color: #7299FF !important;
+    font-weight: 100;
+    &:hover{
+    text-decoration: underline;
+    }
+    }
 .active-btn{
     background: linear-gradient(90deg, #F5B822 0%, #FFD263 96.98%) !important;
     color: white !important;

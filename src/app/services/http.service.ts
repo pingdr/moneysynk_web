@@ -508,7 +508,9 @@ export class HttpService {
     deleteGroup(id) {
         return this.http.delete(this.apiEndpoint + 'groups/' + id);
     }
-
+    editGroup(id, data) {
+        return this.http.post(this.apiEndpoint + 'groups/' + id, data);
+    }
 
     deleteAccountTypes(url, id, isLoading?: boolean) {
 
