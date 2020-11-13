@@ -28,6 +28,7 @@ export class CategoriesComponent implements OnInit {
   isApiCalling: boolean = false;
   categoryId;
   categoryName;
+  categoriesDetails:any;
   total: any;
   pageIndex: any = 0;
   constructor(public http: HttpService, public activeRoute: ActivatedRoute,
@@ -55,6 +56,22 @@ export class CategoriesComponent implements OnInit {
     this.pageIndex = 0;
     this.getCategoriesData();
   }
+  getCategoriesDetailsById(id) {
+    this.isApiCalling = true;
+    var payload = {
+      year:1,
+      groupId:this.groupId,
+      parent:id,
+      type:this.type
+    }
+    this.http.get(ApiUrl.categoryMonths,payload).subscribe((res)=> {
+      this.isApiCalling = false;
+      this.categoriesDetails = res.data;
+    })
+  }
+  selectRecord(id) {
+      this.getCategoriesDetailsById(id);    
+  }
   getCategoriesData() {
     this.isApiCalling = true;
     var payload = {
@@ -73,8 +90,10 @@ export class CategoriesComponent implements OnInit {
         this.total = res.data.totalCategories;
         if(this.type === "EXPENSE") {
           this.expenseArray = res.data.data;
+          this.getCategoriesDetailsById(this.expenseArray[0]._id);
         } else {
           this.incomeArray = res.data.data;
+          this.getCategoriesDetailsById(this.incomeArray[0]._id);
         }
       }
     });

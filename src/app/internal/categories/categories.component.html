@@ -31,7 +31,7 @@
                             <mat-accordion>
                                 <!-------------------- First-tab--------------------------->
                                 <mat-expansion-panel *ngFor="let cat of expenseArray;let i = index">
-                                    <mat-expansion-panel-header>
+                                    <mat-expansion-panel-header (click)="selectRecord(cat._id)">
                                         <mat-panel-title>
                                             <span>{{cat.name}}</span>
                                             <img src="{{cat.icon}}">
@@ -253,21 +253,21 @@
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                                            <mat-expansion-panel *ngFor="let cd of categoriesDetails" [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
-                                                        Aug 2020
+                                                        {{cd._id.month}}/{{cd._id.year}}
                                                     </mat-panel-title>
                                                     <mat-panel-description>
                                                         <span class="red-color">$ 120.00</span>
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
 
-                                                <div class="inner-expansion-main">
+                                                <div *ngFor="let d of cd.data" class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag green-color">$ 85.00</div>
+                                                            <div class="holder-name">{{d.name}}</div>
+                                                            <div class="price-tag red-color">$ 85.00</div>
                                                         </div>
                                                         <div class="main-strips">
                                                             <div class="date-and-time">18 Aug 2020 5.00 pm</div>
@@ -282,7 +282,7 @@
 
                                                 </div>
                                                 <!-- --------strips ---------------------->
-                                                <div class="inner-expansion-main">
+                                                <!-- <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
                                                             <div class="holder-name">Bike</div>
@@ -299,9 +299,9 @@
                                                         </a>
                                                     </div>
 
-                                                </div>
+                                                </div> -->
                                                 <!------------------strips------------------------>
-                                                <div class="inner-expansion-main">
+                                                <!-- <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
                                                             <div class="holder-name">Bike</div>
@@ -318,11 +318,11 @@
                                                         </a>
                                                     </div>
 
-                                                </div>
+                                                </div> -->
 
                                             </mat-expansion-panel>
                                             <!-- second-panal -->
-                                            <mat-expansion-panel>
+                                            <!-- <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
                                                         Aug 2020
@@ -349,7 +349,6 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -368,7 +367,6 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -388,9 +386,9 @@
 
                                                 </div>
 
-                                            </mat-expansion-panel>
+                                            </mat-expansion-panel> -->
                                             <!-- third-panal -->
-                                            <mat-expansion-panel>
+                                            <!-- <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
                                                         Aug 2020
@@ -417,7 +415,6 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -436,7 +433,6 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -456,7 +452,7 @@
 
                                                 </div>
 
-                                            </mat-expansion-panel>
+                                            </mat-expansion-panel> -->
 
                                         </mat-accordion>
                                     </div>
@@ -478,7 +474,7 @@
                             <mat-accordion>
                                 <!-------------------- First-tab--------------------------->
                                 <mat-expansion-panel *ngFor="let inc of incomeArray">
-                                    <mat-expansion-panel-header>
+                                    <mat-expansion-panel-header (click)="selectRecord(inc._id)">
                                         <mat-panel-title>
                                             <span>{{inc.name}}</span>
                                             <img src="{{inc.icon}}">
@@ -699,20 +695,20 @@
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                                            <mat-expansion-panel *ngFor="let cd of categoriesDetails" [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
-                                                        Aug 2020
+                                                        {{cd._id.month}}/{{cd._id.year}}
                                                     </mat-panel-title>
                                                     <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
+                                                        <span class="green-color">$ 120.00</span>
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
 
-                                                <div class="inner-expansion-main">
+                                                <div *ngFor="let d of cd.data" class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
+                                                            <div class="holder-name">{{d.name}}</div>
                                                             <div class="price-tag green-color">$ 85.00</div>
                                                         </div>
                                                         <div class="main-strips">
@@ -728,7 +724,7 @@
 
                                                 </div>
                                                 <!-- --------strips ---------------------->
-                                                <div class="inner-expansion-main">
+                                                <!-- <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
                                                             <div class="holder-name">Bike</div>
@@ -745,9 +741,9 @@
                                                         </a>
                                                     </div>
 
-                                                </div>
+                                                </div> -->
                                                 <!------------------strips------------------------>
-                                                <div class="inner-expansion-main">
+                                                <!-- <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
                                                             <div class="holder-name">Bike</div>
@@ -764,11 +760,11 @@
                                                         </a>
                                                     </div>
 
-                                                </div>
+                                                </div> -->
 
                                             </mat-expansion-panel>
                                             <!-- second-panal -->
-                                            <mat-expansion-panel>
+                                            <!-- <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
                                                         Aug 2020
@@ -795,7 +791,6 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -814,7 +809,6 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -834,9 +828,8 @@
 
                                                 </div>
 
-                                            </mat-expansion-panel>
-                                            <!-- third-panal -->
-                                            <mat-expansion-panel>
+                                            </mat-expansion-panel> -->
+                                            <!-- <mat-expansion-panel>
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
                                                         Aug 2020
@@ -863,7 +856,6 @@
                                                     </div>
 
                                                 </div>
-                                                <!-- --------strips ---------------------->
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -882,7 +874,6 @@
                                                     </div>
 
                                                 </div>
-                                                <!------------------strips------------------------>
                                                 <div class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
@@ -902,7 +893,7 @@
 
                                                 </div>
 
-                                            </mat-expansion-panel>
+                                            </mat-expansion-panel> -->
 
                                         </mat-accordion>
                                     </div>

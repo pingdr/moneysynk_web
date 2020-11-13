@@ -22,7 +22,7 @@ export class AccountsComponent implements OnInit {
 
   @ViewChild('deleteAccountDialog') DeleteAccountDialog: TemplateRef<any>;
   @ViewChild('deleteAccountTypeDialog') DeleteAccountTypeDialog: TemplateRef<any>;
-
+  accountDetails:any;
   arrayLength = 10;
   isApiCalling: boolean = false;
   accountName: string = '';
@@ -129,7 +129,18 @@ export class AccountsComponent implements OnInit {
     });
 
   }
-
+  getAccountDetailsById(id) {
+    this.isApiCalling = true;
+    var payload = {
+      year:1,
+      groupId:this.groupId,
+      accountId:id
+    }
+    this.http.get(ApiUrl.accountMonths,payload).subscribe((res)=> {
+      this.isApiCalling = false;
+      this.accountDetails = res.data;
+    })
+  }
   getAccountdata() {
 
     var payload = {
@@ -147,6 +158,9 @@ export class AccountsComponent implements OnInit {
         this.accountList = [];
         this.resultsLength = res.data.total;
         this.accountList = res.data.data;
+        if(res.data.data.length > 0) {
+          this.getAccountDetailsById(res.data.data[0]._id)
+        }
         for (let i = 0; i < this.accountList.length; i++) {
           this.accountList[i]['isViewAmount'] = true;
         }
@@ -224,9 +238,13 @@ export class AccountsComponent implements OnInit {
   // openDeleteAccountDialog(id) {
   //     this.dialog.open()
   // }
-  recordSelected(i) {
+  recordSelected(i,id?) {
     if (i || i == 0)
       this.isRecordSelected = i;
+
+    if(id) {
+      this.getAccountDetailsById(id)
+    }
   }
   // filterData(i, id) {
   //   if (i || i == 0)
@@ -271,6 +289,12 @@ export class AccountsComponent implements OnInit {
         this.resultsLength = res.data.total;
         this.accountList = res.data.data;
         // this.filter = res.data;
+        if(res.data.data.length > 0) {
+          this.getAccountDetailsById(res.data.data[0]._id)
+        }
+        for (let i = 0; i < this.accountList.length; i++) {
+          this.accountList[i]['isViewAmount'] = true;
+        }
       }
     });
   }

@@ -36,7 +36,7 @@
         <!-- <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab"> -->
         <div style="padding:20px;" class="row">
             <div class="col-8 col-md-8 col-lg-8">
-                <div *ngFor="let data of accountList; let i = index" [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account" (click)="recordSelected(i)">
+                <div *ngFor="let data of accountList; let i = index" [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account" (click)="recordSelected(i,data._id)">
                     <div class="number">
                         <span><img style="width: 32px;" src="{{data.icon}}"></span></div>
                     <div class="account-type"><span>{{ data.name }}</span></div>
@@ -76,10 +76,10 @@
                         <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel" aria-labelledby="nav-list-tab">
                             <div class="accordian-main">
                                 <mat-accordion>
-                                    <mat-expansion-panel expanded="step === 0" (opened)="setStep(0)">
+                                    <mat-expansion-panel *ngFor="let ad of accountDetails" expanded="step === 0" (opened)="setStep(0)">
                                         <mat-expansion-panel-header>
                                             <mat-panel-title>
-                                                Aug 2020
+                                                {{ad._id.month}}/{{ad._id.year}}
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 <span class="red-color">$ 120.00</span>
@@ -144,7 +144,7 @@
                                         </div>
 
                                     </mat-expansion-panel>
-                                    <mat-expansion-panel>
+                                    <!-- <mat-expansion-panel>
                                         <mat-expansion-panel-header>
                                             <mat-panel-title>
                                                 Aug 2020
@@ -277,7 +277,7 @@
 
                                         </div>
 
-                                    </mat-expansion-panel>
+                                    </mat-expansion-panel> -->
 
                                 </mat-accordion>
                             </div>
