@@ -61,8 +61,8 @@ export class CategoriesComponent implements OnInit {
     var payload = {
       year:1,
       groupId:this.groupId,
-      parent:id,
-      type:this.type
+      categoryId:id,
+      type: this.type == 'EXPENSE' ? 'OUT' : 'IN'
     }
     this.http.get(ApiUrl.categoryMonths,payload).subscribe((res)=> {
       this.isApiCalling = false;

@@ -89,19 +89,20 @@
                                         <div *ngFor="let d of ad.data" class="inner-expansion-main">
                                             <div class="inner-sub-left">
                                                 <div class="main-strips">
-                                                    <div class="holder-name">Bike</div>
-                                                    <div class="price-tag green-color">$ 85.00</div>
+                                                    <div class="holder-name">{{d.accountId.name}}</div>
+                                                    <div *ngIf="d.transactionType == 'IN'" class="price-tag green-color">$ {{d.amount}}</div>
+                                                    <div *ngIf="d.transactionType == 'OUT'" class="price-tag red-color">$ {{d.amount}}</div>
                                                 </div>
                                                 <div class="main-strips">
-                                                    <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                    <div class="account-type">My Account</div>
+                                                    <div class="date-and-time">{{d.createdAt | date}}</div>
+                                                    <!-- <div class="account-type">My Account</div> -->
                                                 </div>
                                             </div>
-                                            <div class="inner-sub-right">
+                                            <!-- <div class="inner-sub-right">
                                                 <a href="#" title="edit">
                                                     <img src="../../../assets/images/edit-pencil.svg">
                                                 </a>
-                                            </div>
+                                            </div> -->
 
                                         </div>
 

@@ -12,6 +12,7 @@ export const ApiUrl = {
     addEditCategory:'categories',
     getAccount:'accounts',
     accountMonths:'accounts/getMonthlyData',
+    payeeMonths:'financialBeneficiaries/getMonthlyData',
     categoryMonths:'categories/getMonthlyData',
     classes:'classes',
     getTransactions:'transactions',

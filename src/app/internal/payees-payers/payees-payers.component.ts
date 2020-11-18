@@ -23,7 +23,8 @@ export class PayeesPayersComponent implements OnInit {
   payeeName;
   total: any;
   pageIndex: any = 0;
-  AddText:any = "Add Payee"
+  AddText: any = "Add Payee";
+  payeeDetails: any;
   constructor(public dialog: MatDialog, public sharedserive: SharedService, public http: HttpService, private toastr: ToastrService) { }
 
   @ViewChild('deletePayeeDialog') DeletePayeeDialog: TemplateRef<any>;
@@ -37,7 +38,19 @@ export class PayeesPayersComponent implements OnInit {
     });
   }
   step = 0;
-
+  getPayeeDetailsById(id) {
+    this.isApiCalling = true;
+    var payload = {
+      year: 1,
+      groupId: this.groupId,
+      beneficiaryId: id,
+      type: this.type == 'PAYEE' ? 'OUT' : 'IN'
+    }
+    this.http.get(ApiUrl.payeeMonths, payload).subscribe((res) => {
+      this.isApiCalling = false;
+      this.payeeDetails = res.data;
+    })
+  }
   getPayees() {
     this.isApiCalling = true;
     var payload = {
@@ -52,19 +65,12 @@ export class PayeesPayersComponent implements OnInit {
       if (res.data.data != undefined) {
         if (this.type === "PAYEE") {
           this.payeesArray = res.data.data;
+          this.getPayeeDetailsById(this.payeesArray[0]._id);
         } else {
           this.payersArray = res.data.data;
+          this.getPayeeDetailsById(this.payersArray[0]._id);
         }
         this.total = res.data.totalFinancialBeneficiaries;
-        // for (let index = 0; index < res.data.data.length; index++) {
-        //   if (res.data.data[index].type === "PAYEE") {
-        //     this.payeesArray.push(res.data.data[index]);
-        //   } else {
-        //     this.payersArray.push(res.data.data[index]);
-        //   }
-        // }
-        // this.categories = res.data;
-        // this.filter = res.data;
       }
     });
   }
@@ -72,9 +78,12 @@ export class PayeesPayersComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.getPayees();
   }
-  recordSelected(i) {
+  recordSelected(i,id?) {
     if (i || i == 0)
       this.isRecordSelected = i;
+    if(id) {
+      this.getPayeeDetailsById(id);
+    }
   }
 
   setStep(index: number) {
@@ -82,10 +91,10 @@ export class PayeesPayersComponent implements OnInit {
   }
   setType(type) {
     this.type = type;
-    if(type === "PAYEE")
-    this.AddText = "Add Payee"
+    if (type === "PAYEE")
+      this.AddText = "Add Payee"
     else
-    this.AddText = "Add Payer"
+      this.AddText = "Add Payer"
     this.pageIndex = 0;
     this.isRecordSelected = 0;
     this.getPayees();
