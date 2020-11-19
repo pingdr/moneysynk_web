@@ -13,6 +13,7 @@ export const ApiUrl = {
     getAccount:'accounts',
     accountMonths:'accounts/getMonthlyData',
     payeeMonths:'financialBeneficiaries/getMonthlyData',
+    budgetMonths:'financialSources/getMonthlyData',
     categoryMonths:'categories/getMonthlyData',
     classes:'classes',
     getTransactions:'transactions',

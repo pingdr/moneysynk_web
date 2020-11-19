@@ -25,7 +25,7 @@ export class AddEntryComponent implements OnInit {
   classes: any;
   filterName: any;
   className: any;
-  type: any = 'PAYEE'
+  type: any = 'PAYER'
   amount: any;
   budgets: any;
   transactionType: any = 'IN'
@@ -87,9 +87,9 @@ export class AddEntryComponent implements OnInit {
       case 'IN':
         this.isbtnSelected = 1;
         this.transactionType = "IN";
-        this.type = "PAYEE";
-        this.editentry.controls.transactionType.setValue('IN');
-        this.editentry.controls.beneficiaryType.setValue('PAYEE');
+        this.type = "PAYER";
+        this.editentry.controls.transactionType.setValue(this.transactionType);
+        this.editentry.controls.beneficiaryType.setValue('PAYER');
         this.getPayeeList();
         this.getCategoriesData();
         this.getBudgets();
@@ -97,9 +97,9 @@ export class AddEntryComponent implements OnInit {
       case 'OUT':
         this.isbtnSelected = 2;
         this.transactionType = "OUT"
-        this.type = "PAYER";
-        this.editentry.controls.transactionType.setValue(this.transactionType);
-        this.editentry.controls.beneficiaryType.setValue('PAYER');
+        this.type = "PAYEE";
+        this.editentry.controls.transactionType.setValue('OUT');
+        this.editentry.controls.beneficiaryType.setValue('PAYEE');
         this.getPayeeList();
         this.getCategoriesData();
         this.getBudgets();

@@ -28,7 +28,8 @@ export class CategoriesComponent implements OnInit {
   isApiCalling: boolean = false;
   categoryId;
   categoryName;
-  categoriesDetails:any;
+  categoriesDetails: any;
+  cName: any;
   total: any;
   pageIndex: any = 0;
   constructor(public http: HttpService, public activeRoute: ActivatedRoute,
@@ -59,18 +60,19 @@ export class CategoriesComponent implements OnInit {
   getCategoriesDetailsById(id) {
     this.isApiCalling = true;
     var payload = {
-      year:1,
-      groupId:this.groupId,
-      categoryId:id,
+      year: 1,
+      groupId: this.groupId,
+      categoryId: id,
       type: this.type == 'EXPENSE' ? 'OUT' : 'IN'
     }
-    this.http.get(ApiUrl.categoryMonths,payload).subscribe((res)=> {
+    this.http.get(ApiUrl.categoryMonths, payload).subscribe((res) => {
       this.isApiCalling = false;
       this.categoriesDetails = res.data;
     })
   }
-  selectRecord(id) {
-      this.getCategoriesDetailsById(id);    
+  selectRecord(c) {
+    this.cName = c.name;
+    this.getCategoriesDetailsById(c._id);
   }
   getCategoriesData() {
     this.isApiCalling = true;
@@ -78,7 +80,7 @@ export class CategoriesComponent implements OnInit {
       "groupId": this.groupId,
       "pageIndex": this.pageIndex,
       "limit": 10,
-      parent:true,
+      parent: true,
       type: this.type
     }
     this.expenseArray = [];
@@ -88,11 +90,13 @@ export class CategoriesComponent implements OnInit {
       this.http.showLoader();
       if (res.data.data != undefined) {
         this.total = res.data.totalCategories;
-        if(this.type === "EXPENSE") {
+        if (this.type === "EXPENSE") {
           this.expenseArray = res.data.data;
+          this.cName = this.expenseArray[0].name;
           this.getCategoriesDetailsById(this.expenseArray[0]._id);
         } else {
           this.incomeArray = res.data.data;
+          this.cName = this.incomeArray[0].name;
           this.getCategoriesDetailsById(this.incomeArray[0]._id);
         }
       }

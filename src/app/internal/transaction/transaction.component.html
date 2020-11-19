@@ -32,16 +32,21 @@
         <div class="filter-main">
             <div class="left-col">
                 <div class="form-group">
-                    <label>Start Date</label>
-                    <mat-form-field style="display: flex;" appearance="fill">
-
-                        <input matInput [matDatepicker]="picker1" formControlName="Opendate">
+                    <label>Select Range Date</label>
+                    <mat-form-field style="display: flex;align-items: center;border: 1px solid;padding-left: 10px;" appearance="fill">
+                        <mat-date-range-input  [rangePicker]="picker" >
+                            <input matStartDate formControlName="Opendate">
+                            <input matEndDate (focus)="picker.open()">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                        <!-- <input matInput [matDatepicker]="picker1" formControlName="Opendate">
 
                         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-datepicker #picker1></mat-datepicker> -->
                     </mat-form-field>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label>End Date</label>
                     <mat-form-field style="display: flex;" appearance="fill">
 
@@ -50,7 +55,7 @@
                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                         <mat-datepicker #picker2></mat-datepicker>
                     </mat-form-field>
-                </div>
+                </div> -->
             </div>
             <div class="search-btn right-col">
                 <button class="btn search-btn">

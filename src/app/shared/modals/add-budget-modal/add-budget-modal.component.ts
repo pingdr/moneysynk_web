@@ -26,10 +26,10 @@ export class AddBudgetModalComponent implements OnInit {
     this.editaccount = this.formBuilder.group({
       name: ['', Validators.required],
       type: [this.type],
-      amount: ['', Validators.required],
+      currentBalance: ['', Validators.required],
       groupId: [this.data.groupId],
       icon: ['', Validators.required],
-      note: ['', Validators.required],
+      note: [''],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required]
     });
@@ -65,9 +65,12 @@ export class AddBudgetModalComponent implements OnInit {
       "icon": this.editaccount.value.icon,
       "type": this.type,
       "startDate": new Date(this.editaccount.value.startDate),
-      "amount": 200,
+      "currentBalance": this.editaccount.value.currentBalance,
       "endDate": new Date(this.editaccount.value.endDate),
-      "cycle": "daily",
+      "cycle": {
+        "period": "DAY",
+        "value": "2"
+      },
       "note": this.editaccount.value.note,
       "groupId": this.editaccount.value.groupId
     };

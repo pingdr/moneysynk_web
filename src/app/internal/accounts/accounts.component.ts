@@ -291,6 +291,8 @@ export class AccountsComponent implements OnInit {
         // this.filter = res.data;
         if(res.data.data.length > 0) {
           this.getAccountDetailsById(res.data.data[0]._id)
+        } else {
+          this.accountDetails = null
         }
         for (let i = 0; i < this.accountList.length; i++) {
           this.accountList[i]['isViewAmount'] = true;

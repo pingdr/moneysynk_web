@@ -7,7 +7,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { TransactionComponent } from './transaction.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule, MatDateRangeInput } from '@angular/material/datepicker';
 
 const routes: Routes = [
     {
@@ -24,7 +24,7 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        TransactionComponent
+        TransactionComponent,
     ],
     imports: [
         SharedModule,

@@ -31,7 +31,7 @@
                             <mat-accordion>
                                 <!-------------------- First-tab--------------------------->
                                 <mat-expansion-panel *ngFor="let cat of expenseArray;let i = index">
-                                    <mat-expansion-panel-header (click)="selectRecord(cat._id)">
+                                    <mat-expansion-panel-header (click)="selectRecord(cat)">
                                         <mat-panel-title>
                                             <span>{{cat.name}}</span>
                                             <img src="{{cat.icon}}">
@@ -245,7 +245,7 @@
                         <div class="list-main-filter">
                             <nav class="asset-main-tab">
 
-                                <span>Auto</span>
+                                <span>{{cName}}</span>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->
@@ -266,19 +266,20 @@
                                                 <div *ngFor="let d of cd.data" class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
-                                                            <div class="holder-name">{{d.name}}</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
+                                                            <div class="holder-name">{{d.accountId.name}}</div>
+                                                            <div *ngIf="d.transactionType == 'IN'" class="price-tag green-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'OUT'" class="price-tag red-color">$ {{d.amount}}</div>
                                                         </div>
                                                         <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
+                                                            <div class="date-and-time">{{d.createdAt | date}}</div>
+                                                            <!-- <div class="account-type">My Account</div> -->
                                                         </div>
                                                     </div>
-                                                    <div class="inner-sub-right">
+                                                    <!-- <div class="inner-sub-right">
                                                         <a href="#" title="edit">
                                                             <img src="../../../assets/images/edit-pencil.svg">
                                                         </a>
-                                                    </div>
+                                                    </div> -->
 
                                                 </div>
                                                 <!-- --------strips ---------------------->
@@ -474,7 +475,7 @@
                             <mat-accordion>
                                 <!-------------------- First-tab--------------------------->
                                 <mat-expansion-panel *ngFor="let inc of incomeArray">
-                                    <mat-expansion-panel-header (click)="selectRecord(inc._id)">
+                                    <mat-expansion-panel-header (click)="selectRecord(inc)">
                                         <mat-panel-title>
                                             <span>{{inc.name}}</span>
                                             <img src="{{inc.icon}}">
@@ -687,7 +688,7 @@
                         <div class="list-main-filter">
                             <nav class="asset-main-tab">
 
-                                <span>Auto</span>
+                                <span>{{cName}}</span>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->
@@ -708,19 +709,20 @@
                                                 <div *ngFor="let d of cd.data" class="inner-expansion-main">
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
-                                                            <div class="holder-name">{{d.name}}</div>
-                                                            <div class="price-tag green-color">$ 85.00</div>
+                                                            <div class="holder-name">{{d.accountId.name}}</div>
+                                                            <div *ngIf="d.transactionType == 'IN'" class="price-tag green-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'OUT'" class="price-tag red-color">$ {{d.amount}}</div>
                                                         </div>
                                                         <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
+                                                            <div class="date-and-time">{{d.createdAt | date}}</div>
+                                                            <!-- <div class="account-type">My Account</div> -->
                                                         </div>
                                                     </div>
-                                                    <div class="inner-sub-right">
+                                                    <!-- <div class="inner-sub-right">
                                                         <a href="#" title="edit">
                                                             <img src="../../../assets/images/edit-pencil.svg">
                                                         </a>
-                                                    </div>
+                                                    </div> -->
 
                                                 </div>
                                                 <!-- --------strips ---------------------->
