@@ -66,11 +66,20 @@
             <div class="form-group">
                 <label>Class</label>
                 <mat-form-field appearance="fill">
-                    <mat-label>Select Class</mat-label>
+                    <!-- <mat-label>Select Class</mat-label> -->
                 
-                    <mat-select class="textTransform" formControlName="classId" [ngClass]="{ 'is-invalid': submitted && f.classId.errors }">
+                    <mat-select *ngIf="classes.length > 0" class="textTransform" formControlName="classId" [ngClass]="{ 'is-invalid': submitted && f.classId.errors }">
       
                         <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option>
+                        <mat-form-field appearance="fill">
+                            <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}" name="filterName" (keyup)="addclass($event.target.value)" [value]="className" matInput placeholder="Add New Class">
+                            <button (click)="saveClass()" class="btn add-btn"> Add</button>
+                        </mat-form-field>
+      
+                    </mat-select>
+                    <mat-select *ngIf="classes.length == 0" class="textTransform" formControlName="classId" [ngClass]="{ 'is-invalid': submitted && f.classId.errors }">
+      
+                        <!-- <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option> -->
                         <mat-form-field appearance="fill">
                             <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}" name="filterName" (keyup)="addclass($event.target.value)" [value]="className" matInput placeholder="Add New Class">
                             <button (click)="saveClass()" class="btn add-btn"> Add</button>

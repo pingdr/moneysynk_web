@@ -18,6 +18,7 @@ import { VerifyMobileOtpComponent } from './shared/modals/verify-mobile-otp/veri
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -51,6 +52,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AddBudgetModalComponent } from './shared/modals/add-budget-modal/add-budget-modal.component';
 import { AddGroupComponent } from './shared/modals/add-group/add-group.component';
 import { AddExpenseComponent } from './shared/modals/add-expense/add-expense.component';
+import { AddBillComponent } from './shared/modals/add-bill/add-bill.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { AddExpenseComponent } from './shared/modals/add-expense/add-expense.com
     AddPayeeComponent,
     AddBudgetModalComponent,
     AddGroupComponent,
-    AddExpenseComponent
+    AddExpenseComponent,
+    AddBillComponent
   ],
   imports: [
     BrowserModule,
@@ -86,6 +89,7 @@ import { AddExpenseComponent } from './shared/modals/add-expense/add-expense.com
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,

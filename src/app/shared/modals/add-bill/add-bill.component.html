@@ -1,0 +1,133 @@
+<div class="heading-modal">
+    <span>Add Bill</span>
+    <button class="btn" [mat-dialog-close]>
+        <img src="../../../assets/images/close.svg">
+    </button>
+</div>
+
+<div class="form-group-main add-account-section">
+    <form class="add-account-entry" [formGroup]="editaccount" *ngIf="editaccount" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>Payee</label>
+            <mat-form-field appearance="fill">
+                <mat-select formControlName="beneficiaryId" placeholder="Select Payee" required name="payee"
+                    [ngClass]="{ 'is-invalid': submitted && f.beneficiaryId.errors }">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let p of payeesArray" value="{{p._id}}">{{p.name}}</mat-option>
+                </mat-select>
+                <div *ngIf="submitted && f.beneficiaryId.errors" class="invalid-feedback">
+                    <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                </div>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label>Account</label>
+            <mat-form-field appearance="fill">
+                <mat-select placeholder="Select Account" formControlName="accountId" required
+                    [ngClass]="{ 'is-invalid': submitted && f.accountId.errors }">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let a of accountList" value="{{a._id}}">{{a.name}}</mat-option>
+                </mat-select>
+                <div *ngIf="submitted && f.accountId.errors" class="invalid-feedback">
+                    <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                </div>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label>Category</label>
+            <mat-form-field>
+                <mat-select placeholder="Select Category" formControlName="categoryId" required
+                    [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let c of categories" value="{{c._id}}">{{c.name}}</mat-option>
+                </mat-select>
+                <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback">
+                    <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                </div>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label>Due Date</label>
+            <mat-form-field appearance="fill">
+                <input formControlName="dateTime" (focus)="picker.open()" matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <label>Repeat</label>
+            <mat-form-field>
+                <mat-select placeholder="Select Repeat" name="repeat">
+                    <mat-option *ngFor="let payee of payeeList" [value]="payee.payeeName">
+                        {{ payee.payeeName }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <label>Remind</label>
+            <mat-form-field>
+                <mat-select placeholder="Select Remind" name="remind">
+                    <mat-option *ngFor="let payee of payeeList" [value]="payee.payeeName">
+                        {{ payee.payeeName }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <label>Class</label>
+            <mat-select name="group" id="group" class="groupRight" appearance="fill" formControlName="classId" [ngClass]="{ 'is-invalid': submitted && f.classId.errors }">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option>                
+                <mat-form-field appearance="fill">
+                    <input maxlength="26" [(ngModel)]="filterName" name="filterName"
+                        (keyup)="addGroup($event.target.value)" matInput placeholder="Add New Group">
+                    <button class="btn classListButton" (click)="saveGroup()"> Add</button>
+                </mat-form-field>
+
+            </mat-select>
+        </div>
+
+        <div class="form-group">
+            <label>From Account</label>
+            <mat-form-field>
+                <mat-select placeholder="Select From Account" name="fromAccount">
+                    <mat-option *ngFor="let payee of payeeList" [value]="payee.payeeName">
+                        {{ payee.payeeName }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <label>Budget</label>
+            <mat-form-field>
+                <mat-select placeholder="Select Budget" formControlName="financialSourceId" required
+                    [ngClass]="{ 'is-invalid': submitted && f.financialSourceId.errors }">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let a of budgets" value="{{a._id}}">{{a.name}}</mat-option>
+                </mat-select>
+                <div *ngIf="submitted && f.financialSourceId.errors" class="invalid-feedback">
+                    <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                </div>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <label>Note</label>
+            <mat-form-field appearance="fill">
+                <input matInput placeholder="Add note here" formControlName="note" maxlength="150">
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <label></label>
+            <mat-checkbox class="example-margin">Auto Pay</mat-checkbox>
+        </div>
+
+        <div class="last-section">
+            <button class="btn"> Save</button>
+        </div>
+    </form>
+
+</div>

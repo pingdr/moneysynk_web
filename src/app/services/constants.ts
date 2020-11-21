@@ -14,7 +14,7 @@ export const sideBarAdmin = [
     {path: 'payees', title: 'Payee / Payers'},
     {path: 'budget', title: 'Budget'},
     {path: 'transactions', title: 'Transaction'},
-    {path: '/moneysynk/', title: 'Bill'},
+    {path: 'bill', title: 'Bill'},
     {path: 'spliwise', title: 'Splitwise'}
     
    
