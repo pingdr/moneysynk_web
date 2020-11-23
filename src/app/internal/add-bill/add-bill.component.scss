@@ -1,0 +1,152 @@
+.add-entry-main {
+    .component-heading {
+        width: auto;
+        margin-right: 27px;
+    }  
+    .component-btn{
+        width: auto;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        .btn-compo-main {
+            display: flex;
+            margin-right: 40px;
+            .plus-btn{
+                background: linear-gradient(90deg, #F5B822 0%, #FFD263 96.98%);
+                border: none;
+                padding: 0px 12px;
+                font-size: 18px;
+                border-radius: 33.5px;
+                width: 36px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                color: #000;
+                background: #efefef;
+                margin-right: 14px;
+                &:focus{
+                    outline: none !important;
+                }
+            }
+            .minus-btn{
+                width: 36px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                margin-right: 14px;
+                padding: 0px 13px;
+                font-size: 24px;
+                border: 1px solid #CCCCCC;
+                background: #fff;
+                border-radius: 18px;
+                &:focus{
+                    outline: none !important;
+                }
+            }
+            .refresh-btn {
+                height: 36px;
+                width: 36px;
+                font-size: 0;
+                background: #fff url('../../../assets/images/refresh-icon.svg') no-repeat;
+                background-size: 13px;
+                border: 1px solid #ccc;
+                border-radius: 18px;
+                background-position: center;
+                &:focus{
+                    outline: none !important;
+                }
+            }
+        }
+        .main-input-filed-entry{
+            input{
+                width: 45%;
+                padding: 10px 20px;
+                background: #FFFFFF;
+                border: 1px solid #CCCCCC;
+                border-radius: 100px;
+                &:focus{
+                    outline: none !important;
+                }
+            }
+        }
+    }  
+}
+
+
+.start-entry .add-entry-main-form .Add-not-main {
+    grid-column-start: inherit;
+    grid-column-end: inherit;
+}
+
+// .start-entry .add-entry-main-form .file-input {
+//     align-items: center;
+// }
+
+.start-entry .add-entry-main-form .file-input .inner-file-upload .upload-option{
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    right: 0;
+    width: 100%;
+    top: 0;
+    cursor: pointer;
+    height: 50px;
+    bottom: auto;       
+}
+
+.inner-main-file-uploader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background: #f3f3f3;
+    margin-top: 10px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    width: 124px;
+    float: left;
+    margin-right: 10px;
+    position: relative;
+    min-height: 80px;
+    &:last-child{
+        margin-right: 0px;
+    }
+    img{
+        width: 100% !important;
+    }
+    button{
+        background: #ff1616;
+        width: auto !important;
+        height: auto !important;
+        line-height: normal !important;
+        color: #fff;
+        font-weight: 300;
+        font-size: 19px;
+        padding: 0px 8px;
+        border-radius: 30px;
+        position: absolute;
+        right: -6px;
+        top: -7px;
+        box-shadow: 0px 10px 23px #dad7d7;
+    }
+}
+
+.classListButton{
+    background: transparent !important;
+    padding: 0;
+    position: absolute;
+    right: 18px;
+    bottom: 1px;
+    line-height: 42px;
+    font-size: 11px;
+    color: #7299FF !important;
+    font-weight: 100;
+    &:hover{
+    text-decoration: underline;
+    }
+}
+
+.active-btn{
+    background: linear-gradient(90deg, #F5B822 0%, #FFD263 96.98%) !important;
+    color: white !important;
+}

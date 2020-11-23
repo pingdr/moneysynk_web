@@ -47,7 +47,10 @@
                                 <span class="color-grey">($62.00)</span>
                             </div>
                             <div class="delete-icon">
-                                <a title="Delete" (click)="openDeleteDialog(b._id,b.name)">
+                                <!-- <a title="Delete" (click)="openDeleteDialog(b._id,b.name)">
+                                    <img src="/assets/images/delete-trash.svg">
+                                </a> -->
+                                <a title="Delete" (click)="deleteBudget(b._id,b.name)">
                                     <img src="/assets/images/delete-trash.svg">
                                 </a>
                             </div>
@@ -335,7 +338,10 @@
                                 <span class="color-grey">($62.00)</span>
                             </div>
                             <div class="delete-icon">
-                                <a title="Delete" (click)="openDeleteDialog(b._id,b.name)">
+                                <!-- <a title="Delete" (click)="openDeleteDialog(b._id,b.name)">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a> -->                                
+                                <a title="Delete" (click)="deleteBudget(b._id,b.name)">
                                     <img src="../../../assets/images/delete-trash.svg">
                                 </a>
                             </div>

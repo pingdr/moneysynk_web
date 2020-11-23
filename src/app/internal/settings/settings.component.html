@@ -226,8 +226,12 @@
                             <a style="cursor: pointer;" (click)="openEditGroupDialog(group._id,group.name)" class="edit-btn" title="edit">
                                 <img src="../../../assets/images/edit-pencil.svg">
                             </a>
-                            <a class="delete-btn" style="cursor: pointer;"
+                            <!-- <a class="delete-btn" style="cursor: pointer;"
                                 (click)="openDeleteGroupDialog(group._id,group.name)">
+                                <img src="../../../assets/images/delete-trash.svg">
+                            </a> -->
+                            <a class="delete-btn" style="cursor: pointer;"
+                                (click)="deleteGroup(group._id,group.name)">
                                 <img src="../../../assets/images/delete-trash.svg">
                             </a>
                         </div>

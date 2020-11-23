@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { HttpService } from 'src/app/services/http.service';
+import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-settings',
@@ -45,6 +46,7 @@ export class SettingsComponent implements OnInit {
       panelClass: 'custom-modalbox'
     });
   }
+
   openEditGroupDialog(id, name) {
     this.groupId = id;
     this.groupName = name;
@@ -64,21 +66,35 @@ export class SettingsComponent implements OnInit {
       })
     }
   }
-  deleteGroup() {
-    this.isApiCalling = true;
-    this.http.deleteGroup(this.groupId).subscribe(
-      (data: any) => {
-        this.toastr.error("Group Delete Successfully", "Success");
-        this.closeAllModal();
-        this.getAllGroup();
-        this.isApiCalling = false;
-      }, err => {
-        this.toastr.error("Oops! Something went wrong", 'Error');
-        this.isApiCalling = false;
-        this.closeAllModal();
-      }
-    )
+
+  deleteGroup(id, groupName) {
+    const dialogRef = this.dialog.open(DeleteModalComponent, {
+      panelClass: 'account-modal-main',
+      width: '350px',
+      data: { type: 'deleteGroup', title: 'Group', id: id, name: groupName }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getAllGroup();
+    });
   }
+
+  // deleteGroup() {
+  //   this.isApiCalling = true;
+  //   this.http.deleteGroup(this.groupId).subscribe(
+  //     (data: any) => {
+  //       this.toastr.error("Group Delete Successfully", "Success");
+  //       this.closeAllModal();
+  //       this.getAllGroup();
+  //       this.isApiCalling = false;
+  //     }, err => {
+  //       this.toastr.error("Oops! Something went wrong", 'Error');
+  //       this.isApiCalling = false;
+  //       this.closeAllModal();
+  //     }
+  //   )
+  // }
 
   closeAllModal() {
     this.dialog.closeAll();

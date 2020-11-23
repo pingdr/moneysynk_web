@@ -8,6 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { SharedService } from 'src/app/services/shared.service';
+import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 // import { AddCategoryPopupComponent } from 'src/app/popup/add-category-popup/add-category-popup.component';
 
 @Component({
@@ -140,23 +141,38 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
-  deleteCategory() {
-    this.isApiCalling = true;
-    this.http.deleteCategory(this.categoryId).subscribe(
-      (data: any) => {
-        this.toastr.error("Category Delete Successfully", "Success");
-        this.closeAllModal();
-        this.getCategoriesData();
-        this.isApiCalling = false;
-      }, err => {
-        this.toastr.error("Oops! Something went wrong", 'Error');
-        this.isApiCalling = false;
-        this.closeAllModal();
-      }
-    )
+
+  deleteCategory(id, categoryName) {
+    const dialogRef = this.dialog.open(DeleteModalComponent, {
+      panelClass: 'account-modal-main',
+      width: '350px',
+      data: { type: 'deleteCategory', title: 'Category', id: id, name: categoryName }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getCategoriesData();
+    });
   }
+
+  // deleteCategory() {
+  //   this.isApiCalling = true;
+  //   this.http.deleteCategory(this.categoryId).subscribe(
+  //     (data: any) => {
+  //       this.toastr.error("Category Delete Successfully", "Success");
+  //       this.closeAllModal();
+  //       this.getCategoriesData();
+  //       this.isApiCalling = false;
+  //     }, err => {
+  //       this.toastr.error("Oops! Something went wrong", 'Error');
+  //       this.isApiCalling = false;
+  //       this.closeAllModal();
+  //     }
+  //   )
+  // }
 
   closeAllModal() {
     this.dialog.closeAll();
   }
+
 }

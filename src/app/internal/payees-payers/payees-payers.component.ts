@@ -5,6 +5,7 @@ import { ApiUrl } from 'src/app/services/apiurl';
 import { HttpService } from 'src/app/services/http.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { AddPayeeComponent } from 'src/app/shared/modals/add-payee/add-payee.component';
+import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-payees-payers',
@@ -78,10 +79,10 @@ export class PayeesPayersComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.getPayees();
   }
-  recordSelected(i,id?) {
+  recordSelected(i, id?) {
     if (i || i == 0)
       this.isRecordSelected = i;
-    if(id) {
+    if (id) {
       this.getPayeeDetailsById(id);
     }
   }
@@ -132,21 +133,34 @@ export class PayeesPayersComponent implements OnInit {
 
   }
 
-  deletePayee() {
-    this.isApiCalling = true;
-    this.http.deletePayees(this.payeeId).subscribe(
-      (data: any) => {
-        this.toastr.error("Payees Delete Successfully", "Success");
-        this.isApiCalling = false;
-        this.closeDeleteModal();
-        this.getPayees();
-      }, err => {
-        this.toastr.error("Oops! Something went wrong", 'Error');
-        this.isApiCalling = false;
-        this.closeDeleteModal();
-      }
-    )
+  deletePayee(id, payeeName) {
+    const dialogRef = this.dialog.open(DeleteModalComponent, {
+      panelClass: 'account-modal-main',
+      width: '350px',
+      data: { type: 'deletePayee', title: 'Payee', id: id, name: payeeName }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getPayees();
+    });
   }
+
+  // deletePayee() {
+  //   this.isApiCalling = true;
+  //   this.http.deletePayees(this.payeeId).subscribe(
+  //     (data: any) => {
+  //       this.toastr.error("Payees Delete Successfully", "Success");
+  //       this.isApiCalling = false;
+  //       this.closeDeleteModal();
+  //       this.getPayees();
+  //     }, err => {
+  //       this.toastr.error("Oops! Something went wrong", 'Error');
+  //       this.isApiCalling = false;
+  //       this.closeDeleteModal();
+  //     }
+  //   )
+  // }
 
   closeDeleteModal() {
     this.dialog.closeAll();

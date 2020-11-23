@@ -53,6 +53,7 @@ import { AddBudgetModalComponent } from './shared/modals/add-budget-modal/add-bu
 import { AddGroupComponent } from './shared/modals/add-group/add-group.component';
 import { AddExpenseComponent } from './shared/modals/add-expense/add-expense.component';
 import { AddBillComponent } from './shared/modals/add-bill/add-bill.component';
+import { DeleteModalComponent } from './shared/modals/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { AddBillComponent } from './shared/modals/add-bill/add-bill.component';
     AddBudgetModalComponent,
     AddGroupComponent,
     AddExpenseComponent,
-    AddBillComponent
+    AddBillComponent,
+    DeleteModalComponent
   ],
   imports: [
     BrowserModule,

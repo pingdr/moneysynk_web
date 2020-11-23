@@ -8,6 +8,7 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditAccountComponent } from 'src/app/shared/modals/add-edit-account/add-edit-account.component';
+import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import { SharedService } from 'src/app/services/shared.service';
 import { Slick } from 'ngx-slickjs';
 
@@ -22,7 +23,7 @@ export class AccountsComponent implements OnInit {
 
   @ViewChild('deleteAccountDialog') DeleteAccountDialog: TemplateRef<any>;
   @ViewChild('deleteAccountTypeDialog') DeleteAccountTypeDialog: TemplateRef<any>;
-  accountDetails:any;
+  accountDetails: any;
   arrayLength = 10;
   isApiCalling: boolean = false;
   accountName: string = '';
@@ -132,11 +133,11 @@ export class AccountsComponent implements OnInit {
   getAccountDetailsById(id) {
     this.isApiCalling = true;
     var payload = {
-      year:1,
-      groupId:this.groupId,
-      accountId:id
+      year: 1,
+      groupId: this.groupId,
+      accountId: id
     }
-    this.http.get(ApiUrl.accountMonths,payload).subscribe((res)=> {
+    this.http.get(ApiUrl.accountMonths, payload).subscribe((res) => {
       this.isApiCalling = false;
       this.accountDetails = res.data;
     })
@@ -158,7 +159,7 @@ export class AccountsComponent implements OnInit {
         this.accountList = [];
         this.resultsLength = res.data.total;
         this.accountList = res.data.data;
-        if(res.data.data.length > 0) {
+        if (res.data.data.length > 0) {
           this.getAccountDetailsById(res.data.data[0]._id)
         }
         for (let i = 0; i < this.accountList.length; i++) {
@@ -238,11 +239,11 @@ export class AccountsComponent implements OnInit {
   // openDeleteAccountDialog(id) {
   //     this.dialog.open()
   // }
-  recordSelected(i,id?) {
+  recordSelected(i, id?) {
     if (i || i == 0)
       this.isRecordSelected = i;
 
-    if(id) {
+    if (id) {
       this.getAccountDetailsById(id)
     }
   }
@@ -268,6 +269,32 @@ export class AccountsComponent implements OnInit {
     });
   }
 
+  deleteAccount(id, accountName, type) {    
+    let dialogRef: any;
+
+    if (type == 'deleteAccountType') {
+      dialogRef = this.dialog.open(DeleteModalComponent, {
+        panelClass: 'account-modal-main',
+        width: '350px',
+        data: { type: type, title: 'Account Type', id: id, name: accountName }
+      });
+    } else {
+      dialogRef = this.dialog.open(DeleteModalComponent, {
+        panelClass: 'account-modal-main',
+        width: '350px',
+        data: { type: type, title: 'Account', id: id, name: accountName }
+      });
+    }
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.accountTypeList = [];
+      this.accountList = [];
+      this.getAccountTypedata();
+      this.getAccountdata();
+    });
+  }
+
   getType(id, i?: any) {
     if (i || i == 0)
       this.isSelected = i;
@@ -289,7 +316,7 @@ export class AccountsComponent implements OnInit {
         this.resultsLength = res.data.total;
         this.accountList = res.data.data;
         // this.filter = res.data;
-        if(res.data.data.length > 0) {
+        if (res.data.data.length > 0) {
           this.getAccountDetailsById(res.data.data[0]._id)
         } else {
           this.accountDetails = null

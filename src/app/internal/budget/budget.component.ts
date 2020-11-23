@@ -6,6 +6,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { HttpService } from 'src/app/services/http.service';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { ToastrService } from 'ngx-toastr';
+import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-budget',
@@ -13,21 +14,21 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./budget.component.scss']
 })
 export class BudgetComponent implements OnInit {
-  budgetName:any;
-  budgetId:any;
+  budgetName: any;
+  budgetId: any;
   groupId: any;
   isApiCalling: boolean = false;
   type: any = "EXPENSE";
   expenseArray: any = [];
   incomeArray: any = [];
   budgets: any = [];
-  budgetDetails:any;
+  budgetDetails: any;
   recordSelected: any = 0;
-  bname:any;
+  bname: any;
   @ViewChild('deletePayeeDialog') DeletePayeeDialog: TemplateRef<any>;
 
   dialogRefofOtpModal: MatDialogRef<AddBudgetModalComponent>;
-  constructor(public http: HttpService, private formBuilder: FormBuilder,private toastr: ToastrService, public sharedserive: SharedService, public dialog: MatDialog) { }
+  constructor(public http: HttpService, private formBuilder: FormBuilder, private toastr: ToastrService, public sharedserive: SharedService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.sharedserive.groupChange.subscribe((data) => {
@@ -42,12 +43,13 @@ export class BudgetComponent implements OnInit {
   setStep(index: number) {
     this.step = index;
   }
-  selectRecord(i,b) {
+  selectRecord(i, b) {
     if (i || i == 0)
-    this.recordSelected = i;
+      this.recordSelected = i;
     this.bname = b.name;
     this.getBudgetDetailsById(b._id)
   }
+
   openDeleteDialog(id, name) {
     console.log(id);
     this.budgetId = id;
@@ -71,21 +73,36 @@ export class BudgetComponent implements OnInit {
       this.budgetDetails = res.data;
     })
   }
-  deleteBudget() {
-    this.isApiCalling = true;
-    this.http.deleteAccount(ApiUrl.getBudget,this.budgetId).subscribe(
-      (data: any) => {
-        this.toastr.error("Budget Delete Successfully", "Success");
-        this.isApiCalling = false;
-        this.closeDeleteModal();
-        this.getBudgets();
-      }, err => {
-        this.toastr.error("Oops! Something went wrong", 'Error');
-        this.isApiCalling = false;
-        this.closeDeleteModal();
-      }
-    )
+
+  deleteBudget(id, budgetName) {
+    const dialogRef = this.dialog.open(DeleteModalComponent, {
+      panelClass: 'account-modal-main',
+      width: '350px',
+      data: { type: 'deleteBudget', title: 'Budget', id: id, name: budgetName }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getBudgets();
+    });
   }
+
+  // deleteBudget() {
+  //   this.isApiCalling = true;
+  //   this.http.deleteAccount(ApiUrl.getBudget,this.budgetId).subscribe(
+  //     (data: any) => {
+  //       this.toastr.error("Budget Delete Successfully", "Success");
+  //       this.isApiCalling = false;
+  //       this.closeDeleteModal();
+  //       this.getBudgets();
+  //     }, err => {
+  //       this.toastr.error("Oops! Something went wrong", 'Error');
+  //       this.isApiCalling = false;
+  //       this.closeDeleteModal();
+  //     }
+  //   )
+  // }
+
   closeDeleteModal() {
     this.dialog.closeAll();
   }
@@ -102,15 +119,15 @@ export class BudgetComponent implements OnInit {
       console.log(res);
       if (res.data != undefined) {
         // this.budgets = res.data.data;
-          if (this.type === "EXPENSE") {
-            this.expenseArray = res.data.data;
-            this.bname = this.expenseArray[0].name;
-            this.getBudgetDetailsById(this.expenseArray[0]._id);
-          } else {
-            this.incomeArray = res.data.data;
-            this.bname = this.incomeArray[0].name;
-            this.getBudgetDetailsById(this.incomeArray[0]._id);
-          }
+        if (this.type === "EXPENSE") {
+          this.expenseArray = res.data.data;
+          this.bname = this.expenseArray[0].name;
+          this.getBudgetDetailsById(this.expenseArray[0]._id);
+        } else {
+          this.incomeArray = res.data.data;
+          this.bname = this.incomeArray[0].name;
+          this.getBudgetDetailsById(this.incomeArray[0]._id);
+        }
       }
     });
   }

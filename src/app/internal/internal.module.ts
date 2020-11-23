@@ -45,7 +45,8 @@ const routes: Routes = [{
         },
         {
             path: 'bill',
-            loadChildren: () => import('./bill/bill.module').then(m => m.BillModule)
+            // loadChildren: () => import('./bill/bill.module').then(m => m.BillModule)
+            loadChildren: () => import('./add-bill/add-bill.module').then(m => m.AddBillModule)
         }, 
         {
             path: 'transactions',
