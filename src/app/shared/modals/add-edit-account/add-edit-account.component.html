@@ -24,7 +24,7 @@
         <div class="form-group">
             <label>Account No.</label>
             <mat-form-field appearance="fill">
-                <input class="textTransform" maxlength="26" matInput placeholder="Account Number" formControlName="accountNo" [ngClass]="{ 'is-invalid': submitted && f.accountNo.errors }">
+                <input class="textTransform" maxlength="26" appOnlynumberDirective matInput placeholder="Account Number" formControlName="accountNo" [ngClass]="{ 'is-invalid': submitted && f.accountNo.errors }">
 
             </mat-form-field>
         </div>
