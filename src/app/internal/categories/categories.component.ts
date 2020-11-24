@@ -30,6 +30,7 @@ export class CategoriesComponent implements OnInit {
   categoryId;
   categoryName;
   categoriesDetails: any;
+  categorySummary: any = [];
   cName: any;
   total: any;
   pageIndex: any = 0;
@@ -45,6 +46,7 @@ export class CategoriesComponent implements OnInit {
       this.groupId = data;
       if (data) {
         this.getCategoriesData();
+        this.getCategorySummary();
       }
     });
   }
@@ -104,6 +106,23 @@ export class CategoriesComponent implements OnInit {
     });
 
   }
+
+  getCategorySummary() {
+    this.isApiCalling = true;
+    var payload = {
+      "groupId": this.groupId,
+    }
+
+    this.http.getCategoriesSummary(ApiUrl.getCategorySummaryData, payload).subscribe((res) => {
+      this.isApiCalling = false;
+      this.http.showLoader();
+      console.log('Category Summary Data', res);
+      if (res && res.data) {
+        this.categorySummary = res.data;
+      }
+    });
+  }
+
   pageChange(event) {
     console.log(event);
     this.pageIndex = event.pageIndex;

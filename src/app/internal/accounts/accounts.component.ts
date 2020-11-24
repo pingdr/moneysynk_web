@@ -24,6 +24,7 @@ export class AccountsComponent implements OnInit {
   @ViewChild('deleteAccountDialog') DeleteAccountDialog: TemplateRef<any>;
   @ViewChild('deleteAccountTypeDialog') DeleteAccountTypeDialog: TemplateRef<any>;
   accountDetails: any;
+  accountSummary: any = [];
   arrayLength = 10;
   isApiCalling: boolean = false;
   accountName: string = '';
@@ -39,7 +40,6 @@ export class AccountsComponent implements OnInit {
   getArray(count: number) {
     return new Array(count)
   }
-
 
   groupId: any;
   myModel: TableModel;
@@ -111,6 +111,21 @@ export class AccountsComponent implements OnInit {
   }
 
 
+  getAccountSummary(id) {
+    var payload = {
+      "groupId": this.groupId,
+      "accountId": id
+    }
+
+    this.http.get(ApiUrl.getAccountSummary, payload).subscribe((res) => {
+      console.log('Account Summary', res);
+      if (res && res.data) {
+        this.accountSummary = res.data;
+      }
+    });
+
+  }
+
   getAccountTypedata() {
 
     var payload = {
@@ -139,6 +154,7 @@ export class AccountsComponent implements OnInit {
     }
     this.http.get(ApiUrl.accountMonths, payload).subscribe((res) => {
       this.isApiCalling = false;
+      console.log('Account Details ', res);
       this.accountDetails = res.data;
     })
   }
@@ -161,6 +177,7 @@ export class AccountsComponent implements OnInit {
         this.accountList = res.data.data;
         if (res.data.data.length > 0) {
           this.getAccountDetailsById(res.data.data[0]._id)
+          this.getAccountSummary(res.data.data[0]._id)
         }
         for (let i = 0; i < this.accountList.length; i++) {
           this.accountList[i]['isViewAmount'] = true;
@@ -244,7 +261,8 @@ export class AccountsComponent implements OnInit {
       this.isRecordSelected = i;
 
     if (id) {
-      this.getAccountDetailsById(id)
+      this.getAccountDetailsById(id);
+      this.getAccountSummary(id);
     }
   }
   // filterData(i, id) {
@@ -269,7 +287,7 @@ export class AccountsComponent implements OnInit {
     });
   }
 
-  deleteAccount(id, accountName, type) {    
+  deleteAccount(id, accountName, type) {
     let dialogRef: any;
 
     if (type == 'deleteAccountType') {
@@ -318,6 +336,7 @@ export class AccountsComponent implements OnInit {
         // this.filter = res.data;
         if (res.data.data.length > 0) {
           this.getAccountDetailsById(res.data.data[0]._id)
+          this.getAccountSummary(res.data.data[0]._id)
         } else {
           this.accountDetails = null
         }

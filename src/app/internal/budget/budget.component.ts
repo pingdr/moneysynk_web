@@ -7,6 +7,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
+import { TransferModalComponent } from 'src/app/shared/modals/transfer-modal/transfer-modal.component';
 
 @Component({
   selector: 'app-budget',
@@ -19,6 +20,7 @@ export class BudgetComponent implements OnInit {
   groupId: any;
   isApiCalling: boolean = false;
   type: any = "EXPENSE";
+  budgetSummary:any=[];
   expenseArray: any = [];
   incomeArray: any = [];
   budgets: any = [];
@@ -35,6 +37,7 @@ export class BudgetComponent implements OnInit {
       this.groupId = data;
       if (data) {
         this.getBudgets();
+        this.getPayeeSummary();
       }
     });
   }
@@ -131,6 +134,23 @@ export class BudgetComponent implements OnInit {
       }
     });
   }
+
+  getPayeeSummary() {
+    this.isApiCalling = true;
+    var payload = {
+      "groupId": this.groupId,
+    }
+
+    this.http.get(ApiUrl.getBudgetSummary, payload).subscribe((res) => {
+      this.isApiCalling = false;
+      this.http.showLoader();
+      console.log('Budget Summary Data', res);
+      if (res && res.data) {
+        this.budgetSummary = res.data;
+      }
+    });
+  }
+
   nextStep() {
     this.step++;
   }
@@ -160,6 +180,17 @@ export class BudgetComponent implements OnInit {
     let temp = 100 * b.currentBalance;
     let sum = temp / b.amount;
     return 100 - sum;
+  }
+
+  openTransferModal() {
+    const dialogRef = this.dialog.open(TransferModalComponent, {
+      width: '976px',
+      panelClass: 'edit-account-main', data: { type: this.type, groupId: this.groupId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }

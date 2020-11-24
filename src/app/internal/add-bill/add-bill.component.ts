@@ -12,34 +12,35 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddBillComponent implements OnInit {
 
-  editBill: FormGroup;
+  selected = 'option2';
+  editentry: FormGroup;
   submitted = false;
-  filterName: any;
-  amount: any;
   isbtnSelected: any = 1;
-  transactionType: any = 'IN'
   isApiCalling: boolean = false;
   groupId: any;
-  type: any = 'PAYER';
-  className: any;
-  budgets: any;
-  classes: any;
   pageIndex: any = 0;
-  accountList: any;
-  categories: any;
   payeesArray: any;
+  categories: any;
+  accountList: any;
+  classes: any;
+  filterName: any;
+  className: any;
+  type: any = 'PAYER'
+  amount: any;
+  budgets: any;
+  transactionType: any = 'IN'
+  public entryModal: any = {};
 
   constructor(
-    public sharedserive: SharedService,
-    public http: HttpService,
-    private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private formBuilder: FormBuilder, private toastr: ToastrService, public sharedserive: SharedService, public http: HttpService,
   ) {
-    this.editBill = this.formBuilder.group({
+
+    this.editentry = this.formBuilder.group({
       transactionType: [this.transactionType],
       beneficiaryType: [this.type],
-      amount: this.amount,
+      amount: [''],
       beneficiaryId: ['', Validators.required],
+      // Never: ['', Validators.required],
       accountId: ['', Validators.required],
       classId: ['', Validators.required],
       dateTime: ['', Validators.required],
@@ -48,17 +49,15 @@ export class AddBillComponent implements OnInit {
       financialSourceId: ['', Validators.required],
       autopay: [Boolean],
       groupId: [''],
-      note: ['']
+      note: ['',Validators.maxLength(255)]
     });
   }
-
-  get f() { return this.editBill.controls; }
 
   ngOnInit(): void {
     this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
       if (data) {
-        // this.editentry.controls.groupId.setValue(data);
+        this.editentry.controls.groupId.setValue(data);
         this.getPayeeList();
         this.getCategoriesData();
         this.getAccountdata();
@@ -67,6 +66,69 @@ export class AddBillComponent implements OnInit {
       }
     });
   }
+
+  get f() { return this.editentry.controls; }
+
+
+  addclass(value) {
+    this.className = value;
+  }
+
+  saveClass() {
+    this.filterName = '';
+
+    if (this.className != "") {
+
+      var payload = {
+        "groupId": this.groupId,
+        "name": this.className,
+      }
+      this.isApiCalling = true;
+      this.http.addAccountType(ApiUrl.classes, payload, false)
+        .subscribe(res => {
+          this.isApiCalling = false;
+          let response = res;
+          if (response.statusCode == 200) {
+            this.className = "";
+            this.toastr.success('Class added successfully', 'success', {
+              timeOut: 2000
+            });
+
+          }
+
+          this.getClasses();
+        });
+
+    } else {
+      alert('please add class name')
+    }
+  }
+
+  billTypeChange(type) {
+    switch (type) {
+      case 'IN':
+        this.isbtnSelected = 1;
+        this.transactionType = "IN";
+        this.type = "PAYER";
+        this.editentry.controls.transactionType.setValue(this.transactionType);
+        this.editentry.controls.beneficiaryType.setValue('PAYER');
+        this.getPayeeList();
+        this.getCategoriesData();
+        this.getBudgets();
+        break;
+      case 'OUT':
+        this.isbtnSelected = 2;
+        this.transactionType = "OUT"
+        this.type = "PAYEE";
+        this.editentry.controls.transactionType.setValue('OUT');
+        this.editentry.controls.beneficiaryType.setValue('PAYEE');
+        this.getPayeeList();
+        this.getCategoriesData();
+        this.getBudgets();
+        break;
+    }
+  }
+
 
   getBudgets() {
     this.isApiCalling = true;
@@ -78,16 +140,17 @@ export class AddBillComponent implements OnInit {
     this.http.getCategories(ApiUrl.getBudget, payload).subscribe(res => {
       this.isApiCalling = false;
       this.http.showLoader();
-      console.log("Budget Response", res);
+      console.log(res);
       if (res.data != undefined) {
         this.budgets = res.data.data;
       }
     });
   }
-
   getClasses() {
     var payload = {
-      "groupId": this.groupId
+      "groupId": this.groupId,
+      // pageIndex: this.pageIndex,
+      // limit: 20,
     }
 
     this.isApiCalling = true;
@@ -100,7 +163,6 @@ export class AddBillComponent implements OnInit {
       }
     });
   }
-
   getAccountdata() {
     var payload = {
       "groupId": this.groupId,
@@ -119,7 +181,6 @@ export class AddBillComponent implements OnInit {
     });
 
   }
-
   getCategoriesData() {
     this.isApiCalling = true;
     var payload = {
@@ -158,96 +219,36 @@ export class AddBillComponent implements OnInit {
     });
   }
 
-  billTypeChange(type) {
-    switch (type) {
-      case 'IN':
-        this.isbtnSelected = 1;
-        this.transactionType = "IN";
-        this.type = "PAYER";
-        this.editBill.controls.transactionType.setValue(this.transactionType);
-        this.editBill.controls.beneficiaryType.setValue('PAYER');
-        this.getPayeeList();
-        this.getCategoriesData();
-        this.getBudgets();
-        break;
-      case 'OUT':
-        this.isbtnSelected = 2;
-        this.transactionType = "OUT"
-        this.type = "PAYEE";
-        this.editBill.controls.transactionType.setValue('OUT');
-        this.editBill.controls.beneficiaryType.setValue('PAYEE');
-        this.getPayeeList();
-        this.getCategoriesData();
-        this.getBudgets();
-        break;
-    }
-  }
-
-  saveClass() {
-
-    this.filterName = '';
-
-    if (this.className != "") {
-
-      var payload = {
-        "groupId": this.groupId,
-        "name": this.className,
-      }
-      this.isApiCalling = true;
-      this.http.addAccountType(ApiUrl.classes, payload, false)
-        .subscribe(res => {
-          this.isApiCalling = false;
-          let response = res;
-          if (response.statusCode == 200) {
-            this.className = "";
-            this.toastr.success('Class added successfully', 'success', {
-              timeOut: 2000
-            });
-
-          }
-
-          this.getClasses();
-        });
-
-    } else {
-      alert('please add class name')
-    }
-  }
-
-  addclass(value) {
-    this.className = value;
-  }
-
   onSubmit() {
     debugger
     this.submitted = true;
 
-    console.log(this.editBill.value);
+    console.log(this.editentry.value);
 
     const data = {
       "amount": this.amount,
-      "beneficiaryId": this.editBill.value.beneficiaryId,
-      "accountId": this.editBill.value.accountId,
+      "beneficiaryId": this.editentry.value.beneficiaryId,
+      "accountId": this.editentry.value.accountId,
       "groupId": this.groupId,
-      "categoryId": this.editBill.value.categoryId,
-      "dueDate": new Date(this.editBill.value.dateTime),
+      "categoryId": this.editentry.value.categoryId,
+      "dueDate": new Date(this.editentry.value.dateTime),
       "repeat": false,
-      "classId": this.editBill.value.categoryId,
+      "classId": this.editentry.value.categoryId,
       "remind": true,
-      "autoPay": this.editBill.value.autopay,
-      "financialSourceId": this.editBill.value.financialSourceId,
-      "note": this.editBill.value.note,
-      "transactionType": this.editBill.value.transactionType
+      "autoPay": this.editentry.value.autopay,
+      "financialSourceId": this.editentry.value.financialSourceId,
+      "note": this.editentry.value.note,
+      "transactionType": this.editentry.value.transactionType
     }
 
     console.log(data);
 
     // stop here if form is invalid
-    // if (this.editBill.invalid) {
-    //   return;
-    // }
+    if (this.editentry.invalid) {
+      return false;
+    }
     if (this.amount) {
-      this.editBill.controls.amount.setValue(this.amount);
+      this.editentry.controls.amount.setValue(this.amount);
       this.isApiCalling = true;
 
       this.http.post(ApiUrl.addBill, data, false)

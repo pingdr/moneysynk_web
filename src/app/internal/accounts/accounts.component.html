@@ -21,8 +21,8 @@
                         <span *ngIf="!data.default" style="position: absolute;right: -18px;">
                             <!-- <i (click)="deleteType(data._id,data.name)"><img style="font-size: 13px;"
                                     src="../../../assets/images/delete-trash.svg"></i> -->
-                            <!-- <i (click)="deleteAccount(data._id,data.name)"><img style="font-size: 13px;"
-                                    src="../../../assets/images/delete-trash.svg"></i> -->
+                            <i (click)="deleteAccount(data._id,data.name)"><img style="font-size: 13px;"
+                                    src="../../../assets/images/delete-trash.svg"></i>
                         </span>
                     </span>
 
@@ -1618,21 +1618,21 @@
                 <div class="left-panal">
                     <div class="first-col com-col">
                         <span class="label red-total-expanse">Total Expanse:</span>
-                        <span class="value red-total-expanse">$ 147.00</span>
+                        <span class="value red-total-expanse">${{accountSummary.expenseTotal}}</span>
                     </div>
                     <div class="second-col com-col">
                         <span class="label green-cleared">Total Income:</span>
-                        <span class="value green-cleared">$60.00</span>
+                        <span class="value green-cleared">${{accountSummary.incomeTotal}}</span>
                     </div>
                     <div class="first-col com-col">
                         <span class="label">Total Balance:</span>
-                        <span class="value">$ 1913.00</span>
+                        <span class="value">$00</span>
                     </div>
                 </div>
                 <div class="right-total-panal">
                     <div class="total-cleared-balance">
                         <span class="label">Total Cleared Balance</span>
-                        <span class="bold value">$ 4000</span>
+                        <span class="bold value">$00</span>
                     </div>
                 </div>
             </div>

@@ -4,8 +4,10 @@
     </div>
     <div class="component-btn">
         <div class="btn-compo-main">
-            <button class="plus-btn" (click)="billTypeChange('IN')" [ngClass]="{ 'active-btn' : isbtnSelected == 1 }"> + </button>
-            <button class="minus-btn" (click)="billTypeChange('OUT')" [ngClass]="{ 'active-btn' : isbtnSelected == 2 }"> - </button>
+            <button class="plus-btn" (click)="billTypeChange('IN')" [ngClass]="{ 'active-btn' : isbtnSelected == 1 }"> +
+            </button>
+            <button class="minus-btn" (click)="billTypeChange('OUT')" [ngClass]="{ 'active-btn' : isbtnSelected == 2 }">
+                - </button>
             <button class="refresh-btn" [ngClass]="{ 'active-btn' : isbtnSelected == 3 }"> refresh</button>
         </div>
         <div class="main-input-filed-entry">
@@ -19,12 +21,13 @@
 
     <div class="white-box start-entry">
 
-        <form class="add-entry-main-form" [formGroup]="editBill" (ngSubmit)="onSubmit()">
+        <form class="add-entry-main-form" [formGroup]="editentry" (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <label>{{type=='PAYEE' ? 'Payee' : 'Payer'}}</label>
                 <mat-form-field appearance="fill">
                     <mat-label>{{type=='PAYEE' ? 'Please Select Payee' : 'Please Select Payer'}}</mat-label>
-                    <mat-select formControlName="beneficiaryId" [ngClass]="{ 'is-invalid': submitted && f.beneficiaryId.errors }">
+                    <mat-select formControlName="beneficiaryId"
+                        [ngClass]="{ 'is-invalid': submitted && f.beneficiaryId.errors }">
                         <mat-option>None</mat-option>
                         <mat-option *ngFor="let p of payeesArray" value="{{p._id}}">{{p.name}}</mat-option>
                     </mat-select>
@@ -37,21 +40,18 @@
                 <label>Repeat</label>
                 <mat-form-field appearance="fill">
                     <mat-label>Never</mat-label>
-                    <mat-select formControlName="Never" [ngClass]="{ 'is-invalid': submitted && f.Never.errors }">
+                    <mat-select>
                         <mat-option>None</mat-option>
                         <mat-option value="option1">Option 1</mat-option>
                         <mat-option value="option2">Option 2</mat-option>
                         <mat-option value="option3">Option 3</mat-option>
                     </mat-select>
-                    <div *ngIf="submitted && f.Never.errors" class="invalid-feedback">
-                        <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
-                    </div>
                 </mat-form-field>
             </div>
             <div class="form-group">
                 <label>Account</label>
                 <mat-form-field appearance="fill">
-                    <mat-label>Add Account</mat-label>
+                    <mat-label>Select Account</mat-label>
                     <mat-select formControlName="accountId"
                         [ngClass]="{ 'is-invalid': submitted && f.accountId.errors }">
                         <mat-option>None</mat-option>
@@ -69,15 +69,18 @@
                     <mat-option>None</mat-option>
                     <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option>
                     <mat-form-field appearance="fill">
-                        <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}" name="filterName" (keyup)="addclass($event.target.value)" [value]="className" matInput placeholder="Add New Class">
+                        <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}"
+                            name="filterName" (keyup)="addclass($event.target.value)" [value]="className" matInput
+                            placeholder="Add New Class">
                         <button class="btn classListButton" (click)="saveClass()"> Add</button>
                     </mat-form-field>
                 </mat-select>
             </div>
             <div class="form-group">
                 <label>Category</label>
-                <mat-form-field>
-                    <mat-select placeholder="Select Category" formControlName="categoryId" required
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Category</mat-label>
+                    <mat-select formControlName="categoryId"
                         [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
                         <mat-option>None</mat-option>
                         <mat-option *ngFor="let c of categories" value="{{c._id}}">{{c.name}}</mat-option>
@@ -90,9 +93,9 @@
             <div class="form-group">
                 <label>Check#</label>
                 <mat-form-field appearance="fill">
-                    <input matInput placeholder="Check Number" formControlName="Check"
-                        [ngClass]="{ 'is-invalid': submitted && f.Check.errors }">
-                    <div *ngIf="submitted && f.Check.errors" class="invalid-feedback">
+                    <input matInput placeholder="Check Number" formControlName="chequeNumber"
+                        [ngClass]="{ 'is-invalid': submitted && f.chequeNumber.errors }">
+                    <div *ngIf="submitted && f.chequeNumber.errors" class="invalid-feedback">
                         <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                     </div>
 
@@ -112,8 +115,9 @@
             </div>
             <div class="form-group budget-input-main-entry">
                 <label>Budget</label>
-                <mat-form-field>
-                    <mat-select placeholder="Select Budget" formControlName="financialSourceId" required
+                <mat-form-field appearance="fill">
+                    <!-- <mat-label>Add Account</mat-label> -->
+                    <mat-select formControlName="financialSourceId" required
                         [ngClass]="{ 'is-invalid': submitted && f.financialSourceId.errors }">
                         <mat-option>None</mat-option>
                         <mat-option *ngFor="let a of budgets" value="{{a._id}}">{{a.name}}</mat-option>
@@ -129,28 +133,13 @@
                     <input formControlName="note" matInput placeholder="Add note here">
                 </mat-form-field>
             </div>
-
-            <!----------------------------add-here-code------------------------------>
             <div class="form-group file-input">
                 <label>File</label>
-                <file-pond #myPond class="file-uploader-main" [options]="pondOptions" [files]="pondFiles"
-                    (oninit)="pondHandleInit()" (onaddfile)="pondHandleAddFile($event)">
-                </file-pond>
-
-                <!-- <div class="inner-file-upload">
-                    <input class="text-type" placeholder="Add an image or doc">
-                    
-                        <ng-container *ngFor='let url of urls;let index = index'>
-                            <div class="inner-main-file-uploader"> 
-                                <img [src]="url" width="100">
-                                <p>{{url.file_name}}</p>
-                                <button mat-icon-button (click)="removeSelectedFile(index)">-</button>
-                            </div>
-                        </ng-container>
-                    
-                    <input  placeholder="Add an image or doc"  (change)="onSelectFile($event)" type="file" class="upload-option" multiple>                
-                </div> -->
-            </div>
+                <div class="inner-file-upload">
+                    <input class="text-type">
+                    <input placeholder="Add an image or doc" type="file" class="upload-option">
+                </div>
+            </div>            
             <div class="last-section">
                 <button class="btn"> Save</button>
             </div>

@@ -15,6 +15,7 @@ import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-
 export class PayeesPayersComponent implements OnInit {
   dialogRefofOtpModal: MatDialogRef<AddPayeeComponent>;
   type: any = "PAYEE";
+  payeeSummary: any = [];
   payeesArray: any = [];
   payersArray: any = [];
   groupId: any;
@@ -35,6 +36,7 @@ export class PayeesPayersComponent implements OnInit {
       this.groupId = data;
       if (data) {
         this.getPayees();
+        this.getPayeeSummary();
       }
     });
   }
@@ -75,6 +77,23 @@ export class PayeesPayersComponent implements OnInit {
       }
     });
   }
+
+  getPayeeSummary() {
+    this.isApiCalling = true;
+    var payload = {
+      "groupId": this.groupId,
+    }
+
+    this.http.get(ApiUrl.getPayeeSummary, payload).subscribe((res) => {
+      this.isApiCalling = false;
+      this.http.showLoader();
+      console.log('Payee Summary Data', res);
+      if (res && res.data) {
+        this.payeeSummary = res.data;
+      }
+    });
+  }
+
   pageChange(event) {
     this.pageIndex = event.pageIndex;
     this.getPayees();
