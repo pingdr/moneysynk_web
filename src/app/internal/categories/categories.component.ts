@@ -34,6 +34,8 @@ export class CategoriesComponent implements OnInit {
   cName: any;
   total: any;
   pageIndex: any = 0;
+  isDefault: boolean = true;
+
   constructor(public http: HttpService, public activeRoute: ActivatedRoute,
     private SpinnerService: NgxSpinnerService,
     private _router: Router,

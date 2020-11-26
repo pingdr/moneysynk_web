@@ -1,24 +1,26 @@
 <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-light sidenav-active-square">
-    <div class="brand-sidebar">
-       <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img
-                src="../../../../assets/images/logo.svg" alt="materialize logo" /><span
-                class="logo-text hide-on-med-and-down">Materialize</span></a><a class="navbar-toggler" href="#"><i
-                class="material-icons">radio_button_checked</i></a></h1>
-    </div>
-   
-   <div class="main-nav-item">
-         <ul class="nav-item-inner">
-            <li *ngFor="let menu of sideBar" class="nav-list-parents" >
-               <a class="navlinks" title="Reports" *ngIf="!menu?.children?.length" routerLinkActive="router-active" [routerLink]="[menu.path]"
-               (click)="hideSideBar()">{{menu?.title}}</a>
-            </li>
-         </ul>
+   <div class="brand-sidebar">
+      <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img
+               src="../../../../assets/images/logo.svg" alt="materialize logo" /><span
+               class="logo-text hide-on-med-and-down">Materialize</span></a><a class="navbar-toggler" href="#"><i
+               class="material-icons">radio_button_checked</i></a></h1>
    </div>
-   
+
+   <div class="main-nav-item">
+      <ul class="nav-item-inner">
+         <li *ngFor="let menu of sideBar" class="nav-list-parents" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:
+               true}">
+            <a class="navlinks" title="Reports" *ngIf="!menu?.children?.length" [routerLink]="[menu.path]"
+               (click)="hideSideBar()">{{menu?.title}}</a>
+         </li>
+      </ul>
+   </div>
+
    <div class="settings">
       <a routerLinkActive="router-active" routerLink="settings" title="settings">
          <img src="../../../../assets/images/ion-settings.svg">
       </a>
    </div>
 
- </aside>
+</aside>

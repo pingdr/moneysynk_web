@@ -130,7 +130,23 @@ export class PayeesPayersComponent implements OnInit {
     const dialogRef = this.dialog.open(AddPayeeComponent, {
       width: '523px',
       panelClass: 'edit-account-main',
-      data: { type: this.type, groupId: this.groupId }
+      data: { id: '', type: this.type, groupId: this.groupId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.payeesArray = [];
+      this.payersArray = [];
+      this.getPayees();
+    });
+  }
+
+  updatePayeeOrPayer(objData) {
+    console.log(objData);
+    const dialogRef = this.dialog.open(AddPayeeComponent, {
+      width: '523px',
+      panelClass: 'edit-account-main',
+      data: { id: objData._id, type: objData.type, groupId: objData.groupId, objData: objData }
     });
 
     dialogRef.afterClosed().subscribe(result => {

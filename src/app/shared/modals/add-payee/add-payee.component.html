@@ -1,9 +1,13 @@
 <div class="heading-modal">
-    <span>{{data.type === "PAYEE" ? 'Add Payee' : 'Add Payer'}}</span>
+    <span [ngStyle]="{'display':isEdit ? 'none':''}">
+        {{data.type === "PAYEE" ? 'Add Payee' : 'Add Payer'}}
+    </span>
+    <span [ngStyle]="{'display':!isEdit ? 'none':''}">{{data.type === "PAYEE" ? 'Edit Payee' : 'Edit Payer'}}</span>
     <button class="btn" [mat-dialog-close]>
         <img src="../../../assets/images/close.svg">
     </button>
 </div>
+
 <mat-progress-bar *ngIf="isApiCalling" mode="indeterminate"></mat-progress-bar>
 
 <div class="form-group-main add-account-section">
@@ -11,7 +15,9 @@
         <div class="form-group">
             <label>Name</label>
             <mat-form-field appearance="fill">
-                <input matInput maxlength="26" placeholder="{{data.type === 'PAYEE' ? 'Add Payee' : 'Add Payer'}}" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <input matInput maxlength="26" placeholder="{{data.type === 'PAYEE' ? 'Add Payee' : 'Add Payer'}}"
+                    formControlName="name" [(ngModel)]="data.objData.name"
+                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                     <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                 </div>
@@ -22,9 +28,13 @@
             <label>Category</label>
             <mat-form-field appearance="fill">
                 <!-- <mat-label>0</mat-label> -->
-                <mat-select formControlName="categoryId" (selectionChange)="parentSelected($event)" [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
+                <mat-select formControlName="categoryId" (selectionChange)="parentSelected($event)"
+                    [(ngModel)]="data.objData.categoryId" [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }"
+                    [disabled]="data.objData._id">
                     <!-- <mat-option value="">None</mat-option> -->
-                    <mat-option *ngFor="let cat of categories" [value]="cat._id"><span><img style="width: 30px;padding-right: 5px;" src="{{cat.icon}}" ></span>{{cat.name}}</mat-option>
+                    <mat-option *ngFor="let cat of categories" [value]="cat._id"><span><img
+                                style="width: 30px;padding-right: 5px;" src="{{cat.icon}}"></span>{{cat.name}}
+                    </mat-option>
                     <!-- <mat-option value="option2">200</mat-option>
                   <mat-option value="option3">300</mat-option> -->
                 </mat-select>
@@ -37,17 +47,20 @@
             <label>Sub category</label>
             <mat-form-field appearance="fill">
                 <!-- <mat-label>0</mat-label> -->
-                <mat-select (selectionChange)="subSelected($event)">
+                <mat-select (selectionChange)="subSelected($event)" [(ngModel)]="data.objData.subCategoryId"
+                    [disabled]="data.objData._id">
                     <mat-option value="">None</mat-option>
-                    <mat-option *ngFor="let p of childs" [value]="p._id"><span><img style="width: 30px;padding-right: 5px;" src="{{p.icon}}" ></span>{{p.name}}</mat-option>
+                    <mat-option *ngFor="let p of childs" [value]="p._id"><span><img
+                                style="width: 30px;padding-right: 5px;" src="{{p.icon}}"></span>{{p.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="form-group">
             <label>Note</label>
             <mat-form-field appearance="fill">
-                <input matInput placeholder="Add note here" maxlength="150" formControlName="note">
-            
+                <input matInput placeholder="Add note here" maxlength="150" formControlName="note"
+                    [(ngModel)]="data.objData.note" name="note" />
+
             </mat-form-field>
         </div>
 

@@ -29,7 +29,7 @@ export class AddBudgetModalComponent implements OnInit {
       currentBalance: ['', Validators.required],
       groupId: [this.data.groupId],
       icon: ['', Validators.required],
-      note: [''],
+      note: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required]
     });
@@ -113,6 +113,15 @@ export class AddBudgetModalComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
   }
   // ----Popup-close----------//
 

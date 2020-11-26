@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
+import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { HttpService } from 'src/app/services/http.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { LogoutModalComponent } from 'src/app/shared/modals/logout-modal/logout-modal.component';
@@ -21,12 +22,19 @@ export class HeaderComponent implements OnInit {
   constructor(public http: HttpService,
     private toastr: ToastrService,
     public sharedserive: SharedService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private eventEmitterService: EventEmitterService
   ) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('loginData'));
     this.getAllGroup();
+
+    if (this.eventEmitterService.subsVar == undefined) {
+      this.eventEmitterService.subsVar = this.eventEmitterService.invokeGroupListFunction.subscribe(() => {
+        this.getAllGroup();
+      });
+    }
   }
 
   Logout() {
@@ -38,7 +46,7 @@ export class HeaderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');      
+      console.log('The dialog was closed');
     });
   }
 

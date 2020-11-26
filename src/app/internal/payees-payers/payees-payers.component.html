@@ -40,6 +40,9 @@
                                 <span class="price">${{payee.expenseTotal}}</span>
                             </div>
                             <div class="action-tab-main">
+                                <a class="edit-btn" style="cursor: pointer;" (click)="updatePayeeOrPayer(payee)">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
                                 <a class="delete-btn" style="cursor: pointer;"
                                     (click)="deletePayee(payee._id,payee.name,'deletePayee')">
                                     <img src="../../../assets/images/delete-trash.svg">
@@ -126,6 +129,9 @@
                                 <!-- <a class="delete-btn" style="cursor: pointer;" (click)="openDeleteDialog(payee._id,payee.name)">
                                     <img src="../../../assets/images/delete-trash.svg">
                                 </a> -->
+                                <a class="edit-btn" style="cursor: pointer;" (click)="updatePayeeOrPayer(payee)">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
                                 <a class="delete-btn" style="cursor: pointer;"
                                     (click)="deletePayee(payee._id,payee.name,'deletePayer')">
                                     <img src="../../../assets/images/delete-trash.svg">

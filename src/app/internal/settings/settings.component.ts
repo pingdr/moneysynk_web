@@ -5,6 +5,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { HttpService } from 'src/app/services/http.service';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import { EditGroupModalComponent } from 'src/app/shared/modals/edit-group-modal/edit-group-modal.component';
+import { EventEmitterService } from 'src/app/services/event-emitter.service';
 
 @Component({
   selector: 'app-settings',
@@ -19,13 +20,15 @@ export class SettingsComponent implements OnInit {
   groupName: any = '';
   total: any = 0;
   pageIndex: any = 0;
+  isDisabled: boolean = true;
 
   @ViewChild('deleteGroupDialog') deleteGroupDialog: TemplateRef<any>;
   @ViewChild('editGroupDialog') editGroupDialog: TemplateRef<any>;
 
   constructor(public http: HttpService,
     private toastr: ToastrService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private eventEmitterService: EventEmitterService
   ) { }
 
   ngOnInit(): void {
@@ -94,10 +97,12 @@ export class SettingsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getAllGroup();
+
+      this.eventEmitterService.onGroupListSelect();
     });
   }
 
-  editGroup(id,groupName){
+  editGroup(id, groupName) {
     const dialogRef = this.dialog.open(EditGroupModalComponent, {
       panelClass: 'account-modal-main',
       width: '350px',
@@ -107,6 +112,8 @@ export class SettingsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getAllGroup();
+
+      this.eventEmitterService.onGroupListSelect();
     });
   }
 

@@ -48,10 +48,10 @@
                                                     <!-- <a href="javascript:;" (click)="openDeleteCategoryDialog(cat._id,cat.name)" title="Delete">
                                                         <img src="../../../assets/images/delete-trash.svg">
                                                     </a> -->
-                                                    <a href="javascript:;" (click)="deleteCategory(cat._id,cat.name)"
+                                                    <!-- <a href="javascript:;" (click)="deleteCategory(cat._id,cat.name)"
                                                         title="Delete">
                                                         <img src="../../../assets/images/delete-trash.svg">
-                                                    </a>
+                                                    </a> -->
                                                 </div>
 
                                             </div>
@@ -65,6 +65,10 @@
                                             </div>
                                             <div class="right-col">
                                                 <span class="red-color">$ {{c.expenseTotal}}</span>
+                                                <a href="javascript:;" (click)="deleteCategory(c._id,c.name)"
+                                                    title="Delete" style="float: right;" [ngStyle]="{'pointer-events': c.isDefault ? 'none':''}">
+                                                    <img src="../../../assets/images/delete-trash.svg">
+                                                </a>
                                             </div>
                                         </div>
                                         <!-- <div class="inner-strips">
@@ -932,7 +936,7 @@
                             <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
                         </div>
                     </div>
-                    <div class="col-4 col-md-4 col-lg-4">                        
+                    <div class="col-4 col-md-4 col-lg-4">
                     </div>
                 </div>
             </div>

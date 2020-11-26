@@ -18,7 +18,7 @@ import { VerifyMobileOtpComponent } from './shared/modals/verify-mobile-otp/veri
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -57,6 +57,7 @@ import { DeleteModalComponent } from './shared/modals/delete-modal/delete-modal.
 import { TransferModalComponent } from './shared/modals/transfer-modal/transfer-modal.component';
 import { EditGroupModalComponent } from './shared/modals/edit-group-modal/edit-group-modal.component';
 import { LogoutModalComponent } from './shared/modals/logout-modal/logout-modal.component';
+import { EventEmitterService } from './services/event-emitter.service';
 
 @NgModule({
   declarations: [
@@ -139,7 +140,8 @@ import { LogoutModalComponent } from './shared/modals/logout-modal/logout-modal.
     SharedService,
     AsyncPipe,
     ExternalAuthguardService,
-    Title
+    Title,
+    EventEmitterService
   ],
   bootstrap: [AppComponent],
   exports: [

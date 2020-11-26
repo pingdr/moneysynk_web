@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
@@ -17,8 +17,10 @@ export class AddPayeeComponent implements OnInit {
   public loader = false;
   categories: any;
   isApiCalling: boolean = false;
-  selectedChild:any
-  childs:any 
+  selectedChild: any
+  childs: any
+  isEdit: boolean = false;
+
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, public http: HttpService, private toastr: ToastrService, public dialogRef: MatDialogRef<AddPayeeComponent>) {
     this.Addaccountentry = this.formBuilder.group({
       // title: ['', Validators.required],
@@ -29,7 +31,6 @@ export class AddPayeeComponent implements OnInit {
       type: [this.data.type],
       note: ['']
     });
-
   }
 
   get f() { return this.Addaccountentry.controls; }
@@ -38,7 +39,7 @@ export class AddPayeeComponent implements OnInit {
     this.childs = this.categories[this.categories.findIndex(x => x._id === event.value)].child;
   }
   subSelected(event) {
-    if(event.value != "") {
+    if (event.value != "") {
       this.selectedChild = event.value;
     }
   }
@@ -51,25 +52,46 @@ export class AddPayeeComponent implements OnInit {
     }
     this.loader = true;
     this.isApiCalling = true;
-    if(this.selectedChild) {
+    if (this.selectedChild) {
       this.Addaccountentry.value.categoryId = this.selectedChild;
     }
-    this.http.post(ApiUrl.addEditPayee, this.Addaccountentry.value, false)
-      .subscribe(res => {
-        this.isApiCalling = false;
-        let response = res;
-        if (response.statusCode == 200) {
-          this.toastr.success('Payee added successfully', 'success', {
-            timeOut: 2000
-          });
-        }
-        this.dialogRef.close(this.dialogRef);
-        this.http.navigate('payees');
-      },
-        () => {
-          this.loader = false;
+    if (this.data.objData._id) {
+      this.http.post(ApiUrl.addEditPayee + '/' + this.data.objData._id, this.Addaccountentry.value, false)
+        .subscribe(res => {
           this.isApiCalling = false;
-        });
+          let response = res;
+          if (response.statusCode == 200) {
+            this.toastr.success('Payee update successfully', 'success', {
+              timeOut: 2000
+            });
+          }
+          this.dialogRef.close(this.dialogRef);
+          this.http.navigate('payees');
+        },
+          () => {
+            this.loader = false;
+            this.isApiCalling = false;
+          });
+    } else {
+      this.http.post(ApiUrl.addEditPayee, this.Addaccountentry.value, false)
+        .subscribe(res => {
+          this.isApiCalling = false;
+          let response = res;
+          if (response.statusCode == 200) {
+            this.toastr.success('Payee added successfully', 'success', {
+              timeOut: 2000
+            });
+          }
+          this.dialogRef.close(this.dialogRef);
+          this.http.navigate('payees');
+        },
+          () => {
+            this.loader = false;
+            this.isApiCalling = false;
+          });
+    }
+
+
     // display form values on success
     // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.editaccount.value, null, 4));
   }
@@ -79,12 +101,12 @@ export class AddPayeeComponent implements OnInit {
       "groupId": this.data.groupId,
       // "pageIndex": this.pageIndex,
       // "limit": 10,
-      parent:true,
+      parent: true,
       type: this.data.type === "PAYEE" ? "EXPENSE" : "INCOME"
 
     }
     this.isApiCalling = true;
-    this.http.getCategories(ApiUrl.getCategories,payload).subscribe(res => {
+    this.http.getCategories(ApiUrl.getCategories, payload).subscribe(res => {
       this.isApiCalling = false;
       this.http.showLoader();
       if (res.data.data != undefined) {
@@ -95,6 +117,15 @@ export class AddPayeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    debugger
+    console.log(this.data);
+
+    if (this.data.id == '') {
+      this.isEdit = false;
+    } else {
+      this.isEdit = true;
+    }
+
     this.getAllCategories()
   }
 
