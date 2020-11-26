@@ -42,6 +42,9 @@ export class DeleteModalComponent implements OnInit {
       case 'deletePayee':
         this.deletePayee()
         break;
+      case 'deletePayer':
+        this.deletePayee()
+        break;        
       case 'deleteBudget':
         this.deleteBudget()
         break;
@@ -95,10 +98,19 @@ export class DeleteModalComponent implements OnInit {
     )
   }
 
-  deletePayee() {
+  deletePayee() {    
+    let successMessage:any = '';
+
+    if(this.data.type=='deletePayee')
+    {
+      successMessage = 'Payee deleted successfully';
+    } else{
+      successMessage = 'Payer deleted successfully';
+    }
+    
     this.http.deletePayees(this.data.id).subscribe(
       (data: any) => {
-        this.toastr.error("Payees Delete Successfully", "Success");
+        this.toastr.error(successMessage, "Success");
         this.hideModal();
       }, err => {
         this.toastr.error("Oops! Something went wrong", 'Error');

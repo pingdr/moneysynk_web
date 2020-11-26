@@ -55,6 +55,8 @@ import { AddExpenseComponent } from './shared/modals/add-expense/add-expense.com
 import { AddBillComponent } from './shared/modals/add-bill/add-bill.component';
 import { DeleteModalComponent } from './shared/modals/delete-modal/delete-modal.component';
 import { TransferModalComponent } from './shared/modals/transfer-modal/transfer-modal.component';
+import { EditGroupModalComponent } from './shared/modals/edit-group-modal/edit-group-modal.component';
+import { LogoutModalComponent } from './shared/modals/logout-modal/logout-modal.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,9 @@ import { TransferModalComponent } from './shared/modals/transfer-modal/transfer-
     AddExpenseComponent,
     AddBillComponent,
     DeleteModalComponent,
-    TransferModalComponent
+    TransferModalComponent,
+    EditGroupModalComponent,
+    LogoutModalComponent
   ],
   imports: [
     BrowserModule,

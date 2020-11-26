@@ -7,6 +7,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { PayeesPayersComponent } from './payees-payers.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ToastrModule } from 'ngx-toastr';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [
     {
@@ -31,6 +32,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         MatExpansionModule,
         MatButtonModule,
+        MatPaginatorModule,
         ToastrModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

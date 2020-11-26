@@ -6,6 +6,7 @@ import { SharedModule } from '../../shared/modules/shared.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { BudgetComponent } from './budget.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [
     {
@@ -29,7 +30,8 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         MatExpansionModule,
-        MatButtonModule
+        MatButtonModule,
+        MatPaginatorModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

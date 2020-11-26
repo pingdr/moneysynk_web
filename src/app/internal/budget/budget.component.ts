@@ -20,12 +20,14 @@ export class BudgetComponent implements OnInit {
   groupId: any;
   isApiCalling: boolean = false;
   type: any = "EXPENSE";
-  budgetSummary:any=[];
+  budgetSummary: any = [];
   expenseArray: any = [];
   incomeArray: any = [];
   budgets: any = [];
   budgetDetails: any;
   recordSelected: any = 0;
+  resultsLength: any = 0;
+  pageIndex: any = 0;
   bname: any;
   @ViewChild('deletePayeeDialog') DeletePayeeDialog: TemplateRef<any>;
 
@@ -113,15 +115,18 @@ export class BudgetComponent implements OnInit {
     this.isApiCalling = true;
     var payload = {
       "groupId": this.groupId,
+      pageIndex: this.pageIndex,
+      limit: 10,
       "type": this.type
     }
     this.recordSelected = 0;
     this.http.getCategories(ApiUrl.getBudget, payload).subscribe(res => {
       this.isApiCalling = false;
       this.http.showLoader();
-      console.log(res);
+      console.log('Budget List', res);
       if (res.data != undefined) {
         // this.budgets = res.data.data;
+        this.resultsLength = res.data.totalFinancialSources;
         if (this.type === "EXPENSE") {
           this.expenseArray = res.data.data;
           this.bname = this.expenseArray[0].name;
@@ -133,6 +138,12 @@ export class BudgetComponent implements OnInit {
         }
       }
     });
+  }
+
+  pageChange(event) {
+    console.log(event);
+    this.pageIndex = event.pageIndex;
+    this.getBudgets();
   }
 
   getPayeeSummary() {

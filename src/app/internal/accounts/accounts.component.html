@@ -1609,8 +1609,16 @@
                 </div>
             </div> -->
         <!-- </div> -->
-        <div style="display: flex;" *ngIf="resultsLength > 10">
-            <mat-paginator (page)="pageChange($event)" [length]="resultsLength" [pageSize]="10"></mat-paginator>
+
+        <div class="row">
+            <div class="col-8 col-md-8 col-lg-8">
+                <div style="display: flex;float: right;" *ngIf="resultsLength > 10">
+                    <mat-paginator (page)="pageChange($event)" [length]="resultsLength" [pageSize]="10"></mat-paginator>
+                </div>
+            </div>
+            <div class="col-4 col-md-4 col-lg-4">
+
+            </div>
         </div>
 
         <div class="total-expanse-panal-bottom-main">

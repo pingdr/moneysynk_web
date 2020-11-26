@@ -1,0 +1,28 @@
+<div class="heading-modal">
+    <span>Group Instead</span>
+    <button class="vector" (click)="hideModal()">
+        <img src="../../../../assets/images/Vector.svg">
+    </button>
+</div>
+
+<div class="form-group-main group-edit-section">
+    <div class="container">
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Check Number" name="groupName" [(ngModel)]="groupName">
+        </mat-form-field>
+
+        <div class="last-section">
+            <div class="row">
+                <div class="col-md-6">
+                    <button style="box-shadow: none !important;border-radius: 20px;width: 105px;
+                text-align: center;
+                height: 40px;" mat-raised-button class="orange-back" (click)="editGroup()">Confirm</button>
+                </div>
+                <div class="col-md-6">
+                    <button mat-stroked-button color="primary" style="border-radius: 20px;border: none;"
+                        matDialogClose="no">Cancle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

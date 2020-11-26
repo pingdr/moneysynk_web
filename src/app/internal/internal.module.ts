@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -79,7 +80,7 @@ const routes: Routes = [{
         MatOptionModule,
         MatFormFieldModule,
         MatInputModule,
-      
+        MatMenuModule
     
     ],
         

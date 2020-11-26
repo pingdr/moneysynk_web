@@ -23,7 +23,7 @@ export class PayeesPayersComponent implements OnInit {
   isApiCalling: boolean = false;
   payeeId;
   payeeName;
-  total: any;
+  total: any = 0;
   pageIndex: any = 0;
   AddText: any = "Add Payee";
   payeeDetails: any;
@@ -66,6 +66,7 @@ export class PayeesPayersComponent implements OnInit {
       this.isApiCalling = false;
       this.http.showLoader();
       if (res.data.data != undefined) {
+        this.total = res.data.totalFinancialBeneficiaries;
         if (this.type === "PAYEE") {
           this.payeesArray = res.data.data;
           this.getPayeeDetailsById(this.payeesArray[0]._id);
@@ -73,7 +74,6 @@ export class PayeesPayersComponent implements OnInit {
           this.payersArray = res.data.data;
           this.getPayeeDetailsById(this.payersArray[0]._id);
         }
-        this.total = res.data.totalFinancialBeneficiaries;
       }
     });
   }
@@ -152,12 +152,23 @@ export class PayeesPayersComponent implements OnInit {
 
   }
 
-  deletePayee(id, payeeName) {
-    const dialogRef = this.dialog.open(DeleteModalComponent, {
-      panelClass: 'account-modal-main',
-      width: '350px',
-      data: { type: 'deletePayee', title: 'Payee', id: id, name: payeeName }
-    });
+  deletePayee(id, payeeName, type) {
+    let dialogRef;
+
+    if (type == 'deletePayee') {
+      dialogRef = this.dialog.open(DeleteModalComponent, {
+        panelClass: 'account-modal-main',
+        width: '350px',
+        data: { type: type, title: 'Payee', id: id, name: payeeName }
+      });
+    } else {
+      dialogRef = this.dialog.open(DeleteModalComponent, {
+        panelClass: 'account-modal-main',
+        width: '350px',
+        data: { type: type, title: 'Payer', id: id, name: payeeName }
+      });
+    }
+
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

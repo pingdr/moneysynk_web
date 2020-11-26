@@ -68,7 +68,7 @@ export class AccountsComponent implements OnInit {
   filter = [];
   isSelected: any = 0;
   isRecordSelected: any = 0;
-  resultsLength: any;
+  resultsLength: any = 0;
   accountType_id: any;
   pageIndex: any = 0;
   constructor(public http: HttpService, public activeRoute: ActivatedRoute, public changeDetect: ChangeDetectorRef, public sharedserive: SharedService,
@@ -314,6 +314,7 @@ export class AccountsComponent implements OnInit {
   }
 
   getType(id, i?: any) {
+    this.resultsLength = 0;
     if (i || i == 0)
       this.isSelected = i;
     this.accountType_id = id
@@ -331,7 +332,9 @@ export class AccountsComponent implements OnInit {
       this.isApiCalling = false;
       this.http.showLoader();
       if (res.data != undefined) {
-        this.resultsLength = res.data.total;
+        if (res.data.data.length > 0) {
+          this.resultsLength = res.data.total;
+        }
         this.accountList = res.data.data;
         // this.filter = res.data;
         if (res.data.data.length > 0) {

@@ -4,6 +4,7 @@ import { ApiUrl } from 'src/app/services/apiurl';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { HttpService } from 'src/app/services/http.service';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
+import { EditGroupModalComponent } from 'src/app/shared/modals/edit-group-modal/edit-group-modal.component';
 
 @Component({
   selector: 'app-settings',
@@ -16,6 +17,8 @@ export class SettingsComponent implements OnInit {
   groupList: any = [];
   groupId: any = '';
   groupName: any = '';
+  total: any = 0;
+  pageIndex: any = 0;
 
   @ViewChild('deleteGroupDialog') deleteGroupDialog: TemplateRef<any>;
   @ViewChild('editGroupDialog') editGroupDialog: TemplateRef<any>;
@@ -30,8 +33,15 @@ export class SettingsComponent implements OnInit {
   }
   getAllGroup() {
 
+    var payload = {
+      pageIndex: this.pageIndex,
+      limit: 10,
+    }
+
     this.http.getAllGroup(ApiUrl.addGrop).subscribe(res => {
+      console.log(res);
       if (res.data != undefined) {
+        this.total = res.data.length;
         this.groupList = res.data;
       }
     });
@@ -55,23 +65,43 @@ export class SettingsComponent implements OnInit {
       panelClass: 'custom-modalbox'
     });
   }
-  editGroup() {
-    if(this.groupName != '') {
-      this.isApiCalling = true;
-      this.http.editGroup(this.groupId,{name:this.groupName}).subscribe((res)=> {
-        console.log(res);
-        this.closeAllModal();
-        this.isApiCalling = false;
-        this.getAllGroup();
-      })
-    }
+
+  pageChange(event) {
+    console.log(event);
+    this.pageIndex = event.pageIndex;
+    this.getAllGroup();
   }
+
+  // editGroup() {
+  //   if (this.groupName != '') {
+  //     this.isApiCalling = true;
+  //     this.http.editGroup(this.groupId, { name: this.groupName }).subscribe((res) => {
+  //       console.log(res);
+  //       this.closeAllModal();
+  //       this.isApiCalling = false;
+  //       this.getAllGroup();
+  //     })
+  //   }
+  // }
 
   deleteGroup(id, groupName) {
     const dialogRef = this.dialog.open(DeleteModalComponent, {
       panelClass: 'account-modal-main',
       width: '350px',
       data: { type: 'deleteGroup', title: 'Group', id: id, name: groupName }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getAllGroup();
+    });
+  }
+
+  editGroup(id,groupName){
+    const dialogRef = this.dialog.open(EditGroupModalComponent, {
+      panelClass: 'account-modal-main',
+      width: '350px',
+      data: { type: 'editGroup', id: id, name: groupName }
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -223,15 +223,19 @@
 
 
                         <div class="action-tab-main">
-                            <a style="cursor: pointer;" (click)="openEditGroupDialog(group._id,group.name)" class="edit-btn" title="edit">
+                            <!-- <a style="cursor: pointer;" (click)="openEditGroupDialog(group._id,group.name)"
+                                class="edit-btn" title="edit">
                                 <img src="../../../assets/images/edit-pencil.svg">
-                            </a>
+                            </a> -->
                             <!-- <a class="delete-btn" style="cursor: pointer;"
                                 (click)="openDeleteGroupDialog(group._id,group.name)">
                                 <img src="../../../assets/images/delete-trash.svg">
                             </a> -->
-                            <a class="delete-btn" style="cursor: pointer;"
-                                (click)="deleteGroup(group._id,group.name)">
+                            <a style="cursor: pointer;" (click)="editGroup(group._id,group.name)"
+                                class="edit-btn" title="edit">
+                                <img src="../../../assets/images/edit-pencil.svg">
+                            </a>
+                            <a class="delete-btn" style="cursor: pointer;" (click)="deleteGroup(group._id,group.name)">
                                 <img src="../../../assets/images/delete-trash.svg">
                             </a>
                         </div>
@@ -239,7 +243,7 @@
                     </div>
                 </div>
             </div>
-            <div style="display: flex;" *ngIf="total > 10">
+            <div style="display: flex;float: right;" *ngIf="total > 10">
                 <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
             </div>
         </div>

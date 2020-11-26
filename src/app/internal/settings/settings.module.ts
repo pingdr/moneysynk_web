@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatPseudoCheckboxModule } from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [
     {
@@ -41,7 +42,8 @@ const routes: Routes = [
         MatSelectModule,
         RouterModule.forChild(routes),
         MatExpansionModule,
-        MatButtonModule
+        MatButtonModule,
+        MatPaginatorModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
