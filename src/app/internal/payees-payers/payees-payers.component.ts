@@ -127,6 +127,7 @@ export class PayeesPayersComponent implements OnInit {
     this.step--;
   }
   openCategorymodal() {
+    this.total = 0;
     const dialogRef = this.dialog.open(AddPayeeComponent, {
       width: '523px',
       panelClass: 'edit-account-main',

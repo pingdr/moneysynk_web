@@ -89,21 +89,32 @@ export class HeaderComponent implements OnInit {
     this.http.getAllGroup(ApiUrl.addGrop).subscribe(res => {
       if (res.data != undefined) {
         this.groupList = res.data;
-        this.modeselect = this.groupList[0]._id;
+        this.selectedGroup(this.groupList);
+        // this.modeselect = this.groupList[0]._id;
         this.sharedserive.groupUpdateData(this.groupList[0]._id);
         // this.sharedserive.groupUpdateData.next();
-
-
-
       }
     });
-
   }
-  groupSelect(value) {
 
+  selectedGroup(groupData) {
+    if (localStorage.getItem('selectedGroupId')) {
+      for (let index = 0; index < groupData.length; index++) {
+        console.log(groupData[index]);
+        if(localStorage.getItem('selectedGroupId')==groupData[index]._id){
+          this.modeselect = groupData[index]._id;    
+        }
+      }
+    } else {
+      this.modeselect = groupData[0]._id;
+    }
+  }
+
+  groupSelect(value) {
     this.groupName = value.name;
     this.groupName = value._id;
     this.sharedserive.groupUpdateData(value._id);
+    localStorage.setItem('selectedGroupId', value._id);
   }
 
 

@@ -166,8 +166,9 @@ export class BudgetComponent implements OnInit {
     this.step++;
   }
   setType(type) {
-    this.type = type;
+    this.pageIndex = 0;
     this.recordSelected = 0;
+    this.type = type;
     this.getBudgets();
   }
   prevStep() {

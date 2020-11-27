@@ -4,15 +4,12 @@
         <span>Categories</span>
     </div>
     <div class="component-btn">
-
         <button class="btn" (click)="openCategorymodal()">Add Category</button>
-
     </div>
 </div>
 
 
 <div class="sub-compo-wrap">
-
     <div class="white-box">
         <nav class="asset-main-tab">
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
@@ -27,7 +24,7 @@
             <!-- --------------------------first-tab----------------------- -->
             <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
-                    <div class="col-8 col-md-8 col-lg-8">
+                    <div class="col-8 col-md-8 col-lg-8 scroller-class">
                         <!-------------------------------- categories-Expansion-------------------------------->
                         <div class="categories-accordian-main">
                             <mat-accordion>
@@ -66,7 +63,8 @@
                                             <div class="right-col">
                                                 <span class="red-color">$ {{c.expenseTotal}}</span>
                                                 <a href="javascript:;" (click)="deleteCategory(c._id,c.name)"
-                                                    title="Delete" style="float: right;" [ngStyle]="{'pointer-events': c.isDefault ? 'none':''}">
+                                                    title="Delete" style="float: right;"
+                                                    [ngStyle]="{'pointer-events': c.isDefault ? 'none':''}">
                                                     <img src="../../../assets/images/delete-trash.svg">
                                                 </a>
                                             </div>
@@ -248,6 +246,10 @@
                               </mat-expansion-panel> -->
 
                             </mat-accordion>
+                        </div>
+
+                        <div style="display: flex;float: right;" *ngIf="total > 10">
+                            <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
                         </div>
 
                     </div>
@@ -479,9 +481,9 @@
                 </div>
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8">
-                        <div style="display: flex;float: right;" *ngIf="total > 10">
+                        <!-- <div style="display: flex;float: right;" *ngIf="total > 10">
                             <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-4 col-md-4 col-lg-4">
 
@@ -491,7 +493,7 @@
             <!-------------------------second tab--------------------------- -->
             <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="row">
-                    <div class="col-8 col-md-8 col-lg-8">
+                    <div class="col-8 col-md-8 col-lg-8 scroller-class">
                         <div class="categories-accordian-main">
                             <mat-accordion>
                                 <!-------------------- First-tab--------------------------->
@@ -507,11 +509,11 @@
                                                     <span class="green-cleared">$ {{inc.incomeTotal}}</span>
                                                     <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
                                                 </div>
-                                                <div class="right-col">
+                                                <!-- <div class="right-col">
                                                     <a href="#" title="Delete">
                                                         <img src="../../../assets/images/delete-trash.svg">
                                                     </a>
-                                                </div>
+                                                </div> -->
 
                                             </div>
                                         </mat-panel-description>
@@ -524,6 +526,12 @@
                                             </div>
                                             <div class="right-col">
                                                 <span class="green-cleared">$ {{c.incomeTotal}}</span>
+                                                <a href="#" title="Delete" style="float: right;"
+                                                    (click)="deleteCategory(c._id,c.name)"
+                                                    [ngStyle]="{'pointer-events': c.isDefault ? 'none':''}">
+                                                    <img src="../../../assets/images/delete-trash.svg">
+                                                </a> &nbsp;
+
                                             </div>
                                         </div>
                                         <!-- <div class="inner-strips">
@@ -703,6 +711,9 @@
                                   </mat-expansion-panel> -->
 
                             </mat-accordion>
+                        </div>
+                        <div style="display: flex;float: right;" *ngIf="total > 10">
+                            <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
                         </div>
                     </div>
                     <div class="col-4 col-md-4 col-lg-4">
@@ -932,20 +943,38 @@
                 </div>
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8">
-                        <div style="display: flex;float: right;" *ngIf="total > 10">
+                        <!-- <div style="display: flex;float: right;" *ngIf="total > 10">
                             <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-4 col-md-4 col-lg-4">
                     </div>
                 </div>
             </div>
-
         </div>
 
-
         <!------------------------------ total Expanse Panal-------------------------->
+
         <div class="total-expanse-panal-bottom-main">
+            <div class="inner-expanse-panal-main">
+
+                <div class="boxes">
+                    <span class="label red-total-expanse">Total Expanse</span>
+                    <span class="value red-total-expanse">$ {{categorySummary.expenseTotal}}</span>
+                </div>
+                <div class="boxes">
+                    <span class="label green-cleared">Current Balance</span>
+                    <span class="value green-cleared">$ {{categorySummary.currentBalance}}</span>
+                </div>
+                <div class="boxes">
+                    <span class="label">Income Total</span>
+                    <span class="value">$ {{categorySummary.incomeTotal}}</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- <div class="fixed-foot total-expanse-panal-bottom-main">
             <div class="inner-expanse-panal-main">
                 <div class="left-panal">
                     <div class="first-col com-col">
@@ -960,18 +989,10 @@
                         <span class="label">Income Total</span>
                         <span class="value">$ {{categorySummary.incomeTotal}}</span>
                     </div>
-                </div>
-                <!-- <div class="right-total-panal">
-                    <div class="total-cleared-balance">
-                        <span class="label">Total Cleared Balance</span>
-                        <span class="bold value">$ 4000</span>
-                    </div>
-                </div> -->
+                </div>                
             </div>
-        </div>
-
+        </div> -->
     </div>
-
 </div>
 
 <div class="delete-category-dialog">

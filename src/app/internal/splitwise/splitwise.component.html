@@ -1,11 +1,11 @@
 <div class="heading-pannel">
-    <div class="component-heading"> 
+    <div class="component-heading">
         <span>Group</span>
     </div>
     <div class="component-btn">
-        
-            <button class="btn" (click)="openAddgroupl()">Add Group</button>
-        
+
+        <button class="btn" (click)="openAddgroupl()">Add Group</button>
+
     </div>
 </div>
 
@@ -17,83 +17,85 @@
         <!---------------------------SPlit-wise----------------------------->
         <div class="splitwise-main">
             <div class="row">
-                <div class="col-8 col-md-8 col-lg-8">
+                <div class="col-8 col-md-8 col-lg-8 scroller-class">
                     <!-------------------------------- categories-Expansion-------------------------------->
                     <div class="categories-accordian-main">
-                    <mat-accordion>
-                        <!-------------------- First-tab--------------------------->
-                        <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <span>Test 
-                                    <a class="link-to-people" href="#">(3 People)</a>
-                                </span>
-                                <!-- <img src="../../../assets/images/auto.svg"> -->
-                            </mat-panel-title>
-                            <mat-panel-description>
-                                <div class="main-right-heading">
-                                    <div class="left-col">
-                                        <span class="red-color">You owe $66.00</span>
-                                        <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
-                                    </div>
-                                    <div class="right-col">
-                                        <a href="#" title="Delete">
-                                            <img src="../../../assets/images/edit-pencil.svg">
-                                        </a>
-                                        <a href="#" title="Delete">
-                                            <img src="../../../assets/images/delete-trash.svg">
-                                        </a>
-                                    </div>
+                        <mat-accordion>
+                            <!-------------------- First-tab--------------------------->
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <span>Test
+                                            <a class="link-to-people" href="#">(3 People)</a>
+                                        </span>
+                                        <!-- <img src="../../../assets/images/auto.svg"> -->
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        <div class="main-right-heading">
+                                            <div class="left-col">
+                                                <span class="red-color">You owe $66.00</span>
+                                                <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
+                                            </div>
+                                            <div class="right-col">
+                                                <a href="#" title="Delete">
+                                                    <img src="../../../assets/images/edit-pencil.svg">
+                                                </a>
+                                                <a href="#" title="Delete">
+                                                    <img src="../../../assets/images/delete-trash.svg">
+                                                </a>
+                                            </div>
 
-                                </div>
-                            </mat-panel-description>
-                            </mat-expansion-panel-header>
+                                        </div>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
                                 <div class="expansion-description-main splitwise-strips">
                                     <div class="inner-strips">
                                         <div class="left-col">
                                             <span class="stip-small-heading">You owe John</span>
                                             <span class="red-color">$233</span>
                                         </div>
-                                      
+
                                     </div>
                                     <div class="inner-strips">
                                         <div class="left-col">
                                             <span class="stip-small-heading">Doe owes you</span>
                                             <span class="green-color">$166</span>
                                         </div>
-                                      
+
                                     </div>
-                                    
 
-                                    
+
+
                                 </div>
-                                
-                    
-                        </mat-expansion-panel>
 
-                       
-                    
-                    </mat-accordion>
+
+                            </mat-expansion-panel>
+
+
+
+                        </mat-accordion>
                     </div>
-                
+
                 </div>
-                <div class="col-4 col-md-4 col-lg-4">   
+                <div class="col-4 col-md-4 col-lg-4">
                     <div class="list-main-filter">
                         <nav class="asset-main-tab">
-                            
+
                             <span>Test</span>
                             <span class="btn-group">
-                                    <a class="add-btn" title="add" (click)="openAddexpense()" >
-                                        <img _ngcontent-tta-c148="" src="../../../assets/images/Plus-icon-white.svg" title="add-icon">
-                                    </a>
-                                    <a class="settle-btn" href="#" title="Settle Up" >Settle Up</a>
+                                <a class="add-btn" title="add" (click)="openAddexpense()">
+                                    <img _ngcontent-tta-c148="" src="../../../assets/images/Plus-icon-white.svg"
+                                        title="add-icon">
+                                </a>
+                                <a class="settle-btn" href="#" title="Settle Up">Settle Up</a>
                             </span>
                         </nav>
                         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                             <!-- list -->
-                            <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel" aria-labelledby="nav-list-tab">
+                            <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
+                                aria-labelledby="nav-list-tab">
                                 <div class="accordian-main">
-                                   <!-- ----------------------------strips ------------------------------>
+                                    <!-- ----------------------------strips ------------------------------>
                                     <div class="inner-expansion-main">
                                         <div class="inner-sub-left">
                                             <div class="main-strips">
@@ -110,7 +112,7 @@
                                                 <img src="../../../assets/images/right-arrow.svg">
                                             </a>
                                         </div>
-                    
+
                                     </div>
                                     <div class="inner-expansion-main">
                                         <div class="inner-sub-left">
@@ -128,7 +130,7 @@
                                                 <img src="../../../assets/images/right-arrow.svg">
                                             </a>
                                         </div>
-                    
+
                                     </div>
                                     <div class="inner-expansion-main">
                                         <div class="inner-sub-left">
@@ -146,21 +148,29 @@
                                                 <img src="../../../assets/images/right-arrow.svg">
                                             </a>
                                         </div>
-                    
+
                                     </div>
 
                                 </div>
                             </div>
-                        
+
                         </div>
                     </div>
                 </div>
             </div>
-        </div>   
+        </div>
 
-            
+
         <!------------------------------ total Expanse Panal-------------------------->
         <div class="total-expanse-panal-bottom-main">
+            <div class="inner-expanse-panal-main">
+                <div class="boxes">
+                    <span class="label">TOTAL BALANCE</span>
+                    <span class="value red-color"><span class="title-inner">You Owe</span> $ 0.00</span>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="total-expanse-panal-bottom-main">
             <div class="inner-expanse-panal-main">
                 <div class="left-panal">
                     
@@ -168,23 +178,15 @@
                         <span class="label">TOTAL BALANCE</span>
                         <span class="value red-color"><span class="title-inner">You Owe</span>  $ 0.00</span>
                     </div>
-                </div>
-                <!-- <div class="right-total-panal">
-                    <div class="total-cleared-balance">
-                        <span class="label">Total Cleared Balance</span>
-                        <span class="bold value">$ 4000</span>
-                    </div>
-                </div> -->
+                </div>                
             </div>
-        </div>
+        </div> -->
 
     </div>
 
 
 
-   
-    
+
+
 
 </div>
-
-

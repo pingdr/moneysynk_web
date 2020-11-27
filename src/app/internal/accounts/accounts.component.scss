@@ -29,6 +29,11 @@
     position: relative;
     padding: 20px 0px;
     padding-bottom: 0px;
+
+    .scroller-class{
+        height: 300px !important;
+       overflow-y: scroll !important;
+    }
 }
 
 .asset-main-tab {
@@ -268,60 +273,86 @@
 }
 
 // -----------------------------------total-expanse--------------------------//
-.total-expanse-panal-bottom-main {
+
+.total-expanse-panal-bottom-main {    
     margin-top: 20px;
-    background: rgba(255, 164, 18, 0.3);
+    background: #f3d39e;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 20px 20px;
-    position: relative;
-    &::before {
-        position: absolute;
-        content: '';
-        background: rgba(0, 0, 0, 0.2);
-        width: 1px;
-        top: 0;
-        bottom: 0;
-        left: auto;
-        right: 25%;
-    }
-    .inner-expanse-panal-main {
+    position: relative;    
+
+    .inner-expanse-panal-main{
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .left-panal {
-            width: 70%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            .com-col {
-                .label {
-                    text-transform: uppercase;
-                    font-size: 13px;
-                }
-                .value {
-                    margin-left: 10px;
-                    font-size: 13px;
-                }
-            }
-        }
-        .right-total-panal {
-            width: 20%;
-            .total-cleared-balance {
-                .label {
-                    display: block;
-                    font-size: 13px;
-                    text-transform: uppercase;
-                    margin-bottom: 10px;
-                }
-                .bold {
-                    font-size: 20px;
-                    font-weight: 500;
-                }
-            }
-        }
+
+        .boxes {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            margin-bottom: 5px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            text-align: center;            
+          }
     }
 }
+
+
+// .total-expanse-panal-bottom-main {    
+//     margin-top: 20px;
+//     background: #f3d39e;
+//     border-bottom-left-radius: 10px;
+//     border-bottom-right-radius: 10px;
+//     padding: 20px 20px;
+//     position: relative;
+//     &::before {
+//         position: absolute;
+//         content: '';
+//         background: rgba(0, 0, 0, 0.2);
+//         width: 1px;
+//         top: 0;
+//         bottom: 0;
+//         left: auto;
+//         right: 25%;
+//     }
+//     .inner-expanse-panal-main {
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-between;
+//         .left-panal {
+//             width: 70%;
+//             display: flex;
+//             align-items: center;
+//             justify-content: space-between;
+//             .com-col {
+//                 .label {
+//                     text-transform: uppercase;
+//                     font-size: 13px;
+//                 }
+//                 .value {
+//                     margin-left: 10px;
+//                     font-size: 13px;
+//                 }
+//             }
+//         }
+//         .right-total-panal {
+//             width: 20%;
+//             .total-cleared-balance {
+//                 .label {
+//                     display: block;
+//                     font-size: 13px;
+//                     text-transform: uppercase;
+//                     margin-bottom: 10px;
+//                 }
+//                 .bold {
+//                     font-size: 20px;
+//                     font-weight: 500;
+//                 }
+//             }
+//         }
+//     }
+// }
 
 .red-total-expanse {
     color: #FD4755;

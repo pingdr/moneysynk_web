@@ -20,6 +20,9 @@ export class SignupComponent implements OnInit {
   boolean = true;
   rememberMeControl = new FormControl(false);
   public loader = false;
+  public isPasswordShow: boolean = false;
+  public isConfirmPassworShow: boolean = false;
+
   constructor(private formBuilder: FormBuilder,
     public dialog: MatDialog,
     public http: HttpService,
@@ -33,7 +36,7 @@ export class SignupComponent implements OnInit {
         "username": this.SignupForm.value.fullName,
         "email": this.SignupForm.value.email,
         "password": this.SignupForm.value.password,
-        "phoneNumber":  this.sharedService.mobile_number,
+        "phoneNumber": this.sharedService.mobile_number,
         "countryCode": this.sharedService.country_code,
         "role": "USER"
       }
@@ -45,7 +48,7 @@ export class SignupComponent implements OnInit {
           localStorage.removeItem('rememberMe');
           localStorage.removeItem('rememberData');
         }
-        localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
+        localStorage.setItem('accessToken', JSON.stringify(res.data.token));
         localStorage.setItem('loginData', JSON.stringify(res.data));
         console.log('signup');
         console.log(res.data);
@@ -80,6 +83,15 @@ export class SignupComponent implements OnInit {
 
   get f() { return this.SignupForm.controls; }
 
+  showPassword(type) {
+
+    if (type == 'password') {
+      this.isPasswordShow = !this.isPasswordShow;
+    } else {
+      this.isConfirmPassworShow = !this.isConfirmPassworShow;
+    }
+  }
+
   onSubmit() {
     this.submitted = true;
 
@@ -92,7 +104,7 @@ export class SignupComponent implements OnInit {
       this.http.sendEmail(ApiUrl.requestotp, this.SignupForm.value.email, false)
         .subscribe(data => {
           let response: any = data;
-          console.log(response);
+          console.log('SignUp Response', response);
           if (response.statusCode == 200) {
 
             this.toastr.success('otp send successfully', 'success', {

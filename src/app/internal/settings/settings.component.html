@@ -232,10 +232,10 @@
                                 <img src="../../../assets/images/delete-trash.svg">
                             </a> -->
                             <a style="cursor: pointer;" [ngStyle]="{'pointer-events': group.isDefault ? 'none':''}" (click)="editGroup(group._id,group.name)" class="edit-btn"
-                                title="edit" >
+                                title="edit" *ngIf="group.name !='My Default Group'">
                                 <img src="../../../assets/images/edit-pencil.svg">
                             </a>
-                            <a class="delete-btn" style="cursor: pointer;" [ngStyle]="{'pointer-events': group.isDefault ? 'none':''}" (click)="deleteGroup(group._id,group.name)">
+                            <a class="delete-btn" style="cursor: pointer;" [ngStyle]="{'pointer-events': group.isDefault ? 'none':''}" (click)="deleteGroup(group._id,group.name)" *ngIf="group.name !='My Default Group'">
                                 <img src="../../../assets/images/delete-trash.svg">
                             </a>
                         </div>
@@ -243,9 +243,9 @@
                     </div>
                 </div>
             </div>
-            <div style="display: flex;float: right;" *ngIf="total > 10">
+            <!-- <div style="display: flex;float: right;" *ngIf="total > 10">
                 <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
-            </div>
+            </div> -->
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
             <div class="home-currency-exchange">

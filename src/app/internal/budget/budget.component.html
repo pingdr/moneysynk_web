@@ -24,7 +24,7 @@
             <!-- --------------------------first-tab----------------------- -->
             <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
-                    <div class="col-8 col-md-8 col-lg-8">
+                    <div class="col-8 col-md-8 col-lg-8 scroller-class">
                         <!------------ Budget-strips----------------->
                         <div *ngFor="let b of expenseArray;let i = index" class="budget-main"
                             [ngClass]="{ 'active-budget' : recordSelected == i }" (click)="selectRecord(i,b)">
@@ -55,6 +55,11 @@
                                 </a>
                             </div>
 
+                        </div>
+
+                        <div style="display: flex;float: right;" *ngIf="resultsLength > 10">
+                            <mat-paginator (page)="pageChange($event)" [length]="resultsLength" [pageSize]="10">
+                            </mat-paginator>
                         </div>
                         <!-- <div class="budget-main">
                             <div class="img-col-main">
@@ -315,23 +320,11 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-8 col-md-8 col-lg-8">
-                        <div style="display: flex;float: right;" *ngIf="resultsLength > 10">
-                            <mat-paginator (page)="pageChange($event)" [length]="resultsLength" [pageSize]="10">
-                            </mat-paginator>
-                        </div>
-                    </div>
-                    <div class="col-4 col-md-4 col-lg-4">
-
-                    </div>
-                </div>
-
             </div>
             <!-------------------------second tab--------------------------- -->
             <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="row">
-                    <div class="col-8 col-md-8 col-lg-8">
+                    <div class="col-8 col-md-8 col-lg-8 scroller-class">
                         <!------------ Budget-strips----------------->
                         <div *ngFor="let b of incomeArray;let i = index" class="budget-main"
                             [ngClass]="{ 'active-budget' : recordSelected == i }" (click)="selectRecord(i,b)"
@@ -364,6 +357,12 @@
                             </div>
 
                         </div>
+
+                        <div style="display: flex;float: right;" *ngIf="resultsLength > 10">
+                            <mat-paginator (page)="pageChange($event)" [length]="resultsLength" [pageSize]="10">
+                            </mat-paginator>
+                        </div>
+
                         <!-- <div class="budget-main">
                             <div class="img-col-main">
                                 <img src="../../../assets/images/auto.svg">
@@ -621,25 +620,32 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-8 col-md-8 col-lg-8">
-                        <div style="display: flex;float: right;" *ngIf="resultsLength > 10">
-                            <mat-paginator (page)="pageChange($event)" [length]="resultsLength" [pageSize]="10">
-                            </mat-paginator>
-                        </div>
-                    </div>
-                    <div class="col-4 col-md-4 col-lg-4">
-
-                    </div>
-                </div>
             </div>
 
         </div>
 
 
         <!------------------------------ total Expanse Panal-------------------------->
+
         <div class="total-expanse-panal-bottom-main">
+            <div class="inner-expanse-panal-main">
+                <div class="boxes">
+                    <span class="label red-total-expanse">Total Expanse</span>
+                    <span class="value red-total-expanse"> $0.00 / $ {{budgetSummary.expenseTotal}}</span>
+                </div>
+                <div class="boxes">
+                    <span class="label green-cleared">Current Balance</span>
+                    <span class="value green-cleared">$0.00 / {{budgetSummary.currentBalance}}</span>
+                </div>
+                <div class="boxes">
+                    <a class="transfer" (click)="openTransferModal()" title="transfer" style="cursor: pointer;">
+                        TRANSFER
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="fixed-foot total-expanse-panal-bottom-main">
             <div class="inner-expanse-panal-main">
                 <div class="left-panal">
                     <div class="first-col com-col">
@@ -656,14 +662,8 @@
                         </a>
                     </div>
                 </div>
-                <!-- <div class="right-total-panal">
-                    <div class="total-cleared-balance">
-                        <span class="label">Total Cleared Balance</span>
-                        <span class="bold value">$ 4000</span>
-                    </div>
-                </div> -->
             </div>
-        </div>
+        </div> -->
 
     </div>
 
