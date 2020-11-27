@@ -84,7 +84,12 @@
         padding: 0px 20px;
     }
 }
-
+.fixed-foot {
+    position: fixed !important;
+    bottom: 12px;
+    width: 85.5%;
+    z-index: 999999999;
+}
 //----------- strips------------------
 .editable-account {
     border: 1px solid #EBEBEB;

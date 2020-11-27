@@ -45,7 +45,7 @@
             <label>Open Date</label>
             <mat-form-field appearance="fill">
 
-                <input [min]="minDate" matInput [matDatepicker]="picker" (focus)="picker.open()" formControlName="openDate" [ngClass]="{ 'is-invalid': submitted && f.openDate.errors }">
+                <input matInput [matDatepicker]="picker" (focus)="picker.open()" formControlName="openDate" [ngClass]="{ 'is-invalid': submitted && f.openDate.errors }">
 
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
