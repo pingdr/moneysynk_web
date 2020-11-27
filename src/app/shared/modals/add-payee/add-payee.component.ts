@@ -117,7 +117,6 @@ export class AddPayeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger
     console.log(this.data);
 
     if (this.data.id == '') {
