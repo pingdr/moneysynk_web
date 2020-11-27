@@ -78,10 +78,10 @@ export class ChangePasswordComponent implements OnInit {
               timeOut: 2000
             });
             this.dialogRef.close(this.dialogRef);
-            localStorage.setItem('accessToken', response.data.accessToken);
-            localStorage.setItem('loginData', JSON.stringify(response.data));
-            console.log(response.data.accessToken);
-            this.http.navigate('reports');
+            // localStorage.setItem('accessToken', response.data.accessToken);
+            // localStorage.setItem('loginData', JSON.stringify(response.data));
+            // console.log(response.data.accessToken);
+            this.http.navigate('login');
 
           } 
 
