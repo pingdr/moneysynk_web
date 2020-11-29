@@ -231,11 +231,11 @@
                                 (click)="openDeleteGroupDialog(group._id,group.name)">
                                 <img src="../../../assets/images/delete-trash.svg">
                             </a> -->
-                            <a style="cursor: pointer;" [ngStyle]="{'pointer-events': group.isDefault ? 'none':''}" (click)="editGroup(group._id,group.name)" class="edit-btn"
-                                title="edit" *ngIf="group.name !='My Default Group'">
+                            <a style="cursor: pointer;" *ngIf="!group.isDefault" [ngStyle]="{'pointer-events': group.isDefault ? 'none':''}" (click)="editGroup(group._id,group.name)" class="edit-btn"
+                                title="edit">
                                 <img src="../../../assets/images/edit-pencil.svg">
                             </a>
-                            <a class="delete-btn" style="cursor: pointer;" [ngStyle]="{'pointer-events': group.isDefault ? 'none':''}" (click)="deleteGroup(group._id,group.name)" *ngIf="group.name !='My Default Group'">
+                            <a class="delete-btn" *ngIf="!group.isDefault" style="cursor: pointer;" [ngStyle]="{'pointer-events': group.isDefault ? 'none':''}" (click)="deleteGroup(group._id,group.name)">
                                 <img src="../../../assets/images/delete-trash.svg">
                             </a>
                         </div>
