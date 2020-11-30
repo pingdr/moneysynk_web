@@ -236,6 +236,10 @@ export class AddEntryComponent implements OnInit {
             this.isApiCalling = false;
           });
 
+    } else {
+      this.toastr.error('Please Add Amount.', 'error', {
+        timeOut: 2000
+      });
     }
     // display form values on success
     // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.editaccount.value, null, 4));
