@@ -86,9 +86,9 @@ export class DeleteModalComponent implements OnInit {
   }
 
 
-  deleteCategory() {
+  deleteCategory() {    
     this.http.deleteCategory(this.data.id).subscribe(
-      (data: any) => {
+      (data: any) => {        
         this.toastr.error("Category Delete Successfully", "Success");
         this.hideModal();
       }, err => {

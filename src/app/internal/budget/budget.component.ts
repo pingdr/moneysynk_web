@@ -111,6 +111,7 @@ export class BudgetComponent implements OnInit {
   closeDeleteModal() {
     this.dialog.closeAll();
   }
+
   getBudgets() {
     this.isApiCalling = true;
     var payload = {
@@ -177,7 +178,7 @@ export class BudgetComponent implements OnInit {
 
 
 
-  openEditmodal(): void {
+  openEditmodal(objData): void {
     const dialogRef = this.dialog.open(AddBudgetModalComponent, {
       width: '976px',
       panelClass: 'edit-account-main', data: { type: this.type, groupId: this.groupId }
@@ -188,6 +189,20 @@ export class BudgetComponent implements OnInit {
       this.getBudgets();
     });
   }
+
+  editBudget(objBudget) {
+    console.log(objBudget);
+    const dialogRef = this.dialog.open(AddBudgetModalComponent, {
+      width: '976px',
+      panelClass: 'edit-account-main', data: { type: objBudget.type, groupId: objBudget.groupId, objBudget: objBudget }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getBudgets();
+    });
+  }
+
   getValue(b) {
     let temp = 100 * b.currentBalance;
     let sum = temp / b.amount;

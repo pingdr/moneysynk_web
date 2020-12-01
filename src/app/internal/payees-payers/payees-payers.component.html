@@ -25,7 +25,7 @@
                     <div class="col-8 col-md-8 col-lg-8 scroller-class">
                         <div *ngFor="let payee of payeesArray; let i = index"
                             [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account"
-                            (click)="recordSelected(i,payee._id)">
+                            (click)="recordSelected(i,payee)">
                             <!-- <div class="number">
                             <span>1</span>
                         </div> -->
@@ -52,7 +52,7 @@
                     <div class="col-4 col-md-4 col-lg-4">
                         <div class="list-main-filter">
                             <nav class="asset-main-tab">
-                                <span>Bike</span>
+                                <span>{{pName}}</span>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->
@@ -105,7 +105,7 @@
                     <div class="col-8 col-md-8 col-lg-8 scroller-class">
                         <div *ngFor="let payee of payersArray; let i = index"
                             [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account"
-                            (click)="recordSelected(i,payee._id)">
+                            (click)="recordSelected(i,payee)">
 
                             <div class="account-type"><span>{{ payee.name }}</span></div>
 
@@ -138,7 +138,7 @@
                         <div class="list-main-filter">
                             <nav class="asset-main-tab">
 
-                                <span>Bike</span>
+                                <span>{{pName}}</span>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->

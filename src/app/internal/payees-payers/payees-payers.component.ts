@@ -18,6 +18,7 @@ export class PayeesPayersComponent implements OnInit {
   payeeSummary: any = [];
   payeesArray: any = [];
   payersArray: any = [];
+  pName: any = '';
   groupId: any;
   isRecordSelected: any = 0;
   isApiCalling: boolean = false;
@@ -69,9 +70,11 @@ export class PayeesPayersComponent implements OnInit {
         this.total = res.data.totalFinancialBeneficiaries;
         if (this.type === "PAYEE") {
           this.payeesArray = res.data.data;
+          this.pName = res.data.data[0].name;
           this.getPayeeDetailsById(this.payeesArray[0]._id);
         } else {
           this.payersArray = res.data.data;
+          this.pName = res.data.data[0].name;
           this.getPayeeDetailsById(this.payersArray[0]._id);
         }
       }
@@ -98,11 +101,12 @@ export class PayeesPayersComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.getPayees();
   }
-  recordSelected(i, id?) {
+  recordSelected(i, payee) {
     if (i || i == 0)
       this.isRecordSelected = i;
-    if (id) {
-      this.getPayeeDetailsById(id);
+    if (payee._id) {
+      this.pName = payee.name;
+      this.getPayeeDetailsById(payee._id);
     }
   }
 

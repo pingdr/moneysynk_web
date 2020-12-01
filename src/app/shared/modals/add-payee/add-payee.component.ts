@@ -15,7 +15,7 @@ export class AddPayeeComponent implements OnInit {
   Addaccountentry: FormGroup;
   submitted = false;
   public loader = false;
-  categories: any;
+  categories: any = {};
   isApiCalling: boolean = false;
   selectedChild: any
   childs: any

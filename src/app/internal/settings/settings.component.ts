@@ -32,6 +32,11 @@ export class SettingsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (this.eventEmitterService.subsVar == undefined) {
+      this.eventEmitterService.subsVar = this.eventEmitterService.invokeGroupListFunction.subscribe(() => {
+        this.getAllGroup();
+      });
+    }
     this.getAllGroup();
   }
   getAllGroup() {

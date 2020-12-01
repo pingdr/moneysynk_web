@@ -25,6 +25,9 @@ export class AccountsComponent implements OnInit {
   @ViewChild('deleteAccountTypeDialog') DeleteAccountTypeDialog: TemplateRef<any>;
   accountDetails: any;
   accountSummary: any = [];
+  accountSummaryId: any;
+  isAccountSummaryType: any = false;
+  accountSummaryData: any = [];
   arrayLength = 10;
   isApiCalling: boolean = false;
   accountName: string = '';
@@ -53,7 +56,7 @@ export class AccountsComponent implements OnInit {
 
   //  ----------------for first chart-----------//
   public doughnutChartLabels: string[] = ['Income', 'Expense'];
-  public doughnutChartData: number[] = [100, 600];
+  public doughnutChartData: number[] = [];
 
   public donutColors: any[] = [
     {
@@ -111,6 +114,34 @@ export class AccountsComponent implements OnInit {
   }
 
 
+  getSummaryDetails(type) {
+    
+    if (type == "Income") {
+      var payload = {
+        "groupId": this.groupId,
+        "accountId": this.accountSummaryId,
+        "transactionType": "IN"
+      }
+      this.isAccountSummaryType = true;
+    } else {
+      var payload = {
+        "groupId": this.groupId,
+        "accountId": this.accountSummaryId,
+        "transactionType": "OUT"
+      }
+      this.isAccountSummaryType = false;
+    }
+
+
+    this.http.get(ApiUrl.getAccountSummary, payload).subscribe((res) => {
+      console.log('Account Summary Detail Data', res);
+      if (res && res.data) {
+        this.accountSummaryData = res.data.data;
+      }
+    });
+  }
+
+
   getAccountSummary(id) {
     var payload = {
       "groupId": this.groupId,
@@ -121,6 +152,11 @@ export class AccountsComponent implements OnInit {
       console.log('Account Summary', res);
       if (res && res.data) {
         this.accountSummary = res.data;
+
+        this.doughnutChartData = [
+          this.accountSummary.incomeTotal,
+          this.accountSummary.expenseTotal
+        ]
       }
     });
 
@@ -263,6 +299,8 @@ export class AccountsComponent implements OnInit {
     if (id) {
       this.getAccountDetailsById(id);
       this.getAccountSummary(id);
+      this.accountSummaryId = id;
+
     }
   }
   // filterData(i, id) {

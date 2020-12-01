@@ -67,14 +67,16 @@ export class HeaderComponent implements OnInit {
 
       this.http.addGroup(ApiUrl.addGrop, payload, false)
         .subscribe(res => {
+          debugger
           let response = res;
           if (response.statusCode == 200) {
 
             this.toastr.success('Group added successfully', 'success', {
               timeOut: 2000
             });
-            this.getAllGroup();
-
+                       
+            this.getAllGroup();            
+            this.eventEmitterService.onGroupListSelect();
           }
 
         });
@@ -82,6 +84,7 @@ export class HeaderComponent implements OnInit {
     } else {
       alert('please add group')
     }
+    
   }
 
   getAllGroup() {

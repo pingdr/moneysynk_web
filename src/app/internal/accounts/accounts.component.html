@@ -133,30 +133,26 @@
                                     </canvas>
                                 </div>
                                 <div class="right-col-charts">
-                                    <div class="strips-main" style="border: 1px solid #FD4755;">
+                                    <div class="strips-main"
+                                        [ngStyle]="{'border': !isAccountSummaryType ?  '1px solid #FD4755':''}"
+                                        (click)="getSummaryDetails('Expanse')">
                                         <span class="sub-heading red">Expanse</span>
-                                        <span class="priceing-main red">$ 147.00</span>
+                                        <span class="priceing-main red">${{accountSummary.expenseTotal}}</span>
                                     </div>
-                                    <div class="strips-main">
-                                        <span class="sub-heading income green">Expanse</span>
-                                        <span class="priceing-main green">$ 60.00</span>
+                                    <div class="strips-main" [ngStyle]="{'border': isAccountSummaryType ?  '1px solid #27AE60':''}"
+                                        (click)="getSummaryDetails('Income')">
+                                        <span class="sub-heading income green">Income</span>
+                                        <span class="priceing-main green">$ {{accountSummary.incomeTotal}}</span>
                                     </div>
                                 </div>
                             </div>
                             <!------------------------after-charts------------------------------------>
                             <div class="after-charts-main">
-
-                                <div class="after-charts-strips-main">
-                                    <div class="comm-col first-col">Bike</div>
-                                    <div class="comm-col red second-col">$ 85.00</div>
-                                    <div class=" comm-col third-col"> 52.82%</div>
+                                <div class="after-charts-strips-main" *ngFor="let data of accountSummaryData">
+                                    <div class="comm-col first-col">{{data.name}}</div>
+                                    <div class="comm-col red second-col">$ {{data.amount}}</div>
+                                    <div class=" comm-col third-col"> {{data.percentage}}%</div>
                                 </div>
-                                <div class="after-charts-strips-main">
-                                    <div class="comm-col first-col">Gas Line</div>
-                                    <div class="comm-col red second-col">$ 62.00</div>
-                                    <div class=" comm-col third-col"> 52.82%</div>
-                                </div>
-
                             </div>
 
                         </div>

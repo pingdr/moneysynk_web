@@ -15,6 +15,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatMenuModule} from '@angular/material/menu';
+import { EventEmitterService } from '../services/event-emitter.service';
 
 
 
@@ -98,6 +99,9 @@ const routes: Routes = [{
       
       
         
+    ],
+    providers:[
+        EventEmitterService
     ]
 })
 export class InternalModule {

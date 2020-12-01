@@ -1,5 +1,6 @@
 <div class="heading-modal">
-    <span>Add Category</span>
+    <span *ngIf="!categoryData._id">Add Category</span>
+    <span *ngIf="categoryData._id">Edit Category</span>
     <button class="btn" [mat-dialog-close]>
         <img src="../../../assets/images/close.svg">
     </button>
@@ -11,7 +12,8 @@
         <div class="form-group">
             <label>Name</label>
             <mat-form-field appearance="fill">
-                <input matInput maxlength="26" placeholder="Category name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <input matInput maxlength="26" placeholder="Category name" formControlName="name"
+                    [ngModel]="categoryData.name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                     <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                 </div>
@@ -19,8 +21,15 @@
         </div>
         <div class="form-group">
             <label>Icon</label>
-            <div class="icon-div-main">
-                <div class="icon-inner-main" *ngFor="let data of icons;let i = index" [ngClass]="{ 'active' : isSelected == i }">
+            <div class="icon-div-main" *ngIf="categoryData.icon">
+                <div class="icon-inner-main" *ngFor="let data of icons;let i = index"
+                    [ngClass]="{ 'active' : isSelected == i }">
+                    <img src="{{data.path}}" (click)="selectIcon(i,data.path)">
+                </div>
+            </div>
+            <div class="icon-div-main" *ngIf="!categoryData.icon">
+                <div class="icon-inner-main" *ngFor="let data of icons;let i = index"
+                    [ngClass]="{ 'active' : isSelected == i }">
                     <img src="{{data.path}}" (click)="selectIcon(i,data.path)">
                 </div>
             </div>
@@ -34,22 +43,25 @@
             <label>Parent category</label>
             <mat-form-field appearance="fill">
                 <!-- <mat-label>0</mat-label> -->
-                <mat-select formControlName="parent" [ngClass]="{ 'is-invalid': submitted && f.parent.errors }">
+                <mat-select formControlName="parent" [ngClass]="{ 'is-invalid': submitted && f.parent.errors }"
+                    [ngModel]="categoryData.parent" [disabled]="categoryData._id">
                     <mat-option>None</mat-option>
-                    <mat-option *ngFor="let p of allParents" [value]="p._id"><span><img style="width: 30px;padding-right: 5px;" src="{{p.icon}}" ></span>{{p.name}}</mat-option>
+                    <mat-option *ngFor="let p of allParents" [value]="p._id"><span><img
+                                style="width: 30px;padding-right: 5px;" src="{{p.icon}}"></span>{{p.name}}</mat-option>
                 </mat-select>
                 <div *ngIf="submitted && f.parent.errors" class="invalid-feedback">
                     <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                 </div>
             </mat-form-field>
         </div>
-   
+
         <div class="form-group">
             <label>Note</label>
             <mat-form-field appearance="fill">
-                <input matInput placeholder="Add note here" maxlength="150" formControlName="note">
+                <input matInput placeholder="Add note here" maxlength="150" formControlName="note"
+                    [ngModel]="categoryData.note">
                 <!-- <div *ngIf="submitted && f.note.errors" class="invalid-feedback"> -->
-                    <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                 <!-- </div> -->
             </mat-form-field>
         </div>

@@ -19,6 +19,7 @@ export class AddCategoryPopupComponent implements OnInit {
   isApiCalling: boolean = false;
   icons: any;
   isSelected: any = 0;
+  categoryData: any = {};
 
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, public http: HttpService, private toastr: ToastrService, public dialogRef: MatDialogRef<AddEditAccountComponent>) {
     this.Addaccountentry = this.formBuilder.group({
@@ -38,6 +39,11 @@ export class AddCategoryPopupComponent implements OnInit {
     this.http.get(ApiUrl.icons).subscribe((res) => {
       this.isApiCalling = false;
       this.icons = res.data
+
+      if (this.categoryData.icon != undefined) {
+        this.isSelected = this.icons.findIndex(x => x.path === this.categoryData.icon);
+        this.Addaccountentry.controls.icon.setValue(this.categoryData.icon);
+      }
     })
   }
   getCategoriesData() {
@@ -53,16 +59,16 @@ export class AddCategoryPopupComponent implements OnInit {
 
   }
   get f() { return this.Addaccountentry.controls; }
-  selectIcon(i,path) {
+  selectIcon(i, path) {
     if (i || i == 0)
       this.isSelected = i;
-      this.Addaccountentry.controls.icon.setValue(path);
+    this.Addaccountentry.controls.icon.setValue(path);
   }
 
   onSubmit() {
     this.submitted = true;
     console.log(this.Addaccountentry.invalid);
-    
+
     // stop here if form is invalid
     if (this.Addaccountentry.invalid) {
       return;
@@ -71,22 +77,42 @@ export class AddCategoryPopupComponent implements OnInit {
     this.loader = true;
     this.isApiCalling = true;
 
-    this.http.addEditCategory(ApiUrl.addEditCategory, this.Addaccountentry.value, false)
-      .subscribe(res => {
-        this.isApiCalling = false;
-        let response = res;
-        if (response.statusCode == 200) {
-          this.toastr.success('Category added successfully', 'success', {
-            timeOut: 2000
-          });
-        }
-        this.dialogRef.close(this.dialogRef);
-        this.http.navigate('categories');
-      },
-        () => {
+    if (this.categoryData._id) {
+      this.http.addEditCategory(ApiUrl.addEditCategory + '/' + this.categoryData._id, this.Addaccountentry.value, false)
+        .subscribe(res => {
           this.isApiCalling = false;
-          this.loader = false;
-        });
+          let response = res;
+          if (response.statusCode == 200) {
+            this.toastr.success('Category update successfully', 'success', {
+              timeOut: 2000
+            });
+          }
+          this.dialogRef.close(this.dialogRef);
+          this.http.navigate('categories');
+        },
+          () => {
+            this.isApiCalling = false;
+            this.loader = false;
+          });
+    } else {
+      this.http.addEditCategory(ApiUrl.addEditCategory, this.Addaccountentry.value, false)
+        .subscribe(res => {
+          this.isApiCalling = false;
+          let response = res;
+          if (response.statusCode == 200) {
+            this.toastr.success('Category added successfully', 'success', {
+              timeOut: 2000
+            });
+          }
+          this.dialogRef.close(this.dialogRef);
+          this.http.navigate('categories');
+        },
+          () => {
+            this.isApiCalling = false;
+            this.loader = false;
+          });
+    }
+
     // display form values on success
     // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.editaccount.value, null, 4));
   }
@@ -94,6 +120,10 @@ export class AddCategoryPopupComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log(this.data)
+    if (this.data.objEditData) {
+      this.categoryData = this.data.objEditData;
+    }
   }
 
 }

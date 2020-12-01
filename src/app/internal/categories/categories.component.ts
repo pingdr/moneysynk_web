@@ -91,6 +91,7 @@ export class CategoriesComponent implements OnInit {
     this.expenseArray = [];
     this.incomeArray = [];
     this.http.getCategories(ApiUrl.getCategories, payload).subscribe(res => {
+      console.log("Category List", res);
       this.isApiCalling = false;
       this.http.showLoader();
       if (res.data.data != undefined) {
@@ -163,7 +164,7 @@ export class CategoriesComponent implements OnInit {
   }
 
 
-  deleteCategory(id, categoryName) {
+  deleteCategory(id, categoryName) {    
     const dialogRef = this.dialog.open(DeleteModalComponent, {
       panelClass: 'account-modal-main',
       width: '350px',
@@ -172,6 +173,24 @@ export class CategoriesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getCategoriesData();
+    });
+  }
+
+  editCategory(objEditData) {
+
+    console.log(objEditData);
+
+    const dialogRef = this.dialog.open(AddCategoryPopupComponent, {
+      width: '523px',
+      panelClass: 'edit-account-main', data: { type: this.type, groupId: this.groupId, objEditData: objEditData }
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.incomeArray = [];
+      this.expenseArray = [];
       this.getCategoriesData();
     });
   }

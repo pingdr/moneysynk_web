@@ -50,6 +50,11 @@
                                 <!-- <a title="Delete" (click)="openDeleteDialog(b._id,b.name)">
                                     <img src="/assets/images/delete-trash.svg">
                                 </a> -->
+
+                                <a title="Delete" (click)="editBudget(b)">
+                                    <img src="/assets/images/edit-pencil.svg">&nbsp;&nbsp;
+                                </a>
+
                                 <a title="Delete" (click)="deleteBudget(b._id,b.name)">
                                     <img src="/assets/images/delete-trash.svg">
                                 </a>
@@ -351,6 +356,9 @@
                                 <!-- <a title="Delete" (click)="openDeleteDialog(b._id,b.name)">
                                     <img src="../../../assets/images/delete-trash.svg">
                                 </a> -->
+                                <a title="Delete" (click)="editBudget(b)">
+                                    <img src="/assets/images/edit-pencil.svg">&nbsp;&nbsp;
+                                </a>
                                 <a title="Delete" (click)="deleteBudget(b._id,b.name)">
                                     <img src="../../../assets/images/delete-trash.svg">
                                 </a>
