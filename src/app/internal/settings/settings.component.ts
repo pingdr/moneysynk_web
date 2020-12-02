@@ -6,6 +6,8 @@ import { HttpService } from 'src/app/services/http.service';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import { EditGroupModalComponent } from 'src/app/shared/modals/edit-group-modal/edit-group-modal.component';
 import { EventEmitterService } from 'src/app/services/event-emitter.service';
+import { SharedService } from 'src/app/services/shared.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -22,21 +24,24 @@ export class SettingsComponent implements OnInit {
   pageIndex: any = 0;
   isDisabled: boolean = true;
 
+  clickEventsubscription: Subscription
+
   @ViewChild('deleteGroupDialog') deleteGroupDialog: TemplateRef<any>;
   @ViewChild('editGroupDialog') editGroupDialog: TemplateRef<any>;
 
   constructor(public http: HttpService,
     private toastr: ToastrService,
     public dialog: MatDialog,
-    private eventEmitterService: EventEmitterService
-  ) { }
+    private eventEmitterService: EventEmitterService,
+    private sharedService: SharedService
+  ) {
+
+    this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(() => {
+      this.getAllGroup();
+    })
+  }
 
   ngOnInit(): void {
-    if (this.eventEmitterService.subsVar == undefined) {
-      this.eventEmitterService.subsVar = this.eventEmitterService.invokeGroupListFunction.subscribe(() => {
-        this.getAllGroup();
-      });
-    }
     this.getAllGroup();
   }
   getAllGroup() {
@@ -103,7 +108,8 @@ export class SettingsComponent implements OnInit {
       console.log('The dialog was closed');
       this.getAllGroup();
 
-      this.eventEmitterService.onGroupListSelect();
+      // this.eventEmitterService.onGroupListSelect();
+      this.sharedService.getSettingsGroupList();
     });
   }
 
@@ -118,7 +124,8 @@ export class SettingsComponent implements OnInit {
       console.log('The dialog was closed');
       this.getAllGroup();
 
-      this.eventEmitterService.onGroupListSelect();
+      // this.eventEmitterService.onGroupListSelect();
+      this.sharedService.getSettingsGroupList();
     });
   }
 
@@ -137,6 +144,7 @@ export class SettingsComponent implements OnInit {
   //     }
   //   )
   // }
+  
 
   closeAllModal() {
     this.dialog.closeAll();

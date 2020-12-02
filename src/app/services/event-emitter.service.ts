@@ -14,4 +14,5 @@ export class EventEmitterService {
   onGroupListSelect() {
     this.invokeGroupListFunction.emit();
   }
+  
 }

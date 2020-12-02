@@ -63,10 +63,12 @@
                                             <div class="right-col">
                                                 <span class="red-color">$ {{c.expenseTotal}}</span>
                                                 <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault"
-                                                    title="Delete" style="float: right;text-decoration: none;cursor: pointer;">
+                                                    title="Delete"
+                                                    style="float: right;text-decoration: none;cursor: pointer;">
                                                     <img src="../../../assets/images/delete-trash.svg">
                                                 </a>
-                                                <a title="Delete" style="float: right;text-decoration: none;cursor: pointer;"
+                                                <a title="Edit"
+                                                    style="float: right;text-decoration: none;cursor: pointer;"
                                                     (click)="editCategory(c)" *ngIf="!c.isDefault">
                                                     <img src="../../../assets/images/edit-pencil.svg">&nbsp;&nbsp;&nbsp;
                                                 </a>
@@ -528,18 +530,17 @@
                                                 <span>{{c.name}}</span>
                                             </div>
                                             <div class="right-col">
-                                                <span class="green-cleared">$ {{c.incomeTotal}}</span>                                                
-                                                <a href="#" title="Delete" style="float: right;"
-                                                    (click)="deleteCategory(c._id,c.name)"
-                                                    [ngStyle]="{'pointer-events': c.isDefault ? 'none':''}">
+                                                <span class="green-cleared">$ {{c.incomeTotal}}</span>
+                                                <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault"
+                                                    title="Delete"
+                                                    style="float: right;text-decoration: none;cursor: pointer;">
                                                     <img src="../../../assets/images/delete-trash.svg">
                                                 </a>
-                                                <a href="#" title="Delete" style="float: right;"
-                                                    (click)="deleteCategory(c._id,c.name)"
-                                                    [ngStyle]="{'pointer-events': c.isDefault ? 'none':''}">
+                                                <a title="Edit"
+                                                    style="float: right;text-decoration: none;cursor: pointer;"
+                                                    (click)="editCategory(c)" *ngIf="!c.isDefault">
                                                     <img src="../../../assets/images/edit-pencil.svg">&nbsp;&nbsp;&nbsp;
                                                 </a>
-
                                             </div>
                                         </div>
                                         <!-- <div class="inner-strips">

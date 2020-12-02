@@ -15,11 +15,12 @@ export class AddPayeeComponent implements OnInit {
   Addaccountentry: FormGroup;
   submitted = false;
   public loader = false;
-  categories: any = {};
+  categories: any = [];
   isApiCalling: boolean = false;
   selectedChild: any
   childs: any
   isEdit: boolean = false;
+  catgroyDetails: any = {};
 
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, public http: HttpService, private toastr: ToastrService, public dialogRef: MatDialogRef<AddPayeeComponent>) {
     this.Addaccountentry = this.formBuilder.group({
@@ -55,7 +56,17 @@ export class AddPayeeComponent implements OnInit {
     if (this.selectedChild) {
       this.Addaccountentry.value.categoryId = this.selectedChild;
     }
-    if (this.data.objData._id) {
+    if (this.catgroyDetails._id != undefined) {
+
+      debugger
+      const data = {
+        "name": this.Addaccountentry.value.name,
+        "categoryId": this.Addaccountentry.value.categoryId,
+        "type": this.Addaccountentry.value.type,
+        "note": this.Addaccountentry.value.note,
+        "groupId": this.data.groupId
+      }
+
       this.http.post(ApiUrl.addEditPayee + '/' + this.data.objData._id, this.Addaccountentry.value, false)
         .subscribe(res => {
           this.isApiCalling = false;
@@ -107,6 +118,7 @@ export class AddPayeeComponent implements OnInit {
     }
     this.isApiCalling = true;
     this.http.getCategories(ApiUrl.getCategories, payload).subscribe(res => {
+      console.log(res)
       this.isApiCalling = false;
       this.http.showLoader();
       if (res.data.data != undefined) {
@@ -118,6 +130,10 @@ export class AddPayeeComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data);
+
+    if (this.data.objData) {
+      this.catgroyDetails = this.data.objData;
+    }
 
     if (this.data.id == '') {
       this.isEdit = false;

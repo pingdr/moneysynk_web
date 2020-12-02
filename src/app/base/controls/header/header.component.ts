@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -19,22 +20,30 @@ export class HeaderComponent implements OnInit {
   groupName: any;
   filterName: any;
   public modeselect: any;
+
+  clickEventsubscription: Subscription;
+
   constructor(public http: HttpService,
     private toastr: ToastrService,
     public sharedserive: SharedService,
     public dialog: MatDialog,
-    private eventEmitterService: EventEmitterService
-  ) { }
+    private eventEmitterService: EventEmitterService,
+    private sharedService: SharedService
+  ) {
+    this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(() => {
+      this.getAllGroup();
+    })
+  }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('loginData'));
     this.getAllGroup();
 
-    if (this.eventEmitterService.subsVar == undefined) {
-      this.eventEmitterService.subsVar = this.eventEmitterService.invokeGroupListFunction.subscribe(() => {
-        this.getAllGroup();
-      });
-    }
+    // if (this.eventEmitterService.subsVar == undefined) {
+    //   this.eventEmitterService.subsVar = this.eventEmitterService.invokeGroupListFunction.subscribe(() => {
+    //     this.getAllGroup();
+    //   });
+    // }
   }
 
   Logout() {
@@ -67,16 +76,15 @@ export class HeaderComponent implements OnInit {
 
       this.http.addGroup(ApiUrl.addGrop, payload, false)
         .subscribe(res => {
-          debugger
           let response = res;
           if (response.statusCode == 200) {
 
             this.toastr.success('Group added successfully', 'success', {
               timeOut: 2000
             });
-                       
-            this.getAllGroup();            
-            this.eventEmitterService.onGroupListSelect();
+
+            this.getAllGroup();
+            this.sharedService.getSettingsGroupList();
           }
 
         });
@@ -84,11 +92,10 @@ export class HeaderComponent implements OnInit {
     } else {
       alert('please add group')
     }
-    
+
   }
 
   getAllGroup() {
-
     this.http.getAllGroup(ApiUrl.addGrop).subscribe(res => {
       if (res.data != undefined) {
         this.groupList = res.data;
@@ -104,8 +111,8 @@ export class HeaderComponent implements OnInit {
     if (localStorage.getItem('selectedGroupId')) {
       for (let index = 0; index < groupData.length; index++) {
         console.log(groupData[index]);
-        if(localStorage.getItem('selectedGroupId')==groupData[index]._id){
-          this.modeselect = groupData[index]._id;    
+        if (localStorage.getItem('selectedGroupId') == groupData[index]._id) {
+          this.modeselect = groupData[index]._id;
         }
       }
     } else {
@@ -119,7 +126,5 @@ export class HeaderComponent implements OnInit {
     this.sharedserive.groupUpdateData(value._id);
     localStorage.setItem('selectedGroupId', value._id);
   }
-
-
 
 }

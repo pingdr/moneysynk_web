@@ -75,7 +75,7 @@ export class CategoriesComponent implements OnInit {
       this.categoriesDetails = res.data;
     })
   }
-  selectRecord(c) {
+  selectRecord(c) {    
     this.cName = c.name;
     this.getCategoriesDetailsById(c._id);
   }
@@ -99,6 +99,8 @@ export class CategoriesComponent implements OnInit {
         if (this.type === "EXPENSE") {
           this.expenseArray = res.data.data;
           this.cName = this.expenseArray[0].name;
+          
+          this.selectRecord(this.expenseArray[0]);
           this.getCategoriesDetailsById(this.expenseArray[0]._id);
         } else {
           this.incomeArray = res.data.data;

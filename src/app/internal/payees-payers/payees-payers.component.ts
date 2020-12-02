@@ -151,7 +151,7 @@ export class PayeesPayersComponent implements OnInit {
     const dialogRef = this.dialog.open(AddPayeeComponent, {
       width: '523px',
       panelClass: 'edit-account-main',
-      data: { id: objData._id, type: objData.type, groupId: objData.groupId, objData: objData }
+      data: { id: objData._id, type: objData.type, groupId: this.groupId, objData: objData }
     });
 
     dialogRef.afterClosed().subscribe(result => {
