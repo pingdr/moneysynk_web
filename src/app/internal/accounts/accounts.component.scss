@@ -29,10 +29,9 @@
     position: relative;
     padding: 20px 0px;
     padding-bottom: 0px;
-
-    .scroller-class{
-        height: 300px !important;
-       overflow-y: scroll !important;
+    .scroller-class {
+        height: 535px !important;
+        overflow-y: scroll !important;
     }
 }
 
@@ -63,10 +62,10 @@
             }
         }
         .active {
-            color: #f5B822;
+            color: #f5b822;
             &::before {
                 position: absolute !important;
-                content: '';
+                content: "";
                 background: #f5b822 !important;
                 bottom: -16px;
                 left: 0;
@@ -89,15 +88,17 @@
         padding: 0px 20px;
     }
 }
+
 .fixed-foot {
     position: fixed !important;
     bottom: 12px;
-    width: 85.5%;
+    width: 83.5%;
     z-index: 999999999;
 }
+
 //----------- strips------------------
 .editable-account {
-    border: 1px solid #EBEBEB;
+    border: 1px solid #ebebeb;
     border-radius: 10px;
     padding: 15px 25px;
     align-items: center;
@@ -127,7 +128,7 @@
 }
 
 .editable-tran {
-    background: #F6F6F6;
+    background: #f6f6f6;
     border-radius: 10px;
     padding: 22px 25px;
     display: flex;
@@ -137,7 +138,7 @@
     .account-type {}
     .pricing-icon {
         .price {
-            color: #FD4755;
+            color: #fd4755;
         }
     }
     .action-tab-main {
@@ -166,7 +167,7 @@
 }
 
 .active-step {
-    border-left: 10px solid #7299FF !important;
+    border-left: 10px solid #7299ff !important;
 }
 
 .main-chart-part {
@@ -182,9 +183,9 @@
             .expense-btn {
                 display: flex;
                 justify-content: space-around;
-                background: #F6F6F6;
-                color: #FD4755;
-                border-color: #FD4755;
+                background: #f6f6f6;
+                color: #fd4755;
+                border-color: #fd4755;
                 padding: 14px 9px;
                 border-radius: 10px;
                 border: 1px solid;
@@ -202,9 +203,9 @@
         .income-btn {
             display: flex;
             justify-content: space-around;
-            background: #F6F6F6;
-            color: #27AE60;
-            border-color: #27AE60;
+            background: #f6f6f6;
+            color: #27ae60;
+            border-color: #27ae60;
             border: 1px solid;
             padding: 14px 9px;
             border-radius: 10px;
@@ -231,7 +232,7 @@
         padding-bottom: 0;
         margin-top: 0;
         border-bottom: 0;
-        background: #7299FF;
+        background: #7299ff;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         padding: 14px 10px;
@@ -273,18 +274,15 @@
 }
 
 // -----------------------------------total-expanse--------------------------//
-
-.total-expanse-panal-bottom-main {    
+.total-expanse-panal-bottom-main {
     margin-top: 20px;
     background: #f3d39e;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 20px 20px;
-    position: relative;    
-
-    .inner-expanse-panal-main{
+    position: relative;
+    .inner-expanse-panal-main {
         display: flex;
-
         .boxes {
             display: block;
             width: 100%;
@@ -293,13 +291,12 @@
             margin-bottom: 5px;
             box-sizing: border-box;
             font-size: 1rem;
-            text-align: center;            
-          }
+            text-align: center;
+        }
     }
 }
 
-
-// .total-expanse-panal-bottom-main {    
+// .total-expanse-panal-bottom-main {
 //     margin-top: 20px;
 //     background: #f3d39e;
 //     border-bottom-left-radius: 10px;
@@ -353,13 +350,12 @@
 //         }
 //     }
 // }
-
 .red-total-expanse {
-    color: #FD4755;
+    color: #fd4755;
 }
 
 .green-cleared {
-    color: #27AE60;
+    color: #27ae60;
 }
 
 // .asset-main-tab{
@@ -377,60 +373,56 @@
         width: 100% !important;
     }
 }
+
 .summary-charts-main {
     display: flex;
     align-items: center;
     padding: 10px 20px;
-    border-bottom: 1px solid #E8E8E8;
-    .left-charts{
+    border-bottom: 1px solid #e8e8e8;
+    .left-charts {
         width: 140px !important;
         height: 140px !important;
         margin-right: 20px !important;
         display: flex;
         align-items: center;
     }
-    .right-col-charts{
+    .right-col-charts {
         width: 70%;
     }
 }
 
-
 .strips-main {
-    background: #E8E8E8;
+    background: #e8e8e8;
     margin-bottom: 14px;
     padding: 7px 20px;
     display: flex;
     justify-content: space-between;
     border-radius: 10px;
     align-items: center;
-    &:last-child{
+    &:last-child {
         margin-bottom: 0px;
     }
-    span{
+    span {
         display: block;
     }
-    .sub-heading{
+    .sub-heading {
         font-size: 10px;
         line-height: 216.5%;
-        
     }
-    .priceing-main{
+    .priceing-main {
         font-weight: bold;
         font-size: 15px;
         line-height: 216.5%;
-        
     }
 }
 
-
 .red {
-    color: #FD4755;
+    color: #fd4755;
 }
 
 .green {
-    color: #27AE60;
+    color: #27ae60;
 }
-
 
 // -----------------------summary-charts-after-strips-------------------------//
 .after-charts-main {
@@ -441,17 +433,17 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
-    background: #F6F6F6;
+    background: #f6f6f6;
     padding: 20px 20px;
     border-radius: 11px;
     margin-bottom: 12px;
-    &:last-child{
+    &:last-child {
         margin-bottom: 0px;
     }
-    .second-col{
+    .second-col {
         text-align: center;
     }
-    .third-col{
+    .third-col {
         text-align: right;
         font-size: 10px;
     }

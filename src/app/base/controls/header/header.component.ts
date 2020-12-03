@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ApiUrl } from 'src/app/services/apiurl';
-import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { HttpService } from 'src/app/services/http.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { LogoutModalComponent } from 'src/app/shared/modals/logout-modal/logout-modal.component';
@@ -26,8 +25,7 @@ export class HeaderComponent implements OnInit {
   constructor(public http: HttpService,
     private toastr: ToastrService,
     public sharedserive: SharedService,
-    public dialog: MatDialog,
-    private eventEmitterService: EventEmitterService,
+    public dialog: MatDialog,    
     private sharedService: SharedService
   ) {
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(() => {

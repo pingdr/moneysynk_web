@@ -114,7 +114,7 @@ export class AccountsComponent implements OnInit {
   }
 
 
-  getSummaryDetails(type) {
+  getSummaryDetails(type) {    
     
     if (type == "Income") {
       var payload = {
@@ -300,7 +300,7 @@ export class AccountsComponent implements OnInit {
       this.getAccountDetailsById(id);
       this.getAccountSummary(id);
       this.accountSummaryId = id;
-
+      this.getSummaryDetails('Expanse');
     }
   }
   // filterData(i, id) {

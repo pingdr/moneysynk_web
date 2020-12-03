@@ -23,6 +23,7 @@ export class AddBudgetModalComponent implements OnInit {
   isSelected: any = 0;
   isDisabledCycleDatys: boolean = false;
   budgetData: any = {};
+  isEdit: boolean = false;
 
   cyclePeriod: any = [
     { value: 'NO_CYCLE', name: 'No Cycle' },
@@ -61,10 +62,10 @@ export class AddBudgetModalComponent implements OnInit {
   ngOnInit(): void {
     this.cycleValue = Array.from({ length: 60 }, (i, k) => k + 1);
 
-    debugger
     if (this.data.objBudget) {
       this.budgetData = this.data.objBudget;
       this.budgetData.cycle.value = parseInt(this.budgetData.cycle.value);
+      this.isEdit = true;
 
       this.checkCycleType(this.budgetData.cycle)
     }
@@ -105,22 +106,22 @@ export class AddBudgetModalComponent implements OnInit {
     this.loader = true;
     this.isApiCalling = true;
 
-    const data = {
-      "name": this.editaccount.value.name,
-      "icon": this.editaccount.value.icon,
-      "type": this.type,
-      "startDate": new Date(this.editaccount.value.startDate),
-      // "currentBalance": this.editaccount.value.currentBalance,
-      "endDate": new Date(this.editaccount.value.endDate),
-      "cycle": {
-        "period": this.editaccount.value.cyclePeriod,
-        "value": this.editaccount.value.cycleValue.toString()
-      },
-      "note": this.editaccount.value.note,
-      "groupId": this.editaccount.value.groupId
-    };
 
     if (this.budgetData._id) {
+      const data = {
+        "name": this.editaccount.value.name,
+        "icon": this.editaccount.value.icon,
+        "type": this.type,
+        "startDate": new Date(this.editaccount.value.startDate),
+        "endDate": new Date(this.editaccount.value.endDate),
+        "cycle": {
+          "period": this.editaccount.value.cyclePeriod,
+          "value": this.editaccount.value.cycleValue.toString()
+        },
+        "note": this.editaccount.value.note,
+        "groupId": this.editaccount.value.groupId
+      };
+
       this.http.addEditBudget(ApiUrl.addEditBudget + '/' + this.budgetData._id, data, false)
         .subscribe(res => {
           this.isApiCalling = false;
@@ -138,6 +139,22 @@ export class AddBudgetModalComponent implements OnInit {
             this.loader = false;
           });
     } else {
+
+      const data = {
+        "name": this.editaccount.value.name,
+        "icon": this.editaccount.value.icon,
+        "type": this.type,
+        "startDate": new Date(this.editaccount.value.startDate),
+        "endDate": new Date(this.editaccount.value.endDate),
+        "currentBalance":this.editaccount.value.currentBalance,
+        "cycle": {
+          "period": this.editaccount.value.cyclePeriod,
+          "value": this.editaccount.value.cycleValue.toString()
+        },
+        "note": this.editaccount.value.note,
+        "groupId": this.editaccount.value.groupId
+      };
+
       this.http.addEditBudget(ApiUrl.addEditBudget, data, false)
         .subscribe(res => {
           this.isApiCalling = false;

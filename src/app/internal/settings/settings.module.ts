@@ -13,7 +13,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatPseudoCheckboxModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { EventEmitterService } from 'src/app/services/event-emitter.service';
 
 const routes: Routes = [
     {
@@ -45,12 +44,6 @@ const routes: Routes = [
         MatExpansionModule,
         MatButtonModule,
         MatPaginatorModule
-    ],
-    providers: [
-        EventEmitterService
-    ],
-    exports: [
-        SettingsComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

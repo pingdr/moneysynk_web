@@ -5,7 +5,6 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { HttpService } from 'src/app/services/http.service';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import { EditGroupModalComponent } from 'src/app/shared/modals/edit-group-modal/edit-group-modal.component';
-import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { Subscription } from 'rxjs';
 
@@ -32,7 +31,6 @@ export class SettingsComponent implements OnInit {
   constructor(public http: HttpService,
     private toastr: ToastrService,
     public dialog: MatDialog,
-    private eventEmitterService: EventEmitterService,
     private sharedService: SharedService
   ) {
 
@@ -107,8 +105,6 @@ export class SettingsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getAllGroup();
-
-      // this.eventEmitterService.onGroupListSelect();
       this.sharedService.getSettingsGroupList();
     });
   }
@@ -123,8 +119,6 @@ export class SettingsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getAllGroup();
-
-      // this.eventEmitterService.onGroupListSelect();
       this.sharedService.getSettingsGroupList();
     });
   }

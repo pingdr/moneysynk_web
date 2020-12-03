@@ -13,10 +13,8 @@
     <div class="white-box">
         <nav class="asset-main-tab">
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" (click)="setType('EXPENSE')" data-toggle="tab"
-                    href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Expense</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" (click)="setType('INCOME')" data-toggle="tab"
-                    href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Income</a>
+                <a class="nav-item nav-link active" id="nav-home-tab" (click)="setType('EXPENSE')" data-toggle="tab" href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Expense</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" (click)="setType('INCOME')" data-toggle="tab" href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Income</a>
 
             </div>
         </nav>
@@ -26,10 +24,9 @@
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8 scroller-class">
                         <!------------ Budget-strips----------------->
-                        <div *ngFor="let b of expenseArray;let i = index" class="budget-main"
-                            [ngClass]="{ 'active-budget' : recordSelected == i }" (click)="selectRecord(i,b)">
+                        <div *ngFor="let b of expenseArray;let i = index" class="budget-main" [ngClass]="{ 'active-budget' : recordSelected == i }" (click)="selectRecord(i,b)">
                             <div class="img-col-main">
-                                <img src="../../../assets/images/auto.svg">
+                                <img [src]="b.icon">
                             </div>
                             <div class="progress-inner">
                                 <div class="first-row">
@@ -39,7 +36,7 @@
                                     </div>
                                 </div>
                                 <div class="second-row">
-                                    <mat-progress-bar mode="determinate" [value]="getValue(b)"></mat-progress-bar>
+                                    <mat-progress-bar mode="determinate" [value]="getExpanseValue(b)"></mat-progress-bar>
                                 </div>
                             </div>
                             <div class="dollar-priceing">
@@ -108,13 +105,11 @@
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->
-                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
-                                    aria-labelledby="nav-list-tab">
+                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel" aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel *ngFor="let bd of budgetDetails"
-                                                [expanded]="step === 0" (opened)="setStep(0)">
+                                            <mat-expansion-panel *ngFor="let bd of budgetDetails" [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
                                                         {{bd._id.month}}/{{bd._id.year}}
@@ -128,10 +123,8 @@
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
                                                             <div class="holder-name">{{d.accountId.name}}</div>
-                                                            <div *ngIf="d.transactionType == 'IN'"
-                                                                class="price-tag green-color">$ {{d.amount}}</div>
-                                                            <div *ngIf="d.transactionType == 'OUT'"
-                                                                class="price-tag red-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'IN'" class="price-tag green-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'OUT'" class="price-tag red-color">$ {{d.amount}}</div>
                                                         </div>
                                                         <div class="main-strips">
                                                             <div class="date-and-time">{{d.createdAt | date}}</div>
@@ -331,11 +324,9 @@
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8 scroller-class">
                         <!------------ Budget-strips----------------->
-                        <div *ngFor="let b of incomeArray;let i = index" class="budget-main"
-                            [ngClass]="{ 'active-budget' : recordSelected == i }" (click)="selectRecord(i,b)"
-                            class="budget-main">
+                        <div *ngFor="let b of incomeArray;let i = index" class="budget-main" [ngClass]="{ 'active-budget' : recordSelected == i }" (click)="selectRecord(i,b)" class="budget-main">
                             <div class="img-col-main">
-                                <img src="../../../assets/images/auto.svg">
+                                <img [src]="b.icon">
                             </div>
                             <div class="progress-inner">
                                 <div class="first-row">
@@ -345,7 +336,7 @@
                                     </div>
                                 </div>
                                 <div class="second-row">
-                                    <mat-progress-bar mode="determinate" [value]="getValue(b)"></mat-progress-bar>
+                                    <mat-progress-bar mode="determinate" [value]="getIncomeValue(b)"></mat-progress-bar>
                                 </div>
                             </div>
                             <div class="dollar-priceing">
@@ -412,13 +403,11 @@
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->
-                                <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel"
-                                    aria-labelledby="nav-list-tab">
+                                <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel" aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel *ngFor="let bd of budgetDetails"
-                                                [expanded]="step === 0" (opened)="setStep(0)">
+                                            <mat-expansion-panel *ngFor="let bd of budgetDetails" [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
                                                         {{bd._id.month}}/{{bd._id.year}}
@@ -432,10 +421,8 @@
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
                                                             <div class="holder-name">{{d.accountId.name}}</div>
-                                                            <div *ngIf="d.transactionType == 'IN'"
-                                                                class="price-tag green-color">$ {{d.amount}}</div>
-                                                            <div *ngIf="d.transactionType == 'OUT'"
-                                                                class="price-tag red-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'IN'" class="price-tag green-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'OUT'" class="price-tag red-color">$ {{d.amount}}</div>
                                                         </div>
                                                         <div class="main-strips">
                                                             <div class="date-and-time">{{d.createdAt | date}}</div>
@@ -635,7 +622,8 @@
 
         <!------------------------------ total Expanse Panal-------------------------->
 
-        <div class="total-expanse-panal-bottom-main">
+
+        <div class="fixed-foot total-expanse-panal-bottom-main">
             <div class="inner-expanse-panal-main">
                 <div class="boxes">
                     <span class="label red-total-expanse">Total Expanse</span>
@@ -652,6 +640,7 @@
                 </div>
             </div>
         </div>
+
 
         <!-- <div class="fixed-foot total-expanse-panal-bottom-main">
             <div class="inner-expanse-panal-main">
@@ -685,10 +674,8 @@
         <!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
         <mat-dialog-actions>
             <div class="display-flex">
-                <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button class="orange-back"
-                    (click)="deleteBudget()" matDialogClose="yes">Confirm</button>&nbsp;
-                <button mat-stroked-button color="primary" style="border:none;border-radius: 20px;"
-                    (click)="closeDeleteModal()" matDialogClose="no">Cancle</button>
+                <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button class="orange-back" (click)="deleteBudget()" matDialogClose="yes">Confirm</button>&nbsp;
+                <button mat-stroked-button color="primary" style="border:none;border-radius: 20px;" (click)="closeDeleteModal()" matDialogClose="no">Cancle</button>
             </div>
         </mat-dialog-actions>
     </ng-template>

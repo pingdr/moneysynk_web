@@ -10,14 +10,11 @@
         <div class="form-group">
             <label>From Budget</label>
             <mat-form-field>
-                <mat-select placeholder="Select From Budget" formControlName="fromBudget" name="fromBudget"
-                    [ngClass]="{ 'is-invalid': submitted && f.fromBudget.errors }">
-                    <mat-option value="Option1">Option 1</mat-option>
-                    <mat-option value="Option2">Option 2</mat-option>
-                    <mat-option value="Option3">Option 3</mat-option>
+                <mat-select (selectionChange)="loadFromData($event)" placeholder="Select From Budget" formControlName="fromBudget" name="fromBudget" [ngClass]="{ 'is-invalid': submitted && f.fromBudget.errors }">
+                    <mat-option *ngFor="let fromBudget of fromBudgetList" value="{{fromBudget._id}}">{{fromBudget.name}}</mat-option>
                 </mat-select>
                 <div *ngIf="submitted && f.fromBudget.errors" class="invalid-feedback">
-                    <div *ngIf="f.fromBudget.errors.required">From BUdget is required</div>
+                    <!-- <div *ngIf="f.fromBudget.errors.required">From BUdget is required</div> -->
                 </div>
             </mat-form-field>
         </div>
@@ -25,14 +22,11 @@
         <div class="form-group">
             <label>To Budget</label>
             <mat-form-field>
-                <mat-select placeholder="Select To Budget" name="toBudget" formControlName="toBudget"
-                    [ngClass]="{ 'is-invalid': submitted && f.toBudget.errors }">
-                    <mat-option value="Option1">Option 1</mat-option>
-                    <mat-option value="Option2">Option 2</mat-option>
-                    <mat-option value="Option3">Option 3</mat-option>
+                <mat-select placeholder="Select To Budget" name="toBudget" formControlName="toBudget" [ngClass]="{ 'is-invalid': submitted && f.toBudget.errors }">
+                    <mat-option *ngFor="let toBudget of toBudgetList" value="{{toBudget._id}}">{{toBudget.name}}</mat-option>
                 </mat-select>
                 <div *ngIf="submitted && f.toBudget.errors" class="invalid-feedback">
-                    <div *ngIf="f.toBudget.errors.required">To Budget is required</div>
+                    <!-- <div *ngIf="f.toBudget.errors.required">To Budget is required</div> -->
                 </div>
             </mat-form-field>
         </div>
@@ -40,10 +34,9 @@
         <div class="form-group">
             <label>Amount</label>
             <mat-form-field appearance="fill">
-                <input matInput placeholder="$0" maxlength="150" formControlName="amount"
-                    [ngClass]="{ 'is-invalid': submitted && f.amount.errors }">
+                <input matInput placeholder="$0" maxlength="150" formControlName="amount" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }">
                 <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
-                    <div *ngIf="f.amount.errors.required">Amount is required</div>
+                    <!-- <div *ngIf="f.amount.errors.required">Amount is required</div> -->
                 </div>
             </mat-form-field>
         </div>
@@ -51,12 +44,11 @@
         <div class="form-group">
             <label>Date Time</label>
             <mat-form-field appearance="fill">
-                <input formControlName="dateTime" (focus)="picker.open()" matInput [matDatepicker]="picker"
-                    [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }">
+                <input formControlName="dateTime" (focus)="picker.open()" matInput [matDatepicker]="picker" [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <div *ngIf="submitted && f.dateTime.errors" class="invalid-feedback">
-                    <div *ngIf="f.dateTime.errors.required">Date Time is required</div>
+                    <!-- <div *ngIf="f.dateTime.errors.required">Date Time is required</div> -->
                 </div>
             </mat-form-field>
         </div>

@@ -1,25 +1,20 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ClickOutsideModule} from 'ng-click-outside';
-import {ChartsModule} from 'ng2-charts';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ClickOutsideModule } from 'ng-click-outside';
+import { ChartsModule } from 'ng2-charts';
+import { RouterModule, Routes } from '@angular/router';
 import { InternalComponent } from './internal.component';
-import {SharedModule} from '../shared/modules/shared.module';
+import { SharedModule } from '../shared/modules/shared.module';
 import { HeaderComponent } from '../base/controls/header/header.component';
 import { SidebarComponent } from '../base/controls/sidebar/sidebar.component';
 import { FooterComponent } from '../base/controls/footer/footer.component';
-import {BsModalRef, BsModalService, ModalModule} from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatMenuModule} from '@angular/material/menu';
-import { EventEmitterService } from '../services/event-emitter.service';
-
-
-
-
+import { MatMenuModule } from '@angular/material/menu';
 
 
 const routes: Routes = [{
@@ -36,11 +31,11 @@ const routes: Routes = [{
         {
             path: 'categories',
             loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule)
-        }, 
+        },
         {
             path: 'payees',
             loadChildren: () => import('./payees-payers/payees-payers.module').then(m => m.PayessPayersModule)
-        }, 
+        },
         {
             path: 'budget',
             loadChildren: () => import('./budget/budget.module').then(m => m.BudgetModule)
@@ -49,7 +44,7 @@ const routes: Routes = [{
             path: 'bill',
             // loadChildren: () => import('./bill/bill.module').then(m => m.BillModule)
             loadChildren: () => import('./add-bill/add-bill.module').then(m => m.AddBillModule)
-        }, 
+        },
         {
             path: 'transactions',
             loadChildren: () => import('./transaction/transaction.module').then(m => m.TransactionModule)
@@ -82,29 +77,26 @@ const routes: Routes = [{
         MatFormFieldModule,
         MatInputModule,
         MatMenuModule
-    
-    ],
-        
 
-        
-        
-        
-   
+    ],
+
+
+
+
+
+
     exports: [],
     declarations: [
         InternalComponent,
         HeaderComponent,
         SidebarComponent,
         FooterComponent,
-      
-      
-        
-    ],
-    providers:[
-        EventEmitterService
+
+
+
     ]
 })
 export class InternalModule {
-    constructor(){
+    constructor() {
     }
 }

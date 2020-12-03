@@ -29,7 +29,7 @@ export class CategoriesComponent implements OnInit {
   isApiCalling: boolean = false;
   categoryId;
   categoryName;
-  categoriesDetails: any;
+  categoriesDetails: any = [];
   categorySummary: any = [];
   cName: any;
   total: any;
@@ -58,6 +58,7 @@ export class CategoriesComponent implements OnInit {
     this.step = index;
   }
   setType(type) {
+    this.categoriesDetails = [];
     this.type = type;
     this.pageIndex = 0;
     this.getCategoriesData();
@@ -75,7 +76,7 @@ export class CategoriesComponent implements OnInit {
       this.categoriesDetails = res.data;
     })
   }
-  selectRecord(c) {    
+  selectRecord(c) {
     this.cName = c.name;
     this.getCategoriesDetailsById(c._id);
   }
@@ -99,9 +100,8 @@ export class CategoriesComponent implements OnInit {
         if (this.type === "EXPENSE") {
           this.expenseArray = res.data.data;
           this.cName = this.expenseArray[0].name;
-          
-          this.selectRecord(this.expenseArray[0]);
-          this.getCategoriesDetailsById(this.expenseArray[0]._id);
+
+          // this.getCategoriesDetailsById(this.expenseArray[0]._id);
         } else {
           this.incomeArray = res.data.data;
           this.cName = this.incomeArray[0].name;
@@ -166,7 +166,7 @@ export class CategoriesComponent implements OnInit {
   }
 
 
-  deleteCategory(id, categoryName) {    
+  deleteCategory(id, categoryName) {
     const dialogRef = this.dialog.open(DeleteModalComponent, {
       panelClass: 'account-modal-main',
       width: '350px',

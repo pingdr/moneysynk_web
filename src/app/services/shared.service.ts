@@ -11,7 +11,8 @@ export class SharedService {
   public country_code: any;
   public groupChange = new BehaviorSubject<any>(null);
   public groupChangeId = this.groupChange.asObservable();
-  private subject = new Subject<any>();
+  // private subject = new Subject<any>();
+  private subject = new BehaviorSubject<any>(null);
 
   constructor() { }
 
@@ -25,7 +26,7 @@ export class SharedService {
    */
 
   getSettingsGroupList() {
-    this.subject.next();
+    this.subject.next(null);
   }
 
   getClickEvent(): Observable<any> {

@@ -57,7 +57,6 @@ import { DeleteModalComponent } from './shared/modals/delete-modal/delete-modal.
 import { TransferModalComponent } from './shared/modals/transfer-modal/transfer-modal.component';
 import { EditGroupModalComponent } from './shared/modals/edit-group-modal/edit-group-modal.component';
 import { LogoutModalComponent } from './shared/modals/logout-modal/logout-modal.component';
-import { EventEmitterService } from './services/event-emitter.service';
 
 @NgModule({
   declarations: [
@@ -140,8 +139,7 @@ import { EventEmitterService } from './services/event-emitter.service';
     SharedService,
     AsyncPipe,
     ExternalAuthguardService,
-    Title,
-    EventEmitterService
+    Title
   ],
   bootstrap: [AppComponent],
   exports: [

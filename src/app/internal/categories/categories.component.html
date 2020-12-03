@@ -13,10 +13,8 @@
     <div class="white-box">
         <nav class="asset-main-tab">
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" (click)="setType('EXPENSE')"
-                    href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Expense</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" (click)="setType('INCOME')"
-                    href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Income</a>
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" (click)="setType('EXPENSE')" href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Expense</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" (click)="setType('INCOME')" href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Income</a>
 
             </div>
         </nav>
@@ -29,7 +27,7 @@
                         <div class="categories-accordian-main">
                             <mat-accordion>
                                 <!-------------------- First-tab--------------------------->
-                                <mat-expansion-panel *ngFor="let cat of expenseArray;let i = index">
+                                <mat-expansion-panel id="tab{{i}}" *ngFor="let cat of expenseArray;let i = index" [expanded]="i==0">
                                     <mat-expansion-panel-header (click)="selectRecord(cat)">
                                         <mat-panel-title>
                                             <span>{{cat.name}}</span>
@@ -62,14 +60,10 @@
                                             </div>
                                             <div class="right-col">
                                                 <span class="red-color">$ {{c.expenseTotal}}</span>
-                                                <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault"
-                                                    title="Delete"
-                                                    style="float: right;text-decoration: none;cursor: pointer;">
+                                                <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault" title="Delete" style="float: right;text-decoration: none;cursor: pointer;">
                                                     <img src="../../../assets/images/delete-trash.svg">
                                                 </a>
-                                                <a title="Edit"
-                                                    style="float: right;text-decoration: none;cursor: pointer;"
-                                                    (click)="editCategory(c)" *ngIf="!c.isDefault">
+                                                <a title="Edit" style="float: right;text-decoration: none;cursor: pointer;" (click)="editCategory(c)" *ngIf="!c.isDefault">
                                                     <img src="../../../assets/images/edit-pencil.svg">&nbsp;&nbsp;&nbsp;
                                                 </a>
                                             </div>
@@ -261,18 +255,15 @@
                     <div class="col-4 col-md-4 col-lg-4">
                         <div class="list-main-filter">
                             <nav class="asset-main-tab">
-
                                 <span>{{cName}}</span>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->
-                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
-                                    aria-labelledby="nav-list-tab">
+                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel" aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel *ngFor="let cd of categoriesDetails"
-                                                [expanded]="step === 0" (opened)="setStep(0)">
+                                            <mat-expansion-panel *ngFor="let cd of categoriesDetails" [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
                                                         {{cd._id.month}}/{{cd._id.year}}
@@ -286,10 +277,8 @@
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
                                                             <div class="holder-name">{{d.accountId.name}}</div>
-                                                            <div *ngIf="d.transactionType == 'IN'"
-                                                                class="price-tag green-color">$ {{d.amount}}</div>
-                                                            <div *ngIf="d.transactionType == 'OUT'"
-                                                                class="price-tag red-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'IN'" class="price-tag green-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'OUT'" class="price-tag red-color">$ {{d.amount}}</div>
                                                         </div>
                                                         <div class="main-strips">
                                                             <div class="date-and-time">{{d.createdAt | date}}</div>
@@ -502,7 +491,7 @@
                         <div class="categories-accordian-main">
                             <mat-accordion>
                                 <!-------------------- First-tab--------------------------->
-                                <mat-expansion-panel *ngFor="let inc of incomeArray">
+                                <mat-expansion-panel *ngFor="let inc of incomeArray;let i=index" [expanded]="i==0">
                                     <mat-expansion-panel-header (click)="selectRecord(inc)">
                                         <mat-panel-title>
                                             <span>{{inc.name}}</span>
@@ -531,14 +520,10 @@
                                             </div>
                                             <div class="right-col">
                                                 <span class="green-cleared">$ {{c.incomeTotal}}</span>
-                                                <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault"
-                                                    title="Delete"
-                                                    style="float: right;text-decoration: none;cursor: pointer;">
+                                                <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault" title="Delete" style="float: right;text-decoration: none;cursor: pointer;">
                                                     <img src="../../../assets/images/delete-trash.svg">
                                                 </a>
-                                                <a title="Edit"
-                                                    style="float: right;text-decoration: none;cursor: pointer;"
-                                                    (click)="editCategory(c)" *ngIf="!c.isDefault">
+                                                <a title="Edit" style="float: right;text-decoration: none;cursor: pointer;" (click)="editCategory(c)" *ngIf="!c.isDefault">
                                                     <img src="../../../assets/images/edit-pencil.svg">&nbsp;&nbsp;&nbsp;
                                                 </a>
                                             </div>
@@ -733,13 +718,11 @@
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->
-                                <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel"
-                                    aria-labelledby="nav-list-tab">
+                                <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel" aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel *ngFor="let cd of categoriesDetails"
-                                                [expanded]="step === 0" (opened)="setStep(0)">
+                                            <mat-expansion-panel *ngFor="let cd of categoriesDetails" [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
                                                         {{cd._id.month}}/{{cd._id.year}}
@@ -753,10 +736,8 @@
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
                                                             <div class="holder-name">{{d.accountId.name}}</div>
-                                                            <div *ngIf="d.transactionType == 'IN'"
-                                                                class="price-tag green-color">$ {{d.amount}}</div>
-                                                            <div *ngIf="d.transactionType == 'OUT'"
-                                                                class="price-tag red-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'IN'" class="price-tag green-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'OUT'" class="price-tag red-color">$ {{d.amount}}</div>
                                                         </div>
                                                         <div class="main-strips">
                                                             <div class="date-and-time">{{d.createdAt | date}}</div>
@@ -964,7 +945,7 @@
 
         <!------------------------------ total Expanse Panal-------------------------->
 
-        <div class="total-expanse-panal-bottom-main">
+        <div class="fixed-foot total-expanse-panal-bottom-main">
             <div class="inner-expanse-panal-main">
 
                 <div class="boxes">
@@ -1013,11 +994,8 @@
         <!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
         <mat-dialog-actions>
             <div class="display-flex">
-                <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button class="orange-back"
-                    (click)="deleteCategory()" matDialogClose="yes">Confirm</button>&nbsp;
-                <button mat-stroked-button color="primary" matDialogClose="no"
-                    style="box-shadow: none !important;border-radius: 20px;border:none"
-                    (click)="closeAllModal()">Cancle</button>
+                <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button class="orange-back" (click)="deleteCategory()" matDialogClose="yes">Confirm</button>&nbsp;
+                <button mat-stroked-button color="primary" matDialogClose="no" style="box-shadow: none !important;border-radius: 20px;border:none" (click)="closeAllModal()">Cancle</button>
             </div>
         </mat-dialog-actions>
     </ng-template>

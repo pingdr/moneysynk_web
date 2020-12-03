@@ -134,6 +134,7 @@ export class BudgetComponent implements OnInit {
           this.getBudgetDetailsById(this.expenseArray[0]._id);
         } else {
           this.incomeArray = res.data.data;
+          console.log('-------------------------', this.incomeArray);
           this.bname = this.incomeArray[0].name;
           this.getBudgetDetailsById(this.incomeArray[0]._id);
         }
@@ -203,8 +204,14 @@ export class BudgetComponent implements OnInit {
     });
   }
 
-  getValue(b) {
-    let temp = 100 * b.currentBalance;
+  getExpanseValue(b) {
+    let temp = 100 * b.expenseTotal;
+    let sum = temp / b.amount;
+    return 100 - sum;
+  }
+
+  getIncomeValue(b) {
+    let temp = 100 * b.incomeTotal;
     let sum = temp / b.amount;
     return 100 - sum;
   }
