@@ -11,8 +11,11 @@
 <div class="sub-compo-wrap">
     <div class="white-box">
         <nav class="asset-main-tab" *ngIf="accountTypeList.length > 0">
-            <div slickContainer #slickController="slick" [slickConfig]="config" class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                <a slickItem *ngFor="let data of accountTypeList; let i = index" style="cursor: pointer; width: 78px;" class="nav-item nav-link" [ngClass]="{ 'active' : isSelected == i }" id="nav-home-tab" data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true"
+            <div slickContainer #slickController="slick" [slickConfig]="config" class="nav nav-tabs nav-fill"
+                id="nav-tab" role="tablist">
+                <a slickItem *ngFor="let data of accountTypeList; let i = index" style="cursor: pointer; width: 78px;"
+                    class="nav-item nav-link" [ngClass]="{ 'active' : isSelected == i }" id="nav-home-tab"
+                    data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true"
                     (click)="getType(data._id,i)">
                     <span style="position: relative;">
                         {{data.name }}
@@ -32,13 +35,17 @@
         <!-- <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab"> -->
         <div style="padding:20px;" class="row">
             <div class="col-8 col-md-8 col-lg-8 scroller-class">
-                <div *ngFor="let data of accountList; let i = index" [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account" (click)="recordSelected(i,data._id)">
+                <div *ngFor="let data of accountList; let i = index"
+                    [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account"
+                    (click)="recordSelected(i,data._id)">
                     <div class="number">
                         <span><img style="width: 32px;" src="{{data.icon}}"></span></div>
                     <div class="account-type"><span>{{ data.name }}</span></div>
                     <a class="view-btn">
-                        <img style="margin-left: -57px;" *ngIf="!data.isViewAmount" (click)="toggleAmount(i)" src="../../../assets/images/view-eye.svg">
-                        <img style="margin-left: -57px;width: 22px;" *ngIf="data.isViewAmount" (click)="toggleAmount(i)" src="../../../assets/images/close-eyes.svg">
+                        <img style="margin-left: -57px;" *ngIf="!data.isViewAmount" (click)="toggleAmount(i)"
+                            src="../../../assets/images/view-eye.svg">
+                        <img style="margin-left: -57px;width: 22px;" *ngIf="data.isViewAmount" (click)="toggleAmount(i)"
+                            src="../../../assets/images/close-eyes.svg">
                     </a>
                     <div class="pricing-icon">
                         <span class="price" *ngIf="data.isViewAmount">${{data.currentBalance}}</span>
@@ -49,7 +56,8 @@
                             <img src="../../../assets/images/edit-pencil.svg">
                         </a>
                         <!-- <a class="delete-btn" href="javascript:;" style="cursor: pointer;" (click)="deleteAccounts(data._id,data.name)" title="edit"> -->
-                        <a class="delete-btn" href="javascript:;" style="cursor: pointer;" (click)="deleteAccount()" title="edit">
+                        <a class="delete-btn" href="javascript:;" style="cursor: pointer;" (click)="deleteAccount()"
+                            title="edit">
                             <img src="../../../assets/images/delete-trash.svg">
                         </a>
                     </div>
@@ -63,8 +71,11 @@
                 <div class="list-main-filter">
                     <nav class="asset-main-tab">
                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab" href="#nav-list-tab" role="tab" aria-controls="nav-home" aria-selected="true">List</a>
-                            <a class="nav-item nav-link summary-btn" id="nav-profile-tab" data-toggle="tab" href="#nav-summary-tab" role="tab" aria-controls="nav-profile" aria-selected="false">Summary</a>
+                            <a class="nav-item nav-link active list-btn" id="nav-home-tab" data-toggle="tab"
+                                href="#nav-list-tab" role="tab" aria-controls="nav-home" aria-selected="true">List</a>
+                            <a class="nav-item nav-link summary-btn" id="nav-profile-tab"
+                                (click)="getSummaryDetails('Expanse')" data-toggle="tab" href="#nav-summary-tab"
+                                role="tab" aria-controls="nav-profile" aria-selected="false">Summary</a>
                         </div>
                         <div class="filter-btn-group">
                             <a href="#" class="btn filter-btn" title="Summary">
@@ -73,10 +84,12 @@
                         </div>
                     </nav>
                     <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel" aria-labelledby="nav-list-tab">
+                        <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
+                            aria-labelledby="nav-list-tab">
                             <div class="accordian-main">
                                 <mat-accordion>
-                                    <mat-expansion-panel *ngFor="let ad of accountDetails" expanded="step === 0" (opened)="setStep(0)">
+                                    <mat-expansion-panel *ngFor="let ad of accountDetails" expanded="step === 0"
+                                        (opened)="setStep(0)">
                                         <mat-expansion-panel-header>
                                             <mat-panel-title>
                                                 {{ad._id.month}}/{{ad._id.year}}
@@ -90,7 +103,8 @@
                                             <div class="inner-sub-left">
                                                 <div class="main-strips">
                                                     <div class="holder-name">{{d.accountId.name}}</div>
-                                                    <div *ngIf="d.transactionType == 'IN'" class="price-tag green-color">$ {{d.amount}}</div>
+                                                    <div *ngIf="d.transactionType == 'IN'"
+                                                        class="price-tag green-color">$ {{d.amount}}</div>
                                                     <div *ngIf="d.transactionType == 'OUT'" class="price-tag red-color">
                                                         $ {{d.amount}}</div>
                                                 </div>
@@ -109,18 +123,25 @@
                                 </mat-accordion>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-summary-tab" role="tabpanel" aria-labelledby="nav-summary-tab">
+                        <div class="tab-pane fade" id="nav-summary-tab" role="tabpanel"
+                            aria-labelledby="nav-summary-tab">
                             <div class="summary-charts-main">
                                 <div class="item left-charts">
-                                    <canvas width="150px" height="150px" baseChart chartType="doughnut" [data]="doughnutChartData" [labels]="doughnutChartLabels" [legend]="false" [colors]="donutColors">
+                                    <canvas width="150px" height="150px" baseChart chartType="doughnut"
+                                        [data]="doughnutChartData" [labels]="doughnutChartLabels" [legend]="false"
+                                        [colors]="donutColors">
                                     </canvas>
                                 </div>
                                 <div class="right-col-charts">
-                                    <div class="strips-main" [ngStyle]="{'border': !isAccountSummaryType ?  '1px solid #FD4755':''}" (click)="getSummaryDetails('Expanse')">
+                                    <div class="strips-main"
+                                        [ngStyle]="{'border': !isAccountSummaryType ?  '1px solid #FD4755':''}"
+                                        (click)="getSummaryDetails('Expanse')">
                                         <span class="sub-heading red">Expanse</span>
                                         <span class="priceing-main red">${{accountSummary.expenseTotal}}</span>
                                     </div>
-                                    <div class="strips-main" [ngStyle]="{'border': isAccountSummaryType ?  '1px solid #27AE60':''}" (click)="getSummaryDetails('Income')">
+                                    <div class="strips-main"
+                                        [ngStyle]="{'border': isAccountSummaryType ?  '1px solid #27AE60':''}"
+                                        (click)="getSummaryDetails('Income')">
                                         <span class="sub-heading income green">Income</span>
                                         <span class="priceing-main green">$ {{accountSummary.incomeTotal}}</span>
                                     </div>
@@ -207,8 +228,10 @@
 
             <mat-dialog-actions>
                 <div class="display-flex">
-                    <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button class="orange-back" matDialogClose="yes">Confirm</button>
-                    <button mat-stroked-button color="primary" style="border-radius: 20px;border: none;" matDialogClose="no">Cancle</button>
+                    <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button
+                        class="orange-back" matDialogClose="yes">Confirm</button>
+                    <button mat-stroked-button color="primary" style="border-radius: 20px;border: none;"
+                        matDialogClose="no">Cancle</button>
                 </div>
             </mat-dialog-actions>
         </ng-template>
@@ -222,8 +245,10 @@
             <!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
             <mat-dialog-actions>
                 <div class="display-flex">
-                    <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button class="orange-back" matDialogClose="yes">Confirm</button>
-                    <button mat-stroked-button color="primary" matDialogClose="no" style="border-radius: 20px;border: none;">Cancle</button>
+                    <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button
+                        class="orange-back" matDialogClose="yes">Confirm</button>
+                    <button mat-stroked-button color="primary" matDialogClose="no"
+                        style="border-radius: 20px;border: none;">Cancle</button>
                 </div>
             </mat-dialog-actions>
         </ng-template>

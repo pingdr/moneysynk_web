@@ -55,15 +55,24 @@ export class AccountsComponent implements OnInit {
   };
 
   //  ----------------for first chart-----------//
-  public doughnutChartLabels: string[] = ['Income', 'Expense'];
+  public doughnutChartLabels: string[] = [];
   public doughnutChartData: number[] = [];
+  public colors: any = [
+    '#CA858B',
+    '#8BC9D1',
+    '#88DCBA',
+    '#416B96',
+    '#B543A4',
+    '#D0C544',
+    '#C2C2C2',
+    '#A8C395',
+    '#7FD1CD',
+    '#957FD1',
+  ];
 
   public donutColors: any[] = [
     {
       backgroundColor: [
-        '#CA858B',
-        '#8BC9D1',
-
       ]
     }
   ];
@@ -114,8 +123,7 @@ export class AccountsComponent implements OnInit {
   }
 
 
-  getSummaryDetails(type) {    
-    
+  getSummaryDetails(type) {
     if (type == "Income") {
       var payload = {
         "groupId": this.groupId,
@@ -136,9 +144,39 @@ export class AccountsComponent implements OnInit {
     this.http.get(ApiUrl.getAccountSummary, payload).subscribe((res) => {
       console.log('Account Summary Detail Data', res);
       if (res && res.data) {
-        this.accountSummaryData = res.data.data;
+        if (res.data.data != undefined) {
+          this.accountSummaryData = res.data.data;
+          this.setDoughnutChartData(res.data.data);
+        } else {
+          this.accountSummaryData = [];
+          this.setDoughnutChartData(this.accountSummaryData);
+        }
       }
     });
+  }
+
+  setDoughnutChartData(data) {
+    this.doughnutChartLabels = [];
+    this.doughnutChartData = [];
+    this.donutColors[0].backgroundColor=[];
+
+    if (data.length != 0) {
+      for (let index = 0; index < data.length; index++) {
+        console.log(data[index]);
+        this.doughnutChartLabels.push(data[index].name);
+        this.doughnutChartData.push(data[index].percentage);
+
+        var random_color = this.colors[Math.floor(Math.random() * this.colors.length)]
+        this.donutColors[0].backgroundColor.push(random_color)
+      }
+    } else {
+      this.doughnutChartData = [
+        1
+      ];
+      this.doughnutChartLabels = [
+        'Empty'
+      ]
+    }
   }
 
 
@@ -152,11 +190,6 @@ export class AccountsComponent implements OnInit {
       console.log('Account Summary', res);
       if (res && res.data) {
         this.accountSummary = res.data;
-
-        this.doughnutChartData = [
-          this.accountSummary.incomeTotal,
-          this.accountSummary.expenseTotal
-        ]
       }
     });
 
