@@ -56,7 +56,12 @@ export class AddPayeeComponent implements OnInit {
       this.selectedChild = event.value;
     }
   }
-  onSubmit() {    
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  onSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
@@ -73,7 +78,7 @@ export class AddPayeeComponent implements OnInit {
 
     if (this.catgroyDetails._id != undefined) {
       const data = {
-        "name": this.Addaccountentry.value.name,
+        "name": this.capitalizeFirstLetter(this.Addaccountentry.value.name),
         "categoryId": this.catgroyDetails.categoryId,
         "type": this.Addaccountentry.value.type,
         "note": this.Addaccountentry.value.note,
@@ -99,7 +104,7 @@ export class AddPayeeComponent implements OnInit {
     } else {
 
       const data = {
-        "name": this.Addaccountentry.value.name,
+        "name": this.capitalizeFirstLetter(this.Addaccountentry.value.name),
         "categoryId": this.Addaccountentry.value.categoryId,
         "type": this.Addaccountentry.value.type,
         "note": this.Addaccountentry.value.note,

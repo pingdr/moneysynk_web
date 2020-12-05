@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { TransactionComponent } from './transaction.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDatepickerModule, MatDateRangeInput } from '@angular/material/datepicker';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [
     {
@@ -33,7 +34,8 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         MatExpansionModule,
-        MatButtonModule
+        MatButtonModule,
+        MatPaginatorModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -19,34 +19,51 @@
             </div>
         </nav>
         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-            <!-- --------------------------first-tab----------------------- -->
             <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8 scroller-class">
-                        <div *ngFor="let payee of payeesArray; let i = index"
-                            [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account"
-                            (click)="recordSelected(i,payee)">
-                            <!-- <div class="number">
-                            <span>1</span>
-                        </div> -->
-                            <div class="account-type"><span>{{ payee.name }}</span></div>
+                        <div class="payees-contact-main">
+                            <div class="left-col-contact">
+                                <div class="main-box-character" *ngFor="let char of availableSortData" id="{{char}}">
+                                    <div class="first-latter-main">
+                                        <span>{{char}}</span>
+                                    </div>
+                                    <ng-container *ngFor="let payees of payeesArray; let i = index">
+                                        <div *ngIf="(payees.name.charAt(0)).toUpperCase()==char">
+                                            <div class="inner-strips-main-box"
+                                                [ngClass]="{ 'active-box' : isRecordSelected == i }"
+                                                (click)="recordSelected(i,payees)">
+                                                <div class="name-of-holder">
+                                                    {{payees.name}}
+                                                </div>
+                                                <div class="price-tag-main">
+                                                    ${{payees.expenseTotal}}
+                                                </div>
+                                                <div class="del-icon">
+                                                    <button class="icon-remove">
+                                                        <img src="../../../assets/images/edit-pencil.svg"
+                                                            (click)="updatePayeeOrPayer(payees)">
+                                                    </button>
 
-                            <div class="pricing-icon">
-                                <span class="price">${{payee.expenseTotal}}</span>
-                            </div>
-                            <div class="action-tab-main">
-                                <a class="edit-btn" style="cursor: pointer;" (click)="updatePayeeOrPayer(payee)">
-                                    <img src="../../../assets/images/edit-pencil.svg">
-                                </a>
-                                <a class="delete-btn" style="cursor: pointer;"
-                                    (click)="deletePayee(payee._id,payee.name,'deletePayee')">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
-                            </div>
-                        </div>
+                                                    <button class="icon-remove">
+                                                        <img src="../../../assets/images/delete-trash.svg"
+                                                            (click)="deletePayee(payees._id,payees.name,'deletePayee')">
+                                                    </button>
 
-                        <div style="display: flex; float: right;" *ngIf="total > 10">
-                            <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+                            <div class="right-col-contact">
+                                <div class="comm-char" *ngFor="let char of sortCharData" (click)="gotoPayeesTop(char)">
+                                    {{char}}
+                                </div>
+                                <div class="comm-char">#</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-4 col-md-4 col-lg-4">
@@ -55,12 +72,10 @@
                                 <span>{{pName}}</span>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                                <!-- list -->
                                 <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
                                     aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
-                                            <!-- first-panal -->
                                             <mat-expansion-panel *ngFor="let pd of payeeDetails" [expanded]="step === 0"
                                                 (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
@@ -84,15 +99,11 @@
                                                             <div class="date-and-time">{{d.createdAt | date}}</div>
                                                         </div>
                                                     </div>
-
                                                 </div>
-
                                             </mat-expansion-panel>
-
                                         </mat-accordion>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -103,37 +114,52 @@
             <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8 scroller-class">
-                        <div *ngFor="let payee of payersArray; let i = index"
-                            [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account"
-                            (click)="recordSelected(i,payee)">
 
-                            <div class="account-type"><span>{{ payee.name }}</span></div>
+                        <div class="payees-contact-main">
+                            <div class="left-col-contact">
+                                <div class="main-box-character" *ngFor="let char of availableSortData" id="P{{char}}">
+                                    <div class="first-latter-main">
+                                        <span>{{char}}</span>
+                                    </div>
+                                    <ng-container *ngFor="let payer of payersArray; let i = index">
+                                        <div *ngIf="(payer.name.charAt(0)).toUpperCase()==char">
+                                            <div class="inner-strips-main-box"
+                                                [ngClass]="{ 'active-box' : isRecordSelected == i }"
+                                                (click)="recordSelected(i,payer)">
+                                                <div class="name-of-holder">
+                                                    {{payer.name}}
+                                                </div>
+                                                <div class="price-tag-main">
+                                                    ${{payer.incomeTotal}}
+                                                </div>
+                                                <div class="del-icon">
+                                                    <button class="icon-remove">
+                                                        <img src="../../../assets/images/edit-pencil.svg"
+                                                            (click)="updatePayeeOrPayer(payer)">
+                                                    </button>
 
-                            <div class="price-icon">
-                                <span class="price">${{payee.incomeTotal}}</span>
+                                                    <button class="icon-remove">
+                                                        <img src="../../../assets/images/delete-trash.svg"
+                                                            (click)="deletePayee(payer._id,payer.name,'deletePayee')">
+                                                    </button>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </ng-container>
+                                </div>
                             </div>
-                            <div class="action-tab-main">
-                                <!-- <a style="cursor: pointer;" (click)="editAccounts(data)" class="edit-btn" title="edit">
-                                <img src="../../../assets/images/edit-pencil.svg">
-                            </a> -->
-                                <!-- <a class="delete-btn" style="cursor: pointer;" (click)="openDeleteDialog(payee._id,payee.name)">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a> -->
-                                <a class="edit-btn" style="cursor: pointer;" (click)="updatePayeeOrPayer(payee)">
-                                    <img src="../../../assets/images/edit-pencil.svg">
-                                </a>
-                                <a class="delete-btn" style="cursor: pointer;"
-                                    (click)="deletePayee(payee._id,payee.name,'deletePayer')">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
+
+                            <div class="right-col-contact">
+                                <div class="comm-char" *ngFor="let char of sortCharData" (click)="gotoPayersTop(char)">
+                                    {{char}}
+                                </div>
+                                <div class="comm-char">#</div>
                             </div>
-
-                        </div>
-
-                        <div style="display: flex; float: right;" *ngIf="total > 10">
-                            <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
                         </div>
                     </div>
+
                     <div class="col-4 col-md-4 col-lg-4">
                         <div class="list-main-filter">
                             <nav class="asset-main-tab">
@@ -141,12 +167,10 @@
                                 <span>{{pName}}</span>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                                <!-- list -->
                                 <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel"
                                     aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
-                                            <!-- first-panal -->
                                             <mat-expansion-panel *ngFor="let pd of payeeDetails" [expanded]="step === 0"
                                                 (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
@@ -169,21 +193,10 @@
                                                         </div>
                                                         <div class="main-strips">
                                                             <div class="date-and-time">{{d.createdAt | date}}</div>
-                                                            <!-- <div class="account-type">My Account</div> -->
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div> -->
-
                                                 </div>
-
-
                                             </mat-expansion-panel>
-
-
                                         </mat-accordion>
                                     </div>
                                 </div>
@@ -216,26 +229,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- <div class="fixed-foot total-expanse-panal-bottom-main">
-            <div class="inner-expanse-panal-main">
-                <div class="left-panal">
-                    <div class="first-col com-col">
-                        <span class="label red-total-expanse">Total Expanse</span>
-                        <span class="value red-total-expanse">${{payeeSummary.expenseTotal}}</span>
-                    </div>
-                    <div class="second-col com-col">
-                        <span class="label green-cleared">Current Balance</span>
-                        <span class="value green-cleared">${{payeeSummary.currentBalance}}</span>
-                    </div>
-                    <div class="first-col com-col">
-                        <span class="label">Income Total</span>
-                        <span class="value">${{payeeSummary.incomeTotal}}</span>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
     </div>
 
 </div>

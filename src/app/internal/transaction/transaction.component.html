@@ -1,11 +1,8 @@
-<app-progress-bar *ngIf="isApiCalling"></app-progress-bar>
-
 <div class="heading-pannel">
     <div class="component-heading">
         <span>Transaction</span>
     </div>
     <div class="component-btn">
-
         <button class="btn" routerLink="/add-entry">Add Transaction</button>
     </div>
 </div>
@@ -32,49 +29,26 @@
         <div class="filter-main">
             <div class="left-col">
                 <div class="form-group">
-                    <label>Select Range Date</label>
-                    <mat-form-field style="display: flex;align-items: center;border: 1px solid;padding-left: 10px;" appearance="fill">
-                        <mat-date-range-input  [rangePicker]="picker" >
-                            <input matStartDate formControlName="Opendate">
-                            <input matEndDate (focus)="picker.open()">
-                        </mat-date-range-input>
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-date-range-picker #picker></mat-date-range-picker>
-                        <!-- <input matInput [matDatepicker]="picker1" formControlName="Opendate">
-
-                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                        <mat-datepicker #picker1></mat-datepicker> -->
-                    </mat-form-field>
+                    <input type="text" formcontrolname="Search" placeholder="Search Here..." class="form-control">
                 </div>
-                <!-- <div class="form-group">
-                    <label>End Date</label>
-                    <mat-form-field style="display: flex;" appearance="fill">
 
-                        <input matInput [matDatepicker]="picker2" formControlName="Opendate">
-
-                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                        <mat-datepicker #picker2></mat-datepicker>
-                    </mat-form-field>
-                </div> -->
             </div>
-            <div class="search-btn right-col">
-                <button class="btn search-btn">
-                    <img src="../../../assets/images/search-mirror.svg">
-                </button>
+            <div class="search-btn right-col range-picker-main">
+                <mat-form-field appearance="fill">
+
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate placeholder="Start date" #dateRangeStart>
+                        <input matEndDate placeholder="End date" #dateRangeEnd (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
             </div>
         </div>
     </nav>
     <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
         <!-- --------------------------first-tab----------------------- -->
         <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
-            <div class="search-and-print-panal">
-                <div class="left-search-bar">
-                    <input type="text" formcontrolname="Search" placeholder="Search Here..." class="form-control">
-                </div>
-                <div class="right-print-btn">
-                    <a class="report-print" href="#">Export CSV</a>
-                </div>
-            </div>
 
             <!---------------------------Table--------------------------------------->
             <div class="table-main">
@@ -82,7 +56,7 @@
                     <thead>
                         <tr>
                             <th class="sr-no">Sr No.</th>
-                            <th class="payee">Payee</th>
+                            <th class="payee">Payee/Payer</th>
                             <th class="amount">Amount</th>
                             <th class="account-type">Account Type</th>
                             <th class="category">Category</th>
@@ -99,114 +73,28 @@
                             <td class="amount">${{t.amount}}</td>
                             <td class="account-type"><span class="label-saving">{{t.accountId.name}}</span> </td>
                             <td class="category">{{t.categoryId.name}}</td>
-                            <td class="created-date"> {{t.createdAt | date}} </td>
+                            <td class="created-date"> {{t.dateTime | date}} </td>
                             <td class="class-name">{{t.classId.name}}</td>
                             <td class="action">
                                 <a href="#" title="edit" class="edit-icon">
                                     <img src="../../../assets/images/edit-pencil.svg">
                                 </a>
-                                <a href="#" title="Delete" class="delete-icon">
+                                <a style="cursor: pointer;" title="Delete" class="delete-icon" (click)="deleteTransaction(t._id,t.beneficiaryId.name)">
                                     <img src="../../../assets/images/delete-trash.svg">
                                 </a>
                             </td>
-
-
                         </tr>
-                        <!-- <tr>
-                            <td class="sr-no">2</td>
-                            <td class="payee">Payee1</td>
-                            <td class="amount">$100.00</td>
-                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
-                            <td class="category">Category-2</td>
-                            <td class="created-date"> 24/09/2020 </td>
-                            <td class="class-name">First Class</td>
-                            <td class="action">
-                                <a href="#" title="edit" class="edit-icon">
-                                    <img src="../../../assets/images/edit-pencil.svg">
-                                </a>
-                                <a href="#" title="Delete" class="delete-icon">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
-                            </td>
-
-
-                        </tr>
-                        <tr>
-                            <td class="sr-no">3</td>
-                            <td class="payee">Payee1</td>
-                            <td class="amount">$100.00</td>
-                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
-                            <td class="category">Category-2</td>
-                            <td class="created-date"> 24/09/2020 </td>
-                            <td class="class-name">First Class</td>
-                            <td class="action">
-                                <a href="#" title="edit" class="edit-icon">
-                                    <img src="../../../assets/images/edit-pencil.svg">
-                                </a>
-                                <a href="#" title="Delete" class="delete-icon">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
-                            </td>
-
-
-
-                        </tr>
-                        <tr>
-                            <td class="sr-no">4</td>
-                            <td class="payee">Payee1</td>
-                            <td class="amount">$100.00</td>
-                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
-                            <td class="category">Category-2</td>
-                            <td class="created-date"> 24/09/2020 </td>
-                            <td class="class-name">First Class</td>
-                            <td class="action">
-                                <a href="#" title="edit" class="edit-icon">
-                                    <img src="../../../assets/images/edit-pencil.svg">
-                                </a>
-                                <a href="#" title="Delete" class="delete-icon">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
-                            </td>
-
-
-
-                        </tr>
-                        <tr>
-                            <td class="sr-no">5</td>
-                            <td class="payee">Payee1</td>
-                            <td class="amount">$100.00</td>
-                            <td class="account-type"><span class="label-saving">Saving Account</span></td>
-                            <td class="category">Category-2</td>
-                            <td class="created-date"> 24/09/2020 </td>
-                            <td class="class-name">First Class</td>
-                            <td class="action">
-                                <a href="#" title="edit" class="edit-icon">
-                                    <img src="../../../assets/images/edit-pencil.svg">
-                                </a>
-                                <a href="#" title="Delete" class="delete-icon">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
-                            </td>
-
-
-
-                        </tr> -->
                     </tbody>
-
                 </table>
 
+                <div style="display: flex;float: left;" *ngIf="resultsLength > 10">
+                    <mat-paginator (page)="pageChange($event)" [length]="resultsLength" [pageSize]="10">
+                    </mat-paginator>
+                </div>
             </div>
         </div>
         <!-------------------------second tab--------------------------- -->
         <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <div class="search-and-print-panal">
-                <div class="left-search-bar">
-                    <input type="text" formcontrolname="Search" placeholder="Search Here..." class="form-control">
-                </div>
-                <div class="right-print-btn">
-                    <a class="report-print" href="#">Export CSV</a>
-                </div>
-            </div>
 
             <!---------------------------Table--------------------------------------->
             <div class="table-main">
@@ -214,7 +102,7 @@
                     <thead>
                         <tr>
                             <th class="sr-no">Sr No.</th>
-                            <th class="payee">Payee</th>
+                            <th class="payee">Payee/Payer</th>
                             <th class="amount">Amount</th>
                             <th class="account-type">Account Type</th>
                             <th class="category">Category</th>
@@ -279,9 +167,6 @@
                                     <img src="../../../assets/images/delete-trash.svg">
                                 </a>
                             </td>
-
-
-
                         </tr>
                         <tr>
                             <td class="sr-no">4</td>
@@ -299,9 +184,6 @@
                                     <img src="../../../assets/images/delete-trash.svg">
                                 </a>
                             </td>
-
-
-
                         </tr>
                         <tr>
                             <td class="sr-no">5</td>
@@ -319,27 +201,13 @@
                                     <img src="../../../assets/images/delete-trash.svg">
                                 </a>
                             </td>
-
-
-
                         </tr>
                     </tbody>
-
                 </table>
-
             </div>
-
         </div>
         <!-------------------------third tab--------------------------- -->
         <div class="tab-pane fade" id="nav-monthly" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <div class="search-and-print-panal">
-                <div class="left-search-bar">
-                    <input type="text" formcontrolname="Search" placeholder="Search Here..." class="form-control">
-                </div>
-                <div class="right-print-btn">
-                    <a class="report-print" href="#">Export CSV</a>
-                </div>
-            </div>
 
             <!---------------------------Table--------------------------------------->
             <div class="table-main">
@@ -347,7 +215,7 @@
                     <thead>
                         <tr>
                             <th class="sr-no">Sr No.</th>
-                            <th class="payee">Payee</th>
+                            <th class="payee">Payee/Payer</th>
                             <th class="amount">Amount</th>
                             <th class="account-type">Account Type</th>
                             <th class="category">Category</th>
@@ -457,7 +325,6 @@
 
                         </tr>
                     </tbody>
-
                 </table>
 
             </div>
@@ -466,14 +333,6 @@
 
         <!-------------------------Fourth tab--------------------------- -->
         <div class="tab-pane fade" id="nav-quaterly" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <div class="search-and-print-panal">
-                <div class="left-search-bar">
-                    <input type="text" formcontrolname="Search" placeholder="Search Here..." class="form-control">
-                </div>
-                <div class="right-print-btn">
-                    <a class="report-print" href="#">Export CSV</a>
-                </div>
-            </div>
 
             <!---------------------------Table--------------------------------------->
             <div class="table-main">
@@ -481,7 +340,7 @@
                     <thead>
                         <tr>
                             <th class="sr-no">Sr No.</th>
-                            <th class="payee">Payee</th>
+                            <th class="payee">Payee/Payer</th>
                             <th class="amount">Amount</th>
                             <th class="account-type">Account Type</th>
                             <th class="category">Category</th>
@@ -599,14 +458,6 @@
         </div>
         <!-------------------------Fifth tab--------------------------- -->
         <div class="tab-pane fade" id="nav-yearly" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <div class="search-and-print-panal">
-                <div class="left-search-bar">
-                    <input type="text" formcontrolname="Search" placeholder="Search Here..." class="form-control">
-                </div>
-                <div class="right-print-btn">
-                    <a class="report-print" href="#">Export CSV</a>
-                </div>
-            </div>
 
             <!---------------------------Table--------------------------------------->
             <div class="table-main">
@@ -614,7 +465,7 @@
                     <thead>
                         <tr>
                             <th class="sr-no">Sr No.</th>
-                            <th class="payee">Payee</th>
+                            <th class="payee">Payee/Payer</th>
                             <th class="amount">Amount</th>
                             <th class="account-type">Account Type</th>
                             <th class="category">Category</th>
@@ -729,6 +580,14 @@
 
             </div>
 
+        </div>
+
+
+        <div class="search-and-print-panal">
+
+            <div class="right-print-btn">
+                <a class="report-print" href="#">Export CSV</a>
+            </div>
         </div>
 
     </div>

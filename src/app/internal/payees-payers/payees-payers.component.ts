@@ -1,5 +1,6 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { dataUri } from '@rxweb/reactive-form-validators';
 import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { HttpService } from 'src/app/services/http.service';
@@ -17,6 +18,7 @@ export class PayeesPayersComponent implements OnInit {
   type: any = "PAYEE";
   payeeSummary: any = [];
   payeesArray: any = [];
+  sortPayeerArray: any = [];
   payersArray: any = [];
   pName: any = '';
   groupId: any;
@@ -28,6 +30,13 @@ export class PayeesPayersComponent implements OnInit {
   pageIndex: any = 0;
   AddText: any = "Add Payee";
   payeeDetails: any;
+
+  sortCharData: any = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+  ]
+
+  availableSortData: any = [];
+
   constructor(public dialog: MatDialog, public sharedserive: SharedService, public http: HttpService, private toastr: ToastrService) { }
 
   @ViewChild('deletePayeeDialog') DeletePayeeDialog: TemplateRef<any>;
@@ -41,7 +50,9 @@ export class PayeesPayersComponent implements OnInit {
       }
     });
   }
+
   step = 0;
+
   getPayeeDetailsById(id) {
     this.isApiCalling = true;
     var payload = {
@@ -55,30 +66,82 @@ export class PayeesPayersComponent implements OnInit {
       this.payeeDetails = res.data;
     })
   }
+
   getPayees() {
     this.isApiCalling = true;
     var payload = {
       "groupId": this.groupId,
-      "pageIndex": this.pageIndex,
-      "limit": 10,
+      // "pageIndex": this.pageIndex,
+      // "limit": 10,
       type: this.type
     }
     this.http.get(ApiUrl.getAllPayees, payload).subscribe(res => {
+
       this.isApiCalling = false;
       this.http.showLoader();
+
       if (res.data.data != undefined) {
         this.total = res.data.totalFinancialBeneficiaries;
+
         if (this.type === "PAYEE") {
           this.payeesArray = res.data.data;
+          this.sortOutByChar(this.payeesArray);
           this.pName = res.data.data[0].name;
           this.getPayeeDetailsById(this.payeesArray[0]._id);
         } else {
           this.payersArray = res.data.data;
+          this.sortOutByChar(this.payersArray);
           this.pName = res.data.data[0].name;
           this.getPayeeDetailsById(this.payersArray[0]._id);
         }
+
       }
     });
+  }
+
+  sortOutByChar(data) {
+    for (let index = 0; index < data.length; index++) {
+      this.availabelSortData((data[index].name.charAt(0)).toUpperCase());
+    }
+  }
+
+  availabelSortData(key) {
+    if (this.availableSortData.length == 0) {
+      this.availableSortData.push(key);
+    }
+    const data = this.availableSortData.find((x) => x === key);
+    if (!data) {
+      this.availableSortData.push((key).toUpperCase());
+    }
+
+  }
+
+  gotoPayersTop(char) {
+    for (let index = 0; index < this.sortCharData.length; index++) {
+      if (char === this.sortCharData[index]) {
+        var setChar: any = document.getElementById('P'+char) as HTMLDivElement;
+        setTimeout(() => {
+          setChar.style.top = '-150px';
+          setChar.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
+          setChar.style.top = top;
+        });
+        break
+      }
+    }
+  }
+
+  gotoPayeesTop(char) {
+    for (let index = 0; index < this.sortCharData.length; index++) {
+      if (char === this.sortCharData[index]) {
+        var setChar: any = document.getElementById(char) as HTMLDivElement;
+        setTimeout(() => {
+          setChar.style.top = '-150px';
+          setChar.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
+          setChar.style.top = top;
+        });
+        break
+      }
+    }
   }
 
   getPayeeSummary() {
@@ -97,6 +160,7 @@ export class PayeesPayersComponent implements OnInit {
     });
   }
 
+
   pageChange(event) {
     this.pageIndex = event.pageIndex;
     this.getPayees();
@@ -114,6 +178,8 @@ export class PayeesPayersComponent implements OnInit {
     this.step = index;
   }
   setType(type) {
+
+    this.availableSortData = [];
     this.type = type;
     if (type === "PAYEE")
       this.AddText = "Add Payee"
@@ -130,6 +196,7 @@ export class PayeesPayersComponent implements OnInit {
   prevStep() {
     this.step--;
   }
+
   openCategorymodal() {
     this.total = 0;
     const dialogRef = this.dialog.open(AddPayeeComponent, {
@@ -142,6 +209,8 @@ export class PayeesPayersComponent implements OnInit {
       console.log('The dialog was closed');
       this.payeesArray = [];
       this.payersArray = [];
+      this.availableSortData = [];
+      this.isRecordSelected = 0;
       this.getPayees();
     });
   }
@@ -158,6 +227,8 @@ export class PayeesPayersComponent implements OnInit {
       console.log('The dialog was closed');
       this.payeesArray = [];
       this.payersArray = [];
+      this.availableSortData = [];
+      this.isRecordSelected = 0;
       this.getPayees();
     });
   }
@@ -193,25 +264,11 @@ export class PayeesPayersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.availableSortData = [];
+      this.isRecordSelected = 0;
       this.getPayees();
     });
   }
-
-  // deletePayee() {
-  //   this.isApiCalling = true;
-  //   this.http.deletePayees(this.payeeId).subscribe(
-  //     (data: any) => {
-  //       this.toastr.error("Payees Delete Successfully", "Success");
-  //       this.isApiCalling = false;
-  //       this.closeDeleteModal();
-  //       this.getPayees();
-  //     }, err => {
-  //       this.toastr.error("Oops! Something went wrong", 'Error');
-  //       this.isApiCalling = false;
-  //       this.closeDeleteModal();
-  //     }
-  //   )
-  // }
 
   closeDeleteModal() {
     this.dialog.closeAll();
