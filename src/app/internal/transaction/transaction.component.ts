@@ -4,6 +4,8 @@ import { ApiUrl } from 'src/app/services/apiurl';
 import { HttpService } from 'src/app/services/http.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
+import { Workbook } from 'exceljs';
+import * as fs from 'file-saver';
 
 @Component({
   selector: 'app-transaction',
@@ -86,6 +88,51 @@ export class TransactionComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getTansactionData();
+    });
+  }
+
+  downloadExcel() {
+    let json_data: any = []
+
+    for (let index = 0; index < this.transactionList.length; index++) {
+      let tempData = {
+        "srNo": index + 1,
+        "payee/payes": this.transactionList[index].beneficiaryId.name,
+        "amount": this.transactionList[index].amount,
+        "accountType": this.transactionList[index].accountId.name,
+        "Category": this.transactionList[index].categoryId.name,
+        "CreatedDate": this.transactionList[index].dateTime,
+        "Class": this.transactionList[index].classId.name
+      }
+
+      json_data.push(tempData);
+    }
+
+    let workbook = new Workbook();
+
+    let worksheet = workbook.addWorksheet('Transaction');
+
+    let header = ["SrNo", "Payee/Payer", "Amount", "Account Type", "Category", "Created Date", "Class"];
+    let headerRow = worksheet.addRow(header);
+
+    for (let x1 of json_data) {
+      let x2 = Object.keys(x1);
+      let temp = [];
+
+      for (let y of x2) {
+        temp.push(x1[y]);
+      }
+
+      worksheet.addRow(temp);
+    }
+
+    //set downloadable file name
+    let fname = "Transaction Data " + new Date();
+
+    //add data and file name and download
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      fs.saveAs(blob, fname + '-' + new Date().valueOf() + '.xlsx');
     });
   }
 }
