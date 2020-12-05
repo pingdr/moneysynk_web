@@ -28,44 +28,7 @@
         <!-- </mat-form-field> -->
         
       </div>
-
-
-      <!-- <div class="dropdown header-first-drop-down">
-
      
-
-        <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <img src="../../../../assets/images/my-private-group.svg">
-          {{groupName}}
-        </a>
-     
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <ng-container *ngFor="let data of groupList">
-            <a (click)="groupSelect(data)" class="dropdown-item">
-              <img src="../../../../assets/images/my-private-group.svg">
-              {{ data.name }}
-            </a>
-          </ng-container>
-          <mat-form-field appearance="fill">
-            <input maxlength="26" [(ngModel)]="filterName" name="filterName" (keyup)="addGroup($event.target.value)"
-              matInput placeholder="Add New Group">
-          </mat-form-field>
-          <button class="btn add-btn" (click)="saveGroup()"> Add</button>
-
-        </div>
-      </div> -->
-
-      <!-- <label>Add Group</label>
-          <mat-form-field>
-            <mat-select  placeholder="Group">
-              <mat-option>select grop</mat-option>
-              <mat-option *ngFor="let data of groupList"  value="{{data._id}}">{{ data.name }}</mat-option>        
-                <input (keyup)="addGroup($event.target.value)" matInput placeholder="Add New Type">
-
-              <button (click)="saveGroup()" class="btn add-btn"> Add</button>
-            </mat-select>
-          </mat-form-field> -->
 
       <div class="form-group search-input">
         <div class="form-field">
@@ -74,21 +37,7 @@
       </div>
 
       <div *ngIf="user" class="dropdown header-third-drop-down">
-
-        <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <span class="user-pro-pic">
-            <img src="../../../../assets/images/round-pic.svg">
-          </span>
-          {{user.username}}
-        </button> -->
-
-        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item">Action</a>
-          <a class="dropdown-item">Another action</a>
-          <a style="cursor: pointer;" (click)="Logout()" class="dropdown-item">Logout</a>
-        </div> -->
-
+        
         <button class="btn btn-secondary dropdown-toggle" type="button" [matMenuTriggerFor]="profileMenu"><span
             class="user-pro-pic">
             <img src="../../../../assets/images/round-pic.svg">
