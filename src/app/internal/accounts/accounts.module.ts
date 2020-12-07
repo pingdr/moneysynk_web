@@ -11,6 +11,7 @@ import { ChartsModule } from 'ng2-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 
 const routes: Routes = [
     {
@@ -40,6 +41,7 @@ const routes: Routes = [
         MatDialogModule,
         MatPaginatorModule,
         MatButtonModule,
+        NgxShimmerLoadingModule,
         NgxSlickJsModule.forRoot({
             links: {
                 jquery: "https://code.jquery.com/jquery-3.4.0.min.js",

@@ -13,6 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatPseudoCheckboxModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 
 const routes: Routes = [
     {
@@ -43,7 +44,8 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         MatExpansionModule,
         MatButtonModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        NgxShimmerLoadingModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

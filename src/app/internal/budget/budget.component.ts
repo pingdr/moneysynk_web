@@ -18,7 +18,10 @@ export class BudgetComponent implements OnInit {
   budgetName: any;
   budgetId: any;
   groupId: any;
+
   isApiCalling: boolean = false;
+  isShimmerloading: boolean = false;
+
   type: any = "EXPENSE";
   budgetSummary: any = [];
   expenseArray: any = [];
@@ -113,7 +116,10 @@ export class BudgetComponent implements OnInit {
   }
 
   getBudgets() {
+
     this.isApiCalling = true;
+    this.isShimmerloading = true;
+
     var payload = {
       "groupId": this.groupId,
       pageIndex: this.pageIndex,
@@ -122,7 +128,10 @@ export class BudgetComponent implements OnInit {
     }
     this.recordSelected = 0;
     this.http.getCategories(ApiUrl.getBudget, payload).subscribe(res => {
+
       this.isApiCalling = false;
+      this.isShimmerloading = false;
+
       this.http.showLoader();
       console.log('Budget List', res);
       if (res.data != undefined) {

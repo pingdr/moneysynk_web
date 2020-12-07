@@ -20,11 +20,12 @@
                 <div class="main-right-login-form">
                     <div class="upper-div-one">
                         <label class="label-login">Login to MoneySynk</label>
-                        <form [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
+                        <form autocomplete="new-form" [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
                             <div class="form-group Email-id">
                                 <input type="text" class="form-control" formControlName="user"
                                     placeholder="Email / Mobile Number "
-                                    [ngClass]="{ 'is-invalid': submitted && f.user.errors }">
+                                    [ngClass]="{ 'is-invalid': submitted && f.user.errors }" autocomplete="new-email"
+                                    >
                                 <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
                                     <div *ngIf="f.user.errors.required"></div>
                                     <div *ngIf="f.user.errors.user"></div>
@@ -33,8 +34,8 @@
                             </div>
                             <div class="form-group Password">
                                 <input type="password" class="form-control" formControlName="password"
-                                    placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-                                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                    placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" autocomplete="new-password">
+                                <div *ngIf="submitted && f.password.errors" class="invalid-feedback" >
                                     <div *ngIf="f.password.errors.required"></div>
                                     <div *ngIf="f.password.errors.minlength"></div>
                                 </div>

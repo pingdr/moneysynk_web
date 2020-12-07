@@ -217,30 +217,32 @@
                 </div> -->
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-12">
-                    <div *ngFor="let group of groupList; let i = index" class="editable-account">
 
-                        <div class="account-type"><span>{{ group.name }}</span></div>
-
-
-                        <div class="action-tab-main">
-                            <!-- <a style="cursor: pointer;" (click)="openEditGroupDialog(group._id,group.name)"
-                                class="edit-btn" title="edit">
-                                <img src="../../../assets/images/edit-pencil.svg">
-                            </a> -->
-                            <!-- <a class="delete-btn" style="cursor: pointer;"
-                                (click)="openDeleteGroupDialog(group._id,group.name)">
-                                <img src="../../../assets/images/delete-trash.svg">
-                            </a> -->
-                            <a style="cursor: pointer;" *ngIf="!group.isDefault" [ngStyle]="{'pointer-events': group.isDefault ? 'none':''}" (click)="editGroup(group._id,group.name)" class="edit-btn"
-                                title="edit">
-                                <img src="../../../assets/images/edit-pencil.svg">
-                            </a>
-                            <a class="delete-btn" *ngIf="!group.isDefault" style="cursor: pointer;" [ngStyle]="{'pointer-events': group.isDefault ? 'none':''}" (click)="deleteGroup(group._id,group.name)">
-                                <img src="../../../assets/images/delete-trash.svg">
-                            </a>
+                    <ng-container *ngIf="isShimmerloading">
+                        <div *ngFor="let shimmer of [1,2,3,4,5]">
+                            <ngx-shimmer-loading [shape]="'rect'" [width]="'100%'" [height]="'50px'">
+                            </ngx-shimmer-loading>
                         </div>
+                    </ng-container>
 
-                    </div>
+                    <ng-container *ngIf="!isShimmerloading">
+                        <div *ngFor="let group of groupList; let i = index" class="editable-account">
+                            <div class="account-type"><span>{{ group.name }}</span></div>
+                            <div class="action-tab-main">
+                                <a style="cursor: pointer;" *ngIf="!group.isDefault"
+                                    [ngStyle]="{'pointer-events': group.isDefault ? 'none':''}"
+                                    (click)="editGroup(group._id,group.name)" class="edit-btn" title="edit">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a class="delete-btn" *ngIf="!group.isDefault" style="cursor: pointer;"
+                                    [ngStyle]="{'pointer-events': group.isDefault ? 'none':''}"
+                                    (click)="deleteGroup(group._id,group.name)">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </div>
+
+                        </div>
+                    </ng-container>
                 </div>
             </div>
             <!-- <div style="display: flex;float: right;" *ngIf="total > 10">

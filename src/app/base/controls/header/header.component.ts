@@ -36,12 +36,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('loginData'));
     this.getAllGroup();
-
-    // if (this.eventEmitterService.subsVar == undefined) {
-    //   this.eventEmitterService.subsVar = this.eventEmitterService.invokeGroupListFunction.subscribe(() => {
-    //     this.getAllGroup();
-    //   });
-    // }
   }
 
   Logout() {
@@ -88,7 +82,7 @@ export class HeaderComponent implements OnInit {
         });
 
     } else {
-      alert('please add group')
+      this.toastr.error('Please enter group name');
     }
 
   }

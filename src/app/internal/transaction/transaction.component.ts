@@ -14,7 +14,11 @@ import * as fs from 'file-saver';
 })
 export class TransactionComponent implements OnInit {
   groupId: any;
+
   isApiCalling: boolean = false;
+  isShimmerloding: boolean = false;
+
+
   transactionList: any;
   pageIndex: any = 0;
   resultsLength: any = 0;
@@ -46,8 +50,13 @@ export class TransactionComponent implements OnInit {
     }
 
     this.isApiCalling = true;
+    this.isShimmerloding = true;
+
     this.http.getAccount(ApiUrl.getTransactions, payload).subscribe(res => {
+      
       this.isApiCalling = false;
+      this.isShimmerloding=false;
+
       this.http.showLoader();
       if (res.data != undefined) {
         this.transactionList = [];
@@ -79,6 +88,7 @@ export class TransactionComponent implements OnInit {
   }
 
   deleteTransaction(id, beneficiaryName) {
+    console.log(id, beneficiaryName)
     const dialogRef = this.dialog.open(DeleteModalComponent, {
       panelClass: 'account-modal-main',
       width: '350px',

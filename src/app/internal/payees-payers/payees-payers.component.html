@@ -24,38 +24,50 @@
                     <div class="col-8 col-md-8 col-lg-8 scroller-class">
                         <div class="payees-contact-main">
                             <div class="left-col-contact">
-                                <div class="main-box-character" *ngFor="let char of availableSortData" id="{{char}}">
-                                    <div class="first-latter-main">
-                                        <span>{{char}}</span>
+
+                                <ng-container *ngIf="isShimmerLoading">
+                                    <div *ngFor="let shimmer of [1,2,3,4,5,6,7,8,9,10]">
+                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'100%'" [height]="'50px'">
+                                        </ngx-shimmer-loading>
                                     </div>
-                                    <ng-container *ngFor="let payees of payeesArray; let i = index">
-                                        <div *ngIf="(payees.name.charAt(0)).toUpperCase()==char">
-                                            <div class="inner-strips-main-box"
-                                                [ngClass]="{ 'active-box' : isRecordSelected == i }"
-                                                (click)="recordSelected(i,payees)">
-                                                <div class="name-of-holder">
-                                                    {{payees.name}}
-                                                </div>
-                                                <div class="price-tag-main">
-                                                    ${{payees.expenseTotal}}
-                                                </div>
-                                                <div class="del-icon">
-                                                    <button class="icon-remove">
-                                                        <img src="../../../assets/images/edit-pencil.svg"
-                                                            (click)="updatePayeeOrPayer(payees)">
-                                                    </button>
+                                </ng-container>
 
-                                                    <button class="icon-remove">
-                                                        <img src="../../../assets/images/delete-trash.svg"
-                                                            (click)="deletePayee(payees._id,payees.name,'deletePayee')">
-                                                    </button>
-
-                                                </div>
-                                            </div>
-
+                                <ng-container *ngIf="!isShimmerLoading">
+                                    <div class="main-box-character" *ngFor="let char of availableSortData"
+                                        id="{{char}}">
+                                        <div class="first-latter-main">
+                                            <span>{{char}}</span>
                                         </div>
-                                    </ng-container>
-                                </div>
+                                        <ng-container *ngFor="let payees of payeesArray; let i = index">
+                                            <div *ngIf="(payees.name.charAt(0)).toUpperCase()==char">
+                                                <div class="inner-strips-main-box"
+                                                    [ngClass]="{ 'active-box' : isRecordSelected == i }"
+                                                    (click)="recordSelected(i,payees)">
+                                                    <div class="name-of-holder">
+                                                        {{payees.name}}
+                                                    </div>
+                                                    <div class="price-tag-main">
+                                                        ${{payees.expenseTotal}}
+                                                    </div>
+                                                    <div class="del-icon">
+                                                        <button class="icon-remove">
+                                                            <img src="../../../assets/images/edit-pencil.svg"
+                                                                (click)="updatePayeeOrPayer(payees)">
+                                                        </button>
+
+                                                        <button class="icon-remove">
+                                                            <img src="../../../assets/images/delete-trash.svg"
+                                                                (click)="deletePayee(payees._id,payees.name,'deletePayee')">
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </ng-container>
+                                    </div>
+
+                                </ng-container>
 
                             </div>
                             <div class="right-col-contact">
@@ -117,38 +129,51 @@
 
                         <div class="payees-contact-main">
                             <div class="left-col-contact">
-                                <div class="main-box-character" *ngFor="let char of availableSortData" id="P{{char}}">
-                                    <div class="first-latter-main">
-                                        <span>{{char}}</span>
+
+                                <ng-container *ngIf="isShimmerLoading">
+                                    <div *ngFor="let shimmer of [1,2,3,4,5,6,7,8,9,10]">
+                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'100%'" [height]="'50px'">
+                                        </ngx-shimmer-loading>
                                     </div>
-                                    <ng-container *ngFor="let payer of payersArray; let i = index">
-                                        <div *ngIf="(payer.name.charAt(0)).toUpperCase()==char">
-                                            <div class="inner-strips-main-box"
-                                                [ngClass]="{ 'active-box' : isRecordSelected == i }"
-                                                (click)="recordSelected(i,payer)">
-                                                <div class="name-of-holder">
-                                                    {{payer.name}}
-                                                </div>
-                                                <div class="price-tag-main">
-                                                    ${{payer.incomeTotal}}
-                                                </div>
-                                                <div class="del-icon">
-                                                    <button class="icon-remove">
-                                                        <img src="../../../assets/images/edit-pencil.svg"
-                                                            (click)="updatePayeeOrPayer(payer)">
-                                                    </button>
+                                </ng-container>
 
-                                                    <button class="icon-remove">
-                                                        <img src="../../../assets/images/delete-trash.svg"
-                                                            (click)="deletePayee(payer._id,payer.name,'deletePayee')">
-                                                    </button>
-
-                                                </div>
-                                            </div>
-
+                                <ng-container *ngIf="!isShimmerLoading">
+                                    <div class="main-box-character" *ngFor="let char of availableSortData"
+                                        id="P{{char}}">
+                                        <div class="first-latter-main">
+                                            <span>{{char}}</span>
                                         </div>
-                                    </ng-container>
-                                </div>
+                                        <ng-container *ngFor="let payer of payersArray; let i = index">
+                                            <div *ngIf="(payer.name.charAt(0)).toUpperCase()==char">
+                                                <div class="inner-strips-main-box"
+                                                    [ngClass]="{ 'active-box' : isRecordSelected == i }"
+                                                    (click)="recordSelected(i,payer)">
+                                                    <div class="name-of-holder">
+                                                        {{payer.name}}
+                                                    </div>
+                                                    <div class="price-tag-main">
+                                                        ${{payer.incomeTotal}}
+                                                    </div>
+                                                    <div class="del-icon">
+                                                        <button class="icon-remove">
+                                                            <img src="../../../assets/images/edit-pencil.svg"
+                                                                (click)="updatePayeeOrPayer(payer)">
+                                                        </button>
+
+                                                        <button class="icon-remove">
+                                                            <img src="../../../assets/images/delete-trash.svg"
+                                                                (click)="deletePayee(payer._id,payer.name,'deletePayee')">
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </ng-container>
+                                    </div>
+
+                                </ng-container>
+
                             </div>
 
                             <div class="right-col-contact">

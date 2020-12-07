@@ -9,7 +9,7 @@
           </mat-option>
           <mat-form-field appearance="fill">
             <input maxlength="26" [(ngModel)]="filterName" name="filterName" (keyup)="addGroup($event.target.value)"
-              matInput placeholder="Add New Group">
+              (keydown)="$event.stopPropagation()" matInput placeholder="Add New Group">
             <button style="  background: transparent !important;
               padding: 0;
               position: absolute;
@@ -26,9 +26,9 @@
 
         </mat-select>
         <!-- </mat-form-field> -->
-        
+
       </div>
-     
+
 
       <div class="form-group search-input">
         <div class="form-field">
@@ -37,11 +37,16 @@
       </div>
 
       <div *ngIf="user" class="dropdown header-third-drop-down">
-        
-        <button class="btn btn-secondary dropdown-toggle" type="button" [matMenuTriggerFor]="profileMenu"><span
-            class="user-pro-pic">
-            <img src="../../../../assets/images/round-pic.svg">
+
+        <button class="btn btn-secondary dropdown-toggle" type="button" [matMenuTriggerFor]="profileMenu">
+          <span class="user-text-logo">
+            <!-- #e1e1e1 -->
+            {{user.username.charAt(0)}}
           </span>
+          <!-- #e1e1e1 -->
+          <!-- <span class="user-pro-pic">
+            <img src="../../../../assets/images/round-pic.svg">
+          </span> -->
           {{user.username}}</button>
 
         <mat-menu #profileMenu="matMenu">

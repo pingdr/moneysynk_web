@@ -15,7 +15,10 @@ import { Subscription } from 'rxjs';
 })
 export class SettingsComponent implements OnInit {
 
+
   isApiCalling: boolean = false;
+  isShimmerloading: boolean = false;
+
   groupList: any = [];
   groupId: any = '';
   groupName: any = '';
@@ -49,7 +52,9 @@ export class SettingsComponent implements OnInit {
       limit: 10,
     }
 
+    this.isShimmerloading = true;
     this.http.getAllGroup(ApiUrl.addGrop).subscribe(res => {
+      this.isShimmerloading = false;
       console.log(res);
       if (res.data != undefined) {
         this.total = res.data.length;
@@ -138,7 +143,7 @@ export class SettingsComponent implements OnInit {
   //     }
   //   )
   // }
-  
+
 
   closeAllModal() {
     this.dialog.closeAll();

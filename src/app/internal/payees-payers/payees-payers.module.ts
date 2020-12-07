@@ -8,6 +8,7 @@ import { PayeesPayersComponent } from './payees-payers.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ToastrModule } from 'ngx-toastr';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 
 const routes: Routes = [
     {
@@ -33,7 +34,8 @@ const routes: Routes = [
         MatExpansionModule,
         MatButtonModule,
         MatPaginatorModule,
-        ToastrModule
+        ToastrModule,
+        NgxShimmerLoadingModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

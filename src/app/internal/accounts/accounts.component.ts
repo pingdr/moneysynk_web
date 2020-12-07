@@ -29,7 +29,10 @@ export class AccountsComponent implements OnInit {
   isAccountSummaryType: any = false;
   accountSummaryData: any = [];
   arrayLength = 10;
+
   isApiCalling: boolean = false;
+  isShimmerloading: boolean = false;
+
   accountName: string = '';
   config: Slick.Config = {
     infinite: false,
@@ -158,7 +161,7 @@ export class AccountsComponent implements OnInit {
   setDoughnutChartData(data) {
     this.doughnutChartLabels = [];
     this.doughnutChartData = [];
-    this.donutColors[0].backgroundColor=[];
+    this.donutColors[0].backgroundColor = [];
 
     if (data.length != 0) {
       for (let index = 0; index < data.length; index++) {
@@ -237,8 +240,12 @@ export class AccountsComponent implements OnInit {
     }
 
     this.isApiCalling = true;
+    this.isShimmerloading = true;
     this.http.getAccount(ApiUrl.getAccount, payload).subscribe(res => {
+      
       this.isApiCalling = false;
+      this.isShimmerloading = false;
+
       this.http.showLoader();
       if (res.data != undefined) {
         this.accountList = [];
@@ -266,6 +273,7 @@ export class AccountsComponent implements OnInit {
   }
 
   deleteAccounts(id, name) {
+    console.log(id,name)
     let self = this;
     this.accountName = name;
     let dialogRef = this.dialog.open(this.DeleteAccountDialog, {
@@ -359,6 +367,9 @@ export class AccountsComponent implements OnInit {
   }
 
   deleteAccount(id, accountName, type) {
+
+    console.log(id, accountName, type);
+
     let dialogRef: any;
 
     if (type == 'deleteAccountType') {

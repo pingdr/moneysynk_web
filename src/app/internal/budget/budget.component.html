@@ -13,8 +13,10 @@
     <div class="white-box">
         <nav class="asset-main-tab">
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" (click)="setType('EXPENSE')" data-toggle="tab" href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Expense</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" (click)="setType('INCOME')" data-toggle="tab" href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Income</a>
+                <a class="nav-item nav-link active" id="nav-home-tab" (click)="setType('EXPENSE')" data-toggle="tab"
+                    href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Expense</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" (click)="setType('INCOME')" data-toggle="tab"
+                    href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Income</a>
 
             </div>
         </nav>
@@ -23,74 +25,63 @@
             <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8 scroller-class">
-                        <!------------ Budget-strips----------------->
-                        <div *ngFor="let b of expenseArray;let i = index" class="budget-main" [ngClass]="{ 'active-budget' : recordSelected == i }" (click)="selectRecord(i,b)">
-                            <div class="img-col-main">
-                                <img [src]="b.icon">
+
+                        <ng-container *ngIf="isShimmerloading">
+                            <div *ngFor="let shimmer of [1,2,3,4,5,6,7,8,9,10]">
+                                <div class="shimmer">
+                                    <ngx-shimmer-loading [shape]="'circle'" [width]="'50px'"></ngx-shimmer-loading>
+                                </div>
+                                <div class="shimmer">
+                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'500px'" [height]="'50px'">
+                                    </ngx-shimmer-loading>
+                                </div>
                             </div>
-                            <div class="progress-inner">
-                                <div class="first-row">
-                                    <div class="name-budget">{{b.name}}</div>
-                                    <div class="link-name">
-                                        <a class="link-btn" title="Bi-Daily">{{b.cycle.period}}</a>
+                        </ng-container>
+
+                        <ng-container *ngIf="!isShimmerloading">
+                            <!------------ Budget-strips----------------->
+                            <div *ngFor="let b of expenseArray;let i = index" class="budget-main"
+                                [ngClass]="{ 'active-budget' : recordSelected == i }" (click)="selectRecord(i,b)">
+                                <div class="img-col-main">
+                                    <img [src]="b.icon">
+                                </div>
+                                <div class="progress-inner">
+                                    <div class="first-row">
+                                        <div class="name-budget">{{b.name}}</div>
+                                        <div class="link-name">
+                                            <a class="link-btn" title="Bi-Daily">{{b.cycle.period}}</a>
+                                        </div>
+                                    </div>
+                                    <div class="second-row">
+                                        <mat-progress-bar mode="determinate" [value]="getExpanseValue(b)">
+                                        </mat-progress-bar>
                                     </div>
                                 </div>
-                                <div class="second-row">
-                                    <mat-progress-bar mode="determinate" [value]="getExpanseValue(b)"></mat-progress-bar>
+                                <div class="dollar-priceing">
+                                    <span class="red">${{b.currentBalance}}</span>
+                                    <span class="color-grey">($62.00)</span>
                                 </div>
-                            </div>
-                            <div class="dollar-priceing">
-                                <span class="red">${{b.currentBalance}}</span>
-                                <span class="color-grey">($62.00)</span>
-                            </div>
-                            <div class="delete-icon">
-                                <!-- <a title="Delete" (click)="openDeleteDialog(b._id,b.name)">
+                                <div class="delete-icon">
+                                    <!-- <a title="Delete" (click)="openDeleteDialog(b._id,b.name)">
                                     <img src="/assets/images/delete-trash.svg">
                                 </a> -->
 
-                                <a title="Delete" (click)="editBudget(b)">
-                                    <img src="/assets/images/edit-pencil.svg">&nbsp;&nbsp;
-                                </a>
+                                    <a title="Delete" (click)="editBudget(b)">
+                                        <img src="/assets/images/edit-pencil.svg">&nbsp;&nbsp;
+                                    </a>
 
-                                <a title="Delete" (click)="deleteBudget(b._id,b.name)">
-                                    <img src="/assets/images/delete-trash.svg">
-                                </a>
+                                    <a title="Delete" (click)="deleteBudget(b._id,b.name)">
+                                        <img src="/assets/images/delete-trash.svg">
+                                    </a>
+                                </div>
+
                             </div>
-
-                        </div>
+                        </ng-container>
 
                         <div style="display: flex;float: right;" *ngIf="resultsLength > 10">
                             <mat-paginator (page)="pageChange($event)" [length]="resultsLength" [pageSize]="10">
                             </mat-paginator>
                         </div>
-                        <!-- <div class="budget-main">
-                            <div class="img-col-main">
-                                <img src="/assets/images/auto.svg">
-                            </div>
-                            <div class="progress-inner">
-                                <div class="first-row">
-                                    <div class="name-budget">Salary</div>
-                                    <div class="link-name">
-                                        <a class="link-btn" href="#" title="Monthly">Monthly</a>
-                                    </div>
-                                </div>
-                                <div class="second-row">
-                                    <mat-progress-bar mode="determinate" value="60"></mat-progress-bar>
-                                </div>
-                            </div>
-                            <div class="dollar-priceing">
-                                <span class="red">$147.00</span>
-                                <span class="color-grey">($62.00)</span>
-                            </div>
-                            <div class="delete-icon">
-                                <a href="#" title="Delete">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
-                            </div>
-
-                        </div> -->
-
-
                     </div>
                     <div class="col-4 col-md-4 col-lg-4">
                         <div class="list-main-filter">
@@ -105,11 +96,13 @@
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->
-                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel" aria-labelledby="nav-list-tab">
+                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
+                                    aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel *ngFor="let bd of budgetDetails" [expanded]="step === 0" (opened)="setStep(0)">
+                                            <mat-expansion-panel *ngFor="let bd of budgetDetails"
+                                                [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
                                                         {{bd._id.month}}/{{bd._id.year}}
@@ -123,191 +116,20 @@
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
                                                             <div class="holder-name">{{d.accountId.name}}</div>
-                                                            <div *ngIf="d.transactionType == 'IN'" class="price-tag green-color">$ {{d.amount}}</div>
-                                                            <div *ngIf="d.transactionType == 'OUT'" class="price-tag red-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'IN'"
+                                                                class="price-tag green-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'OUT'"
+                                                                class="price-tag red-color">$ {{d.amount}}</div>
                                                         </div>
                                                         <div class="main-strips">
                                                             <div class="date-and-time">{{d.createdAt | date}}</div>
-                                                            <!-- <div class="account-type">My Account</div> -->
                                                         </div>
-                                                    </div>
-                                                    <!-- <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div> -->
-
-                                                </div>
-                                                <!-- --------strips ---------------------->
-                                                <!-- <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
                                                     </div>
 
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div> -->
-
-                                            </mat-expansion-panel>
-                                            <!-- second-panal -->
-                                            <!-- <mat-expansion-panel>
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        Aug 2020
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
 
                                                 </div>
 
                                             </mat-expansion-panel>
-                                            <mat-expansion-panel>
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        Aug 2020
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-
-                                            </mat-expansion-panel> -->
 
                                         </mat-accordion>
                                     </div>
@@ -323,71 +145,59 @@
             <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8 scroller-class">
-                        <!------------ Budget-strips----------------->
-                        <div *ngFor="let b of incomeArray;let i = index" class="budget-main" [ngClass]="{ 'active-budget' : recordSelected == i }" (click)="selectRecord(i,b)" class="budget-main">
-                            <div class="img-col-main">
-                                <img [src]="b.icon">
+
+                        <ng-container *ngIf="isShimmerloading">
+                            <div *ngFor="let shimmer of [1,2,3,4,5,6,7,8,9,10]">
+                                <div class="shimmer">
+                                    <ngx-shimmer-loading [shape]="'circle'" [width]="'50px'"></ngx-shimmer-loading>
+                                </div>
+                                <div class="shimmer">
+                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'500px'" [height]="'50px'">
+                                    </ngx-shimmer-loading>
+                                </div>
                             </div>
-                            <div class="progress-inner">
-                                <div class="first-row">
-                                    <div class="name-budget">{{b.name}}</div>
-                                    <div class="link-name">
-                                        <a class="link-btn" href="#" title="Bi-Daily">{{b.cycle.period}}</a>
+                        </ng-container>
+
+                        <ng-container *ngIf="!isShimmerloading">
+                            <!------------ Budget-strips----------------->
+                            <div *ngFor="let b of incomeArray;let i = index" class="budget-main"
+                                [ngClass]="{ 'active-budget' : recordSelected == i }" (click)="selectRecord(i,b)"
+                                class="budget-main">
+                                <div class="img-col-main">
+                                    <img [src]="b.icon">
+                                </div>
+                                <div class="progress-inner">
+                                    <div class="first-row">
+                                        <div class="name-budget">{{b.name}}</div>
+                                        <div class="link-name">
+                                            <a class="link-btn" href="#" title="Bi-Daily">{{b.cycle.period}}</a>
+                                        </div>
+                                    </div>
+                                    <div class="second-row">
+                                        <mat-progress-bar mode="determinate" [value]="getIncomeValue(b)">
+                                        </mat-progress-bar>
                                     </div>
                                 </div>
-                                <div class="second-row">
-                                    <mat-progress-bar mode="determinate" [value]="getIncomeValue(b)"></mat-progress-bar>
+                                <div class="dollar-priceing">
+                                    <span class="red">${{b.currentBalance}}</span>
+                                    <span class="color-grey">($62.00)</span>
                                 </div>
-                            </div>
-                            <div class="dollar-priceing">
-                                <span class="red">${{b.currentBalance}}</span>
-                                <span class="color-grey">($62.00)</span>
-                            </div>
-                            <div class="delete-icon">
-                                <!-- <a title="Delete" (click)="openDeleteDialog(b._id,b.name)">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a> -->
-                                <a title="Delete" (click)="editBudget(b)">
-                                    <img src="/assets/images/edit-pencil.svg">&nbsp;&nbsp;
-                                </a>
-                                <a title="Delete" (click)="deleteBudget(b._id,b.name)">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
-                            </div>
+                                <div class="delete-icon">
+                                    <a title="Delete" (click)="editBudget(b)">
+                                        <img src="/assets/images/edit-pencil.svg">&nbsp;&nbsp;
+                                    </a>
+                                    <a title="Delete" (click)="deleteBudget(b._id,b.name)">
+                                        <img src="../../../assets/images/delete-trash.svg">
+                                    </a>
+                                </div>
 
-                        </div>
+                            </div>                           
+                        </ng-container>
 
                         <div style="display: flex;float: right;" *ngIf="resultsLength > 10">
                             <mat-paginator (page)="pageChange($event)" [length]="resultsLength" [pageSize]="10">
                             </mat-paginator>
                         </div>
-
-                        <!-- <div class="budget-main">
-                            <div class="img-col-main">
-                                <img src="../../../assets/images/auto.svg">
-                            </div>
-                            <div class="progress-inner">
-                                <div class="first-row">
-                                    <div class="name-budget">Salary</div>
-                                    <div class="link-name">
-                                        <a class="link-btn" href="#" title="Monthly">Monthly</a>
-                                    </div>
-                                </div>
-                                <div class="second-row">
-                                    <mat-progress-bar mode="determinate" value="60"></mat-progress-bar>
-                                </div>
-                            </div>
-                            <div class="dollar-priceing">
-                                <span class="red">$147.00</span>
-                                <span class="color-grey">($62.00)</span>
-                            </div>
-                            <div class="delete-icon">
-                                <a href="#" title="Delete">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
-                            </div>
-
-                        </div> -->
 
                     </div>
                     <div class="col-4 col-md-4 col-lg-4">
@@ -403,11 +213,13 @@
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->
-                                <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel" aria-labelledby="nav-list-tab">
+                                <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel"
+                                    aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel *ngFor="let bd of budgetDetails" [expanded]="step === 0" (opened)="setStep(0)">
+                                            <mat-expansion-panel *ngFor="let bd of budgetDetails"
+                                                [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
                                                         {{bd._id.month}}/{{bd._id.year}}
@@ -421,192 +233,17 @@
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
                                                             <div class="holder-name">{{d.accountId.name}}</div>
-                                                            <div *ngIf="d.transactionType == 'IN'" class="price-tag green-color">$ {{d.amount}}</div>
-                                                            <div *ngIf="d.transactionType == 'OUT'" class="price-tag red-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'IN'"
+                                                                class="price-tag green-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'OUT'"
+                                                                class="price-tag red-color">$ {{d.amount}}</div>
                                                         </div>
                                                         <div class="main-strips">
                                                             <div class="date-and-time">{{d.createdAt | date}}</div>
-                                                            <!-- <div class="account-type">My Account</div> -->
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div> -->
-
                                                 </div>
-                                                <!-- --------strips ---------------------->
-                                                <!-- <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div> -->
-
                                             </mat-expansion-panel>
-                                            <!-- second-panal -->
-                                            <!-- <mat-expansion-panel>
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        Aug 2020
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-
-                                            </mat-expansion-panel>
-                                            <mat-expansion-panel>
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        Aug 2020
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-
-                                            </mat-expansion-panel> -->
-
                                         </mat-accordion>
                                     </div>
                                 </div>
@@ -616,13 +253,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
-
         <!------------------------------ total Expanse Panal-------------------------->
-
-
         <div class="fixed-foot total-expanse-panal-bottom-main">
             <div class="inner-expanse-panal-main">
                 <div class="boxes">
@@ -640,30 +272,7 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- <div class="fixed-foot total-expanse-panal-bottom-main">
-            <div class="inner-expanse-panal-main">
-                <div class="left-panal">
-                    <div class="first-col com-col">
-                        <span class="label red-total-expanse">Total Expanse</span>
-                        <span class="value red-total-expanse"> $0.00 / $ {{budgetSummary.expenseTotal}}</span>
-                    </div>
-                    <div class="second-col com-col">
-                        <span class="label green-cleared">Current Balance</span>
-                        <span class="value green-cleared">$0.00 / {{budgetSummary.currentBalance}}</span>
-                    </div>
-                    <div class="first-col com-col transfer-main">
-                        <a class="transfer" (click)="openTransferModal()" title="transfer" style="cursor: pointer;">
-                            TRANSFER
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
     </div>
-
 </div>
 <div class="delete-category-dialog">
     <ng-template #deletePayeeDialog>
@@ -671,11 +280,12 @@
         <p style="margin: 15px 0 20px 0;color: gray;font-size: 16px;">
             Are you sure you want to delete <br /> {{budgetName}} Budget?
         </p>
-        <!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
         <mat-dialog-actions>
             <div class="display-flex">
-                <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button class="orange-back" (click)="deleteBudget()" matDialogClose="yes">Confirm</button>&nbsp;
-                <button mat-stroked-button color="primary" style="border:none;border-radius: 20px;" (click)="closeDeleteModal()" matDialogClose="no">Cancle</button>
+                <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button class="orange-back"
+                    (click)="deleteBudget()" matDialogClose="yes">Confirm</button>&nbsp;
+                <button mat-stroked-button color="primary" style="border:none;border-radius: 20px;"
+                    (click)="closeDeleteModal()" matDialogClose="no">Cancle</button>
             </div>
         </mat-dialog-actions>
     </ng-template>

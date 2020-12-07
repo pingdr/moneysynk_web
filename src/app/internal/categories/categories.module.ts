@@ -7,6 +7,7 @@ import { SharedModule } from '../../shared/modules/shared.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 
 const routes: Routes = [
     {
@@ -31,7 +32,8 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         MatExpansionModule,
         MatPaginatorModule,
-        MatButtonModule
+        MatButtonModule,
+        NgxShimmerLoadingModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

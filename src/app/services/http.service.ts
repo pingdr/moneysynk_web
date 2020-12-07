@@ -549,5 +549,12 @@ export class HttpService {
     }
 
 
+    // Transaction
+
+    deleteTransaction(id) {
+        return this.http.delete(this.apiEndpoint + 'transactions/' + id);
+    }
+
+
 }
 

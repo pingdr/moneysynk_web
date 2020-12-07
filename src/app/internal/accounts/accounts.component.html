@@ -22,7 +22,7 @@
                         <span *ngIf="!data.default" style="position: absolute;right: -18px;">
                             <!-- <i (click)="deleteType(data._id,data.name)"><img style="font-size: 13px;"
                                     src="../../../assets/images/delete-trash.svg"></i> -->
-                            <i (click)="deleteAccount(data._id,data.name)"><img style="font-size: 13px;"
+                            <i (click)="deleteAccount(data._id,data.name,'deleteAccountType')"><img style="font-size: 13px;"
                                     src="../../../assets/images/delete-trash.svg"></i>
                         </span>
                     </span>
@@ -35,37 +35,48 @@
         <!-- <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab"> -->
         <div style="padding:20px;" class="row">
             <div class="col-8 col-md-8 col-lg-8 scroller-class">
-                <div *ngFor="let data of accountList; let i = index"
-                    [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account"
-                    (click)="recordSelected(i,data._id)">
-                    <div class="number">
-                        <span><img style="width: 32px;" src="{{data.icon}}"></span></div>
-                    <div class="account-type"><span>{{ data.name }}</span></div>
-                    <a class="view-btn">
-                        <img style="margin-left: -57px;" *ngIf="!data.isViewAmount" (click)="toggleAmount(i)"
-                            src="../../../assets/images/view-eye.svg">
-                        <img style="margin-left: -57px;width: 22px;" *ngIf="data.isViewAmount" (click)="toggleAmount(i)"
-                            src="../../../assets/images/close-eyes.svg">
-                    </a>
-                    <div class="pricing-icon">
-                        <span class="price" *ngIf="data.isViewAmount">${{data.currentBalance}}</span>
-                        <span class="price" *ngIf="!data.isViewAmount">*******</span>
-                    </div>
-                    <div class="action-tab-main">
-                        <a style="cursor: pointer;" (click)="editAccounts(data)" class="edit-btn" title="edit">
-                            <img src="../../../assets/images/edit-pencil.svg">
-                        </a>
-                        <!-- <a class="delete-btn" href="javascript:;" style="cursor: pointer;" (click)="deleteAccounts(data._id,data.name)" title="edit"> -->
-                        <a class="delete-btn" href="javascript:;" style="cursor: pointer;" (click)="deleteAccount()"
-                            title="edit">
-                            <img src="../../../assets/images/delete-trash.svg">
-                        </a>
-                    </div>
 
-                </div>
+                <ng-container *ngIf="isShimmerloading">
+                    <div *ngFor="let shimmer of [1,2,3,4,5,6,7,8,9,10]">
+                        <ngx-shimmer-loading [shape]="'rect'" [width]="'100%'" [height]="'40px'"></ngx-shimmer-loading>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="!isShimmerloading">
+                    <div *ngFor="let data of accountList; let i = index"
+                        [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account"
+                        (click)="recordSelected(i,data._id)">
+                        <div class="number">
+                            <span><img style="width: 32px;" src="{{data.icon}}"></span></div>
+                        <div class="account-type"><span>{{ data.name }}</span></div>
+                        <a class="view-btn">
+                            <img style="margin-left: -57px;" *ngIf="!data.isViewAmount" (click)="toggleAmount(i)"
+                                src="../../../assets/images/view-eye.svg">
+                            <img style="margin-left: -57px;width: 22px;" *ngIf="data.isViewAmount"
+                                (click)="toggleAmount(i)" src="../../../assets/images/close-eyes.svg">
+                        </a>
+                        <div class="pricing-icon">
+                            <span class="price" *ngIf="data.isViewAmount">${{data.currentBalance}}</span>
+                            <span class="price" *ngIf="!data.isViewAmount">*******</span>
+                        </div>
+                        <div class="action-tab-main">
+                            <a style="cursor: pointer;" (click)="editAccounts(data)" class="edit-btn" title="edit">
+                                <img src="../../../assets/images/edit-pencil.svg">
+                            </a>
+                            <!-- <a class="delete-btn" href="javascript:;" style="cursor: pointer;" (click)="deleteAccounts(data._id,data.name)" title="edit"> -->
+                            <a class="delete-btn" href="javascript:;" style="cursor: pointer;" (click)="deleteAccount(data._id,data.name,'deleteAccount')"
+                                title="edit">
+                                <img src="../../../assets/images/delete-trash.svg">
+                            </a>
+                        </div>
+
+                    </div>                    
+                </ng-container>
+
                 <div style="display: flex;float: right;" *ngIf="resultsLength > 10">
-                    <mat-paginator (page)="pageChange($event)" [length]="resultsLength" [pageSize]="10"></mat-paginator>
-                </div>
+                        <mat-paginator (page)="pageChange($event)" [length]="resultsLength" [pageSize]="10">
+                        </mat-paginator>
+                    </div>
             </div>
             <div class="col-4 col-md-4 col-lg-4">
                 <div class="list-main-filter">

@@ -38,7 +38,8 @@
 
                     <mat-date-range-input [rangePicker]="picker">
                         <input matStartDate placeholder="Start date" #dateRangeStart>
-                        <input matEndDate placeholder="End date" #dateRangeEnd (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
+                        <input matEndDate placeholder="End date" #dateRangeEnd
+                            (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
                     </mat-date-range-input>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
@@ -67,23 +68,33 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let t of transactionList;let i = index">
-                            <td class="sr-no">{{i+1}}</td>
-                            <td class="payee">{{t.beneficiaryId.name}}</td>
-                            <td class="amount">${{t.amount}}</td>
-                            <td class="account-type"><span class="label-saving">{{t.accountId.name}}</span> </td>
-                            <td class="category">{{t.categoryId.name}}</td>
-                            <td class="created-date"> {{t.dateTime | date}} </td>
-                            <td class="class-name">{{t.classId.name}}</td>
-                            <td class="action">
-                                <a href="#" title="edit" class="edit-icon">
-                                    <img src="../../../assets/images/edit-pencil.svg">
-                                </a>
-                                <a style="cursor: pointer;" title="Delete" class="delete-icon" (click)="deleteTransaction(t._id,t.beneficiaryId.name)">
-                                    <img src="../../../assets/images/delete-trash.svg">
-                                </a>
-                            </td>
-                        </tr>
+                        <ng-container *ngIf="isShimmerloding">
+                            <tr *ngFor="let shimmer of [1,2,3,4,5]">
+                                <td colspan="8" class="payee">
+                                    <ngx-shimmer-loading [width]="'100%'"></ngx-shimmer-loading>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="!isShimmerloding">
+                            <tr *ngFor="let t of transactionList;let i = index">
+                                <td class="sr-no">{{i+1}}</td>
+                                <td class="payee">{{t.beneficiaryId.name}}</td>
+                                <td class="amount">${{t.amount}}</td>
+                                <td class="account-type"><span class="label-saving">{{t.accountId.name}}</span> </td>
+                                <td class="category">{{t.categoryId.name}}</td>
+                                <td class="created-date"> {{t.dateTime | date}} </td>
+                                <td class="class-name">{{t.classId.name}}</td>
+                                <td class="action">
+                                    <a href="#" title="edit" class="edit-icon">
+                                        <img src="../../../assets/images/edit-pencil.svg">
+                                    </a>
+                                    <a style="cursor: pointer;" title="Delete" class="delete-icon"
+                                        (click)="deleteTransaction(t._id,t.beneficiaryId.name)">
+                                        <img src="../../../assets/images/delete-trash.svg">
+                                    </a>
+                                </td>
+                            </tr>
+                        </ng-container>
                     </tbody>
                 </table>
 

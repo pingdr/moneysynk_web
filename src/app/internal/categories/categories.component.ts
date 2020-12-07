@@ -26,7 +26,10 @@ export class CategoriesComponent implements OnInit {
   groupId: any;
   expenseArray: any = [];
   incomeArray: any = [];
+
   isApiCalling: boolean = false;
+  isShimmerloading: boolean = false;
+
   categoryId;
   categoryName;
   categoriesDetails: any = [];
@@ -82,6 +85,7 @@ export class CategoriesComponent implements OnInit {
   }
   getCategoriesData() {
     this.isApiCalling = true;
+    this.isShimmerloading = true;
     var payload = {
       "groupId": this.groupId,
       "pageIndex": this.pageIndex,
@@ -94,6 +98,7 @@ export class CategoriesComponent implements OnInit {
     this.http.getCategories(ApiUrl.getCategories, payload).subscribe(res => {
       console.log("Category List", res);
       this.isApiCalling = false;
+      this.isShimmerloading = false;
       this.http.showLoader();
       if (res.data.data != undefined) {
         this.total = res.data.totalCategories;

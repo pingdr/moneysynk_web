@@ -33,6 +33,7 @@
     .scroller-class {
         height: 535px !important;
         overflow-y: scroll !important;
+        margin-bottom: 70px;
     }
 }
 
@@ -151,7 +152,7 @@
     position: fixed !important;
     bottom: 12px;
     width: 83.5%;
-    z-index: 999999999;
+    z-index: 1;
 }
 
 .total-expanse-panal-bottom-main {
@@ -332,7 +333,7 @@
         position: absolute;
         top: 10px;
         right: -7px;
-        z-index: 99;
+        z-index: 1;
         .comm-char {
             // margin-bottom: 8px;
             text-align: center;

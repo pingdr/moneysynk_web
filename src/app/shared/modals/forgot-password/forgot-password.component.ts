@@ -16,18 +16,17 @@ export class ForgotPasswordComponent implements OnInit {
   email: FormGroup;
   submitted = false;
   public loader = false;
-  forgotFlag : any = 1;
+  forgotFlag: any = 1;
 
   constructor(private formBuilder: FormBuilder,
-              public dialog: MatDialog,
-              public http: HttpService,
-              private toastr: ToastrService,
-              public dialogRef: MatDialogRef<ForgotPasswordComponent>)
-               {
-                this.email = this.formBuilder.group({
-                  email: ['', [Validators.required, Validators.email]],    
-               });
-               }
+    public dialog: MatDialog,
+    public http: HttpService,
+    private toastr: ToastrService,
+    public dialogRef: MatDialogRef<ForgotPasswordComponent>) {
+    this.email = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+    });
+  }
 
   ngOnInit(): void {
   }
@@ -50,7 +49,7 @@ export class ForgotPasswordComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.email.invalid) {
-        return;
+      return;
     }
 
     if (this.http.isFormValid(this.email)) {
@@ -58,26 +57,30 @@ export class ForgotPasswordComponent implements OnInit {
       this.http.sendEmailtoForgotPassword(ApiUrl.Forgot, this.email.value.email, false)
         .subscribe(data => {
           let response: any = data;
-            console.log(response);
+          console.log(response);
           if (response.statusCode == 200) {
             this.dialogRef.close(this.dialogRef);
             this.toastr.success('otp send successfully', 'success', {
               timeOut: 2000
             });
-            const dialogRef = this.dialog.open(EmailOtpComponent, { panelClass: 'otp-modal-main', data: { isforgot: true,
-              email: this.email.value.email } });
+            const dialogRef = this.dialog.open(EmailOtpComponent, {
+              panelClass: 'otp-modal-main', data: {
+                isforgot: true,
+                email: this.email.value.email
+              }
+            });
 
             dialogRef.afterClosed().subscribe(result => {
               console.log(`Dialog result: ${result}`);
             });
-          } 
+          }
 
         },
           () => {
             console.log('failed');
             this.loader = false;
           });
-          
+
     }
   }
 

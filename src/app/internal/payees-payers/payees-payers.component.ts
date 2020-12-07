@@ -23,7 +23,10 @@ export class PayeesPayersComponent implements OnInit {
   pName: any = '';
   groupId: any;
   isRecordSelected: any = 0;
+
   isApiCalling: boolean = false;
+  isShimmerLoading: boolean = false;
+
   payeeId;
   payeeName;
   total: any = 0;
@@ -68,7 +71,10 @@ export class PayeesPayersComponent implements OnInit {
   }
 
   getPayees() {
+
     this.isApiCalling = true;
+    this.isShimmerLoading = true;
+
     var payload = {
       "groupId": this.groupId,
       // "pageIndex": this.pageIndex,
@@ -78,6 +84,8 @@ export class PayeesPayersComponent implements OnInit {
     this.http.get(ApiUrl.getAllPayees, payload).subscribe(res => {
 
       this.isApiCalling = false;
+      this.isShimmerLoading = false;
+
       this.http.showLoader();
 
       if (res.data.data != undefined) {
@@ -119,7 +127,7 @@ export class PayeesPayersComponent implements OnInit {
   gotoPayersTop(char) {
     for (let index = 0; index < this.sortCharData.length; index++) {
       if (char === this.sortCharData[index]) {
-        var setChar: any = document.getElementById('P'+char) as HTMLDivElement;
+        var setChar: any = document.getElementById('P' + char) as HTMLDivElement;
         setTimeout(() => {
           setChar.style.top = '-150px';
           setChar.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });

@@ -13,8 +13,10 @@
     <div class="white-box">
         <nav class="asset-main-tab">
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" (click)="setType('EXPENSE')" href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Expense</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" (click)="setType('INCOME')" href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Income</a>
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" (click)="setType('EXPENSE')"
+                    href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Expense</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" (click)="setType('INCOME')"
+                    href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Income</a>
 
             </div>
         </nav>
@@ -23,234 +25,73 @@
             <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8 scroller-class">
+
+                        <ng-container *ngIf="isShimmerloading">
+                            <div *ngFor="let shimmer of [1,2,3,4,5,6,7,8,9,10]">
+                                <div class="shimmer">
+                                    <ngx-shimmer-loading [shape]="'circle'" [width]="'50px'"></ngx-shimmer-loading>
+                                </div>
+                                <div class="shimmer">
+                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'500px'" [height]="'50px'">
+                                    </ngx-shimmer-loading>
+                                </div>
+                            </div>
+                        </ng-container>
+
                         <!-------------------------------- categories-Expansion-------------------------------->
-                        <div class="categories-accordian-main">
-                            <mat-accordion>
-                                <!-------------------- First-tab--------------------------->
-                                <mat-expansion-panel id="tab{{i}}" *ngFor="let cat of expenseArray;let i = index" [expanded]="i==0">
-                                    <mat-expansion-panel-header (click)="selectRecord(cat)">
-                                        <mat-panel-title>
-                                            <span>{{cat.name}}</span>
-                                            <img src="{{cat.icon}}">
-                                        </mat-panel-title>
-                                        <mat-panel-description>
-                                            <div class="main-right-heading">
+                        <ng-container *ngIf="!isShimmerloading">
+                            <div class="categories-accordian-main">
+                                <mat-accordion>
+                                    <!-------------------- First-tab--------------------------->
+                                    <mat-expansion-panel id="tab{{i}}" *ngFor="let cat of expenseArray;let i = index"
+                                        [expanded]="i==0">
+                                        <mat-expansion-panel-header (click)="selectRecord(cat)">
+                                            <mat-panel-title>
+                                                <span>{{cat.name}}</span>
+                                                <img src="{{cat.icon}}">
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                <div class="main-right-heading">
+                                                    <div class="left-col">
+                                                        <span class="red-color">$ {{cat.expenseTotal}}</span>
+                                                        <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
+                                                    </div>
+
+                                                </div>
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <div *ngIf="cat.child.length > 0" class="expansion-description-main">
+                                            <div *ngFor="let c of cat.child" class="inner-strips">
                                                 <div class="left-col">
-                                                    <span class="red-color">$ {{cat.expenseTotal}}</span>
-                                                    <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
+                                                    <img src="{{c.icon}}">
+                                                    <span>{{c.name}}</span>
                                                 </div>
                                                 <div class="right-col">
-                                                    <!-- <a href="javascript:;" (click)="openDeleteCategoryDialog(cat._id,cat.name)" title="Delete">
+                                                    <span class="red-color">$ {{c.expenseTotal}}</span>
+                                                    <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault"
+                                                        title="Delete"
+                                                        style="float: right;text-decoration: none;cursor: pointer;">
                                                         <img src="../../../assets/images/delete-trash.svg">
-                                                    </a> -->
-                                                    <!-- <a href="javascript:;" (click)="deleteCategory(cat._id,cat.name)"
-                                                        title="Delete">
-                                                        <img src="../../../assets/images/delete-trash.svg">
-                                                    </a> -->
+                                                    </a>
+                                                    <a title="Edit"
+                                                        style="float: right;text-decoration: none;cursor: pointer;"
+                                                        (click)="editCategory(c)" *ngIf="!c.isDefault">
+                                                        <img
+                                                            src="../../../assets/images/edit-pencil.svg">&nbsp;&nbsp;&nbsp;
+                                                    </a>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </mat-expansion-panel>
 
-                                            </div>
-                                        </mat-panel-description>
-                                    </mat-expansion-panel-header>
-                                    <div *ngIf="cat.child.length > 0" class="expansion-description-main">
-                                        <div *ngFor="let c of cat.child" class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="{{c.icon}}">
-                                                <span>{{c.name}}</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ {{c.expenseTotal}}</span>
-                                                <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault" title="Delete" style="float: right;text-decoration: none;cursor: pointer;">
-                                                    <img src="../../../assets/images/delete-trash.svg">
-                                                </a>
-                                                <a title="Edit" style="float: right;text-decoration: none;cursor: pointer;" (click)="editCategory(c)" *ngIf="!c.isDefault">
-                                                    <img src="../../../assets/images/edit-pencil.svg">&nbsp;&nbsp;&nbsp;
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Insurance</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Parking</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div> -->
-
-
-                                    </div>
-
-
-                                </mat-expansion-panel>
-
-                                <!-- <mat-expansion-panel>
-                                <mat-expansion-panel-header>
-                                  <mat-panel-title>
-                                    <span>Charity</span>
-                                    <img src="../../../assets/images/charity.svg">
-                                  </mat-panel-title>
-                                  <mat-panel-description>
-                                    <div class="main-right-heading">
-                                       
-                                        <div class="right-col">
-                                            <a href="#" title="Delete">
-                                                <img src="../../../assets/images/delete-trash.svg">
-                                            </a>
-                                        </div>
-
-                                    </div>
-                                  </mat-panel-description>
-                                </mat-expansion-panel-header>
-                                    <div class="expansion-description-main">
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Gas</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 62.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Insurance</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Parking</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-
-                                        
-                                    </div>
-                              </mat-expansion-panel>
-                              <mat-expansion-panel>
-                                <mat-expansion-panel-header>
-                                  <mat-panel-title>
-                                    <span>Entertainment</span>
-                                    <img src="../../../assets/images/entertainment.svg">
-                                  </mat-panel-title>
-                                  <mat-panel-description>
-                                    <div class="main-right-heading">
-                                       
-                                        <div class="right-col">
-                                            <a href="#" title="Delete">
-                                                <img src="../../../assets/images/delete-trash.svg">
-                                            </a>
-                                        </div>
-
-                                    </div>
-                                  </mat-panel-description>
-                                </mat-expansion-panel-header>
-                                    <div class="expansion-description-main">
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Gas</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 62.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Insurance</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Parking</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-
-                                        
-                                    </div>
-                              </mat-expansion-panel>
-                              <mat-expansion-panel>
-                                <mat-expansion-panel-header>
-                                  <mat-panel-title>
-                                    <span>Food</span>
-                                    <img src="../../../assets/images/food.svg">
-                                  </mat-panel-title>
-                                  <mat-panel-description>
-                                    <div class="main-right-heading">
-                                       
-                                        <div class="right-col">
-                                            <a href="#" title="Delete">
-                                                <img src="../../../assets/images/delete-trash.svg">
-                                            </a>
-                                        </div>
-
-                                    </div>
-                                  </mat-panel-description>
-                                </mat-expansion-panel-header>
-                                    <div class="expansion-description-main">
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Gas</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 62.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Insurance</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Parking</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-
-                                        
-                                    </div>
-                              </mat-expansion-panel> -->
-
-                            </mat-accordion>
-                        </div>
+                                </mat-accordion>
+                            </div>
+                        </ng-container>
 
                         <div style="display: flex;float: right;" *ngIf="total > 10">
-                            <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
+                            <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10">
+                            </mat-paginator>
                         </div>
-
                     </div>
                     <div class="col-4 col-md-4 col-lg-4">
                         <div class="list-main-filter">
@@ -259,11 +100,13 @@
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->
-                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel" aria-labelledby="nav-list-tab">
+                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
+                                    aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel *ngFor="let cd of categoriesDetails" [expanded]="step === 0" (opened)="setStep(0)">
+                                            <mat-expansion-panel *ngFor="let cd of categoriesDetails"
+                                                [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
                                                         {{cd._id.month}}/{{cd._id.year}}
@@ -277,193 +120,18 @@
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
                                                             <div class="holder-name">{{d.accountId.name}}</div>
-                                                            <div *ngIf="d.transactionType == 'IN'" class="price-tag green-color">$ {{d.amount}}</div>
-                                                            <div *ngIf="d.transactionType == 'OUT'" class="price-tag red-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'IN'"
+                                                                class="price-tag green-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'OUT'"
+                                                                class="price-tag red-color">$ {{d.amount}}</div>
                                                         </div>
                                                         <div class="main-strips">
                                                             <div class="date-and-time">{{d.createdAt | date}}</div>
-                                                            <!-- <div class="account-type">My Account</div> -->
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div> -->
-
                                                 </div>
-                                                <!-- --------strips ---------------------->
-                                                <!-- <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div> -->
-                                                <!------------------strips------------------------>
-                                                <!-- <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div> -->
 
                                             </mat-expansion-panel>
-                                            <!-- second-panal -->
-                                            <!-- <mat-expansion-panel>
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        Aug 2020
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-
-                                            </mat-expansion-panel> -->
-                                            <!-- third-panal -->
-                                            <!-- <mat-expansion-panel>
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        Aug 2020
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">Bike</div>
-                                                            <div class="price-tag red-color">$ 85.00</div>
-                                                        </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">18 Aug 2020 5.00 pm</div>
-                                                            <div class="account-type">My Account</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inner-sub-right">
-                                                        <a href="#" title="edit">
-                                                            <img src="../../../assets/images/edit-pencil.svg">
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-
-                                            </mat-expansion-panel> -->
 
                                         </mat-accordion>
                                     </div>
@@ -473,241 +141,253 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-8 col-md-8 col-lg-8">
-                        <!-- <div style="display: flex;float: right;" *ngIf="total > 10">
-                            <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
-                        </div> -->
-                    </div>
-                    <div class="col-4 col-md-4 col-lg-4">
-
-                    </div>
-                </div>
             </div>
             <!-------------------------second tab--------------------------- -->
             <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8 scroller-class">
-                        <div class="categories-accordian-main">
-                            <mat-accordion>
-                                <!-------------------- First-tab--------------------------->
-                                <mat-expansion-panel *ngFor="let inc of incomeArray;let i=index" [expanded]="i==0">
-                                    <mat-expansion-panel-header (click)="selectRecord(inc)">
-                                        <mat-panel-title>
-                                            <span>{{inc.name}}</span>
-                                            <img src="{{inc.icon}}">
-                                        </mat-panel-title>
-                                        <mat-panel-description>
-                                            <div class="main-right-heading">
-                                                <div class="left-col">
-                                                    <span class="green-cleared">$ {{inc.incomeTotal}}</span>
-                                                    <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
+
+                        <ng-container *ngIf="isShimmerloading">
+                            <div *ngFor="let shimmer of [1,2,3,4,5,6,7,8,9,10]">
+                                <div class="shimmer">
+                                    <ngx-shimmer-loading [shape]="'circle'" [width]="'50px'"></ngx-shimmer-loading>
+                                </div>
+                                <div class="shimmer">
+                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'500px'" [height]="'50px'">
+                                    </ngx-shimmer-loading>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="!isShimmerloading">
+                            <div class="categories-accordian-main">
+                                <mat-accordion>
+                                    <!-------------------- First-tab--------------------------->
+                                    <mat-expansion-panel *ngFor="let inc of incomeArray;let i=index" [expanded]="i==0">
+                                        <mat-expansion-panel-header (click)="selectRecord(inc)">
+                                            <mat-panel-title>
+                                                <span>{{inc.name}}</span>
+                                                <img src="{{inc.icon}}">
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                <div class="main-right-heading">
+                                                    <div class="left-col">
+                                                        <span class="green-cleared">$ {{inc.incomeTotal}}</span>
+                                                        <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
+                                                    </div>
+                                                    <!-- <div class="right-col">
+                                                        <a href="#" title="Delete">
+                                                            <img src="../../../assets/images/delete-trash.svg">
+                                                        </a>
+                                                    </div> -->
+
                                                 </div>
-                                                <!-- <div class="right-col">
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <div class="expansion-description-main">
+                                            <div *ngFor="let c of inc.child" class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="{{c.icon}}">
+                                                    <span>{{c.name}}</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="green-cleared">$ {{c.incomeTotal}}</span>
+                                                    <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault"
+                                                        title="Delete"
+                                                        style="float: right;text-decoration: none;cursor: pointer;">
+                                                        <img src="../../../assets/images/delete-trash.svg">
+                                                    </a>
+                                                    <a title="Edit"
+                                                        style="float: right;text-decoration: none;cursor: pointer;"
+                                                        (click)="editCategory(c)" *ngIf="!c.isDefault">
+                                                        <img
+                                                            src="../../../assets/images/edit-pencil.svg">&nbsp;&nbsp;&nbsp;
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Insurance</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 0.00</span>
+                                                </div>
+                                            </div>
+                                            <div class="inner-strips">
+                                                <div class="left-col">
+                                                    <img src="../../../assets/images/gas.svg">
+                                                    <span>Parking</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="red-color">$ 0.00</span>
+                                                </div>
+                                            </div> -->
+
+
+                                        </div>
+
+
+                                    </mat-expansion-panel>
+
+                                    <!-- <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                            <span>Charity</span>
+                                            <img src="../../../assets/images/charity.svg">
+                                          </mat-panel-title>
+                                          <mat-panel-description>
+                                            <div class="main-right-heading">
+                                               
+                                                <div class="right-col">
                                                     <a href="#" title="Delete">
                                                         <img src="../../../assets/images/delete-trash.svg">
                                                     </a>
-                                                </div> -->
+                                                </div>
+        
+                                            </div>
+                                          </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                            <div class="expansion-description-main">
+                                                <div class="inner-strips">
+                                                    <div class="left-col">
+                                                        <img src="../../../assets/images/gas.svg">
+                                                        <span>Gas</span>
+                                                    </div>
+                                                    <div class="right-col">
+                                                        <span class="red-color">$ 62.00</span>
+                                                    </div>
+                                                </div>
+                                                <div class="inner-strips">
+                                                    <div class="left-col">
+                                                        <img src="../../../assets/images/gas.svg">
+                                                        <span>Insurance</span>
+                                                    </div>
+                                                    <div class="right-col">
+                                                        <span class="red-color">$ 0.00</span>
+                                                    </div>
+                                                </div>
+                                                <div class="inner-strips">
+                                                    <div class="left-col">
+                                                        <img src="../../../assets/images/gas.svg">
+                                                        <span>Parking</span>
+                                                    </div>
+                                                    <div class="right-col">
+                                                        <span class="red-color">$ 0.00</span>
+                                                    </div>
+                                                </div>
+        
+                                                
+                                            </div>
+                                      </mat-expansion-panel>
+                                      <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                            <span>Entertainment</span>
+                                            <img src="../../../assets/images/entertainment.svg">
+                                          </mat-panel-title>
+                                          <mat-panel-description>
+                                            <div class="main-right-heading">
+                                               
+                                                <div class="right-col">
+                                                    <a href="#" title="Delete">
+                                                        <img src="../../../assets/images/delete-trash.svg">
+                                                    </a>
+                                                </div>
+        
+                                            </div>
+                                          </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                            <div class="expansion-description-main">
+                                                <div class="inner-strips">
+                                                    <div class="left-col">
+                                                        <img src="../../../assets/images/gas.svg">
+                                                        <span>Gas</span>
+                                                    </div>
+                                                    <div class="right-col">
+                                                        <span class="red-color">$ 62.00</span>
+                                                    </div>
+                                                </div>
+                                                <div class="inner-strips">
+                                                    <div class="left-col">
+                                                        <img src="../../../assets/images/gas.svg">
+                                                        <span>Insurance</span>
+                                                    </div>
+                                                    <div class="right-col">
+                                                        <span class="red-color">$ 0.00</span>
+                                                    </div>
+                                                </div>
+                                                <div class="inner-strips">
+                                                    <div class="left-col">
+                                                        <img src="../../../assets/images/gas.svg">
+                                                        <span>Parking</span>
+                                                    </div>
+                                                    <div class="right-col">
+                                                        <span class="red-color">$ 0.00</span>
+                                                    </div>
+                                                </div>
+        
+                                                
+                                            </div>
+                                      </mat-expansion-panel>
+                                      <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                            <span>Food</span>
+                                            <img src="../../../assets/images/food.svg">
+                                          </mat-panel-title>
+                                          <mat-panel-description>
+                                            <div class="main-right-heading">
+                                               
+                                                <div class="right-col">
+                                                    <a href="#" title="Delete">
+                                                        <img src="../../../assets/images/delete-trash.svg">
+                                                    </a>
+                                                </div>
+        
+                                            </div>
+                                          </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                            <div class="expansion-description-main">
+                                                <div class="inner-strips">
+                                                    <div class="left-col">
+                                                        <img src="../../../assets/images/gas.svg">
+                                                        <span>Gas</span>
+                                                    </div>
+                                                    <div class="right-col">
+                                                        <span class="red-color">$ 62.00</span>
+                                                    </div>
+                                                </div>
+                                                <div class="inner-strips">
+                                                    <div class="left-col">
+                                                        <img src="../../../assets/images/gas.svg">
+                                                        <span>Insurance</span>
+                                                    </div>
+                                                    <div class="right-col">
+                                                        <span class="red-color">$ 0.00</span>
+                                                    </div>
+                                                </div>
+                                                <div class="inner-strips">
+                                                    <div class="left-col">
+                                                        <img src="../../../assets/images/gas.svg">
+                                                        <span>Parking</span>
+                                                    </div>
+                                                    <div class="right-col">
+                                                        <span class="red-color">$ 0.00</span>
+                                                    </div>
+                                                </div>
+        
+                                                
+                                            </div>
+                                      </mat-expansion-panel> -->
 
-                                            </div>
-                                        </mat-panel-description>
-                                    </mat-expansion-panel-header>
-                                    <div class="expansion-description-main">
-                                        <div *ngFor="let c of inc.child" class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="{{c.icon}}">
-                                                <span>{{c.name}}</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="green-cleared">$ {{c.incomeTotal}}</span>
-                                                <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault" title="Delete" style="float: right;text-decoration: none;cursor: pointer;">
-                                                    <img src="../../../assets/images/delete-trash.svg">
-                                                </a>
-                                                <a title="Edit" style="float: right;text-decoration: none;cursor: pointer;" (click)="editCategory(c)" *ngIf="!c.isDefault">
-                                                    <img src="../../../assets/images/edit-pencil.svg">&nbsp;&nbsp;&nbsp;
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Insurance</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="inner-strips">
-                                            <div class="left-col">
-                                                <img src="../../../assets/images/gas.svg">
-                                                <span>Parking</span>
-                                            </div>
-                                            <div class="right-col">
-                                                <span class="red-color">$ 0.00</span>
-                                            </div>
-                                        </div> -->
+                                </mat-accordion>
+                            </div>
+                        </ng-container>
 
-
-                                    </div>
-
-
-                                </mat-expansion-panel>
-
-                                <!-- <mat-expansion-panel>
-                                    <mat-expansion-panel-header>
-                                      <mat-panel-title>
-                                        <span>Charity</span>
-                                        <img src="../../../assets/images/charity.svg">
-                                      </mat-panel-title>
-                                      <mat-panel-description>
-                                        <div class="main-right-heading">
-                                           
-                                            <div class="right-col">
-                                                <a href="#" title="Delete">
-                                                    <img src="../../../assets/images/delete-trash.svg">
-                                                </a>
-                                            </div>
-    
-                                        </div>
-                                      </mat-panel-description>
-                                    </mat-expansion-panel-header>
-                                        <div class="expansion-description-main">
-                                            <div class="inner-strips">
-                                                <div class="left-col">
-                                                    <img src="../../../assets/images/gas.svg">
-                                                    <span>Gas</span>
-                                                </div>
-                                                <div class="right-col">
-                                                    <span class="red-color">$ 62.00</span>
-                                                </div>
-                                            </div>
-                                            <div class="inner-strips">
-                                                <div class="left-col">
-                                                    <img src="../../../assets/images/gas.svg">
-                                                    <span>Insurance</span>
-                                                </div>
-                                                <div class="right-col">
-                                                    <span class="red-color">$ 0.00</span>
-                                                </div>
-                                            </div>
-                                            <div class="inner-strips">
-                                                <div class="left-col">
-                                                    <img src="../../../assets/images/gas.svg">
-                                                    <span>Parking</span>
-                                                </div>
-                                                <div class="right-col">
-                                                    <span class="red-color">$ 0.00</span>
-                                                </div>
-                                            </div>
-    
-                                            
-                                        </div>
-                                  </mat-expansion-panel>
-                                  <mat-expansion-panel>
-                                    <mat-expansion-panel-header>
-                                      <mat-panel-title>
-                                        <span>Entertainment</span>
-                                        <img src="../../../assets/images/entertainment.svg">
-                                      </mat-panel-title>
-                                      <mat-panel-description>
-                                        <div class="main-right-heading">
-                                           
-                                            <div class="right-col">
-                                                <a href="#" title="Delete">
-                                                    <img src="../../../assets/images/delete-trash.svg">
-                                                </a>
-                                            </div>
-    
-                                        </div>
-                                      </mat-panel-description>
-                                    </mat-expansion-panel-header>
-                                        <div class="expansion-description-main">
-                                            <div class="inner-strips">
-                                                <div class="left-col">
-                                                    <img src="../../../assets/images/gas.svg">
-                                                    <span>Gas</span>
-                                                </div>
-                                                <div class="right-col">
-                                                    <span class="red-color">$ 62.00</span>
-                                                </div>
-                                            </div>
-                                            <div class="inner-strips">
-                                                <div class="left-col">
-                                                    <img src="../../../assets/images/gas.svg">
-                                                    <span>Insurance</span>
-                                                </div>
-                                                <div class="right-col">
-                                                    <span class="red-color">$ 0.00</span>
-                                                </div>
-                                            </div>
-                                            <div class="inner-strips">
-                                                <div class="left-col">
-                                                    <img src="../../../assets/images/gas.svg">
-                                                    <span>Parking</span>
-                                                </div>
-                                                <div class="right-col">
-                                                    <span class="red-color">$ 0.00</span>
-                                                </div>
-                                            </div>
-    
-                                            
-                                        </div>
-                                  </mat-expansion-panel>
-                                  <mat-expansion-panel>
-                                    <mat-expansion-panel-header>
-                                      <mat-panel-title>
-                                        <span>Food</span>
-                                        <img src="../../../assets/images/food.svg">
-                                      </mat-panel-title>
-                                      <mat-panel-description>
-                                        <div class="main-right-heading">
-                                           
-                                            <div class="right-col">
-                                                <a href="#" title="Delete">
-                                                    <img src="../../../assets/images/delete-trash.svg">
-                                                </a>
-                                            </div>
-    
-                                        </div>
-                                      </mat-panel-description>
-                                    </mat-expansion-panel-header>
-                                        <div class="expansion-description-main">
-                                            <div class="inner-strips">
-                                                <div class="left-col">
-                                                    <img src="../../../assets/images/gas.svg">
-                                                    <span>Gas</span>
-                                                </div>
-                                                <div class="right-col">
-                                                    <span class="red-color">$ 62.00</span>
-                                                </div>
-                                            </div>
-                                            <div class="inner-strips">
-                                                <div class="left-col">
-                                                    <img src="../../../assets/images/gas.svg">
-                                                    <span>Insurance</span>
-                                                </div>
-                                                <div class="right-col">
-                                                    <span class="red-color">$ 0.00</span>
-                                                </div>
-                                            </div>
-                                            <div class="inner-strips">
-                                                <div class="left-col">
-                                                    <img src="../../../assets/images/gas.svg">
-                                                    <span>Parking</span>
-                                                </div>
-                                                <div class="right-col">
-                                                    <span class="red-color">$ 0.00</span>
-                                                </div>
-                                            </div>
-    
-                                            
-                                        </div>
-                                  </mat-expansion-panel> -->
-
-                            </mat-accordion>
-                        </div>
                         <div style="display: flex;float: right;" *ngIf="total > 10">
-                            <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10"></mat-paginator>
+                            <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10">
+                            </mat-paginator>
                         </div>
                     </div>
                     <div class="col-4 col-md-4 col-lg-4">
@@ -718,11 +398,13 @@
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                                 <!-- list -->
-                                <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel" aria-labelledby="nav-list-tab">
+                                <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel"
+                                    aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel *ngFor="let cd of categoriesDetails" [expanded]="step === 0" (opened)="setStep(0)">
+                                            <mat-expansion-panel *ngFor="let cd of categoriesDetails"
+                                                [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
                                                         {{cd._id.month}}/{{cd._id.year}}
@@ -736,8 +418,10 @@
                                                     <div class="inner-sub-left">
                                                         <div class="main-strips">
                                                             <div class="holder-name">{{d.accountId.name}}</div>
-                                                            <div *ngIf="d.transactionType == 'IN'" class="price-tag green-color">$ {{d.amount}}</div>
-                                                            <div *ngIf="d.transactionType == 'OUT'" class="price-tag red-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'IN'"
+                                                                class="price-tag green-color">$ {{d.amount}}</div>
+                                                            <div *ngIf="d.transactionType == 'OUT'"
+                                                                class="price-tag red-color">$ {{d.amount}}</div>
                                                         </div>
                                                         <div class="main-strips">
                                                             <div class="date-and-time">{{d.createdAt | date}}</div>
@@ -994,8 +678,11 @@
         <!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
         <mat-dialog-actions>
             <div class="display-flex">
-                <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button class="orange-back" (click)="deleteCategory()" matDialogClose="yes">Confirm</button>&nbsp;
-                <button mat-stroked-button color="primary" matDialogClose="no" style="box-shadow: none !important;border-radius: 20px;border:none" (click)="closeAllModal()">Cancle</button>
+                <button style="box-shadow: none !important;border-radius: 20px;" mat-raised-button class="orange-back"
+                    (click)="deleteCategory()" matDialogClose="yes">Confirm</button>&nbsp;
+                <button mat-stroked-button color="primary" matDialogClose="no"
+                    style="box-shadow: none !important;border-radius: 20px;border:none"
+                    (click)="closeAllModal()">Cancle</button>
             </div>
         </mat-dialog-actions>
     </ng-template>

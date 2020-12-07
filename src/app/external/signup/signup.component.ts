@@ -23,6 +23,8 @@ export class SignupComponent implements OnInit {
   public isPasswordShow: boolean = false;
   public isConfirmPassworShow: boolean = false;
 
+  isTermsAndCondition: number = 0;
+
   constructor(private formBuilder: FormBuilder,
     public dialog: MatDialog,
     public http: HttpService,
@@ -96,9 +98,16 @@ export class SignupComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
+
+    if (!this.SignupForm.controls.acceptTerms.value && this.isTermsAndCondition != 0) {
+      this.toastr.error('Please accept T&C');
+    }
+
     if (this.SignupForm.invalid) {
+      this.isTermsAndCondition = this.isTermsAndCondition + 1;
       return;
     }
+
     if (this.http.isFormValid(this.SignupForm)) {
       this.loader = true;
       this.http.sendEmail(ApiUrl.requestotp, this.SignupForm.value.email, false)
@@ -128,7 +137,16 @@ export class SignupComponent implements OnInit {
           });
 
     }
+  }
 
+  onchangeTnC(event) {
+    console.log(event.target.checked);
+    if (event.target.checked) {
+      this.SignupForm.controls.acceptTerms.setValue(event.target.checked);
+    } else {      
+      this.SignupForm.controls.acceptTerms.setValue('');
+      this.isTermsAndCondition = this.isTermsAndCondition + 1;
+    }
 
   }
 

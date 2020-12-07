@@ -7,6 +7,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { BudgetComponent } from './budget.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 
 const routes: Routes = [
     {
@@ -31,7 +32,8 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         MatExpansionModule,
         MatButtonModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        NgxShimmerLoadingModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

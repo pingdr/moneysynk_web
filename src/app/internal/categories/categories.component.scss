@@ -30,10 +30,18 @@
     padding: 20px 0px;
     padding-bottom: 0px;
 
-    .scroller-class{
+    .scroller-class {
         height: 535px !important;
-       overflow-y: scroll !important;
+        overflow-y: scroll !important;
+        margin-bottom: 70px !important;
     }
+
+    
+}
+
+.shimmer {
+    display: inline-block !important;
+    padding: 5px;
 }
 
 .asset-main-tab {
@@ -61,12 +69,12 @@
             border-radius: 18px !important;
             background: #f6f6f6;
             &:hover {
-                background: #7299FF;
+                background: #7299ff;
                 color: #fff;
             }
         }
         .active {
-            background: #7299FF;
+            background: #7299ff;
             color: #fff;
         }
     }
@@ -81,7 +89,7 @@
 
 //----------- strips------------------
 .editable-account {
-    border: 1px solid #EBEBEB;
+    border: 1px solid #ebebeb;
     border-radius: 10px;
     padding: 22px 25px;
     display: flex;
@@ -111,7 +119,7 @@
 }
 
 .active-step {
-    border-left: 10px solid #7299FF !important;
+    border-left: 10px solid #7299ff !important;
 }
 
 .list-main-filter {
@@ -125,7 +133,7 @@
         padding-bottom: 0;
         margin-top: 0;
         border-bottom: 0;
-        background: #7299FF;
+        background: #7299ff;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         padding: 20px 20px;
@@ -143,18 +151,18 @@
     position: fixed !important;
     bottom: 12px;
     width: 83.5%;
-    z-index: 999999999;
+    z-index: 1;
 }
 
-.total-expanse-panal-bottom-main {    
+.total-expanse-panal-bottom-main {
     margin-top: 20px;
     background: #f3d39e;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 20px 20px;
-    position: relative;    
+    position: relative;
 
-    .inner-expanse-panal-main{
+    .inner-expanse-panal-main {
         display: flex;
 
         .boxes {
@@ -165,11 +173,10 @@
             margin-bottom: 5px;
             box-sizing: border-box;
             font-size: 1rem;
-            text-align: center;            
-          }
+            text-align: center;
+        }
     }
 }
-
 
 // .total-expanse-panal-bottom-main {
 //     bottom: 0px !important;
@@ -215,16 +222,16 @@
 // }
 
 .red-total-expanse {
-    color: #FD4755;
+    color: #fd4755;
 }
 
 .green-cleared {
-    color: #27AE60;
+    color: #27ae60;
 }
 
 .second-col:before {
     position: absolute;
-    content: '';
+    content: "";
     background: rgba(0, 0, 0, 0.2);
     width: 1px;
     top: 0;
@@ -234,7 +241,7 @@
 
 .second-col:after {
     position: absolute;
-    content: '';
+    content: "";
     background: rgba(0, 0, 0, 0.2);
     width: 1px;
     top: 0;

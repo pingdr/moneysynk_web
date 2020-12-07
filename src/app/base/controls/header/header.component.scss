@@ -1,33 +1,27 @@
 @mixin min-mq($min-screen-size) {
     @media (min-width: $min-screen-size +"px") {
-    @content;
+        @content;
     }
-    }
-    
-    @mixin max-mq($max-screen-size) {
-    @media (max-width: $max-screen-size +"px") {
-    @content;
-    }
-    }
-    
-    // ----------------------------For Orientation-----------------------//
-    @mixin landscape-orientation($max-screen-size,
-    $orientation) {
-    @media (max-width: $max-screen-size +"px") and (orientation: $orientation) {
-    @content;
-    }
-    }
-    
-    @mixin btw-mq($min-screen-size,
-    $max-screen-size,
-    $pixel-ratio,
-    $orientation) {
-    @media only screen and (min-width: $min-screen-size +"px") and (max-width: $max-screen-size +"px") and (-webkit-min-device-pixel-ratio: $pixel-ratio) and (orientation: $orientation) {
-    @content;
-    }
-    }    
- 
+}
 
+@mixin max-mq($max-screen-size) {
+    @media (max-width: $max-screen-size +"px") {
+        @content;
+    }
+}
+
+// ----------------------------For Orientation-----------------------//
+@mixin landscape-orientation($max-screen-size, $orientation) {
+    @media (max-width: $max-screen-size +"px") and (orientation: $orientation) {
+        @content;
+    }
+}
+
+@mixin btw-mq($min-screen-size, $max-screen-size, $pixel-ratio, $orientation) {
+    @media only screen and (min-width: $min-screen-size +"px") and (max-width: $max-screen-size +"px") and (-webkit-min-device-pixel-ratio: $pixel-ratio) and (orientation: $orientation) {
+        @content;
+    }
+}
 
 .page-topbar {
     position: fixed;
@@ -36,14 +30,14 @@
     height: 90px;
     background: #fff;
     z-index: 9999;
-    @include max-mq(1320){
-        left:200px;
+    @include max-mq(1320) {
+        left: 200px;
     }
-    
+
     .navbar {
         padding: 0;
-        height:100%;
-        .header-main-area{
+        height: 100%;
+        .header-main-area {
             display: flex;
             justify-content: space-between;
             width: 100%;
@@ -53,8 +47,8 @@
     }
 }
 
-.dropdown{
-    .dropdown-toggle{
+.dropdown {
+    .dropdown-toggle {
         background: #fff;
         padding: 0;
         border: none !important;
@@ -62,18 +56,18 @@
     }
 }
 
-.header-first-drop-down{
-    .btn{
+.header-first-drop-down {
+    .btn {
         font-size: 14px;
         font-weight: 400;
         margin-left: 28px;
         color: #5e5e5e !important;
-        &:focus{
+        &:focus {
             outline: none !important;
             border: none !important;
             box-shadow: none !important;
         }
-        &::after{
+        &::after {
             border: none;
             background: url(../../../../assets/images/drop-down-arrow.svg) no-repeat;
             background-size: 12px;
@@ -84,47 +78,43 @@
             bottom: 0;
             margin: auto;
             right: -25px;
-
         }
-        
     }
-    .dropdown-menu{
+    .dropdown-menu {
         left: 30px;
         box-shadow: 0px 4px 5px #c7c7c7;
         border-radius: 0;
         border: 1px solid #ececec;
         font-size: 11px;
         padding: 0;
-        .dropdown-item{
+        .dropdown-item {
             border-bottom: 1px solid #e0e0e0cc;
             padding: 10px 0px;
             padding-left: 10px;
             padding-right: 40px;
-            &:last-child{
-                border-bottom:none;
+            &:last-child {
+                border-bottom: none;
             }
-            img{
-                width:22px;
+            img {
+                width: 22px;
             }
         }
     }
-    img{
-        margin-right:10px;
-        
+    img {
+        margin-right: 10px;
     }
 }
 
-
-.search-input{
+.search-input {
     margin-bottom: 0;
     width: 48%;
-    @include max-mq(1250){
-        width:40%;
+    @include max-mq(1250) {
+        width: 40%;
     }
-    @include max-mq(1100){
-        width:35%;
+    @include max-mq(1100) {
+        width: 35%;
     }
-    .form-field{
+    .form-field {
         input {
             padding: 24px 20px !important;
             border-radius: 33.5px !important;
@@ -132,39 +122,48 @@
             color: #5e5e5e !important;
             border: 1px solid #ccc !important;
             font-size: 15px !important;
-            font-family: 'Sul Sans' !important;
+            font-family: "Sul Sans" !important;
             font-weight: 100 !important;
             background: #fff url(../../../../assets/images/search-mirror.svg) no-repeat !important;
             background-size: 30px;
             background-position: center left 20px !important;
-            &:focus{
+            &:focus {
                 border-color: #dba43b !important;
                 box-shadow: 0 0 0 1px #dba43b;
             }
-            &::placeholder{
+            &::placeholder {
                 color: #ccc !important;
             }
         }
     }
 }
 
-
-.header-third-drop-down{
+.header-third-drop-down {
     @extend .header-first-drop-down;
-    margin-right:55px;
-    margin-left:0px;
-    .user-pro-pic{
-        img{
+    margin-right: 55px;
+    margin-left: 0px;
+    .user-pro-pic {
+        img {
             width: 45px;
             height: 45px;
             border-radius: 100%;
         }
     }
+
+    .user-text-logo {
+        padding: 10px 10px 9px 15px;
+        background: #e1e1e1;
+        border-radius: 50%;
+        color: #000;
+        font-size: 20px;
+        margin: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
 }
 
-
 // ------------custom-effect-dropdown-----------//
-.dropdown{
+.dropdown {
     .dropdown-menu {
         opacity: 0;
         top: -170px;
@@ -173,7 +172,7 @@
         z-index: -1;
         width: 228px;
     }
-    .show{
+    .show {
         display: block;
         opacity: 1;
         top: 31px;
@@ -188,18 +187,17 @@
         bottom: 1px;
         line-height: 42px;
         font-size: 11px;
-        color: #7299FF !important;
+        color: #7299ff !important;
         font-weight: 100;
-        &:hover{
-        text-decoration: underline;
+        &:hover {
+            text-decoration: underline;
         }
-        }
-        .groupadd{
-            width: 200px;
-        }
-        
+    }
+    .groupadd {
+        width: 200px;
+    }
 }
 
-.groupRight{
-    margin: 30px
+.groupRight {
+    margin: 30px;
 }

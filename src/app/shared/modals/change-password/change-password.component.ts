@@ -20,6 +20,8 @@ export class ChangePasswordComponent implements OnInit {
   submitted = false;
   public loader = false;
   email: any;
+  isPasswordShow: boolean = false;
+  isConfirmPassworShow: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -57,6 +59,15 @@ export class ChangePasswordComponent implements OnInit {
 
   get f() { return this.Password.controls; }
 
+  showPassword(type) {
+
+    if (type == 'password') {
+      this.isPasswordShow = !this.isPasswordShow;
+    } else {
+      this.isConfirmPassworShow = !this.isConfirmPassworShow;
+    }
+  }
+
   onSubmit() {
     this.submitted = true;
 
@@ -83,7 +94,7 @@ export class ChangePasswordComponent implements OnInit {
             // console.log(response.data.accessToken);
             this.http.navigate('login');
 
-          } 
+          }
 
         },
           () => {
