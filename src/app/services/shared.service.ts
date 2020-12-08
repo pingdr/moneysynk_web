@@ -12,6 +12,13 @@ export class SharedService {
   public groupChange = new BehaviorSubject<any>(null);
   public groupChangeId = this.groupChange.asObservable();
   // private subject = new Subject<any>();
+
+  public addGroupChange = new BehaviorSubject<any>(null);
+  public addGroupChangeId = this.addGroupChange.asObservable();
+
+  public deleteEditGroupChange = new BehaviorSubject<any>(null);
+  public deleteEditGroupChangeId = this.deleteEditGroupChange.asObservable();
+
   private subject = new BehaviorSubject<any>(null);
 
   constructor() { }
@@ -31,5 +38,13 @@ export class SharedService {
 
   getClickEvent(): Observable<any> {
     return this.subject.asObservable();
+  }
+
+  addGroup(data?) {
+    this.addGroupChange.next(data ? data : false);
+  }
+
+  deleteEditGroup(data?){
+    this.deleteEditGroupChange.next(data ? data : false);
   }
 }

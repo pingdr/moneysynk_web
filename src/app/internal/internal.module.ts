@@ -60,6 +60,10 @@ const routes: Routes = [{
         {
             path: 'add-entry',
             loadChildren: () => import('./add-entry/add-entry.module').then(m => m.AddEntryModule)
+        },
+        {
+            path: 'update-entry/:id',
+            loadChildren: () => import('./add-entry/add-entry.module').then(m => m.AddEntryModule)
         }
     ]
 }];

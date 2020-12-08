@@ -6,6 +6,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transaction',
@@ -29,7 +30,8 @@ export class TransactionComponent implements OnInit {
   constructor(
     public http: HttpService,
     public sharedserive: SharedService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -53,9 +55,9 @@ export class TransactionComponent implements OnInit {
     this.isShimmerloding = true;
 
     this.http.getAccount(ApiUrl.getTransactions, payload).subscribe(res => {
-      
+
       this.isApiCalling = false;
-      this.isShimmerloding=false;
+      this.isShimmerloding = false;
 
       this.http.showLoader();
       if (res.data != undefined) {
@@ -85,6 +87,11 @@ export class TransactionComponent implements OnInit {
     console.log(event);
     this.pageIndex = event.pageIndex;
     this.getTansactionData();
+  }
+
+
+  editEntry(id) {
+    this.router.navigate(['/update-entry/' + id]);    
   }
 
   deleteTransaction(id, beneficiaryName) {

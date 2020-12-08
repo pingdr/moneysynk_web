@@ -85,7 +85,7 @@
                                 <td class="created-date"> {{t.dateTime | date}} </td>
                                 <td class="class-name">{{t.classId.name}}</td>
                                 <td class="action">
-                                    <a href="#" title="edit" class="edit-icon">
+                                    <a style="cursor: pointer;" title="edit" class="edit-icon" (click)="editEntry(t._id)">
                                         <img src="../../../assets/images/edit-pencil.svg">
                                     </a>
                                     <a style="cursor: pointer;" title="Delete" class="delete-icon"
@@ -93,6 +93,9 @@
                                         <img src="../../../assets/images/delete-trash.svg">
                                     </a>
                                 </td>
+                            </tr>
+                            <tr *ngIf="transactionList.length==0" style="text-align: center;">
+                                <th colspan="8">No records found</th>
                             </tr>
                         </ng-container>
                     </tbody>

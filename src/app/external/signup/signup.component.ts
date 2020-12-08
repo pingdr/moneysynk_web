@@ -31,33 +31,6 @@ export class SignupComponent implements OnInit {
     public sharedService: SharedService,
     private _commonService: CommonService,
     private toastr: ToastrService) {
-    this.sharedService.mobileVerificationComplete.subscribe((data) => {
-      console.log(this.SignupForm.controls);
-      this.loader = true;
-      let payload = {
-        "username": this.SignupForm.value.fullName,
-        "email": this.SignupForm.value.email,
-        "password": this.SignupForm.value.password,
-        "phoneNumber": this.sharedService.mobile_number,
-        "countryCode": this.sharedService.country_code,
-        "role": "USER"
-      }
-      this.http.signUp(ApiUrl.signUp, payload, false).subscribe((res) => {
-        if (this.rememberMeControl.value) {
-          localStorage.setItem('rememberMe', this.rememberMeControl.value);
-          localStorage.setItem('rememberData', JSON.stringify(this.SignupForm.value));
-        } else {
-          localStorage.removeItem('rememberMe');
-          localStorage.removeItem('rememberData');
-        }
-        localStorage.setItem('accessToken', JSON.stringify(res.data.token));
-        localStorage.setItem('loginData', JSON.stringify(res.data));
-        console.log('signup');
-        console.log(res.data);
-        this.http.navigate('reports');
-
-      })
-    });
   }
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -65,7 +38,6 @@ export class SignupComponent implements OnInit {
   ]);
 
   ngOnInit(): void {
-
     if (localStorage.getItem('rememberMe')) {
       this.rememberMeControl.patchValue(true);
       this.SignupForm.patchValue(JSON.parse(localStorage.getItem('rememberData')));
@@ -81,6 +53,45 @@ export class SignupComponent implements OnInit {
       validator: MustMatch('password', 'confirmPassword')
     });
 
+    this.signUp();
+
+
+  }
+
+  signUp() {
+    this.sharedService.mobileVerificationComplete.subscribe((data) => {
+      console.log('Sign Up Form Data', data);
+      console.log('SignUp Function ', this.SignupForm.value);
+      this.loader = true;
+      let payload = {
+        "username": this.SignupForm.value.fullName,
+        "email": this.SignupForm.value.email,
+        "password": this.SignupForm.value.password,
+        "phoneNumber": this.sharedService.mobile_number,
+        "countryCode": this.sharedService.country_code,
+        "role": "USER"
+      }
+
+      console.log(payload);
+
+      this.http.signUp(ApiUrl.signUp, payload, false).subscribe((res) => {
+
+        if (this.rememberMeControl.value) {
+          localStorage.setItem('rememberMe', this.rememberMeControl.value);
+          localStorage.setItem('rememberData', JSON.stringify(this.SignupForm.value));
+        } else {
+          localStorage.removeItem('rememberMe');
+          localStorage.removeItem('rememberData');
+        }
+
+        console.log('----------------SignUp Response--------------------', res.data);
+        // localStorage.setItem('accessToken', JSON.stringify(res.data.token));
+        localStorage.setItem('accessToken', res.data.accessToken);
+        localStorage.setItem('loginData', JSON.stringify(res.data));
+        this.http.navigate('reports');
+
+      })
+    });
   }
 
   get f() { return this.SignupForm.controls; }
@@ -108,6 +119,8 @@ export class SignupComponent implements OnInit {
       return;
     }
 
+    console.log('Signup Form Value', this.SignupForm.value);
+
     if (this.http.isFormValid(this.SignupForm)) {
       this.loader = true;
       this.http.sendEmail(ApiUrl.requestotp, this.SignupForm.value.email, false)
@@ -122,6 +135,7 @@ export class SignupComponent implements OnInit {
             const dialogRef = this.dialog.open(EmailOtpComponent, { panelClass: 'otp-modal-main', data: { isforgot: false, email: this.SignupForm.value.email } });
 
             dialogRef.afterClosed().subscribe(result => {
+              console.log('----------------------------------------', result);
               console.log(`Dialog result: ${result}`);
             });
           } else {
@@ -143,7 +157,7 @@ export class SignupComponent implements OnInit {
     console.log(event.target.checked);
     if (event.target.checked) {
       this.SignupForm.controls.acceptTerms.setValue(event.target.checked);
-    } else {      
+    } else {
       this.SignupForm.controls.acceptTerms.setValue('');
       this.isTermsAndCondition = this.isTermsAndCondition + 1;
     }
@@ -157,7 +171,8 @@ export class SignupComponent implements OnInit {
     const dialogRef = this.dialog.open(EmailOtpComponent, { panelClass: 'otp-modal-main' });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      console.log('Out Email OTP Model ------------- ', result);
+      console.log(`Dialog result Function Data: ${result}`);
     });
   }
 

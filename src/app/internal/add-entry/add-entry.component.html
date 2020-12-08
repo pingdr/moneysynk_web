@@ -4,8 +4,10 @@
     </div>
     <div class="component-btn">
         <div class="btn-compo-main">
-            <button class="plus-btn" (click)="billTypeChange('IN')" [ngClass]="{ 'active-btn' : isbtnSelected == 1 }"> + </button>
-            <button class="minus-btn" (click)="billTypeChange('OUT')" [ngClass]="{ 'active-btn' : isbtnSelected == 2 }"> - </button>
+            <button id="plus-btn" class="plus-btn" (click)="billTypeChange('IN')" [ngClass]="{ 'active-btn' : isbtnSelected == 1 }"> +
+            </button>
+            <button id="minus-btn" class="minus-btn" (click)="billTypeChange('OUT')" [ngClass]="{ 'active-btn' : isbtnSelected == 2 }">
+                - </button>
             <button class="refresh-btn" [ngClass]="{ 'active-btn' : isbtnSelected == 3 }"> refresh</button>
         </div>
         <div class="main-input-filed-entry">
@@ -25,7 +27,8 @@
                 <label>{{type=='PAYEE' ? 'Payee' : 'Payer'}}</label>
                 <mat-form-field appearance="fill">
                     <mat-label>{{type=='PAYEE' ? 'Please Select Payee' : 'Please Select Payer'}}</mat-label>
-                    <mat-select formControlName="beneficiaryId" [ngClass]="{ 'is-invalid': submitted && f.beneficiaryId.errors }">
+                    <mat-select formControlName="beneficiaryId"
+                        [ngClass]="{ 'is-invalid': submitted && f.beneficiaryId.errors }">
                         <mat-option>None</mat-option>
                         <mat-option *ngFor="let p of payeesArray" value="{{p._id}}">{{p.name}}</mat-option>
                     </mat-select>
@@ -64,21 +67,26 @@
             </div>
             <div class="form-group">
                 <label>Class</label>
-                <mat-form-field appearance="fill">
-                    <!-- <mat-label>Select Class</mat-label> -->
-                
+                <mat-select name="group" id="group" class="groupRight" appearance="fill" formControlName="classId"
+                    [ngClass]="{ 'is-invalid': submitted && f.classId.errors }">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option>
+                    <mat-form-field appearance="fill">
+                        <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}"
+                            name="filterName" (keyup)="addclass($event.target.value)" [value]="className" matInput
+                            placeholder="Add New Class">
+                        <button class="btn classListButton" (click)="saveClass()"> Add</button>
+                    </mat-form-field>
+                </mat-select>
+                <!-- <mat-form-field appearance="fill">
                     <mat-select *ngIf="classes.length > 0" class="textTransform" formControlName="classId" [ngClass]="{ 'is-invalid': submitted && f.classId.errors }">
-      
                         <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option>
                         <mat-form-field appearance="fill">
                             <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}" name="filterName" (keyup)="addclass($event.target.value)" [value]="className" matInput placeholder="Add New Class">
                             <button (click)="saveClass()" class="btn add-btn"> Add</button>
                         </mat-form-field>
-      
                     </mat-select>
                     <mat-select *ngIf="classes.length == 0" class="textTransform" formControlName="classId" [ngClass]="{ 'is-invalid': submitted && f.classId.errors }">
-      
-                        <!-- <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option> -->
                         <mat-form-field appearance="fill">
                             <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}" name="filterName" (keyup)="addclass($event.target.value)" [value]="className" matInput placeholder="Add New Class">
                             <button (click)="saveClass()" class="btn add-btn"> Add</button>
@@ -86,15 +94,15 @@
       
                     </mat-select>
                     <div *ngIf="submitted && f.classId.errors" class="invalid-feedback">
-                        <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                     </div>
-                </mat-form-field>
+                </mat-form-field> -->
             </div>
             <div class="form-group">
                 <label>Category</label>
                 <mat-form-field appearance="fill">
                     <mat-label>Select Category</mat-label>
-                    <mat-select formControlName="categoryId" [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
+                    <mat-select formControlName="categoryId"
+                        [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
                         <mat-option>None</mat-option>
                         <mat-option *ngFor="let c of categories" value="{{c._id}}">{{c.name}}</mat-option>
                     </mat-select>

@@ -333,7 +333,7 @@ export class HttpService {
             return o[key] || o === val;
         });
     }
-    signUp(url, payload, isLoading?: boolean) {
+    signUp(url, payload, isLoading?: boolean) {        
         return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
     }
     sendEmail(url, email, isLoading?: boolean) {
@@ -436,6 +436,11 @@ export class HttpService {
             });
         }
         return this.http.get<any>(this.apiEndpoint + url, { params: params, reportProgress: isLoading });
+    }
+
+    getEntryById(url, isLoading?: boolean) {
+        let tempApiUrl = 'https://7ed7fbec2962.ngrok.io/api/'
+        return this.http.get<any>(this.apiEndpoint + url);
     }
 
 

@@ -37,7 +37,7 @@ export class SettingsComponent implements OnInit {
     private sharedService: SharedService
   ) {
 
-    this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(() => {
+    this.clickEventsubscription = this.sharedService.addGroupChange.subscribe(() => {
       this.getAllGroup();
     })
   }
@@ -110,7 +110,8 @@ export class SettingsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getAllGroup();
-      this.sharedService.getSettingsGroupList();
+      this.sharedService.deleteEditGroup(true);
+      // this.sharedService.getSettingsGroupList();
     });
   }
 
@@ -124,7 +125,8 @@ export class SettingsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getAllGroup();
-      this.sharedService.getSettingsGroupList();
+      this.sharedService.deleteEditGroup(true);
+      // this.sharedService.getSettingsGroupList();
     });
   }
 

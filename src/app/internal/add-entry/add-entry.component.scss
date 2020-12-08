@@ -88,3 +88,17 @@
     color: white !important;
 }
 
+.classListButton{
+    background: transparent !important;
+    padding: 0;
+    position: absolute;
+    right: 18px;
+    bottom: 1px;
+    line-height: 42px;
+    font-size: 11px;
+    color: #7299FF !important;
+    font-weight: 100;
+    &:hover{
+    text-decoration: underline;
+    }
+}

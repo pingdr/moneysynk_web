@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { dataUri } from '@rxweb/reactive-form-validators';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ApiUrl } from 'src/app/services/apiurl';
@@ -25,21 +26,26 @@ export class HeaderComponent implements OnInit {
   constructor(public http: HttpService,
     private toastr: ToastrService,
     public sharedserive: SharedService,
-    public dialog: MatDialog,    
+    public dialog: MatDialog,
     private sharedService: SharedService
-  ) {
-    this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(() => {
-      this.getAllGroup();
-    })
-  }
+  ) { }
 
   ngOnInit() {
+
     this.user = JSON.parse(localStorage.getItem('loginData'));
+
+    this.clickEventsubscription = this.sharedService.deleteEditGroupChange.subscribe((data) => {
+      console.log('subscribe Data', data);
+      if (data) {
+        this.getAllGroup();
+      }
+    })
+
     this.getAllGroup();
+    
   }
 
   Logout() {
-
     const dialogRef = this.dialog.open(LogoutModalComponent, {
       panelClass: 'account-modal-main',
       width: '350px',
@@ -76,7 +82,8 @@ export class HeaderComponent implements OnInit {
             });
 
             this.getAllGroup();
-            this.sharedService.getSettingsGroupList();
+            this.sharedService.addGroup(true);
+            // this.sharedService.getSettingsGroupList();
           }
 
         });
@@ -89,12 +96,11 @@ export class HeaderComponent implements OnInit {
 
   getAllGroup() {
     this.http.getAllGroup(ApiUrl.addGrop).subscribe(res => {
+      console.log(res);
       if (res.data != undefined) {
         this.groupList = res.data;
         this.selectedGroup(this.groupList);
-        // this.modeselect = this.groupList[0]._id;
         this.sharedserive.groupUpdateData(this.groupList[0]._id);
-        // this.sharedserive.groupUpdateData.next();
       }
     });
   }

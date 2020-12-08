@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { HttpService } from 'src/app/services/http.service';
@@ -30,7 +31,17 @@ export class AddEntryComponent implements OnInit {
   budgets: any;
   transactionType: any = 'IN'
   public entryModal: any = {};
-  constructor(private formBuilder: FormBuilder, private toastr: ToastrService, public sharedserive: SharedService, public http: HttpService,) {
+
+  public accountEntryDetail: any = {};
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    public sharedserive: SharedService,
+    public http: HttpService,
+    public activatedRouter: ActivatedRoute,
+    public router: Router
+  ) {
 
     this.editentry = this.formBuilder.group({
       transactionType: [this.transactionType],
@@ -107,6 +118,12 @@ export class AddEntryComponent implements OnInit {
     }
   }
   ngOnInit() {
+
+    console.log('Activated Router -- - -- - - ', this.activatedRouter.snapshot.params['id']);
+    if (this.activatedRouter.snapshot.params['id']) {
+      this.getEntryBYId();
+    }
+
     this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
       if (data) {
@@ -119,6 +136,39 @@ export class AddEntryComponent implements OnInit {
       }
     });
   }
+
+  getEntryBYId() {
+    let transactionId: any = this.activatedRouter.snapshot.params['id'];
+    this.http.getEntryById('transactions?transactionId=' + transactionId).subscribe((res: any) => {
+      if (res && res.data.data) {
+        this.accountEntryDetail = res.data.data;
+        this.editentry.controls.beneficiaryId.setValue(this.accountEntryDetail.beneficiaryId._id);
+        this.editentry.controls.accountId.setValue(this.accountEntryDetail.accountId._id);
+        this.editentry.controls.classId.setValue(this.accountEntryDetail.classId._id);
+        this.editentry.controls.categoryId.setValue(this.accountEntryDetail.categoryId._id);
+        this.editentry.controls.chequeNumber.setValue(this.accountEntryDetail.chequeNumber);
+        this.editentry.controls.dateTime.setValue(this.accountEntryDetail.dateTime);
+        this.editentry.controls.cleared.setValue(this.accountEntryDetail.cleared);
+        this.editentry.controls.financialSourceId.setValue(this.accountEntryDetail.financialSourceId._id);
+        this.editentry.controls.note.setValue(this.accountEntryDetail.note);
+
+        this.amount = this.accountEntryDetail.amount;
+
+        if (this.accountEntryDetail.transactionType == "IN") {
+          this.isbtnSelected = 1;
+        } else if (this.accountEntryDetail.transactionType == "OUT") {
+          let elem = document.getElementById('minus-btn');
+          elem.click();
+          this.isbtnSelected = 2;
+        } else {
+          this.isbtnSelected = 3;
+        }
+
+        console.log('Account Detail', res.data.data);
+      }
+    });
+  }
+
   getBudgets() {
     this.isApiCalling = true;
     var payload = {
@@ -222,19 +272,37 @@ export class AddEntryComponent implements OnInit {
       this.editentry.controls.amount.setValue(this.amount);
       this.isApiCalling = true;
 
-      this.http.post(ApiUrl.getTransactions, this.editentry.value, false)
-        .subscribe(res => {
-          this.isApiCalling = false;
-          let response = res;
-          if (response.statusCode == 200) {
-            this.toastr.success('Transaction added successfully', 'success', {
-              timeOut: 2000
-            });
-          }
-        },
-          () => {
+
+      if (this.accountEntryDetail._id && this.accountEntryDetail._id != undefined) {
+        this.http.post(ApiUrl.getTransactions + '/' + this.accountEntryDetail._id, this.editentry.value, false)
+          .subscribe(res => {
             this.isApiCalling = false;
-          });
+            let response = res;
+            if (response.statusCode == 200) {
+              this.toastr.success('Transaction Updated successfully', 'success', {
+                timeOut: 2000
+              });
+              this.router.navigate(['/transactions']);
+            }
+          },
+            () => {
+              this.isApiCalling = false;
+            });
+      } else {
+        this.http.post(ApiUrl.getTransactions, this.editentry.value, false)
+          .subscribe(res => {
+            this.isApiCalling = false;
+            let response = res;
+            if (response.statusCode == 200) {
+              this.toastr.success('Transaction added successfully', 'success', {
+                timeOut: 2000
+              });
+            }
+          },
+            () => {
+              this.isApiCalling = false;
+            });
+      }
 
     } else {
       this.toastr.error('Please Add Amount.', 'error', {
