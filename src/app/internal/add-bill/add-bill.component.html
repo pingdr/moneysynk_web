@@ -64,17 +64,19 @@
             </div>
             <div class="form-group">
                 <label>Class</label>
-                <mat-select name="group" id="group" class="groupRight" appearance="fill" formControlName="classId"
-                    [ngClass]="{ 'is-invalid': submitted && f.classId.errors }">
-                    <mat-option>None</mat-option>
-                    <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option>
-                    <mat-form-field appearance="fill">
-                        <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}"
-                            name="filterName" (keyup)="addclass($event.target.value)" [value]="className" matInput
-                            placeholder="Add New Class">
-                        <button class="btn classListButton" (click)="saveClass()"> Add</button>
-                    </mat-form-field>
-                </mat-select>
+                <mat-form-field appearance="fill">
+                    <mat-select name="group" id="group" class="groupRight" appearance="fill" formControlName="classId"
+                        [ngClass]="{ 'is-invalid': submitted && f.classId.errors }">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option>
+                        <mat-form-field appearance="fill">
+                            <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}"
+                                name="filterName" (keyup)="addclass($event.target.value)" [value]="className" matInput
+                                placeholder="Add New Class">
+                            <button class="btn classListButton" (click)="saveClass()"> Add</button>
+                        </mat-form-field>
+                    </mat-select>
+                </mat-form-field>
             </div>
             <div class="form-group">
                 <label>Category</label>
@@ -139,7 +141,7 @@
                     <input class="text-type">
                     <input placeholder="Add an image or doc" type="file" class="upload-option">
                 </div>
-            </div>            
+            </div>
             <div class="last-section">
                 <button class="btn"> Save</button>
             </div>

@@ -4,13 +4,15 @@
       <div style="width: 200px;" class="groupadd">
 
         <!-- <mat-form-field class="groupRight" appearance="fill"> -->
-        <mat-select name="group" id="group" *ngIf="groupList.length!=0" class="groupRight" appearance="fill" [(ngModel)]="modeselect">
-          <mat-option *ngFor="let data of groupList" (click)="groupSelect(data)" value="{{data._id}}">{{ data.name }}
-          </mat-option>
-          <mat-form-field appearance="fill">
-            <input maxlength="26" [(ngModel)]="filterName" name="filterName" (keyup)="addGroup($event.target.value)"
-              (keydown)="$event.stopPropagation()" matInput placeholder="Add New Group">
-            <button style="  background: transparent !important;
+        <mat-form-field appearance="fill">
+          <mat-select name="group" id="group" *ngIf="groupList.length!=0" class="groupRight" appearance="fill"
+            [(ngModel)]="modeselect">
+            <mat-option *ngFor="let data of groupList" (click)="groupSelect(data)" value="{{data._id}}">{{ data.name }}
+            </mat-option>
+            <mat-form-field appearance="fill">
+              <input maxlength="26" [(ngModel)]="filterName" name="filterName" (keyup)="addGroup($event.target.value)"
+                (keydown)="$event.stopPropagation()" matInput placeholder="Add New Group">
+              <button style="  background: transparent !important;
               padding: 0;
               position: absolute;
               right: 18px;
@@ -22,9 +24,10 @@
               &:hover{
               text-decoration: underline;
               }" class="btn" (click)="saveGroup()"> Add</button>
-          </mat-form-field>
+            </mat-form-field>
 
-        </mat-select>
+          </mat-select>
+        </mat-form-field>
         <!-- </mat-form-field> -->
 
       </div>
