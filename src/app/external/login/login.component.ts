@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   LoginForm: FormGroup;
   submitted = false;
   public loader = false;
+  isPasswordShow: boolean = false;
   rememberMeControl = new FormControl(false);
 
 
@@ -58,7 +59,7 @@ export class LoginComponent implements OnInit {
     if (this.http.isFormValid(this.LoginForm)) {
       this.loader = true;
       this.http.postData(ApiUrl.Login, this.LoginForm.value.user, this.LoginForm.value.password, false)
-        .subscribe(res => {          
+        .subscribe(res => {
           if (this.rememberMeControl.value) {
             localStorage.setItem('rememberMe', this.rememberMeControl.value);
             localStorage.setItem('rememberData', JSON.stringify(this.LoginForm.value));
@@ -78,6 +79,11 @@ export class LoginComponent implements OnInit {
           });
     }
 
+
+  }
+
+  showPassword() {
+    this.isPasswordShow = !this.isPasswordShow;
 
   }
 

@@ -18,8 +18,6 @@ import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-
 })
 export class CategoriesComponent implements OnInit {
 
-  @ViewChild('deleteCategoryDialog') DeleteCategoryDialog: TemplateRef<any>;
-
   categories: any;
   type: any = "EXPENSE"
   dialogRefofOtpModal: MatDialogRef<AddCategoryPopupComponent>;
@@ -159,16 +157,7 @@ export class CategoriesComponent implements OnInit {
       this.expenseArray = [];
       this.getCategoriesData();
     });
-  }
-
-  openDeleteCategoryDialog(id, name) {
-    this.categoryId = id;
-    this.categoryName = name;
-    this.dialog.open(this.DeleteCategoryDialog, {
-      width: '350px',
-      panelClass: 'custom-modalbox'
-    });
-  }
+  } 
 
 
   deleteCategory(id, categoryName) {
@@ -201,23 +190,7 @@ export class CategoriesComponent implements OnInit {
       this.getCategoriesData();
     });
   }
-
-  // deleteCategory() {
-  //   this.isApiCalling = true;
-  //   this.http.deleteCategory(this.categoryId).subscribe(
-  //     (data: any) => {
-  //       this.toastr.error("Category Delete Successfully", "Success");
-  //       this.closeAllModal();
-  //       this.getCategoriesData();
-  //       this.isApiCalling = false;
-  //     }, err => {
-  //       this.toastr.error("Oops! Something went wrong", 'Error');
-  //       this.isApiCalling = false;
-  //       this.closeAllModal();
-  //     }
-  //   )
-  // }
-
+  
   closeAllModal() {
     this.dialog.closeAll();
   }

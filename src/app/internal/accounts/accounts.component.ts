@@ -21,8 +21,6 @@ import { Slick } from 'ngx-slickjs';
 })
 export class AccountsComponent implements OnInit {
 
-  @ViewChild('deleteAccountDialog') DeleteAccountDialog: TemplateRef<any>;
-  @ViewChild('deleteAccountTypeDialog') DeleteAccountTypeDialog: TemplateRef<any>;
   accountDetails: any;
   accountSummary: any = [];
   accountSummaryId: any;
@@ -184,6 +182,7 @@ export class AccountsComponent implements OnInit {
 
 
   getAccountSummary(id) {
+
     var payload = {
       "groupId": this.groupId,
       "accountId": id
@@ -200,6 +199,7 @@ export class AccountsComponent implements OnInit {
 
   getAccountTypedata() {
 
+    this.isShimmerloading = true;
     var payload = {
       "groupId": this.groupId
     }
@@ -242,7 +242,7 @@ export class AccountsComponent implements OnInit {
     this.isApiCalling = true;
     this.isShimmerloading = true;
     this.http.getAccount(ApiUrl.getAccount, payload).subscribe(res => {
-      
+
       this.isApiCalling = false;
       this.isShimmerloading = false;
 
@@ -261,7 +261,6 @@ export class AccountsComponent implements OnInit {
         // this.filter = res.data;
       }
     });
-
   }
   pageChange(event) {
     console.log(event);
@@ -272,67 +271,6 @@ export class AccountsComponent implements OnInit {
     this.accountList[i]['isViewAmount'] = !this.accountList[i]['isViewAmount']
   }
 
-  deleteAccounts(id, name) {
-    console.log(id,name)
-    let self = this;
-    this.accountName = name;
-    let dialogRef = this.dialog.open(this.DeleteAccountDialog, {
-      width: '350px',
-      panelClass: 'custom-modalbox'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      // Note: If the user clicks outside the dialog or presses the escape key, there'll be no result
-      if (result !== undefined) {
-        if (result === 'yes') {
-          this.isApiCalling = true;
-          this.http.deleteAccount(ApiUrl.deleteAccount, id, false).subscribe(res => {
-            this.accountList = [];
-            this.accountTypeList = [];
-            this.isSelected = 0;
-            this.isRecordSelected = 0;
-            this.toastr.error('Account deleted successfully', 'success', {
-              timeOut: 2000
-            });
-            this.isApiCalling = false;
-            this.getAccountdata();
-            this.getAccountTypedata();
-          });
-        } else if (result === 'no') {
-
-          console.log('User clicked no.');
-        }
-      }
-    })
-
-    // const options: SweetAlertOptions = {
-    //   title: 'Are you sure you want to delete this Account?',
-    //   type: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonText: "Confirm",
-    //   cancelButtonText: "No",
-    //   focusCancel: true,
-    // };
-    // Swal.fire(options).then((result) => {
-    //   if (result.value) {
-
-    //     this.http.deleteAccount(ApiUrl.deleteAccount, id, false).subscribe(res => {
-    //       this.toastr.success('Account deleted successfully', 'success', {
-    //         timeOut: 2000
-    //       });
-    //       this.getAccountdata();
-
-    //     });
-
-    //   }
-    // })
-  }
-
-
-  // }
-
-  // openDeleteAccountDialog(id) {
-  //     this.dialog.open()
-  // }
   recordSelected(i, id?) {
     if (i || i == 0)
       this.isRecordSelected = i;
@@ -344,11 +282,7 @@ export class AccountsComponent implements OnInit {
       this.getSummaryDetails('Expanse');
     }
   }
-  // filterData(i, id) {
-  //   if (i || i == 0)
-  //     this.isSelected = i;
-  //   this.accountList = this.filter.filter(filter => filter.accountType === id);
-  // }
+
 
   editAccounts(data) {
     const dialogRef = this.dialog.open(AddEditAccountComponent, {
@@ -361,8 +295,6 @@ export class AccountsComponent implements OnInit {
       this.accountList = [];
       this.getAccountTypedata();
       this.getAccountdata();
-      // this.getAccountdata();
-      // window.location.reload()
     });
   }
 
@@ -410,14 +342,17 @@ export class AccountsComponent implements OnInit {
     }
 
     this.isApiCalling = true;
+    this.isShimmerloading = true;
     this.http.getAccountById(ApiUrl.getAccountById, payload).subscribe(res => {
       this.isApiCalling = false;
+      this.isShimmerloading = false;
       this.http.showLoader();
       if (res.data != undefined) {
         if (res.data.data.length > 0) {
           this.resultsLength = res.data.total;
         }
         this.accountList = res.data.data;
+
         // this.filter = res.data;
         if (res.data.data.length > 0) {
           this.getAccountDetailsById(res.data.data[0]._id)
@@ -430,59 +365,6 @@ export class AccountsComponent implements OnInit {
         }
       }
     });
-  }
-
-  deleteType(id, categoryName) {
-    this.accountName = categoryName;
-    let typeDialogRef = this.dialog.open(this.DeleteAccountTypeDialog, {
-      width: '350px',
-      panelClass: 'custom-modalbox'
-    });
-
-    typeDialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        if (result === 'yes') {
-          this.isApiCalling = true;
-          this.http.deleteAccountTypes(ApiUrl.deleteAccountTypes, id, false).subscribe(res => {
-            this.accountTypeList = [];
-            this.accountList = [];
-            this.isSelected = 0;
-            this.isRecordSelected = 0;
-            this.toastr.error('Account type deleted successfully', 'success', {
-              timeOut: 2000
-            });
-            this.getAccountTypedata();
-            this.isApiCalling = false;
-          }, () => {
-            this.toastr.error('Something went wrong', 'OOPS!');
-            this.isApiCalling = false;
-          });
-        }
-      }
-    })
-
-
-    // const options: SweetAlertOptions = {
-    //   title: 'Are you sure you want to delete this Account type?',
-    //   type: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonText: "Yes",
-    //   cancelButtonText: "No",
-    //   focusCancel: true
-    // };
-    // Swal.fire(options).then((result) => {
-    //   if (result.value) {
-
-    //     this.http.deleteAccountTypes(ApiUrl.deleteAccountTypes, id, false).subscribe(res => {
-    //       this.toastr.success('Account type deleted successfully', 'success', {
-    //         timeOut: 2000
-    //       });
-    //       this.getAccountTypedata();
-
-    //     });
-
-    //   }
-    // })
   }
 
 }

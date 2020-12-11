@@ -149,16 +149,16 @@
 
 .fixed-foot {
     position: fixed !important;
-    bottom: 12px;
-    width: 83.5%;
+    bottom: 0px;
+    width: 90%;
     z-index: 1;
 }
 
 .total-expanse-panal-bottom-main {
     margin-top: 20px;
     background: #f3d39e;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    // border-bottom-left-radius: 10px;
+    // border-bottom-right-radius: 10px;
     padding: 20px 20px;
     position: relative;
 

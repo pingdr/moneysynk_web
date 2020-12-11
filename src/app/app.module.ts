@@ -52,7 +52,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AddBudgetModalComponent } from './shared/modals/add-budget-modal/add-budget-modal.component';
 import { AddGroupComponent } from './shared/modals/add-group/add-group.component';
 import { AddExpenseComponent } from './shared/modals/add-expense/add-expense.component';
-import { AddBillComponent } from './shared/modals/add-bill/add-bill.component';
 import { DeleteModalComponent } from './shared/modals/delete-modal/delete-modal.component';
 import { TransferModalComponent } from './shared/modals/transfer-modal/transfer-modal.component';
 import { EditGroupModalComponent } from './shared/modals/edit-group-modal/edit-group-modal.component';
@@ -76,7 +75,6 @@ import { LogoutModalComponent } from './shared/modals/logout-modal/logout-modal.
     AddBudgetModalComponent,
     AddGroupComponent,
     AddExpenseComponent,
-    AddBillComponent,
     DeleteModalComponent,
     TransferModalComponent,
     EditGroupModalComponent,

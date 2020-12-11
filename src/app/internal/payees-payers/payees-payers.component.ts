@@ -42,8 +42,6 @@ export class PayeesPayersComponent implements OnInit {
 
   constructor(public dialog: MatDialog, public sharedserive: SharedService, public http: HttpService, private toastr: ToastrService) { }
 
-  @ViewChild('deletePayeeDialog') DeletePayeeDialog: TemplateRef<any>;
-
   ngOnInit(): void {
     this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
@@ -239,17 +237,6 @@ export class PayeesPayersComponent implements OnInit {
       this.isRecordSelected = 0;
       this.getPayees();
     });
-  }
-
-  openDeleteDialog(id, name) {
-    console.log(id);
-    this.payeeId = id;
-    this.payeeName = name;
-    this.dialog.open(this.DeletePayeeDialog, {
-      width: '350px',
-      panelClass: 'custom-modalbox'
-    });
-
   }
 
   deletePayee(id, payeeName, type) {

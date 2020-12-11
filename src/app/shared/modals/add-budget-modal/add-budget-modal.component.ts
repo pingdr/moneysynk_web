@@ -27,11 +27,11 @@ export class AddBudgetModalComponent implements OnInit {
 
   cyclePeriod: any = [
     { value: 'NO_CYCLE', name: 'No Cycle' },
-    { value: 'DAY', name: 'Day' },
-    { value: 'WEEK', name: 'Week' },
+    { value: 'DAY', name: 'Day(s)' },
+    { value: 'WEEK', name: 'Week(s)' },
     { value: 'SEMIMONTHLY', name: 'Semimonthly' },
-    { value: 'MONTH', name: 'Month' },
-    { value: 'YEAR', name: 'Year' }
+    { value: 'MONTH', name: 'Month(s)' },
+    { value: 'YEAR', name: 'Year(s)' }
   ]
 
   cycleValue: Array<any> = []

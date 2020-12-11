@@ -193,7 +193,6 @@ export class AddBillComponent implements OnInit {
       this.isApiCalling = false;
       this.http.showLoader();
       if (res.data.data != undefined) {
-        // this.total = res.data.totalCategories;
         this.categories = res.data.data;
       }
 
@@ -211,10 +210,6 @@ export class AddBillComponent implements OnInit {
       this.http.showLoader();
       if (res.data.data != undefined) {
         this.payeesArray = res.data.data;
-        //  else {
-        //   this.payersArray = res.data.data;
-        // }
-        // this.total = res.data.totalFinancialBeneficiaries;
       }
     });
   }

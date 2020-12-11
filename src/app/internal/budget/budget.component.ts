@@ -32,7 +32,6 @@ export class BudgetComponent implements OnInit {
   resultsLength: any = 0;
   pageIndex: any = 0;
   bname: any;
-  @ViewChild('deletePayeeDialog') DeletePayeeDialog: TemplateRef<any>;
 
   dialogRefofOtpModal: MatDialogRef<AddBudgetModalComponent>;
   constructor(public http: HttpService, private formBuilder: FormBuilder, private toastr: ToastrService, public sharedserive: SharedService, public dialog: MatDialog) { }
@@ -58,16 +57,6 @@ export class BudgetComponent implements OnInit {
     this.getBudgetDetailsById(b._id)
   }
 
-  openDeleteDialog(id, name) {
-    console.log(id);
-    this.budgetId = id;
-    this.budgetName = name;
-    this.dialog.open(this.DeletePayeeDialog, {
-      width: '350px',
-      panelClass: 'custom-modalbox'
-    });
-
-  }
   getBudgetDetailsById(id) {
     this.isApiCalling = true;
     var payload = {
@@ -94,23 +83,7 @@ export class BudgetComponent implements OnInit {
       this.getBudgets();
     });
   }
-
-  // deleteBudget() {
-  //   this.isApiCalling = true;
-  //   this.http.deleteAccount(ApiUrl.getBudget,this.budgetId).subscribe(
-  //     (data: any) => {
-  //       this.toastr.error("Budget Delete Successfully", "Success");
-  //       this.isApiCalling = false;
-  //       this.closeDeleteModal();
-  //       this.getBudgets();
-  //     }, err => {
-  //       this.toastr.error("Oops! Something went wrong", 'Error');
-  //       this.isApiCalling = false;
-  //       this.closeDeleteModal();
-  //     }
-  //   )
-  // }
-
+  
   closeDeleteModal() {
     this.dialog.closeAll();
   }

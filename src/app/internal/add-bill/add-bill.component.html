@@ -1,3 +1,4 @@
+<app-progress-bar *ngIf="isApiCalling"></app-progress-bar>
 <div class="heading-pannel add-entry-main">
     <div class="component-heading">
         <span>Add Bills</span>
@@ -136,10 +137,12 @@
                 </mat-form-field>
             </div>
             <div class="form-group file-input">
-                <label>File</label>
+                <label class="text-center">File</label>
                 <div class="inner-file-upload">
-                    <input class="text-type">
-                    <input placeholder="Add an image or doc" type="file" class="upload-option">
+                    <mat-form-field appearance="fill">
+                        <input matInput class="text-type">
+                        <input placeholder="Add an image or doc" type="file" class="upload-option">
+                    </mat-form-field>
                 </div>
             </div>
             <div class="last-section">

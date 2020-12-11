@@ -1,3 +1,4 @@
+<app-progress-bar *ngIf="isApiCalling"></app-progress-bar>
 <div class="heading-pannel add-entry-main">
     <div class="component-heading">
         <span>Add Transaction</span>
@@ -39,20 +40,6 @@
                     </div>
                 </mat-form-field>
             </div>
-            <!-- <div class="form-group">
-                <label>Repeat</label>
-                <mat-form-field appearance="fill">
-                    <mat-label>Never</mat-label>
-                    <mat-select formControlName="Never" [ngClass]="{ 'is-invalid': submitted && f.Never.errors }">
-                        <mat-option>None</mat-option>
-                        <mat-option value="option1">Option 1</mat-option>
-                        <mat-option value="option2">Option 2</mat-option>
-                        <mat-option value="option3">Option 3</mat-option>
-                    </mat-select>
-                    <div *ngIf="submitted && f.Never.errors" class="invalid-feedback">
-                    </div>
-                </mat-form-field>
-            </div> -->
             <div class="form-group">
                 <label>Account</label>
                 <mat-form-field appearance="fill">
@@ -76,30 +63,13 @@
                         <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option>
                         <mat-form-field appearance="fill">
                             <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}"
-                                name="filterName" (keyup)="addclass($event.target.value)" [value]="className" matInput
+                                name="filterName" (keyup)="addclass($event.target.value)"
+                                (keydown)="$event.stopPropagation()" [value]="className" matInput
                                 placeholder="Add New Class">
                             <button class="btn classListButton" (click)="saveClass()"> Add</button>
                         </mat-form-field>
                     </mat-select>
                 </mat-form-field>
-                <!-- <mat-form-field appearance="fill">
-                    <mat-select *ngIf="classes.length > 0" class="textTransform" formControlName="classId" [ngClass]="{ 'is-invalid': submitted && f.classId.errors }">
-                        <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option>
-                        <mat-form-field appearance="fill">
-                            <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}" name="filterName" (keyup)="addclass($event.target.value)" [value]="className" matInput placeholder="Add New Class">
-                            <button (click)="saveClass()" class="btn add-btn"> Add</button>
-                        </mat-form-field>
-                    </mat-select>
-                    <mat-select *ngIf="classes.length == 0" class="textTransform" formControlName="classId" [ngClass]="{ 'is-invalid': submitted && f.classId.errors }">
-                        <mat-form-field appearance="fill">
-                            <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}" name="filterName" (keyup)="addclass($event.target.value)" [value]="className" matInput placeholder="Add New Class">
-                            <button (click)="saveClass()" class="btn add-btn"> Add</button>
-                        </mat-form-field>
-      
-                    </mat-select>
-                    <div *ngIf="submitted && f.classId.errors" class="invalid-feedback">
-                    </div>
-                </mat-form-field> -->
             </div>
             <div class="form-group">
                 <label>Category</label>
@@ -151,19 +121,14 @@
                         <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                     </div>
                 </mat-form-field>
-                <!-- <mat-form-field appearance="fill">
-                    <input matInput placeholder="Add Budget" formControlName="Budget"
-                        [ngClass]="{ 'is-invalid': submitted && f.Budget.errors }">
-                    <div *ngIf="submitted && f.Budget.errors" class="invalid-feedback">
-                    </div>
-
-                </mat-form-field> -->
             </div>
             <div class="form-group file-input">
                 <label>File</label>
                 <div class="inner-file-upload">
-                    <input class="text-type">
-                    <input placeholder="Add an image or doc" type="file" class="upload-option">
+                    <mat-form-field appearance="fill">
+                        <input matInput class="text-type">
+                        <input placeholder="Add an image or doc" type="file" class="upload-option">
+                    </mat-form-field>
                 </div>
             </div>
             <div class="form-group Add-not-main">
