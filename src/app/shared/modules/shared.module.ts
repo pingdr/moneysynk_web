@@ -4,6 +4,7 @@ import { SharedComponent } from './shared.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { OnlynumberDirectiveDirective } from 'src/app/onlynumber-directive.directive';
 
 
 const entryList = [];
@@ -20,12 +21,14 @@ const importExportList = [
     ],
     declarations: [
         ProgressBarComponent,
+        OnlynumberDirectiveDirective,
         SharedComponent, ...entryList],
     exports: [
         SharedComponent,
         ProgressBarComponent,
         CommonModule,
         MatProgressBarModule,
+        OnlynumberDirectiveDirective,
         ...importExportList,
         ...entryList,
     ],

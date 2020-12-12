@@ -54,6 +54,9 @@ export class DeleteModalComponent implements OnInit {
       case 'deleteTransaction':
         this.deleteTransaction();
         break;
+      case 'deleteClass':
+        this.deleteClass();
+        break;
       default:
         break;
     }
@@ -148,6 +151,16 @@ export class DeleteModalComponent implements OnInit {
   deleteTransaction() {
     this.http.deleteTransaction(this.data.id).subscribe((data: any) => {
       this.toastr.error("Transaction Delete Successfully", "Success");
+      this.hideModal();
+    }, err => {
+      this.toastr.error("Oops! Something went wrong", 'Error');
+      this.hideModal();
+    })
+  }
+
+  deleteClass() {
+    this.http.deleteClasses(this.data.id).subscribe((data: any) => {
+      this.toastr.error("Class Delete Successfully", "Success");
       this.hideModal();
     }, err => {
       this.toastr.error("Oops! Something went wrong", 'Error');

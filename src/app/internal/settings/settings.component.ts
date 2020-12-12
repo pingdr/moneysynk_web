@@ -5,6 +5,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { HttpService } from 'src/app/services/http.service';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import { EditGroupModalComponent } from 'src/app/shared/modals/edit-group-modal/edit-group-modal.component';
+import { AddEditClassComponent } from 'src/app/shared/modals/add-edit-class/add-edit-class.component';
 import { SharedService } from 'src/app/services/shared.service';
 import { Subscription } from 'rxjs';
 
@@ -20,7 +21,9 @@ export class SettingsComponent implements OnInit {
   isShimmerloading: boolean = false;
 
   groupList: any = [];
+  classes: any = [];
   groupId: any = '';
+  selectedGroup: any = '';
   groupName: any = '';
   total: any = 0;
   pageIndex: any = 0;
@@ -34,16 +37,24 @@ export class SettingsComponent implements OnInit {
   constructor(public http: HttpService,
     private toastr: ToastrService,
     public dialog: MatDialog,
-    private sharedService: SharedService
+    private sharedService: SharedService,
   ) {
 
     this.clickEventsubscription = this.sharedService.addGroupChange.subscribe(() => {
       this.getAllGroup();
     })
+
+    this.sharedService.groupChange.subscribe((data) => {
+      this.selectedGroup = data;
+      if (data) {
+        this.getClassList();
+      }
+    });
   }
 
   ngOnInit(): void {
     this.getAllGroup();
+
   }
   getAllGroup() {
 
@@ -130,22 +141,64 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  // deleteGroup() {
-  //   this.isApiCalling = true;
-  //   this.http.deleteGroup(this.groupId).subscribe(
-  //     (data: any) => {
-  //       this.toastr.error("Group Delete Successfully", "Success");
-  //       this.closeAllModal();
-  //       this.getAllGroup();
-  //       this.isApiCalling = false;
-  //     }, err => {
-  //       this.toastr.error("Oops! Something went wrong", 'Error');
-  //       this.isApiCalling = false;
-  //       this.closeAllModal();
-  //     }
-  //   )
-  // }
+  getClassList() {
+    var payload = {
+      "groupId": this.selectedGroup,
+      // pageIndex: this.pageIndex,
+      // limit: 20,
+    }
 
+    this.isApiCalling = true;
+    this.http.getAccount(ApiUrl.classes, payload).subscribe(res => {
+      this.isApiCalling = false;
+      this.http.showLoader();
+      if (res.data != undefined) {
+        this.classes = res.data;
+        // this.filter = res.data;
+      }
+    });
+  }
+
+  openAddClassModal() {
+    const dialogRef = this.dialog.open(AddEditClassComponent, {
+      panelClass: 'account-modal-main',
+      width: '350px',
+      data: { type: 'AddClass', groupId: this.selectedGroup }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getClassList();
+    });
+  }
+
+  editClassModal(id, className) {
+    const dialogRef = this.dialog.open(AddEditClassComponent, {
+      panelClass: 'account-modal-main',
+      width: '350px',
+      data: { type: 'AddClass', groupId: this.selectedGroup, id: id, className: className }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getClassList();
+    });
+  }
+
+  deleteClass(id, className) {
+    const dialogRef = this.dialog.open(DeleteModalComponent, {
+      panelClass: 'account-modal-main',
+      width: '350px',
+      data: { type: 'deleteClass', title: 'Class', id: id, name: className }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getAllGroup();
+      this.sharedService.deleteEditGroup(true);
+      // this.sharedService.getSettingsGroupList();
+    });
+  }
 
   closeAllModal() {
     this.dialog.closeAll();

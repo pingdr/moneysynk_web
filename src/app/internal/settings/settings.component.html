@@ -12,17 +12,23 @@
         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
                 aria-controls="nav-home" aria-selected="true">Groups <span class="right-arrow">1</span></a>
+
             <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
                 aria-controls="nav-profile" aria-selected="false">Home Currency & Exchange Rate<span
                     class="right-arrow">1</span></a>
+
             <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
                 aria-controls="nav-contact" aria-selected="false">Default Options<span class="right-arrow">1</span></a>
+
             <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#manage-class" role="tab"
                 aria-controls="nav-about" aria-selected="false">Manage Class<span class="right-arrow">1</span></a>
+
             <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#forecast" role="tab"
                 aria-controls="nav-about" aria-selected="false">Forecast <span class="right-arrow">1</span></a>
+
             <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#close-account" role="tab"
                 aria-controls="nav-about" aria-selected="false">Close Accounts<span class="right-arrow">1</span></a>
+
             <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#contact-support" role="tab"
                 aria-controls="nav-about" aria-selected="false">Contact Support<span class="right-arrow">1</span></a>
         </div>
@@ -274,6 +280,42 @@
                             <mat-option value="option3">500.00</mat-option>
                         </mat-select>
                     </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="manage-class" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+            <div class="heading-pannel">
+                <div class="component-btn" style="width: 100%;">
+                    <button class="btn " (click)="openAddClassModal()">Add Class</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <ng-container *ngIf="isShimmerloading">
+                        <div *ngFor="let shimmer of [1,2,3,4,5]">
+                            <ngx-shimmer-loading [shape]="'rect'" [width]="'100%'" [height]="'50px'">
+                            </ngx-shimmer-loading>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="!isShimmerloading">
+                        <div *ngFor="let class of classes; let i = index" class="editable-account">
+                            <div class="account-type"><span>{{ class.name }}</span></div>
+                            <div class="action-tab-main">
+                                <a style="cursor: pointer;" class="edit-btn" title="edit"
+                                    (click)="editClassModal(class._id,class.name)">
+                                    <img src="../../../assets/images/edit-pencil.svg">
+                                </a>
+                                <a class="delete-btn" style="cursor: pointer;" title="delete"
+                                    (click)="deleteClass(class._id,class.name)">
+                                    <img src="../../../assets/images/delete-trash.svg">
+                                </a>
+                            </div>
+
+                        </div>
+                    </ng-container>
                 </div>
             </div>
         </div>

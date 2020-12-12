@@ -333,7 +333,7 @@ export class HttpService {
             return o[key] || o === val;
         });
     }
-    signUp(url, payload, isLoading?: boolean) {        
+    signUp(url, payload, isLoading?: boolean) {
         return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
     }
     sendEmail(url, email, isLoading?: boolean) {
@@ -558,6 +558,12 @@ export class HttpService {
 
     deleteTransaction(id) {
         return this.http.delete(this.apiEndpoint + 'transactions/' + id);
+    }
+
+    //Classes
+
+    deleteClasses(id) {
+        return this.http.delete(this.apiEndpoint + 'classes/' + id);
     }
 
 

@@ -56,6 +56,8 @@ import { DeleteModalComponent } from './shared/modals/delete-modal/delete-modal.
 import { TransferModalComponent } from './shared/modals/transfer-modal/transfer-modal.component';
 import { EditGroupModalComponent } from './shared/modals/edit-group-modal/edit-group-modal.component';
 import { LogoutModalComponent } from './shared/modals/logout-modal/logout-modal.component';
+import { SharedModule } from './shared/modules/shared.module';
+import { AddEditClassComponent } from './shared/modals/add-edit-class/add-edit-class.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,6 @@ import { LogoutModalComponent } from './shared/modals/logout-modal/logout-modal.
     ForgotPasswordComponent,
     ChangePasswordComponent,
     AddEditAccountComponent,
-    OnlynumberDirectiveDirective,
     AddCategoryPopupComponent,
     AddPayeeComponent,
     AddBudgetModalComponent,
@@ -78,7 +79,8 @@ import { LogoutModalComponent } from './shared/modals/logout-modal/logout-modal.
     DeleteModalComponent,
     TransferModalComponent,
     EditGroupModalComponent,
-    LogoutModalComponent
+    LogoutModalComponent,
+    AddEditClassComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +117,8 @@ import { LogoutModalComponent } from './shared/modals/logout-modal/logout-modal.
     RouterModule,
     MatNativeDateModule,
     MatMomentDateModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    SharedModule
   ],
   entryComponents: [
     EmailOtpComponent,

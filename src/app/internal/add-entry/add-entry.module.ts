@@ -39,7 +39,8 @@ const routes: Routes = [
         MatDatepickerModule,
         RouterModule.forChild(routes),
         MatExpansionModule,
-        MatButtonModule
+        MatButtonModule,
+        SharedModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

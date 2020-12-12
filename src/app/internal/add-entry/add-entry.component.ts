@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -22,6 +22,8 @@ export class AddEntryComponent implements OnInit {
   pageIndex: any = 0;
   payeesArray: any;
   categories: any;
+  childs: any = [];
+  selectedChild: any
   accountList: any;
   classes: any;
   filterName: any;
@@ -46,15 +48,15 @@ export class AddEntryComponent implements OnInit {
     this.editentry = this.formBuilder.group({
       transactionType: [this.transactionType],
       beneficiaryType: [this.type],
-      amount: [''],
+      amount: ['', Validators.required],
       beneficiaryId: ['', Validators.required],
       // Never: ['', Validators.required],
       accountId: ['', Validators.required],
-      classId: ['', Validators.required],
+      classId: [''],
       dateTime: ['', Validators.required],
       categoryId: ['', Validators.required],
-      chequeNumber: ['', Validators.required],
-      financialSourceId: ['', Validators.required],
+      chequeNumber: [''],
+      financialSourceId: [''],
       cleared: [Boolean],
       groupId: [''],
       note: ['']
@@ -117,6 +119,7 @@ export class AddEntryComponent implements OnInit {
         break;
     }
   }
+
   ngOnInit() {
 
     console.log('Activated Router -- - -- - - ', this.activatedRouter.snapshot.params['id']);
@@ -143,6 +146,7 @@ export class AddEntryComponent implements OnInit {
       if (res && res.data.data) {
         this.accountEntryDetail = res.data.data;
         this.editentry.controls.beneficiaryId.setValue(this.accountEntryDetail.beneficiaryId._id);
+        this.editentry.controls.amount.setValue(this.accountEntryDetail.amount);
         this.editentry.controls.accountId.setValue(this.accountEntryDetail.accountId._id);
         this.editentry.controls.classId.setValue(this.accountEntryDetail.classId._id);
         this.editentry.controls.categoryId.setValue(this.accountEntryDetail.categoryId._id);
@@ -185,6 +189,7 @@ export class AddEntryComponent implements OnInit {
       }
     });
   }
+
   getClasses() {
     var payload = {
       "groupId": this.groupId,
@@ -202,6 +207,9 @@ export class AddEntryComponent implements OnInit {
       }
     });
   }
+
+  
+
   getAccountdata() {
     var payload = {
       "groupId": this.groupId,
@@ -224,8 +232,8 @@ export class AddEntryComponent implements OnInit {
     this.isApiCalling = true;
     var payload = {
       "groupId": this.groupId,
-      "pageIndex": this.pageIndex,
-      "limit": 20,
+      // "pageIndex": this.pageIndex,
+      // "limit": 20,
       type: this.type === 'PAYEE' ? 'EXPENSE' : 'INCOME'
     }
     this.http.getCategories(ApiUrl.getCategories, payload).subscribe(res => {
@@ -259,55 +267,70 @@ export class AddEntryComponent implements OnInit {
   }
   get f() { return this.editentry.controls; }
 
+  parentSelected(event) {
+    if (event.value) {
+      console.log(event.value);
+      this.childs = this.categories[this.categories.findIndex(x => x._id === event.value)].child;
+    } else {
+      console.log(event);
+      this.childs = this.categories[this.categories.findIndex(x => x._id === event)].child;
+    }
+  }
+
+  subSelected(event) {
+    if (event.value != "") {
+      this.selectedChild = event.value;
+      console.log(this.selectedChild);
+    }
+  }
+
   onSubmit() {
     this.submitted = true;
-
-    console.log(this.editentry.value);
 
     // stop here if form is invalid
     if (this.editentry.invalid) {
       return;
     }
-    if (this.amount) {
-      this.editentry.controls.amount.setValue(this.amount);
-      this.isApiCalling = true;
 
+    if (this.selectedChild) {
+      this.editentry.controls.categoryId.setValue(this.selectedChild);
+    }
 
-      if (this.accountEntryDetail._id && this.accountEntryDetail._id != undefined) {
-        this.http.post(ApiUrl.getTransactions + '/' + this.accountEntryDetail._id, this.editentry.value, false)
-          .subscribe(res => {
-            this.isApiCalling = false;
-            let response = res;
-            if (response.statusCode == 200) {
-              this.toastr.success('Transaction Updated successfully', 'success', {
-                timeOut: 2000
-              });
-              this.router.navigate(['/transactions']);
-            }
-          },
-            () => {
-              this.isApiCalling = false;
+    console.log(this.editentry.value);
+
+    this.isApiCalling = true;
+
+    if (this.accountEntryDetail._id && this.accountEntryDetail._id != undefined) {
+      this.http.post(ApiUrl.getTransactions + '/' + this.accountEntryDetail._id, this.editentry.value, false)
+        .subscribe(res => {
+          this.isApiCalling = false;
+          let response = res;
+          if (response.statusCode == 200) {
+            this.toastr.success('Transaction Updated successfully', 'success', {
+              timeOut: 2000
             });
-      } else {
-        this.http.post(ApiUrl.getTransactions, this.editentry.value, false)
-          .subscribe(res => {
+            this.router.navigate(['/transactions']);
+          }
+        },
+          () => {
             this.isApiCalling = false;
-            let response = res;
-            if (response.statusCode == 200) {
-              this.toastr.success('Transaction added successfully', 'success', {
-                timeOut: 2000
-              });
-            }
-          },
-            () => {
-              this.isApiCalling = false;
-            });
-      }
-
+          });
     } else {
-      this.toastr.error('Please Add Amount.', 'error', {
-        timeOut: 2000
-      });
+      this.http.post(ApiUrl.getTransactions, this.editentry.value, false)
+        .subscribe(res => {
+          this.isApiCalling = false;
+          let response = res;
+          if (response.statusCode == 200) {
+            this.toastr.success('Transaction added successfully', 'success', {
+              timeOut: 2000
+            });
+
+            this.router.navigate(['/transactions']);
+          }
+        },
+          () => {
+            this.isApiCalling = false;
+          });
     }
     // display form values on success
     // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.editaccount.value, null, 4));
