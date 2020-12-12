@@ -283,10 +283,11 @@
     background: #f3d39e;
     // border-bottom-left-radius: 10px;
     // border-bottom-right-radius: 10px;
-    padding: 10px 10px;
+    padding: 8px;
     position: relative;
     .inner-expanse-panal-main {
         display: flex;
+        align-items: center;
         .boxes {
             display: block;
             width: 100%;

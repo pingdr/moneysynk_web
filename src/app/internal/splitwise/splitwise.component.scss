@@ -31,7 +31,7 @@
     padding-bottom: 0px;
 
     .scroller-class {
-        height: calc(100vh - 360px) !important;
+        height: calc(100vh - 280px) !important;
         overflow-y: scroll !important;
     }
 }
@@ -152,12 +152,12 @@
     background: #f3d39e;
     // border-bottom-left-radius: 10px;
     // border-bottom-right-radius: 10px;
-    padding: 10px 10px;
+    padding: 10px;
     position: relative;
 
     .inner-expanse-panal-main {
         display: flex;
-
+        align-items: center;
         .boxes {
             display: block;
             width: 100%;
