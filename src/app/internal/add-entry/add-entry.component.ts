@@ -55,6 +55,7 @@ export class AddEntryComponent implements OnInit {
       classId: [''],
       dateTime: ['', Validators.required],
       categoryId: ['', Validators.required],
+      subCategoryId: [''],
       chequeNumber: [''],
       financialSourceId: [''],
       cleared: [Boolean],
@@ -96,6 +97,11 @@ export class AddEntryComponent implements OnInit {
   }
 
   billTypeChange(type) {
+
+    this.editentry.controls.categoryId.setValue('');
+    this.editentry.controls.subCategoryId.setValue('');
+    this.selectedChild = '';
+
     switch (type) {
       case 'IN':
         this.isbtnSelected = 1;
@@ -149,7 +155,7 @@ export class AddEntryComponent implements OnInit {
         this.editentry.controls.amount.setValue(this.accountEntryDetail.amount);
         this.editentry.controls.accountId.setValue(this.accountEntryDetail.accountId._id);
         this.editentry.controls.classId.setValue(this.accountEntryDetail.classId._id);
-        this.editentry.controls.categoryId.setValue(this.accountEntryDetail.categoryId._id);
+        // this.editentry.controls.categoryId.setValue(this.accountEntryDetail.categoryId._id);
         this.editentry.controls.chequeNumber.setValue(this.accountEntryDetail.chequeNumber);
         this.editentry.controls.dateTime.setValue(this.accountEntryDetail.dateTime);
         this.editentry.controls.cleared.setValue(this.accountEntryDetail.cleared);
@@ -171,6 +177,32 @@ export class AddEntryComponent implements OnInit {
         console.log('Account Detail', res.data.data);
       }
     });
+  }
+
+  setCategoryOrSubCategory(data) {
+    if (this.accountEntryDetail.categoryId._id != undefined) {
+      console.log('res================================', data)
+
+      data.map((cat) => {
+        if (cat._id === this.accountEntryDetail.categoryId._id) {
+          if (cat.parent != null) {
+            console.log("Selected Child Id", this.selectedChild);
+            this.categories.map((parentCat) => {
+              if (parentCat._id === cat.parent) {
+                this.editentry.controls.categoryId.setValue(parentCat._id);
+                this.parentSelected(parentCat._id);
+                this.editentry.controls.subCategoryId.setValue(cat._id);
+                this.selectedChild = cat._id;
+                console.log(parentCat.name);
+              }
+            })
+          } else {
+            this.editentry.controls.categoryId.setValue(this.accountEntryDetail.categoryId._id);
+          }
+        }
+      })
+
+    }
   }
 
   getBudgets() {
@@ -208,7 +240,7 @@ export class AddEntryComponent implements OnInit {
     });
   }
 
-  
+
 
   getAccountdata() {
     var payload = {
@@ -242,6 +274,7 @@ export class AddEntryComponent implements OnInit {
       if (res.data.data != undefined) {
         // this.total = res.data.totalCategories;
         this.categories = res.data.data;
+        this.setCategoryOrSubCategory(res.data.data);
       }
 
     });
@@ -281,6 +314,9 @@ export class AddEntryComponent implements OnInit {
     if (event.value != "") {
       this.selectedChild = event.value;
       console.log(this.selectedChild);
+    } else {
+      this.selectedChild = event;
+      console.log(this.selectedChild);
     }
   }
 
@@ -297,6 +333,9 @@ export class AddEntryComponent implements OnInit {
     }
 
     console.log(this.editentry.value);
+
+    this.editentry.removeControl('subCategoryId');
+
 
     this.isApiCalling = true;
 
