@@ -34,6 +34,7 @@ export class CategoriesComponent implements OnInit {
   categorySummary: any = [];
   cName: any;
   total: any;
+  MonthlyTotal: any = '';
   pageIndex: any = 0;
   isDefault: boolean = true;
 
@@ -77,9 +78,12 @@ export class CategoriesComponent implements OnInit {
       this.categoriesDetails = res.data;
     })
   }
+
   selectRecord(c) {
+    console.log(c);
     this.cName = c.name;
     this.getCategoriesDetailsById(c._id);
+    this.getCategoryMonthlyData(c._id, c.type);
   }
   getCategoriesData() {
     this.isApiCalling = true;
@@ -105,6 +109,7 @@ export class CategoriesComponent implements OnInit {
           this.cName = this.expenseArray[0].name;
 
           // this.getCategoriesDetailsById(this.expenseArray[0]._id);
+          this.getCategoryMonthlyData(this.expenseArray[0]._id, this.expenseArray[0].type)
         } else {
           this.incomeArray = res.data.data;
           this.cName = this.incomeArray[0].name;
@@ -129,6 +134,31 @@ export class CategoriesComponent implements OnInit {
         this.categorySummary = res.data;
       }
     });
+  }
+
+  getCategoryMonthlyData(categoryId, type) {
+
+    let payloadType = '';
+
+    if (type == 'EXPENSE') {
+      payloadType = 'OUT';
+    } else {
+      payloadType = 'IN';
+    }
+
+    var payload = {
+      "groupId": this.groupId,
+      "categoryId": categoryId,
+      "type": payloadType
+    }
+
+    this.http.getMonthlySummarydata('categories/getMonthlyData', payload).subscribe((res: any) => {
+      console.log("&&&&&&&&&&&&&&&&&&&&&&&&&", res.data[0].total);
+      if (res.data) {
+        this.MonthlyTotal = res.data[0].total;
+      }
+    });
+
   }
 
   pageChange(event) {
@@ -157,7 +187,7 @@ export class CategoriesComponent implements OnInit {
       this.expenseArray = [];
       this.getCategoriesData();
     });
-  } 
+  }
 
 
   deleteCategory(id, categoryName) {
@@ -190,7 +220,7 @@ export class CategoriesComponent implements OnInit {
       this.getCategoriesData();
     });
   }
-  
+
   closeAllModal() {
     this.dialog.closeAll();
   }

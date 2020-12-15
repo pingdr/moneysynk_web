@@ -104,7 +104,10 @@
                                                         {{bd._id.month}}/{{bd._id.year}}
                                                     </mat-panel-title>
                                                     <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
+                                                        <span class="red-color">
+                                                            <!-- $ 120.00 -->
+                                                            {{monthlyTotal | currency}}
+                                                        </span>
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
 
@@ -221,7 +224,10 @@
                                                         {{bd._id.month}}/{{bd._id.year}}
                                                     </mat-panel-title>
                                                     <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
+                                                        <span class="red-color">
+                                                            <!-- $ 120.00 -->
+                                                            {{this.monthlyTotal || currency}}
+                                                        </span>
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
 
@@ -265,7 +271,7 @@
             <span class="value green-cleared">$0.00 / {{budgetSummary.currentBalance}}</span>
         </div>
         <div class="boxes">
-            <a class="transfer" (click)="openTransferModal()" title="transfer" style="cursor: pointer;" >
+            <a class="transfer" (click)="openTransferModal()" title="transfer" style="cursor: pointer;">
                 <img src="../../../assets/images/Vector (1).png" width="40px" title="Transfer" />
             </a>
         </div>

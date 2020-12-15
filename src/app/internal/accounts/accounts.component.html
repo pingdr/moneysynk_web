@@ -64,7 +64,8 @@
                         [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account"
                         (click)="recordSelected(i,data._id)">
                         <div class="number">
-                            <span><img style="width: 32px;" src="{{data.icon}}"></span></div>
+                            <span><img style="width: 32px;" src="{{data.icon}}"></span>
+                        </div>
                         <div class="account-type"><span>{{ data.name }}</span></div>
                         <a class="view-btn">
                             <img style="margin-left: -57px;" *ngIf="data.isViewAmount" (click)="toggleAmount(i)"
@@ -122,7 +123,10 @@
                                                 {{ad._id.month}}/{{ad._id.year}}
                                             </mat-panel-title>
                                             <mat-panel-description>
-                                                <span class="red-color">$ 120.00</span>
+                                                <span class="red-color">
+                                                    <!-- 120.00 -->
+                                                    {{monthlyData | currency}}
+                                                </span>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
 

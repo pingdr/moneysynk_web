@@ -7,6 +7,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { AddPayeeComponent } from 'src/app/shared/modals/add-payee/add-payee.component';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-payees-payers',
@@ -20,9 +21,12 @@ export class PayeesPayersComponent implements OnInit {
   payeesArray: any = [];
   sortPayeerArray: any = [];
   payersArray: any = [];
+  monthlyTotal: any = '';
   pName: any = '';
   groupId: any;
+
   isRecordSelected: any = 0;
+  isRecordSelected1: any = 0;
 
   isApiCalling: boolean = false;
   isShimmerLoading: boolean = false;
@@ -38,7 +42,7 @@ export class PayeesPayersComponent implements OnInit {
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
   ]
 
-  availableSortData: any = [];
+  payeePayer: any = [];
 
   constructor(public dialog: MatDialog, public sharedserive: SharedService, public http: HttpService, private toastr: ToastrService) { }
 
@@ -94,11 +98,13 @@ export class PayeesPayersComponent implements OnInit {
           this.sortOutByChar(this.payeesArray);
           this.pName = res.data.data[0].name;
           this.getPayeeDetailsById(this.payeesArray[0]._id);
+          this.getMonthlySummaryData(this.payeesArray[0]._id, this.payeesArray[0].type)
         } else {
           this.payersArray = res.data.data;
           this.sortOutByChar(this.payersArray);
           this.pName = res.data.data[0].name;
           this.getPayeeDetailsById(this.payersArray[0]._id);
+          this.getMonthlySummaryData(this.payersArray[0]._id, this.payersArray[0].type)
         }
 
       }
@@ -106,20 +112,19 @@ export class PayeesPayersComponent implements OnInit {
   }
 
   sortOutByChar(data) {
-    for (let index = 0; index < data.length; index++) {
-      this.availabelSortData((data[index].name.charAt(0)).toUpperCase());
-    }
-  }
-
-  availabelSortData(key) {
-    if (this.availableSortData.length == 0) {
-      this.availableSortData.push(key);
-    }
-    const data = this.availableSortData.find((x) => x === key);
-    if (!data) {
-      this.availableSortData.push((key).toUpperCase());
-    }
-
+    let temp: any = data;
+    var grouBy = _.groupBy(temp, function (data) {
+      return data.name.charAt(0).toUpperCase()
+    });
+    let array: any = [];
+    Object.keys(grouBy).forEach((key) => {
+      let newObj = {
+        title: key,
+        data: grouBy[key]
+      };
+      array.push(newObj);
+    });
+    this.payeePayer = array;
   }
 
   gotoPayersTop(char) {
@@ -166,17 +171,48 @@ export class PayeesPayersComponent implements OnInit {
     });
   }
 
+  getMonthlySummaryData(beneficiaryId, type) {
+
+    const payload = {
+      "groupId": this.groupId,
+      "year": "1",      
+      "beneficiaryId": beneficiaryId
+    }
+
+    console.log(payload)
+    this.http.getMonthlySummarydata('financialBeneficiaries/getMonthlyData', payload).subscribe((res: any) => {      
+      console.log(res);
+      if (res.data) {
+        this.monthlyTotal = res.data[0].total
+      }
+    });
+
+  }
+
 
   pageChange(event) {
     this.pageIndex = event.pageIndex;
+    this.payeePayer = [];
     this.getPayees();
   }
-  recordSelected(i, payee) {
+
+  // recordSelected(i, payee) {
+  //   if (i || i == 0)
+  //     this.isRecordSelected = i;
+  //   if (payee._id) {
+  //     this.pName = payee.name;
+  //     this.getPayeeDetailsById(payee._id);
+  //   }
+  // }
+
+  recordSelected(i, j, payee) {
     if (i || i == 0)
       this.isRecordSelected = i;
+    this.isRecordSelected1 = j;
     if (payee._id) {
       this.pName = payee.name;
       this.getPayeeDetailsById(payee._id);
+      this.getMonthlySummaryData(payee._id,payee.type);
     }
   }
 
@@ -185,7 +221,6 @@ export class PayeesPayersComponent implements OnInit {
   }
   setType(type) {
 
-    this.availableSortData = [];
     this.type = type;
     if (type === "PAYEE")
       this.AddText = "Add Payee"
@@ -215,7 +250,7 @@ export class PayeesPayersComponent implements OnInit {
       console.log('The dialog was closed');
       this.payeesArray = [];
       this.payersArray = [];
-      this.availableSortData = [];
+      this.payeePayer = [];
       this.isRecordSelected = 0;
       this.getPayees();
     });
@@ -233,7 +268,7 @@ export class PayeesPayersComponent implements OnInit {
       console.log('The dialog was closed');
       this.payeesArray = [];
       this.payersArray = [];
-      this.availableSortData = [];
+      this.payeePayer = [];
       this.isRecordSelected = 0;
       this.getPayees();
     });
@@ -259,7 +294,7 @@ export class PayeesPayersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.availableSortData = [];
+      this.payeePayer = [];
       this.isRecordSelected = 0;
       this.getPayees();
     });

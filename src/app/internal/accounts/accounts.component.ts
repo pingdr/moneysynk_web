@@ -30,6 +30,7 @@ export class AccountsComponent implements OnInit {
 
   isApiCalling: boolean = false;
   isShimmerloading: boolean = false;
+  monthlyData: any = '';
 
   accountName: string = '';
   config: Slick.Config = {
@@ -156,6 +157,24 @@ export class AccountsComponent implements OnInit {
     });
   }
 
+  getMonthlyTransactionData(accountId) {
+    console.log(accountId);
+
+    const payload = {
+      "year": "1",
+      "groupId": this.groupId,
+      "accountId": accountId
+    }
+
+    this.http.getMonthlySummarydata("accounts/getMonthlyData", payload).subscribe((res: any) => {
+      debugger
+      console.log(res);
+      if (res.data) {
+        this.monthlyData = res.data[0].total;
+      }
+    });
+  }
+
   setDoughnutChartData(data) {
     this.doughnutChartLabels = [];
     this.doughnutChartData = [];
@@ -254,6 +273,7 @@ export class AccountsComponent implements OnInit {
         if (res.data.data.length > 0) {
           this.getAccountDetailsById(res.data.data[0]._id)
           this.getAccountSummary(res.data.data[0]._id)
+          this.getMonthlyTransactionData(res.data.data[0]._id)
         }
         for (let i = 0; i < this.accountList.length; i++) {
           this.accountList[i]['isViewAmount'] = true;
@@ -278,6 +298,7 @@ export class AccountsComponent implements OnInit {
     if (id) {
       this.getAccountDetailsById(id);
       this.getAccountSummary(id);
+      this.getMonthlyTransactionData(id);
       this.accountSummaryId = id;
       this.getSummaryDetails('Expanse');
     }

@@ -33,6 +33,8 @@ export class BudgetComponent implements OnInit {
   pageIndex: any = 0;
   bname: any;
 
+  monthlyTotal: any = '';
+
   dialogRefofOtpModal: MatDialogRef<AddBudgetModalComponent>;
   constructor(public http: HttpService, private formBuilder: FormBuilder, private toastr: ToastrService, public sharedserive: SharedService, public dialog: MatDialog) { }
 
@@ -55,6 +57,8 @@ export class BudgetComponent implements OnInit {
       this.recordSelected = i;
     this.bname = b.name;
     this.getBudgetDetailsById(b._id)
+    this.getMonthlyDataSummary(b._id)
+
   }
 
   getBudgetDetailsById(id) {
@@ -71,6 +75,21 @@ export class BudgetComponent implements OnInit {
     })
   }
 
+  getMonthlyDataSummary(financialSourceId) {
+
+    const payload = {
+      "financialSourceId": financialSourceId,
+      "groupId": this.groupId
+    }
+
+    this.http.getMonthlySummarydata('financialSources/getMonthlyData', payload).subscribe((res: any) => {
+      if (res.data) {
+        this.monthlyTotal = res.data[0].total
+      }
+    })
+
+  }
+
   deleteBudget(id, budgetName) {
     const dialogRef = this.dialog.open(DeleteModalComponent, {
       panelClass: 'account-modal-main',
@@ -83,7 +102,7 @@ export class BudgetComponent implements OnInit {
       this.getBudgets();
     });
   }
-  
+
   closeDeleteModal() {
     this.dialog.closeAll();
   }
@@ -114,11 +133,13 @@ export class BudgetComponent implements OnInit {
           this.expenseArray = res.data.data;
           this.bname = this.expenseArray[0].name;
           this.getBudgetDetailsById(this.expenseArray[0]._id);
+          this.getMonthlyDataSummary(this.expenseArray[0]._id);
         } else {
           this.incomeArray = res.data.data;
           console.log('-------------------------', this.incomeArray);
           this.bname = this.incomeArray[0].name;
           this.getBudgetDetailsById(this.incomeArray[0]._id);
+          this.getMonthlyDataSummary(this.incomeArray[0]._id);
         }
       }
     });

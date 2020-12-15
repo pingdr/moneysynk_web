@@ -111,7 +111,10 @@
                                                         {{cd._id.month}}/{{cd._id.year}}
                                                     </mat-panel-title>
                                                     <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
+                                                        <span class="red-color">
+                                                            <!-- 120.00 -->
+                                                            {{MonthlyTotal | currency}}
+                                                        </span>
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
 
@@ -230,7 +233,10 @@
                                                         {{cd._id.month}}/{{cd._id.year}}
                                                     </mat-panel-title>
                                                     <mat-panel-description>
-                                                        <span class="green-color">$ 120.00</span>
+                                                        <span class="green-color">
+                                                            <!-- 120.00 -->
+                                                            {{MonthlyTotal | currency}}
+                                                        </span>
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
 

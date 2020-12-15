@@ -33,7 +33,38 @@
                                 </ng-container>
 
                                 <ng-container *ngIf="!isShimmerLoading">
-                                    <div class="main-box-character" *ngFor="let char of availableSortData"
+                                    <div id="{{char.title}}" class="main-box-character" *ngFor="let char of payeePayer; let i = index">
+                                        <div class="first-latter-main">
+                                            <span>{{char.title}}</span>
+                                        </div>
+                                        <ng-container *ngFor="let payees of char.data; let j = index">
+                                            <div class="inner-strips-main-box"
+                                                [ngClass]="{ 'active-box' : isRecordSelected == i && isRecordSelected1 == j}"
+                                                (click)="recordSelected(i,j,payees)">
+                                                <div class="name-of-holder">
+                                                    {{payees.name}}
+                                                </div>
+                                                <div class="price-tag-main">
+                                                    ${{payees.expenseTotal}}
+                                                </div>
+                                                <div class="del-icon">
+                                                    <button class="icon-remove">
+                                                        <img src="../../../assets/images/edit-pencil.svg"
+                                                            (click)="updatePayeeOrPayer(payees)">
+                                                    </button>
+
+                                                    <button class="icon-remove">
+                                                        <img src="../../../assets/images/delete-trash.svg"
+                                                            (click)="deletePayee(payees._id,payees.name,'deletePayee')">
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+
+
+                                    <!-- <div class="main-box-character" *ngFor="let char of availableSortData"
                                         id="{{char}}">
                                         <div class="first-latter-main">
                                             <span>{{char}}</span>
@@ -65,7 +96,7 @@
 
                                             </div>
                                         </ng-container>
-                                    </div>
+                                    </div> -->
 
                                 </ng-container>
 
@@ -95,7 +126,10 @@
                                                         {{pd._id.month}}/{{pd._id.year}}
                                                     </mat-panel-title>
                                                     <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
+                                                        <span class="red-color">
+                                                            <!-- $ 120.00 -->
+                                                            {{monthlyTotal | currency}}
+                                                        </span>
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
                                                 <div *ngFor="let d of pd.data" class="inner-expansion-main">
@@ -138,7 +172,38 @@
                                 </ng-container>
 
                                 <ng-container *ngIf="!isShimmerLoading">
-                                    <div class="main-box-character" *ngFor="let char of availableSortData"
+                                    <div id="P{{char.title}}" class="main-box-character" *ngFor="let char of payeePayer; let i = index">
+                                        <div class="first-latter-main">
+                                            <span>{{char.title}}</span>
+                                        </div>
+                                        <ng-container *ngFor="let payees of char.data;let j = index">
+                                            <div class="inner-strips-main-box"
+                                                [ngClass]="{ 'active-box' : isRecordSelected == i && isRecordSelected1 == j}"
+                                                (click)="recordSelected(i,j,payees)">
+                                                <div class="name-of-holder">
+                                                    {{payees.name}}
+                                                </div>
+                                                <div class="price-tag-main">
+                                                    ${{payees.expenseTotal}}
+                                                </div>
+                                                <div class="del-icon">
+                                                    <button class="icon-remove">
+                                                        <img src="../../../assets/images/edit-pencil.svg"
+                                                            (click)="updatePayeeOrPayer(payees)">
+                                                    </button>
+
+                                                    <button class="icon-remove">
+                                                        <img src="../../../assets/images/delete-trash.svg"
+                                                            (click)="deletePayee(payees._id,payees.name,'deletePayee')">
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+
+
+                                    <!-- <div class="main-box-character" *ngFor="let char of availableSortData"
                                         id="P{{char}}">
                                         <div class="first-latter-main">
                                             <span>{{char}}</span>
@@ -170,7 +235,7 @@
 
                                             </div>
                                         </ng-container>
-                                    </div>
+                                    </div> -->
 
                                 </ng-container>
 
@@ -203,7 +268,10 @@
                                                         {{pd._id.month}}/{{pd._id.year}}
                                                     </mat-panel-title>
                                                     <mat-panel-description>
-                                                        <span class="red-color">$ 120.00</span>
+                                                        <span class="red-color">
+                                                            <!-- $ 120.00 -->
+                                                            {{monthlyTotal | currency}}
+                                                        </span>
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
 
