@@ -107,12 +107,13 @@ export class CategoriesComponent implements OnInit {
         if (this.type === "EXPENSE") {
           this.expenseArray = res.data.data;
           this.cName = this.expenseArray[0].name;
-
-          // this.getCategoriesDetailsById(this.expenseArray[0]._id);
+          
+          this.getCategoriesDetailsById(this.expenseArray[0]._id);          
           this.getCategoryMonthlyData(this.expenseArray[0]._id, this.expenseArray[0].type)
         } else {
           this.incomeArray = res.data.data;
           this.cName = this.incomeArray[0].name;
+          this.getCategoriesDetailsById(this.incomeArray[0]._id);          
           this.getCategoriesDetailsById(this.incomeArray[0]._id);
         }
       }

@@ -378,6 +378,7 @@ export class AccountsComponent implements OnInit {
         if (res.data.data.length > 0) {
           this.getAccountDetailsById(res.data.data[0]._id)
           this.getAccountSummary(res.data.data[0]._id)
+          this.getMonthlyTransactionData(res.data.data[0]._id)
         } else {
           this.accountDetails = null
         }
