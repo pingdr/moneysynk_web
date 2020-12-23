@@ -245,8 +245,8 @@ export class AddEntryComponent implements OnInit {
   getAccountdata() {
     var payload = {
       "groupId": this.groupId,
-      pageIndex: this.pageIndex,
-      limit: 20,
+      //pageIndex: this.pageIndex,
+      //limit: 20,
     }
 
     this.isApiCalling = true;

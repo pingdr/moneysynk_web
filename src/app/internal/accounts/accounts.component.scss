@@ -36,6 +36,11 @@
     }
 }
 
+.sidebar-scroller {
+    height: calc(100vh - 550px) !important;
+    overflow-y: scroll !important;
+}
+
 .asset-main-tab {
     margin-top: 10px;
     padding-bottom: 15px;

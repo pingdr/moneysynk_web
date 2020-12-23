@@ -41,7 +41,8 @@
                         </span>
                     </span>
 
-                    <span (click)="getType(data._id,i)" class="balance-btn">Bal:
+                    <span (click)="getType(data._id,i)" class="balance-btn"
+                        [ngClass]="data.currentBalance > 0 ? 'green-color':'red-color'">Bal:
                         ${{data.currentBalance}}</span></a>
             </div>
         </nav>
@@ -125,23 +126,32 @@
                                             <mat-panel-description>
                                                 <span>
                                                     {{monthlyData | currency}}
-
                                                 </span>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
 
-                                        <div *ngFor="let d of ad.data" class="inner-expansion-main">
-                                            <div class="inner-sub-left">
-                                                <div class="main-strips">
-                                                    <div class="holder-name">{{d.accountId.name}}</div>
-                                                    <div *ngIf="d.transactionType == 'IN'"
-                                                        class="price-tag green-color">$ {{d.amount}}</div>
-                                                    <div *ngIf="d.transactionType == 'OUT'" class="price-tag red-color">
-                                                        $ {{d.amount}}</div>
+                                        <div [ngClass]="{'sidebar-scroller':ad.data.length > 2}">
+                                            <div *ngFor="let d of ad.data" class="inner-expansion-main">
+                                                <div class="inner-sub-left">
+                                                    <div class="main-strips">
+                                                        <div class="holder-name">{{d.accountId.name}}</div>
+                                                        <div *ngIf="d.transactionType == 'IN'"
+                                                            class="price-tag green-color">$ {{d.amount}}</div>
+                                                        <div *ngIf="d.transactionType == 'OUT'"
+                                                            class="price-tag red-color">
+                                                            $ {{d.amount}}</div>
+                                                    </div>
+                                                    <div class="main-strips">
+                                                        <div class="date-and-time">{{d.createdAt | date}}</div>
+                                                    </div>
                                                 </div>
-                                                <div class="main-strips">
-                                                    <div class="date-and-time">{{d.createdAt | date}}</div>
-                                                </div>
+                                            </div>
+
+                                            <div style="display: flex;float: right;"
+                                                *ngIf="accountSummaryPageIndexTotal > 5">
+                                                <mat-paginator (page)="accountDetailPageChange($event)"
+                                                    [length]="accountSummaryPageIndexTotal" [pageSize]="5">
+                                                </mat-paginator>
                                             </div>
                                         </div>
                                     </mat-expansion-panel>

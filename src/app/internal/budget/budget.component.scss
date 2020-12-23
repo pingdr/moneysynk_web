@@ -36,6 +36,11 @@
     }
 }
 
+.sidebar-scroller {
+    height: calc(100vh - 550px) !important;
+    overflow-y: scroll !important;
+}
+
 .shimmer {
     display: inline-block !important;
     padding: 5px;

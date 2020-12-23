@@ -537,7 +537,8 @@ label {
                 padding: 8px 12px;
                 border-radius: 11px;
                 display: flex;
-                align-items: center;
+                align-items: center;                
+
                 .inner-sub-left {
                     width: 95%;
                     margin-right: 10px;
@@ -860,6 +861,8 @@ label {
                         grid-template-columns: repeat(2, 1fr);
                         width: 100%;
                         align-items: center;
+                        cursor: pointer;
+
                         &:last-child {
                             margin-bottom: 0;
                         }
@@ -1412,6 +1415,11 @@ body {
     font-size: 15px !important;
     font-weight: 400 !important;
 }
+
+// .mat-expansion-panel-body{
+//     height: 300px !important;
+//     overflow-y: scroll !important;
+// }
 
 // .mat-menu-panel{
 //     right: 10px !important;

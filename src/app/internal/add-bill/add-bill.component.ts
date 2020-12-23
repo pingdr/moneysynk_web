@@ -49,7 +49,7 @@ export class AddBillComponent implements OnInit {
       financialSourceId: ['', Validators.required],
       autopay: [Boolean],
       groupId: [''],
-      note: ['',Validators.maxLength(255)]
+      note: ['', Validators.maxLength(255)]
     });
   }
 
@@ -215,7 +215,6 @@ export class AddBillComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger
     this.submitted = true;
 
     console.log(this.editentry.value);
@@ -259,7 +258,6 @@ export class AddBillComponent implements OnInit {
           () => {
             this.isApiCalling = false;
           });
-
     }
   }
 

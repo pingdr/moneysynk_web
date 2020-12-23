@@ -85,6 +85,11 @@ export class AccountsComponent implements OnInit {
   resultsLength: any = 0;
   accountType_id: any;
   pageIndex: any = 0;
+
+  accountSummaryPageIndex = 0;
+  accountSummaryPageIndexTotal = '';
+
+
   constructor(public http: HttpService, public activeRoute: ActivatedRoute, public changeDetect: ChangeDetectorRef, public sharedserive: SharedService,
     private _router: Router,
     private toastr: ToastrService,
@@ -167,7 +172,6 @@ export class AccountsComponent implements OnInit {
     }
 
     this.http.getMonthlySummarydata("accounts/getMonthlyData", payload).subscribe((res: any) => {
-      debugger
       console.log(res);
       if (res.data) {
         this.monthlyData = res.data[0].total;
@@ -241,12 +245,15 @@ export class AccountsComponent implements OnInit {
     var payload = {
       year: 1,
       groupId: this.groupId,
-      accountId: id
+      accountId: id,
+      limit: 5,
+      pageIndex: this.accountSummaryPageIndex
     }
     this.http.get(ApiUrl.accountMonths, payload).subscribe((res) => {
       this.isApiCalling = false;
       console.log('Account Details ', res);
       this.accountDetails = res.data;
+      this.accountSummaryPageIndexTotal = res.data[0].totalTransaction;
     })
   }
   getAccountdata() {
@@ -270,6 +277,7 @@ export class AccountsComponent implements OnInit {
         this.accountList = [];
         this.resultsLength = res.data.total;
         this.accountList = res.data.data;
+
         if (res.data.data.length > 0) {
           this.getAccountDetailsById(res.data.data[0]._id)
           this.getAccountSummary(res.data.data[0]._id)
@@ -281,12 +289,24 @@ export class AccountsComponent implements OnInit {
         // this.filter = res.data;
       }
     });
+
+    setTimeout(() => {
+      let elem = document.getElementById('accountList0') as HTMLDivElement;
+      elem.click();
+    }, 1000)
   }
   pageChange(event) {
     console.log(event);
     this.pageIndex = event.pageIndex;
     this.getAccountdata();
   }
+
+  accountDetailPageChange(event) {
+    console.log(event, this.accountSummaryId);
+    this.accountSummaryPageIndex = event.pageIndex;
+    this.getAccountDetailsById(this.accountSummaryId);
+  }
+
   toggleAmount(i) {
     this.accountList[i]['isViewAmount'] = !this.accountList[i]['isViewAmount']
   }
@@ -349,6 +369,11 @@ export class AccountsComponent implements OnInit {
   }
 
   getType(id, i?: any) {
+    debugger
+
+    console.log('Acount Type ID :: ', id);
+
+
     this.resultsLength = 0;
     if (i || i == 0)
       this.isSelected = i;

@@ -35,6 +35,12 @@ export class PayeesPayersComponent implements OnInit {
   payeeName;
   total: any = 0;
   pageIndex: any = 0;
+
+  payeeDetailPageIndex: any = 0;
+  payeeIndexTotal: any = 0;
+  selectedPayeeId: string = '';
+
+
   AddText: any = "Add Payee";
   payeeDetails: any;
 
@@ -58,15 +64,20 @@ export class PayeesPayersComponent implements OnInit {
 
   step = 0;
 
-  getPayeeDetailsById(id) {
+  getPayeeDetailsById(id) {    
     this.isApiCalling = true;
     var payload = {
-      year: 1,
       groupId: this.groupId,
+      year: 1,
+      type: this.type == 'PAYEE' ? 'OUT' : 'IN',
       beneficiaryId: id,
-      type: this.type == 'PAYEE' ? 'OUT' : 'IN'
+      pageIndex: this.payeeDetailPageIndex,
+      limit: 5
+
     }
     this.http.get(ApiUrl.payeeMonths, payload).subscribe((res) => {
+      console.log("Payee Payer Detail ======>", res);
+      this.payeeIndexTotal = res.data[0].totalTransaction;
       this.isApiCalling = false;
       this.payeeDetails = res.data;
     })
@@ -97,12 +108,14 @@ export class PayeesPayersComponent implements OnInit {
           this.payeesArray = res.data.data;
           this.sortOutByChar(this.payeesArray);
           this.pName = res.data.data[0].name;
+          this.selectedPayeeId = res.data.data[0]._id;
           this.getPayeeDetailsById(this.payeesArray[0]._id);
           this.getMonthlySummaryData(this.payeesArray[0]._id, this.payeesArray[0].type)
         } else {
           this.payersArray = res.data.data;
           this.sortOutByChar(this.payersArray);
           this.pName = res.data.data[0].name;
+          this.selectedPayeeId = res.data.data[0]._id;
           this.getPayeeDetailsById(this.payersArray[0]._id);
           this.getMonthlySummaryData(this.payersArray[0]._id, this.payersArray[0].type)
         }
@@ -175,12 +188,12 @@ export class PayeesPayersComponent implements OnInit {
 
     const payload = {
       "groupId": this.groupId,
-      "year": "1",      
+      "year": "1",
       "beneficiaryId": beneficiaryId
     }
 
     console.log(payload)
-    this.http.getMonthlySummarydata('financialBeneficiaries/getMonthlyData', payload).subscribe((res: any) => {      
+    this.http.getMonthlySummarydata('financialBeneficiaries/getMonthlyData', payload).subscribe((res: any) => {
       console.log(res);
       if (res.data) {
         this.monthlyTotal = res.data[0].total
@@ -194,6 +207,13 @@ export class PayeesPayersComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.payeePayer = [];
     this.getPayees();
+  }
+
+  payeeDetailPageChange(event) {
+    this.payeeDetailPageIndex = event.pageIndex;
+    this.getPayeeDetailsById(this.selectedPayeeId)
+
+
   }
 
   // recordSelected(i, payee) {
@@ -211,8 +231,9 @@ export class PayeesPayersComponent implements OnInit {
     this.isRecordSelected1 = j;
     if (payee._id) {
       this.pName = payee.name;
+      this.selectedPayeeId = payee._id;
       this.getPayeeDetailsById(payee._id);
-      this.getMonthlySummaryData(payee._id,payee.type);
+      this.getMonthlySummaryData(payee._id, payee.type);
     }
   }
 
@@ -228,6 +249,7 @@ export class PayeesPayersComponent implements OnInit {
       this.AddText = "Add Payer"
     this.pageIndex = 0;
     this.isRecordSelected = 0;
+    this.payeeDetailPageIndex = 0;
     this.getPayees();
   }
   nextStep() {

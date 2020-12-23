@@ -60,7 +60,8 @@
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
                                         <div *ngIf="cat.child.length > 0" class="expansion-description-main">
-                                            <div *ngFor="let c of cat.child" class="inner-strips">
+                                            <div *ngFor="let c of cat.child" class="inner-strips"
+                                                (click)="getSubCategorySummaryData(c)">
                                                 <div class="left-col">
                                                     <img src="{{c.icon}}">
                                                     <span>{{c.name}}</span>
@@ -118,18 +119,27 @@
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
 
-                                                <div *ngFor="let d of cd.data" class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">{{d.accountId.name}}</div>
-                                                            <div *ngIf="d.transactionType == 'IN'"
-                                                                class="price-tag green-color">$ {{d.amount}}</div>
-                                                            <div *ngIf="d.transactionType == 'OUT'"
-                                                                class="price-tag red-color">$ {{d.amount}}</div>
+                                                <div [ngClass]="{'sidebar-scroller':cd.data.length > 2}">
+                                                    <div *ngFor="let d of cd.data" class="inner-expansion-main">
+                                                        <div class="inner-sub-left">
+                                                            <div class="main-strips">
+                                                                <div class="holder-name">{{d.accountId.name}}</div>
+                                                                <div *ngIf="d.transactionType == 'IN'"
+                                                                    class="price-tag green-color">$ {{d.amount}}</div>
+                                                                <div *ngIf="d.transactionType == 'OUT'"
+                                                                    class="price-tag red-color">$ {{d.amount}}</div>
+                                                            </div>
+                                                            <div class="main-strips">
+                                                                <div class="date-and-time">{{d.createdAt | date}}</div>
+                                                            </div>
                                                         </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">{{d.createdAt | date}}</div>
-                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: flex;float: right;"
+                                                        *ngIf="MonthlyIndexListTotal > 5">
+                                                        <mat-paginator (page)="pageDetailChange($event)"
+                                                            [length]="MonthlyIndexListTotal" [pageSize]="5">
+                                                        </mat-paginator>
                                                     </div>
                                                 </div>
 
@@ -240,19 +250,27 @@
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
 
-                                                <div *ngFor="let d of cd.data" class="inner-expansion-main">
-                                                    <div class="inner-sub-left">
-                                                        <div class="main-strips">
-                                                            <div class="holder-name">{{d.accountId.name}}</div>
-                                                            <div *ngIf="d.transactionType == 'IN'"
-                                                                class="price-tag green-color">$ {{d.amount}}</div>
-                                                            <div *ngIf="d.transactionType == 'OUT'"
-                                                                class="price-tag red-color">$ {{d.amount}}</div>
+                                                <div [ngClass]="{'sidebar-scroller':cd.data.length > 2 }">
+                                                    <div *ngFor="let d of cd.data" class="inner-expansion-main">
+                                                        <div class="inner-sub-left">
+                                                            <div class="main-strips">
+                                                                <div class="holder-name">{{d.accountId.name}}</div>
+                                                                <div *ngIf="d.transactionType == 'IN'"
+                                                                    class="price-tag green-color">$ {{d.amount}}</div>
+                                                                <div *ngIf="d.transactionType == 'OUT'"
+                                                                    class="price-tag red-color">$ {{d.amount}}</div>
+                                                            </div>
+                                                            <div class="main-strips">
+                                                                <div class="date-and-time">{{d.createdAt | date}}</div>
+                                                                <!-- <div class="account-type">My Account</div> -->
+                                                            </div>
                                                         </div>
-                                                        <div class="main-strips">
-                                                            <div class="date-and-time">{{d.createdAt | date}}</div>
-                                                            <!-- <div class="account-type">My Account</div> -->
-                                                        </div>
+                                                    </div>
+                                                    <div style="display: flex;float: right;"
+                                                        *ngIf="MonthlyIndexListTotal > 5">
+                                                        <mat-paginator (page)="pageDetailChange($event)"
+                                                            [length]="MonthlyIndexListTotal" [pageSize]="5">
+                                                        </mat-paginator>
                                                     </div>
                                                 </div>
                                             </mat-expansion-panel>

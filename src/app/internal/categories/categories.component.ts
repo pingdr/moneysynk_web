@@ -32,9 +32,15 @@ export class CategoriesComponent implements OnInit {
   categoryName;
   categoriesDetails: any = [];
   categorySummary: any = [];
+  selectedCategoryId: string = '';
   cName: any;
   total: any;
+
   MonthlyTotal: any = '';
+  MonthlyIndexListTotal: any = '';
+  monthlyPageIndex: any = 0;
+
+
   pageIndex: any = 0;
   isDefault: boolean = true;
 
@@ -63,25 +69,31 @@ export class CategoriesComponent implements OnInit {
     this.categoriesDetails = [];
     this.type = type;
     this.pageIndex = 0;
+    this.monthlyPageIndex = 0;
     this.getCategoriesData();
   }
   getCategoriesDetailsById(id) {
     this.isApiCalling = true;
     var payload = {
-      year: 1,
       groupId: this.groupId,
       categoryId: id,
-      type: this.type == 'EXPENSE' ? 'OUT' : 'IN'
+      type: this.type == 'EXPENSE' ? 'OUT' : 'IN',
+      limit: 5,
+      pageIndex: this.monthlyPageIndex
     }
     this.http.get(ApiUrl.categoryMonths, payload).subscribe((res) => {
       this.isApiCalling = false;
       this.categoriesDetails = res.data;
+      this.MonthlyIndexListTotal = res.data[0].totalTransaction;
+      console.log(" Res1 ========>", this.MonthlyIndexListTotal);
+
     })
   }
 
   selectRecord(c) {
     console.log(c);
     this.cName = c.name;
+    this.selectedCategoryId = c._id;
     this.getCategoriesDetailsById(c._id);
     this.getCategoryMonthlyData(c._id, c.type);
   }
@@ -107,14 +119,16 @@ export class CategoriesComponent implements OnInit {
         if (this.type === "EXPENSE") {
           this.expenseArray = res.data.data;
           this.cName = this.expenseArray[0].name;
-          
-          this.getCategoriesDetailsById(this.expenseArray[0]._id);          
+          this.selectedCategoryId = this.expenseArray[0]._id;
+
+          this.getCategoriesDetailsById(this.expenseArray[0]._id);
           this.getCategoryMonthlyData(this.expenseArray[0]._id, this.expenseArray[0].type)
         } else {
           this.incomeArray = res.data.data;
           this.cName = this.incomeArray[0].name;
-          this.getCategoriesDetailsById(this.incomeArray[0]._id);          
+          this.selectedCategoryId = this.incomeArray[0]._id;
           this.getCategoriesDetailsById(this.incomeArray[0]._id);
+          this.getCategoryMonthlyData(this.incomeArray[0]._id, this.incomeArray[0].type)
         }
       }
     });
@@ -150,16 +164,22 @@ export class CategoriesComponent implements OnInit {
     var payload = {
       "groupId": this.groupId,
       "categoryId": categoryId,
-      "type": payloadType
+      "type": payloadType,
+      "limit": 5,
+      "pageIndex": this.monthlyPageIndex
     }
 
     this.http.getMonthlySummarydata('categories/getMonthlyData', payload).subscribe((res: any) => {
-      console.log("&&&&&&&&&&&&&&&&&&&&&&&&&", res.data[0].total);
+      console.log("Res2 ======> ", res);
       if (res.data) {
         this.MonthlyTotal = res.data[0].total;
       }
     });
+  }
 
+  getSubCategorySummaryData(c) {
+    this.getCategoriesDetailsById(c._id);
+    this.getCategoryMonthlyData(c._id, c.type);
   }
 
   pageChange(event) {
@@ -167,6 +187,13 @@ export class CategoriesComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.getCategoriesData();
   }
+
+  pageDetailChange(event) {
+    console.log(event.pageIndex, this.selectedCategoryId);
+    this.monthlyPageIndex = event.pageIndex;
+    this.getCategoriesDetailsById(this.selectedCategoryId);
+  }
+
   nextStep() {
     this.step++;
   }
@@ -189,7 +216,6 @@ export class CategoriesComponent implements OnInit {
       this.getCategoriesData();
     });
   }
-
 
   deleteCategory(id, categoryName) {
     const dialogRef = this.dialog.open(DeleteModalComponent, {

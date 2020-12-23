@@ -35,13 +35,16 @@
         overflow-y: scroll !important;
         //margin-bottom: 70px !important;
     }
-
-    
 }
 
 .shimmer {
     display: inline-block !important;
     padding: 5px;
+}
+
+.sidebar-scroller{
+    height: calc(100vh - 550px) !important;
+    overflow-y: scroll !important;
 }
 
 .asset-main-tab {
