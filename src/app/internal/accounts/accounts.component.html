@@ -124,7 +124,7 @@
                                                 {{ad._id.month}}/{{ad._id.year}}
                                             </mat-panel-title>
                                             <mat-panel-description>
-                                                <span>
+                                                <span [ngClass]="monthlyData > 0 ? 'green-color':'red-color'">
                                                     {{monthlyData | currency}}
                                                 </span>
                                             </mat-panel-description>

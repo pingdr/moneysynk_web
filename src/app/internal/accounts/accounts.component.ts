@@ -368,8 +368,7 @@ export class AccountsComponent implements OnInit {
     });
   }
 
-  getType(id, i?: any) {
-    debugger
+  getType(id, i?: any) {    
 
     console.log('Acount Type ID :: ', id);
 
