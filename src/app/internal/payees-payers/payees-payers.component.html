@@ -120,21 +120,23 @@
                                     aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
-                                            <mat-expansion-panel *ngFor="let pd of payeeDetails" [expanded]="step === 0"
-                                                (opened)="setStep(0)">
+                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
-                                                        {{pd._id.month}}/{{pd._id.year}}
+                                                        <span
+                                                            *ngIf="payeeDetails._id != undefined">{{payeeDetails._id.month}}/{{payeeDetails._id.year}}
+                                                        </span>
                                                     </mat-panel-title>
                                                     <mat-panel-description>
                                                         <span class="red-color">
                                                             <!-- $ 120.00 -->
-                                                            {{monthlyTotal | currency}}
+                                                            {{payeeDetails.total | currency}}
                                                         </span>
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
-                                                <div [ngClass]="{'sidebar-scroller':pd.data.length > 2 }">
-                                                    <div *ngFor="let d of pd.data" class="inner-expansion-main">
+                                                <div [ngClass]="{'sidebar-scroller':payeeDetails.data.length > 2 }" *ngIf="payeeDetails.data !=undefined">
+                                                    <div *ngFor="let d of payeeDetails.data"
+                                                        class="inner-expansion-main">
                                                         <div class="inner-sub-left">
                                                             <div class="main-strips">
                                                                 <div class="holder-name">{{d.accountId.name}}</div>
@@ -272,22 +274,24 @@
                                     aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
-                                            <mat-expansion-panel *ngFor="let pd of payeeDetails" [expanded]="step === 0"
-                                                (opened)="setStep(0)">
+                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
-                                                        {{pd._id.month}}/{{pd._id.year}}
+                                                        <span
+                                                        *ngIf="payeeDetails._id != undefined">{{payeeDetails._id.month}}/{{payeeDetails?._id?.year}}
+                                                        </span>
                                                     </mat-panel-title>
                                                     <mat-panel-description>
                                                         <span class="green-color">
                                                             <!-- $ 120.00 -->
-                                                            {{monthlyTotal | currency}}
+                                                            {{payeeDetails.total | currency}}
                                                         </span>
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
 
-                                                <div [ngClass]="{'sidebar-scroller':pd.data.length > 2 }">
-                                                    <div *ngFor="let d of pd.data" class="inner-expansion-main">
+                                                <div [ngClass]="{'sidebar-scroller':payeeDetails.data.length > 2 }" *ngIf="payeeDetails.data !=undefined">
+                                                    <div *ngFor="let d of payeeDetails.data"
+                                                        class="inner-expansion-main">
                                                         <div class="inner-sub-left">
                                                             <div class="main-strips">
                                                                 <div class="holder-name">{{d.accountId.name}}</div>

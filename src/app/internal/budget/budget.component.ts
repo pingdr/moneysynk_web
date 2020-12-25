@@ -27,7 +27,7 @@ export class BudgetComponent implements OnInit {
   expenseArray: any = [];
   incomeArray: any = [];
   budgets: any = [];
-  budgetDetails: any;
+  budgetDetails: any = [];
   recordSelected: any = 0;
   resultsLength: any = 0;
   pageIndex: any = 0;
@@ -57,16 +57,19 @@ export class BudgetComponent implements OnInit {
     this.step = index;
   }
   selectRecord(i, b) {
+
     if (i || i == 0)
       this.recordSelected = i;
     this.bname = b.name;
     this.selectedBudgetId = b._id;
+    this.budgetDetailPageIndexTotal = 0;
     this.getBudgetDetailsById(b._id)
-    this.getMonthlyDataSummary(b._id)
+    // this.getMonthlyDataSummary(b._id)
 
   }
 
   getBudgetDetailsById(id) {
+
     this.isApiCalling = true;
     var payload = {
       year: 1,
@@ -77,11 +80,17 @@ export class BudgetComponent implements OnInit {
       pageIndex: this.budgetDetailPageIndex
     }
 
-    this.http.get(ApiUrl.budgetMonths, payload).subscribe((res) => {
+    this.http.get(ApiUrl.budgetMonths, payload).subscribe((res) => {      
       console.log('Budget List Details=====>', res);
-      this.budgetDetailPageIndexTotal = res.data[0].totalTransaction;
+      if (res.data.length != 0) {
+        this.budgetDetailPageIndexTotal = res.data[0].totalTransaction;
+        this.budgetDetails = res.data[0];
+      } else {
+        this.budgetDetailPageIndexTotal = 0;
+        this.budgetDetails = [];        
+      }
+
       this.isApiCalling = false;
-      this.budgetDetails = res.data;
     })
   }
 
@@ -142,16 +151,16 @@ export class BudgetComponent implements OnInit {
         if (this.type === "EXPENSE") {
           this.expenseArray = res.data.data;
           this.bname = this.expenseArray[0].name;
-          this.selectedBudgetId = this.expenseArray[0].name;
+          this.selectedBudgetId = this.expenseArray[0]._id;
           this.getBudgetDetailsById(this.expenseArray[0]._id);
-          this.getMonthlyDataSummary(this.expenseArray[0]._id);
+          // this.getMonthlyDataSummary(this.expenseArray[0]._id);
         } else {
           this.incomeArray = res.data.data;
           console.log('-------------------------', this.incomeArray);
           this.bname = this.incomeArray[0].name;
-          this.selectedBudgetId = this.expenseArray[0].name;
+          this.selectedBudgetId = this.expenseArray[0]._id;
           this.getBudgetDetailsById(this.incomeArray[0]._id);
-          this.getMonthlyDataSummary(this.incomeArray[0]._id);
+          // this.getMonthlyDataSummary(this.incomeArray[0]._id);
         }
       }
     });

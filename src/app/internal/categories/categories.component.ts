@@ -82,11 +82,17 @@ export class CategoriesComponent implements OnInit {
       pageIndex: this.monthlyPageIndex
     }
     this.http.get(ApiUrl.categoryMonths, payload).subscribe((res) => {
-      this.isApiCalling = false;
-      this.categoriesDetails = res.data;
-      this.MonthlyIndexListTotal = res.data[0].totalTransaction;
-      console.log(" Res1 ========>", this.MonthlyIndexListTotal);
+      if (res.data.length != 0) {
+        this.categoriesDetails = res.data[0];
+        this.MonthlyIndexListTotal = res.data[0].totalTransaction;
+        console.log(" Res1 ========>", this.MonthlyIndexListTotal);
+        console.log(" Res1 ========>", res);
+      } else {
+        this.MonthlyIndexListTotal = 0;
+        this.categoriesDetails = [];
+      }
 
+      this.isApiCalling = false;
     })
   }
 
@@ -94,8 +100,9 @@ export class CategoriesComponent implements OnInit {
     console.log(c);
     this.cName = c.name;
     this.selectedCategoryId = c._id;
+    this.monthlyPageIndex = 0;
     this.getCategoriesDetailsById(c._id);
-    this.getCategoryMonthlyData(c._id, c.type);
+    // this.getCategoryMonthlyData(c._id, c.type);
   }
   getCategoriesData() {
     this.isApiCalling = true;
@@ -122,13 +129,13 @@ export class CategoriesComponent implements OnInit {
           this.selectedCategoryId = this.expenseArray[0]._id;
 
           this.getCategoriesDetailsById(this.expenseArray[0]._id);
-          this.getCategoryMonthlyData(this.expenseArray[0]._id, this.expenseArray[0].type)
+          // this.getCategoryMonthlyData(this.expenseArray[0]._id, this.expenseArray[0].type)
         } else {
           this.incomeArray = res.data.data;
           this.cName = this.incomeArray[0].name;
           this.selectedCategoryId = this.incomeArray[0]._id;
           this.getCategoriesDetailsById(this.incomeArray[0]._id);
-          this.getCategoryMonthlyData(this.incomeArray[0]._id, this.incomeArray[0].type)
+          // this.getCategoryMonthlyData(this.incomeArray[0]._id, this.incomeArray[0].type)
         }
       }
     });
@@ -179,7 +186,7 @@ export class CategoriesComponent implements OnInit {
 
   getSubCategorySummaryData(c) {
     this.getCategoriesDetailsById(c._id);
-    this.getCategoryMonthlyData(c._id, c.type);
+    // this.getCategoryMonthlyData(c._id, c.type);
   }
 
   pageChange(event) {

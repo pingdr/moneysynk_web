@@ -34,7 +34,8 @@
         <div class="form-group">
             <label>Amount</label>
             <mat-form-field appearance="fill">
-                <input matInput placeholder="$0" maxlength="150" formControlName="amount" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }">
+                <input matInput placeholder="0" maxlength="6" formControlName="amount" (keypress)="numberOnly($event)" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" style="padding-left: 28px !important;">
+                <span class="amount-dollar">$</span>
                 <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
                     <!-- <div *ngIf="f.amount.errors.required">Amount is required</div> -->
                 </div>

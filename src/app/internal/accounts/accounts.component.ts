@@ -21,7 +21,7 @@ import { Slick } from 'ngx-slickjs';
 })
 export class AccountsComponent implements OnInit {
 
-  accountDetails: any;
+  accountDetails: any = [];
   accountSummary: any = [];
   accountSummaryId: any;
   isAccountSummaryType: any = false;
@@ -250,10 +250,15 @@ export class AccountsComponent implements OnInit {
       pageIndex: this.accountSummaryPageIndex
     }
     this.http.get(ApiUrl.accountMonths, payload).subscribe((res) => {
-      this.isApiCalling = false;
       console.log('Account Details ', res);
-      this.accountDetails = res.data;
-      this.accountSummaryPageIndexTotal = res.data[0].totalTransaction;
+      if (res.data.length != 0) {
+        this.accountDetails = res.data[0];
+        this.accountSummaryPageIndexTotal = res.data[0].totalTransaction;
+      } else {
+        this.accountSummaryPageIndexTotal = '0';
+        this.accountDetails = [];
+      }
+      this.isApiCalling = false;
     })
   }
   getAccountdata() {
@@ -281,7 +286,7 @@ export class AccountsComponent implements OnInit {
         if (res.data.data.length > 0) {
           this.getAccountDetailsById(res.data.data[0]._id)
           this.getAccountSummary(res.data.data[0]._id)
-          this.getMonthlyTransactionData(res.data.data[0]._id)
+          // this.getMonthlyTransactionData(res.data.data[0]._id)
         }
         for (let i = 0; i < this.accountList.length; i++) {
           this.accountList[i]['isViewAmount'] = true;
@@ -318,7 +323,7 @@ export class AccountsComponent implements OnInit {
     if (id) {
       this.getAccountDetailsById(id);
       this.getAccountSummary(id);
-      this.getMonthlyTransactionData(id);
+     // this.getMonthlyTransactionData(id);
       this.accountSummaryId = id;
       this.getSummaryDetails('Expanse');
     }
@@ -368,7 +373,7 @@ export class AccountsComponent implements OnInit {
     });
   }
 
-  getType(id, i?: any) {    
+  getType(id, i?: any) {
 
     console.log('Acount Type ID :: ', id);
 
@@ -378,6 +383,7 @@ export class AccountsComponent implements OnInit {
       this.isSelected = i;
     this.accountType_id = id
     this.pageIndex = 0;
+    this.isRecordSelected = 0;
     var payload = {
       "groupId": this.groupId,
       "pageIndex": this.pageIndex,
@@ -402,7 +408,7 @@ export class AccountsComponent implements OnInit {
         if (res.data.data.length > 0) {
           this.getAccountDetailsById(res.data.data[0]._id)
           this.getAccountSummary(res.data.data[0]._id)
-          this.getMonthlyTransactionData(res.data.data[0]._id)
+         // this.getMonthlyTransactionData(res.data.data[0]._id)
         } else {
           this.accountDetails = null
         }

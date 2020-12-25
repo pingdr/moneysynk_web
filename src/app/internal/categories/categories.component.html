@@ -105,22 +105,25 @@
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel *ngFor="let cd of categoriesDetails"
-                                                [expanded]="step === 0" (opened)="setStep(0)">
+                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
-                                                        {{cd._id.month}}/{{cd._id.year}}
+                                                        <span *ngIf="categoriesDetails._id!=undefined">
+                                                            {{categoriesDetails._id.month}}/{{categoriesDetails._id.year}}
+                                                        </span>
                                                     </mat-panel-title>
                                                     <mat-panel-description>
                                                         <span class="red-color">
                                                             <!-- 120.00 -->
-                                                            {{MonthlyTotal | currency}}
+                                                            {{categoriesDetails.total | currency}}
                                                         </span>
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
 
-                                                <div [ngClass]="{'sidebar-scroller':cd.data.length > 2}">
-                                                    <div *ngFor="let d of cd.data" class="inner-expansion-main">
+                                                <div [ngClass]="{'sidebar-scroller':categoriesDetails.data.length > 2}"
+                                                    *ngIf="categoriesDetails.data!=undefined">
+                                                    <div *ngFor="let d of categoriesDetails.data"
+                                                        class="inner-expansion-main">
                                                         <div class="inner-sub-left">
                                                             <div class="main-strips">
                                                                 <div class="holder-name">{{d.accountId.name}}</div>
@@ -236,22 +239,25 @@
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel *ngFor="let cd of categoriesDetails"
-                                                [expanded]="step === 0" (opened)="setStep(0)">
+                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
                                                 <mat-expansion-panel-header>
                                                     <mat-panel-title>
-                                                        {{cd._id.month}}/{{cd._id.year}}
+                                                        <span *ngIf="categoriesDetails._id!=undefined">
+                                                            {{categoriesDetails._id.month}}/{{categoriesDetails._id.year}}
+                                                        </span>
                                                     </mat-panel-title>
                                                     <mat-panel-description>
                                                         <span class="green-color">
                                                             <!-- 120.00 -->
-                                                            {{MonthlyTotal | currency}}
+                                                            {{categoriesDetails.total | currency}}
                                                         </span>
                                                     </mat-panel-description>
                                                 </mat-expansion-panel-header>
 
-                                                <div [ngClass]="{'sidebar-scroller':cd.data.length > 2 }">
-                                                    <div *ngFor="let d of cd.data" class="inner-expansion-main">
+                                                <div [ngClass]="{'sidebar-scroller':categoriesDetails.data.length > 2 }"
+                                                    *ngIf="categoriesDetails.data!=undefined">
+                                                    <div *ngFor="let d of categoriesDetails.data"
+                                                        class="inner-expansion-main">
                                                         <div class="inner-sub-left">
                                                             <div class="main-strips">
                                                                 <div class="holder-name">{{d.accountId.name}}</div>

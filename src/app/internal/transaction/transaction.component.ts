@@ -68,15 +68,15 @@ export class TransactionComponent implements OnInit {
     });
   }
 
-  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
+  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {    
     let startDate: Date = new Date(dateRangeStart.value);
     let endDate: Date = new Date(dateRangeEnd.value);
 
     let startMonth = startDate.getMonth() + 1;
     let endMonth = endDate.getMonth() + 1;
 
-    this.startDate = startDate.getFullYear() + '-' + startMonth + '-' + startDate.getDay();
-    this.endDate = endDate.getFullYear() + '-' + endMonth + '-' + endDate.getDay();
+    this.startDate = startDate.getFullYear() + '-' + startMonth + '-' + startDate.getDate();
+    this.endDate = endDate.getFullYear() + '-' + endMonth + '-' + endDate.getDate();
 
     if (dateRangeStart.value && dateRangeEnd.value) {
       this.getTansactionData();

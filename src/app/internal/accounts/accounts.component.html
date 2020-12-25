@@ -117,21 +117,23 @@
                             aria-labelledby="nav-list-tab">
                             <div class="accordian-main">
                                 <mat-accordion>
-                                    <mat-expansion-panel *ngFor="let ad of accountDetails" expanded="step === 0"
+                                    <mat-expansion-panel expanded="step === 0"
                                         (opened)="setStep(0)">
                                         <mat-expansion-panel-header>
                                             <mat-panel-title>
-                                                {{ad._id.month}}/{{ad._id.year}}
+                                                <span *ngIf="accountDetails._id != undefined">
+                                                    {{accountDetails?._id?.month}}/{{accountDetails?._id?.year}}
+                                                </span>
                                             </mat-panel-title>
                                             <mat-panel-description>
-                                                <span [ngClass]="monthlyData > 0 ? 'green-color':'red-color'">
-                                                    {{monthlyData | currency}}
+                                                <span [ngClass]="accountDetails?.total > 0 ? 'green-color':'red-color'" *ngIf="accountDetails?.total != undefined">
+                                                    {{accountDetails?.total | currency}}
                                                 </span>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
 
-                                        <div [ngClass]="{'sidebar-scroller':ad.data.length > 2}">
-                                            <div *ngFor="let d of ad.data" class="inner-expansion-main">
+                                        <div [ngClass]="{'sidebar-scroller':accountDetails?.data.length > 2}" *ngIf="accountDetails.data != undefined">
+                                            <div *ngFor="let d of accountDetails?.data" class="inner-expansion-main">
                                                 <div class="inner-sub-left">
                                                     <div class="main-strips">
                                                         <div class="holder-name">{{d.accountId.name}}</div>

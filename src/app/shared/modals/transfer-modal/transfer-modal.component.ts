@@ -105,4 +105,13 @@ export class TransferModalComponent implements OnInit {
     this.dialogRef.close(this.dialogRef);
   }
 
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
+  }
+
 }
