@@ -516,6 +516,7 @@ label {
             font-size: $font-12px;
             background: $color-F6F6F6 !important;
             font-weight: 400;
+            font-family: "Sul Sans" !important;
             color: $color-5e5e5e;
             margin-bottom: 10px;
             .mat-expansion-panel-header-description {
@@ -528,6 +529,7 @@ label {
             }
         }
         .mat-expansion-panel-body {
+            // padding: 0px !important;
             @include max-mq(1000) {
                 padding: 0 6px 10px;
             }
@@ -537,7 +539,8 @@ label {
                 padding: 8px 12px;
                 border-radius: 11px;
                 display: flex;
-                align-items: center;                
+                align-items: center;
+                font-family: "Sul Sans" !important;
 
                 .inner-sub-left {
                     width: 95%;
@@ -546,6 +549,9 @@ label {
                         display: flex;
                         justify-content: space-between;
                         margin-bottom: 15px;
+                        .edit-icon{
+                            cursor: pointer;
+                        }
                         &:last-child {
                             margin-bottom: 0;
                         }
@@ -1416,6 +1422,10 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif !important;
     font-size: 15px !important;
     font-weight: 400 !important;
+}
+
+.mat-expansion-panel{
+    z-index: 1 !important;
 }
 
 // .mat-expansion-panel-body{

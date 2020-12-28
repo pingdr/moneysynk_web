@@ -42,7 +42,7 @@
     padding: 5px;
 }
 
-.sidebar-scroller{
+.sidebar-scroller {
     height: calc(100vh - 550px) !important;
     overflow-y: scroll !important;
 }
@@ -123,6 +123,10 @@
 
 .active-step {
     border-left: 10px solid #7299ff !important;
+}
+
+.sub-category-active {
+    color: #f5b822;
 }
 
 .list-main-filter {

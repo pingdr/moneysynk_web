@@ -8,6 +8,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { AddPayeeComponent } from 'src/app/shared/modals/add-payee/add-payee.component';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import * as _ from 'lodash';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payees-payers',
@@ -21,7 +22,6 @@ export class PayeesPayersComponent implements OnInit {
   payeesArray: any = [];
   sortPayeerArray: any = [];
   payersArray: any = [];
-  monthlyTotal: any = '';
   pName: any = '';
   groupId: any;
 
@@ -50,7 +50,13 @@ export class PayeesPayersComponent implements OnInit {
 
   payeePayer: any = [];
 
-  constructor(public dialog: MatDialog, public sharedserive: SharedService, public http: HttpService, private toastr: ToastrService) { }
+  constructor(
+    public dialog: MatDialog,
+    public sharedserive: SharedService,
+    public http: HttpService,
+    private toastr: ToastrService,
+    private _router: Router
+  ) { }
 
   ngOnInit(): void {
     this.sharedserive.groupChange.subscribe((data) => {
@@ -76,10 +82,10 @@ export class PayeesPayersComponent implements OnInit {
 
     }
     this.http.get(ApiUrl.payeeMonths, payload).subscribe((res) => {
-      console.log("Payee Payer Detail ======>", res);      
+      console.log("Payee Payer Detail ======>", res);
       if (res.data.length != 0) {
         this.payeeIndexTotal = res.data[0].totalTransaction;
-        this.payeeDetails = res.data[0];
+        this.payeeDetails = res.data;
       } else {
         this.payeeIndexTotal = 0;
         this.payeeDetails = [];
@@ -118,14 +124,12 @@ export class PayeesPayersComponent implements OnInit {
           this.pName = res.data.data[0].name;
           this.selectedPayeeId = res.data.data[0]._id;
           this.getPayeeDetailsById(this.payeesArray[0]._id);
-          // this.getMonthlySummaryData(this.payeesArray[0]._id, this.payeesArray[0].type)
         } else {
           this.payersArray = res.data.data;
           this.sortOutByChar(this.payersArray);
           this.pName = res.data.data[0].name;
           this.selectedPayeeId = res.data.data[0]._id;
           this.getPayeeDetailsById(this.payersArray[0]._id);
-          // this.getMonthlySummaryData(this.payersArray[0]._id, this.payersArray[0].type)
         }
 
       }
@@ -162,6 +166,21 @@ export class PayeesPayersComponent implements OnInit {
     }
   }
 
+  editTransaction(d) {
+    this._router.navigate(['/update-entry/' + d._id]);
+  }
+
+  convertNumberinPositive(num) {
+    return Math.abs(num);
+  }
+
+  transactionMonth(month, year) {
+    let today = new Date()
+    today.setMonth(month - 1);
+    today.setUTCFullYear(year);
+    return today;
+  }
+
   gotoPayeesTop(char) {
     for (let index = 0; index < this.sortCharData.length; index++) {
       if (char === this.sortCharData[index]) {
@@ -192,25 +211,6 @@ export class PayeesPayersComponent implements OnInit {
     });
   }
 
-  getMonthlySummaryData(beneficiaryId, type) {
-
-    const payload = {
-      "groupId": this.groupId,
-      "year": "1",
-      "beneficiaryId": beneficiaryId
-    }
-
-    console.log(payload)
-    this.http.getMonthlySummarydata('financialBeneficiaries/getMonthlyData', payload).subscribe((res: any) => {
-      console.log(res);
-      if (res.data) {
-        this.monthlyTotal = res.data[0].total
-      }
-    });
-
-  }
-
-
   pageChange(event) {
     this.pageIndex = event.pageIndex;
     this.payeePayer = [];
@@ -224,15 +224,6 @@ export class PayeesPayersComponent implements OnInit {
 
   }
 
-  // recordSelected(i, payee) {
-  //   if (i || i == 0)
-  //     this.isRecordSelected = i;
-  //   if (payee._id) {
-  //     this.pName = payee.name;
-  //     this.getPayeeDetailsById(payee._id);
-  //   }
-  // }
-
   recordSelected(i, j, payee) {
     if (i || i == 0)
       this.isRecordSelected = i;
@@ -241,7 +232,6 @@ export class PayeesPayersComponent implements OnInit {
       this.pName = payee.name;
       this.selectedPayeeId = payee._id;
       this.getPayeeDetailsById(payee._id);
-      // this.getMonthlySummaryData(payee._id, payee.type);
     }
 
     this.payeeDetailPageIndex = 0;

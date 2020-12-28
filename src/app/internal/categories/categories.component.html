@@ -52,7 +52,9 @@
                                             <mat-panel-description>
                                                 <div class="main-right-heading">
                                                     <div class="left-col">
-                                                        <span class="red-color">$ {{cat.expenseTotal}}</span>
+                                                        <span
+                                                            class="red-color">{{convertNumberinPositive(cat.expenseTotal)
+                                                            | currency}}</span>
                                                         <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
                                                     </div>
 
@@ -60,14 +62,16 @@
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
                                         <div *ngIf="cat.child.length > 0" class="expansion-description-main">
-                                            <div *ngFor="let c of cat.child" class="inner-strips"
-                                                (click)="getSubCategorySummaryData(c)">
+                                            <div *ngFor="let c of cat.child;let j=index" class="inner-strips"
+                                                (click)="getSubCategorySummaryData(c,j)">
                                                 <div class="left-col">
                                                     <img src="{{c.icon}}">
-                                                    <span>{{c.name}}</span>
+                                                    <span
+                                                        [ngClass]="{'sub-category-active':isSubCategoryRecord==j && isSubCategoryRecord!=null && selectedCategoryId==c.parent}">{{c.name}}</span>
                                                 </div>
                                                 <div class="right-col">
-                                                    <span class="red-color">$ {{c.expenseTotal}}</span>
+                                                    <span
+                                                        class="red-color">{{convertNumberinPositive(c.expenseTotal)}}</span>
                                                     <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault"
                                                         title="Delete"
                                                         style="float: right;text-decoration: none;cursor: pointer;">
@@ -83,7 +87,6 @@
                                             </div>
                                         </div>
                                     </mat-expansion-panel>
-
                                 </mat-accordion>
                             </div>
                         </ng-container>
@@ -105,49 +108,57 @@
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        <span *ngIf="categoriesDetails._id!=undefined">
-                                                            {{categoriesDetails._id.month}}/{{categoriesDetails._id.year}}
-                                                        </span>
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="red-color">
-                                                            <!-- 120.00 -->
-                                                            {{categoriesDetails.total | currency}}
-                                                        </span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
+                                            <ng-container *ngFor="let ad of categoriesDetails">
+                                                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                                                    <mat-expansion-panel-header>
+                                                        <mat-panel-title>
+                                                            <span *ngIf="ad._id!=undefined">
+                                                                {{transactionMonth(ad?._id?.month,ad?._id?.year)
+                                                                | date:'MMM
+                                                                yyyy'}}
+                                                            </span>
+                                                        </mat-panel-title>
+                                                        <mat-panel-description>
+                                                            <span class="red-color">
+                                                                <!-- 120.00 -->
+                                                                {{convertNumberinPositive(ad?.total) |
+                                                                currency}}
+                                                            </span>
+                                                        </mat-panel-description>
+                                                    </mat-expansion-panel-header>
 
-                                                <div [ngClass]="{'sidebar-scroller':categoriesDetails.data.length > 2}"
-                                                    *ngIf="categoriesDetails.data!=undefined">
-                                                    <div *ngFor="let d of categoriesDetails.data"
-                                                        class="inner-expansion-main">
-                                                        <div class="inner-sub-left">
-                                                            <div class="main-strips">
-                                                                <div class="holder-name">{{d.accountId.name}}</div>
-                                                                <div *ngIf="d.transactionType == 'IN'"
-                                                                    class="price-tag green-color">$ {{d.amount}}</div>
-                                                                <div *ngIf="d.transactionType == 'OUT'"
-                                                                    class="price-tag red-color">$ {{d.amount}}</div>
-                                                            </div>
-                                                            <div class="main-strips">
-                                                                <div class="date-and-time">{{d.createdAt | date}}</div>
+                                                    <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2}"
+                                                        *ngIf="ad?.data!=undefined">
+                                                        <div *ngFor="let d of ad?.data" class="inner-expansion-main">
+                                                            <div class="inner-sub-left">
+                                                                <div class="main-strips">
+                                                                    <div class="holder-name">{{d.accountId.name}}</div>
+                                                                    <div *ngIf="d.transactionType == 'IN'"
+                                                                        class="price-tag green-color">
+                                                                        {{convertNumberinPositive(d.amount) | currency}}
+                                                                    </div>
+                                                                    <div *ngIf="d.transactionType == 'OUT'"
+                                                                        class="price-tag red-color">
+                                                                        {{convertNumberinPositive(d.amount) | currency}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="main-strips">
+                                                                    <div class="date-and-time">{{d.createdAt | date}}
+                                                                    </div>
+                                                                    <img class="edit-icon" (click)="editTransaction(d)"
+                                                                        src="../../../assets/images/edit-pencil.svg">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <div style="display: flex;float: right;"
-                                                        *ngIf="MonthlyIndexListTotal > 5">
-                                                        <mat-paginator (page)="pageDetailChange($event)"
-                                                            [length]="MonthlyIndexListTotal" [pageSize]="5">
-                                                        </mat-paginator>
-                                                    </div>
-                                                </div>
-
-                                            </mat-expansion-panel>
-
+                                                </mat-expansion-panel>
+                                            </ng-container>
+                                            <div style="display: flex;float: right; position: relative;top: -28px;"
+                                                *ngIf="MonthlyIndexListTotal > 5">
+                                                <mat-paginator (page)="pageDetailChange($event)"
+                                                    [length]="MonthlyIndexListTotal" [pageSize]="5">
+                                                </mat-paginator>
+                                            </div>
                                         </mat-accordion>
                                     </div>
                                 </div>
@@ -187,7 +198,9 @@
                                             <mat-panel-description>
                                                 <div class="main-right-heading">
                                                     <div class="left-col">
-                                                        <span class="green-cleared">$ {{inc.incomeTotal}}</span>
+                                                        <span
+                                                            class="green-cleared">{{convertNumberinPositive(inc.incomeTotal)
+                                                            | currency}}</span>
                                                         <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
                                                     </div>
 
@@ -198,10 +211,12 @@
                                             <div *ngFor="let c of inc.child" class="inner-strips">
                                                 <div class="left-col">
                                                     <img src="{{c.icon}}">
-                                                    <span>{{c.name}}</span>
+                                                    <span
+                                                        [ngClass]="{'sub-category-active':isSubCategoryRecord==j && isSubCategoryRecord!=null && selectedCategoryId==c.parent}">{{c.name}}</span>
                                                 </div>
                                                 <div class="right-col">
-                                                    <span class="green-cleared">$ {{c.incomeTotal}}</span>
+                                                    <span class="green-cleared">{{convertNumberinPositive(c.incomeTotal)
+                                                        | currency}}</span>
                                                     <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault"
                                                         title="Delete"
                                                         style="float: right;text-decoration: none;cursor: pointer;">
@@ -239,47 +254,57 @@
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        <span *ngIf="categoriesDetails._id!=undefined">
-                                                            {{categoriesDetails._id.month}}/{{categoriesDetails._id.year}}
-                                                        </span>
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="green-color">
-                                                            <!-- 120.00 -->
-                                                            {{categoriesDetails.total | currency}}
-                                                        </span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
+                                            <ng-container *ngFor="let ad of categoriesDetails">
+                                                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                                                    <mat-expansion-panel-header>
+                                                        <mat-panel-title>
+                                                            <span *ngIf="ad._id!=undefined">
+                                                                {{transactionMonth(ad._id.month,ad._id.year)
+                                                                | date:'MMM
+                                                                yyyy'}}
+                                                            </span>
+                                                        </mat-panel-title>
+                                                        <mat-panel-description>
+                                                            <span class="green-color">
+                                                                <!-- 120.00 -->
+                                                                {{convertNumberinPositive(ad?.total) |
+                                                                currency}}
+                                                            </span>
+                                                        </mat-panel-description>
+                                                    </mat-expansion-panel-header>
 
-                                                <div [ngClass]="{'sidebar-scroller':categoriesDetails.data.length > 2 }"
-                                                    *ngIf="categoriesDetails.data!=undefined">
-                                                    <div *ngFor="let d of categoriesDetails.data"
-                                                        class="inner-expansion-main">
-                                                        <div class="inner-sub-left">
-                                                            <div class="main-strips">
-                                                                <div class="holder-name">{{d.accountId.name}}</div>
-                                                                <div *ngIf="d.transactionType == 'IN'"
-                                                                    class="price-tag green-color">$ {{d.amount}}</div>
-                                                                <div *ngIf="d.transactionType == 'OUT'"
-                                                                    class="price-tag red-color">$ {{d.amount}}</div>
-                                                            </div>
-                                                            <div class="main-strips">
-                                                                <div class="date-and-time">{{d.createdAt | date}}</div>
-                                                                <!-- <div class="account-type">My Account</div> -->
+                                                    <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2 }"
+                                                        *ngIf="ad?.data!=undefined">
+                                                        <div *ngFor="let d of ad?.data" class="inner-expansion-main">
+                                                            <div class="inner-sub-left">
+                                                                <div class="main-strips">
+                                                                    <div class="holder-name">{{d.accountId.name}}</div>
+                                                                    <div *ngIf="d.transactionType == 'IN'"
+                                                                        class="price-tag green-color">
+                                                                        {{convertNumberinPositive(d.amount) | currency}}
+                                                                    </div>
+                                                                    <div *ngIf="d.transactionType == 'OUT'"
+                                                                        class="price-tag red-color">
+                                                                        {{convertNumberinPositive(d.amount) | currency}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="main-strips">
+                                                                    <div class="date-and-time">{{d.createdAt | date}}
+                                                                    </div>
+                                                                    <img class="edit-icon" (click)="editTransaction(d)"
+                                                                        src="../../../assets/images/edit-pencil.svg">
+                                                                    <!-- <div class="account-type">My Account</div> -->
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div style="display: flex;float: right;"
-                                                        *ngIf="MonthlyIndexListTotal > 5">
-                                                        <mat-paginator (page)="pageDetailChange($event)"
-                                                            [length]="MonthlyIndexListTotal" [pageSize]="5">
-                                                        </mat-paginator>
-                                                    </div>
-                                                </div>
-                                            </mat-expansion-panel>
+                                                </mat-expansion-panel>
+                                            </ng-container>
+                                            <div style="display: flex;float: right; position: relative;top: -28px;" *ngIf="MonthlyIndexListTotal > 5">
+                                                <mat-paginator (page)="pageDetailChange($event)"
+                                                    [length]="MonthlyIndexListTotal" [pageSize]="5">
+                                                </mat-paginator>
+                                            </div>
                                         </mat-accordion>
                                     </div>
                                 </div>
@@ -299,15 +324,17 @@
 
         <div class="boxes">
             <span class="label red-total-expanse">Total Expanse : </span>
-            <span class="value red-total-expanse">$ {{categorySummary.expenseTotal}}</span>
+            <span class="value red-total-expanse">{{convertNumberinPositive(categorySummary.expenseTotal) |
+                currency}}}</span>
         </div>
         <div class="boxes">
             <span class="label green-cleared">Current Balance : </span>
-            <span class="value green-cleared">$ {{categorySummary.currentBalance}}</span>
+            <span class="value green-cleared">{{convertNumberinPositive(categorySummary.currentBalance) |
+                currency}}</span>
         </div>
         <div class="boxes">
             <span class="label">Income Total : </span>
-            <span class="value">$ {{categorySummary.incomeTotal}}</span>
+            <span class="value">{{convertNumberinPositive(categorySummary.incomeTotal) | currency}}</span>
         </div>
 
     </div>

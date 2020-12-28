@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                                 <div class="dollar-priceing">
-                                    <span class="red">${{b.currentBalance}}</span>
+                                    <span class="red">{{convertNumberinPositive(b.currentBalance) | currency}}</span>
                                     <span class="color-grey">($62.00)</span>
                                 </div>
                                 <div class="delete-icon">
@@ -97,46 +97,57 @@
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        <span *ngIf="budgetDetails._id != undefined">
-                                                            {{budgetDetails?._id?.month}}/{{budgetDetails?._id?.year}}
-                                                        </span>
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="red-color">
-                                                            <!-- $ 120.00 -->
-                                                            {{budgetDetails?.total | currency}}
-                                                        </span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
+                                            <ng-container *ngFor="let ad of budgetDetails">
+                                                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                                                    <mat-expansion-panel-header>
+                                                        <mat-panel-title>
+                                                            <span *ngIf="ad._id != undefined">
+                                                                {{transactionMonth(ad?._id?.month,ad?._id?.year) |
+                                                                date:'MMM
+                                                                yyyy'}}
+                                                            </span>
+                                                        </mat-panel-title>
+                                                        <mat-panel-description>
+                                                            <span class="red-color">
+                                                                <!-- $ 120.00 -->
+                                                                {{convertNumberinPositive(ad?.total) |
+                                                                currency}}
+                                                            </span>
+                                                        </mat-panel-description>
+                                                    </mat-expansion-panel-header>
 
-                                                <div [ngClass]="{'sidebar-scroller':budgetDetails?.data.length > 2 }" *ngIf="budgetDetails.data !=undefined">
-                                                    <div *ngFor="let d of budgetDetails?.data"
-                                                        class="inner-expansion-main">
-                                                        <div class="inner-sub-left">
-                                                            <div class="main-strips">
-                                                                <div class="holder-name">{{d.accountId.name}}</div>
-                                                                <div *ngIf="d.transactionType == 'IN'"
-                                                                    class="price-tag green-color">$ {{d.amount}}</div>
-                                                                <div *ngIf="d.transactionType == 'OUT'"
-                                                                    class="price-tag red-color">$ {{d.amount}}</div>
-                                                            </div>
-                                                            <div class="main-strips">
-                                                                <div class="date-and-time">{{d.createdAt | date}}</div>
+                                                    <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2 }"
+                                                        *ngIf="ad.data !=undefined">
+                                                        <div *ngFor="let d of ad?.data" class="inner-expansion-main">
+                                                            <div class="inner-sub-left">
+                                                                <div class="main-strips">
+                                                                    <div class="holder-name">{{d.accountId.name}}</div>
+                                                                    <div *ngIf="d.transactionType == 'IN'"
+                                                                        class="price-tag green-color">
+                                                                        {{convertNumberinPositive(d.amount) | currency}}
+                                                                    </div>
+                                                                    <div *ngIf="d.transactionType == 'OUT'"
+                                                                        class="price-tag red-color">
+                                                                        {{convertNumberinPositive(d.amount) | currency}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="main-strips">
+                                                                    <div class="date-and-time">{{d.createdAt | date}}
+                                                                    </div>
+                                                                    <img class="edit-icon" (click)="editTransaction(d)"
+                                                                        src="../../../assets/images/edit-pencil.svg">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div style="display: flex;float: right;"
-                                                        *ngIf="budgetDetailPageIndexTotal > 5">
-                                                        <mat-paginator (page)="budgetPageChangeDetail($event)"
-                                                            [length]="budgetDetailPageIndexTotal" pageSize="5">
-                                                        </mat-paginator>
-                                                    </div>
-                                                </div>
-                                            </mat-expansion-panel>
-
+                                                </mat-expansion-panel>
+                                            </ng-container>
+                                            <div style="display: flex;float: right; position: relative;top: -28px;"
+                                                *ngIf="budgetDetailPageIndexTotal > 5">
+                                                <mat-paginator (page)="budgetPageChangeDetail($event)"
+                                                    [length]="budgetDetailPageIndexTotal" pageSize="5">
+                                                </mat-paginator>
+                                            </div>
                                         </mat-accordion>
                                     </div>
                                 </div>
@@ -185,7 +196,7 @@
                                     </div>
                                 </div>
                                 <div class="dollar-priceing">
-                                    <span class="red">${{b.currentBalance}}</span>
+                                    <span class="red">{{convertNumberinPositive(b.currentBalance) | currency}}</span>
                                     <span class="color-grey">($62.00)</span>
                                 </div>
                                 <div class="delete-icon">
@@ -224,45 +235,57 @@
                                     <div class="accordian-main">
                                         <mat-accordion>
                                             <!-- first-panal -->
-                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        <span *ngIf="budgetDetails._id != undefined">
-                                                            {{budgetDetails?._id?.month}}/{{budgetDetails?._id?.year}}
-                                                        </span>
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="green-color">
-                                                            <!-- $ 120.00 -->
-                                                            {{budgetDetails.total || currency}}
-                                                        </span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
+                                            <ng-container *ngFor="let ad of budgetDetails">
+                                                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                                                    <mat-expansion-panel-header>
+                                                        <mat-panel-title>
+                                                            <span *ngIf="ad._id != undefined">
+                                                                {{transactionMonth(ad?._id?.month,ad?._id?.year) |
+                                                                date:'MMM
+                                                                yyyy'}}
+                                                            </span>
+                                                        </mat-panel-title>
+                                                        <mat-panel-description>
+                                                            <span class="green-color">
+                                                                <!-- $ 120.00 -->
+                                                                {{convertNumberinPositive(ad.total) |
+                                                                currency}}
+                                                            </span>
+                                                        </mat-panel-description>
+                                                    </mat-expansion-panel-header>
 
-                                                <div [ngClass]="{'sidebar-scroller':budgetDetails.data.length > 2 }" *ngIf="budgetDetails.data != undefined">
-                                                    <div *ngFor="let d of budgetDetails.data"
-                                                        class="inner-expansion-main">
-                                                        <div class="inner-sub-left">
-                                                            <div class="main-strips">
-                                                                <div class="holder-name">{{d.accountId.name}}</div>
-                                                                <div *ngIf="d.transactionType == 'IN'"
-                                                                    class="price-tag green-color">$ {{d.amount}}</div>
-                                                                <div *ngIf="d.transactionType == 'OUT'"
-                                                                    class="price-tag red-color">$ {{d.amount}}</div>
-                                                            </div>
-                                                            <div class="main-strips">
-                                                                <div class="date-and-time">{{d.createdAt | date}}</div>
+                                                    <div [ngClass]="{'sidebar-scroller':ad.data.length > 2 }"
+                                                        *ngIf="ad.data != undefined">
+                                                        <div *ngFor="let d of ad.data" class="inner-expansion-main">
+                                                            <div class="inner-sub-left">
+                                                                <div class="main-strips">
+                                                                    <div class="holder-name">{{d.accountId.name}}</div>
+                                                                    <div *ngIf="d.transactionType == 'IN'"
+                                                                        class="price-tag green-color">
+                                                                        {{convertNumberinPositive(d.amount) | currency}}
+                                                                    </div>
+                                                                    <div *ngIf="d.transactionType == 'OUT'"
+                                                                        class="price-tag red-color">
+                                                                        {{convertNumberinPositive(d.amount) | currency}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="main-strips">
+                                                                    <div class="date-and-time">{{d.createdAt | date}}
+                                                                    </div>
+                                                                    <img class="edit-icon" (click)="editTransaction(d)"
+                                                                        src="../../../assets/images/edit-pencil.svg">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div style="display: flex;float: right;"
-                                                        *ngIf="budgetDetailPageIndexTotal > 5">
-                                                        <mat-paginator (page)="budgetPageChangeDetail($event)"
-                                                            [length]="budgetDetailPageIndexTotal" pageSize="5">
-                                                        </mat-paginator>
-                                                    </div>
-                                                </div>
-                                            </mat-expansion-panel>
+                                                </mat-expansion-panel>
+                                            </ng-container>
+                                            <div style="display: flex;float: right; position: relative;top: -28px;"
+                                                *ngIf="budgetDetailPageIndexTotal > 5">
+                                                <mat-paginator (page)="budgetPageChangeDetail($event)"
+                                                    [length]="budgetDetailPageIndexTotal" pageSize="5">
+                                                </mat-paginator>
+                                            </div>
                                         </mat-accordion>
                                     </div>
                                 </div>
@@ -281,11 +304,13 @@
     <div class="inner-expanse-panal-main">
         <div class="boxes">
             <span class="label red-total-expanse">Total Expanse : </span>
-            <span class="value red-total-expanse"> $0.00 / $ {{budgetSummary.expenseTotal}}</span>
+            <span class="value red-total-expanse"> $0.00 / $ {{convertNumberinPositive(budgetSummary.expenseTotal) |
+                currency}}</span>
         </div>
         <div class="boxes">
             <span class="label green-cleared">Current Balance : </span>
-            <span class="value green-cleared">$0.00 / {{budgetSummary.currentBalance}}</span>
+            <span class="value green-cleared">$0.00 / {{convertNumberinPositive(budgetSummary.currentBalance) |
+                currency}}</span>
         </div>
         <div class="boxes">
             <a class="transfer" (click)="openTransferModal()" title="transfer" style="cursor: pointer;">

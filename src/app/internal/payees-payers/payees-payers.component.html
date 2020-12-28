@@ -46,7 +46,7 @@
                                                     {{payees.name}}
                                                 </div>
                                                 <div class="price-tag-main">
-                                                    ${{payees.expenseTotal}}
+                                                    {{convertNumberinPositive(payees.expenseTotal) | currency}}
                                                 </div>
                                                 <div class="del-icon">
                                                     <button class="icon-remove">
@@ -120,45 +120,56 @@
                                     aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
-                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        <span
-                                                            *ngIf="payeeDetails._id != undefined">{{payeeDetails._id.month}}/{{payeeDetails._id.year}}
-                                                        </span>
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="red-color">
-                                                            <!-- $ 120.00 -->
-                                                            {{payeeDetails.total | currency}}
-                                                        </span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <div [ngClass]="{'sidebar-scroller':payeeDetails.data.length > 2 }" *ngIf="payeeDetails.data !=undefined">
-                                                    <div *ngFor="let d of payeeDetails.data"
-                                                        class="inner-expansion-main">
-                                                        <div class="inner-sub-left">
-                                                            <div class="main-strips">
-                                                                <div class="holder-name">{{d.accountId.name}}</div>
-                                                                <div *ngIf="d.transactionType == 'IN'"
-                                                                    class="price-tag green-color">$ {{d.amount}}</div>
-                                                                <div *ngIf="d.transactionType == 'OUT'"
-                                                                    class="price-tag red-color">$ {{d.amount}}</div>
-                                                            </div>
-                                                            <div class="main-strips">
-                                                                <div class="date-and-time">{{d.createdAt | date}}</div>
+                                            <ng-container *ngFor="let ad of payeeDetails">
+                                                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                                                    <mat-expansion-panel-header>
+                                                        <mat-panel-title>
+                                                            <span *ngIf="ad._id != undefined">
+                                                                {{transactionMonth(ad?._id.month,ad?._id.year) |
+                                                                date:'MMM
+                                                                yyyy'}}
+                                                            </span>
+                                                        </mat-panel-title>
+                                                        <mat-panel-description>
+                                                            <span class="red-color">
+                                                                <!-- $ 120.00 -->
+                                                                {{convertNumberinPositive(ad?.total) |
+                                                                currency}}
+                                                            </span>
+                                                        </mat-panel-description>
+                                                    </mat-expansion-panel-header>
+                                                    <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2 }"
+                                                        *ngIf="ad?.data !=undefined">
+                                                        <div *ngFor="let d of ad?.data" class="inner-expansion-main">
+                                                            <div class="inner-sub-left">
+                                                                <div class="main-strips">
+                                                                    <div class="holder-name">{{d.accountId.name}}</div>
+                                                                    <div *ngIf="d.transactionType == 'IN'"
+                                                                        class="price-tag green-color">
+                                                                        {{convertNumberinPositive(d.amount) | currency}}
+                                                                    </div>
+                                                                    <div *ngIf="d.transactionType == 'OUT'"
+                                                                        class="price-tag red-color">
+                                                                        {{convertNumberinPositive(d.amount) |currency}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="main-strips">
+                                                                    <div class="date-and-time">{{d.createdAt | date}}
+                                                                    </div>
+                                                                    <img class="edit-icon" (click)="editTransaction(d)"
+                                                                        src="../../../assets/images/edit-pencil.svg">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <div style="display: flex;float: right;"
-                                                        *ngIf="payeeIndexTotal > 5">
-                                                        <mat-paginator (page)="payeeDetailPageChange($event)"
-                                                            [length]="payeeIndexTotal" [pageSize]="5">
-                                                        </mat-paginator>
-                                                    </div>
-                                                </div>
-                                            </mat-expansion-panel>
+                                                </mat-expansion-panel>
+                                            </ng-container>
+                                            <div style="display: flex;float: right; position: relative;top: -28px;"
+                                                *ngIf="payeeIndexTotal > 5">
+                                                <mat-paginator (page)="payeeDetailPageChange($event)"
+                                                    [length]="payeeIndexTotal" [pageSize]="5">
+                                                </mat-paginator>
+                                            </div>
                                         </mat-accordion>
                                     </div>
                                 </div>
@@ -197,7 +208,7 @@
                                                     {{payees.name}}
                                                 </div>
                                                 <div class="price-tag-main">
-                                                    ${{payees.expenseTotal}}
+                                                    {{convertNumberinPositive(payees.expenseTotal) | currency}}
                                                 </div>
                                                 <div class="del-icon">
                                                     <button class="icon-remove">
@@ -274,45 +285,57 @@
                                     aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
                                         <mat-accordion>
-                                            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        <span
-                                                        *ngIf="payeeDetails._id != undefined">{{payeeDetails._id.month}}/{{payeeDetails?._id?.year}}
-                                                        </span>
-                                                    </mat-panel-title>
-                                                    <mat-panel-description>
-                                                        <span class="green-color">
-                                                            <!-- $ 120.00 -->
-                                                            {{payeeDetails.total | currency}}
-                                                        </span>
-                                                    </mat-panel-description>
-                                                </mat-expansion-panel-header>
+                                            <ng-container *ngFor="let ad of payeeDetails">
+                                                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                                                    <mat-expansion-panel-header>
+                                                        <mat-panel-title>
+                                                            <span *ngIf="ad._id != undefined">
+                                                                {{transactionMonth(ad?._id.month,ad?._id.year)|
+                                                                date:'MMM
+                                                                yyyy'}}
+                                                            </span>
+                                                        </mat-panel-title>
+                                                        <mat-panel-description>
+                                                            <span class="green-color">
+                                                                <!-- $ 120.00 -->
+                                                                {{convertNumberinPositive(ad?.total) |
+                                                                currency}}
+                                                            </span>
+                                                        </mat-panel-description>
+                                                    </mat-expansion-panel-header>
 
-                                                <div [ngClass]="{'sidebar-scroller':payeeDetails.data.length > 2 }" *ngIf="payeeDetails.data !=undefined">
-                                                    <div *ngFor="let d of payeeDetails.data"
-                                                        class="inner-expansion-main">
-                                                        <div class="inner-sub-left">
-                                                            <div class="main-strips">
-                                                                <div class="holder-name">{{d.accountId.name}}</div>
-                                                                <div *ngIf="d.transactionType == 'IN'"
-                                                                    class="price-tag green-color">$ {{d.amount}}</div>
-                                                                <div *ngIf="d.transactionType == 'OUT'"
-                                                                    class="price-tag red-color">$ {{d.amount}}</div>
-                                                            </div>
-                                                            <div class="main-strips">
-                                                                <div class="date-and-time">{{d.createdAt | date}}</div>
+                                                    <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2 }"
+                                                        *ngIf="ad?.data !=undefined">
+                                                        <div *ngFor="let d of ad?.data" class="inner-expansion-main">
+                                                            <div class="inner-sub-left">
+                                                                <div class="main-strips">
+                                                                    <div class="holder-name">{{d.accountId.name}}</div>
+                                                                    <div *ngIf="d.transactionType == 'IN'"
+                                                                        class="price-tag green-color">
+                                                                        {{convertNumberinPositive(d.amount) | currency}}
+                                                                    </div>
+                                                                    <div *ngIf="d.transactionType == 'OUT'"
+                                                                        class="price-tag red-color">
+                                                                        {{convertNumberinPositive(d.amount) | currency}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="main-strips">
+                                                                    <div class="date-and-time">{{d.createdAt | date}}
+                                                                    </div>
+                                                                    <img class="edit-icon" (click)="editTransaction(d)"
+                                                                        src="../../../assets/images/edit-pencil.svg">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div style="display: flex;float: right;"
-                                                        *ngIf="payeeIndexTotal > 5">
-                                                        <mat-paginator (page)="payeeDetailPageChange($event)"
-                                                            [length]="payeeIndexTotal" [pageSize]="5">
-                                                        </mat-paginator>
-                                                    </div>
-                                                </div>
-                                            </mat-expansion-panel>
+                                                </mat-expansion-panel>
+                                            </ng-container>
+                                            <div style="display: flex;float: right; position: relative;top: -28px;"
+                                                *ngIf="payeeIndexTotal > 5">
+                                                <mat-paginator (page)="payeeDetailPageChange($event)"
+                                                    [length]="payeeIndexTotal" [pageSize]="5">
+                                                </mat-paginator>
+                                            </div>
                                         </mat-accordion>
                                     </div>
                                 </div>
@@ -334,15 +357,17 @@
     <div class="inner-expanse-panal-main">
         <div class="boxes">
             <span class="label red-total-expanse">Total Expanse : </span>
-            <span class="value red-total-expanse">${{payeeSummary.expenseTotal}}</span>
+            <span class="value red-total-expanse">{{convertNumberinPositive(payeeSummary.expenseTotal) |
+                currency}}</span>
         </div>
         <div class="boxes">
             <span class="label green-cleared">Current Balance : </span>
-            <span class="value green-cleared">${{payeeSummary.currentBalance}}</span>
+            <span class="value green-cleared">{{convertNumberinPositive(payeeSummary.currentBalance) | currency
+                }}</span>
         </div>
         <div class="boxes">
             <span class="label">Income Total : </span>
-            <span class="value">${{payeeSummary.incomeTotal}}</span>
+            <span class="value">${{convertNumberinPositive(payeeSummary.incomeTotal) | currency}}</span>
         </div>
     </div>
 </div>

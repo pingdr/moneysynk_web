@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { SharedService } from 'src/app/services/shared.service';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
-// import { AddCategoryPopupComponent } from 'src/app/popup/add-category-popup/add-category-popup.component';
 
 @Component({
   selector: 'app-categories',
@@ -35,6 +34,8 @@ export class CategoriesComponent implements OnInit {
   selectedCategoryId: string = '';
   cName: any;
   total: any;
+
+  isSubCategoryRecord: number = null;
 
   MonthlyTotal: any = '';
   MonthlyIndexListTotal: any = '';
@@ -83,7 +84,7 @@ export class CategoriesComponent implements OnInit {
     }
     this.http.get(ApiUrl.categoryMonths, payload).subscribe((res) => {
       if (res.data.length != 0) {
-        this.categoriesDetails = res.data[0];
+        this.categoriesDetails = res.data;
         this.MonthlyIndexListTotal = res.data[0].totalTransaction;
         console.log(" Res1 ========>", this.MonthlyIndexListTotal);
         console.log(" Res1 ========>", res);
@@ -100,9 +101,9 @@ export class CategoriesComponent implements OnInit {
     console.log(c);
     this.cName = c.name;
     this.selectedCategoryId = c._id;
+    this.isSubCategoryRecord = null;
     this.monthlyPageIndex = 0;
     this.getCategoriesDetailsById(c._id);
-    // this.getCategoryMonthlyData(c._id, c.type);
   }
   getCategoriesData() {
     this.isApiCalling = true;
@@ -127,19 +128,31 @@ export class CategoriesComponent implements OnInit {
           this.expenseArray = res.data.data;
           this.cName = this.expenseArray[0].name;
           this.selectedCategoryId = this.expenseArray[0]._id;
-
           this.getCategoriesDetailsById(this.expenseArray[0]._id);
-          // this.getCategoryMonthlyData(this.expenseArray[0]._id, this.expenseArray[0].type)
         } else {
           this.incomeArray = res.data.data;
           this.cName = this.incomeArray[0].name;
           this.selectedCategoryId = this.incomeArray[0]._id;
           this.getCategoriesDetailsById(this.incomeArray[0]._id);
-          // this.getCategoryMonthlyData(this.incomeArray[0]._id, this.incomeArray[0].type)
         }
       }
     });
 
+  }
+
+  convertNumberinPositive(num) {
+    return Math.abs(num);
+  }
+
+  transactionMonth(month, year) {
+    let today = new Date()
+    today.setMonth(month - 1);
+    today.setUTCFullYear(year);
+    return today;
+  }
+
+  editTransaction(d) {
+    this._router.navigate(['/update-entry/' + d._id]);
   }
 
   getCategorySummary() {
@@ -158,35 +171,11 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
-  getCategoryMonthlyData(categoryId, type) {
+  getSubCategorySummaryData(c, j) {
+    console.log(c, j);
 
-    let payloadType = '';
-
-    if (type == 'EXPENSE') {
-      payloadType = 'OUT';
-    } else {
-      payloadType = 'IN';
-    }
-
-    var payload = {
-      "groupId": this.groupId,
-      "categoryId": categoryId,
-      "type": payloadType,
-      "limit": 5,
-      "pageIndex": this.monthlyPageIndex
-    }
-
-    this.http.getMonthlySummarydata('categories/getMonthlyData', payload).subscribe((res: any) => {
-      console.log("Res2 ======> ", res);
-      if (res.data) {
-        this.MonthlyTotal = res.data[0].total;
-      }
-    });
-  }
-
-  getSubCategorySummaryData(c) {
+    this.isSubCategoryRecord = j;
     this.getCategoriesDetailsById(c._id);
-    // this.getCategoryMonthlyData(c._id, c.type);
   }
 
   pageChange(event) {

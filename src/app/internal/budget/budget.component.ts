@@ -8,6 +8,7 @@ import { ApiUrl } from 'src/app/services/apiurl';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import { TransferModalComponent } from 'src/app/shared/modals/transfer-modal/transfer-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-budget',
@@ -37,10 +38,15 @@ export class BudgetComponent implements OnInit {
   budgetDetailPageIndex: any = 0;
   budgetDetailPageIndexTotal: any = 0;
 
-  monthlyTotal: any = '';
-
   dialogRefofOtpModal: MatDialogRef<AddBudgetModalComponent>;
-  constructor(public http: HttpService, private formBuilder: FormBuilder, private toastr: ToastrService, public sharedserive: SharedService, public dialog: MatDialog) { }
+  constructor(
+    public http: HttpService,
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    public sharedserive: SharedService,
+    public dialog: MatDialog,
+    public _router: Router
+  ) { }
 
   ngOnInit(): void {
     this.sharedserive.groupChange.subscribe((data) => {
@@ -56,6 +62,7 @@ export class BudgetComponent implements OnInit {
   setStep(index: number) {
     this.step = index;
   }
+
   selectRecord(i, b) {
 
     if (i || i == 0)
@@ -64,7 +71,6 @@ export class BudgetComponent implements OnInit {
     this.selectedBudgetId = b._id;
     this.budgetDetailPageIndexTotal = 0;
     this.getBudgetDetailsById(b._id)
-    // this.getMonthlyDataSummary(b._id)
 
   }
 
@@ -80,33 +86,18 @@ export class BudgetComponent implements OnInit {
       pageIndex: this.budgetDetailPageIndex
     }
 
-    this.http.get(ApiUrl.budgetMonths, payload).subscribe((res) => {      
+    this.http.get(ApiUrl.budgetMonths, payload).subscribe((res) => {
       console.log('Budget List Details=====>', res);
       if (res.data.length != 0) {
         this.budgetDetailPageIndexTotal = res.data[0].totalTransaction;
-        this.budgetDetails = res.data[0];
+        this.budgetDetails = res.data;
       } else {
         this.budgetDetailPageIndexTotal = 0;
-        this.budgetDetails = [];        
+        this.budgetDetails = [];
       }
 
       this.isApiCalling = false;
     })
-  }
-
-  getMonthlyDataSummary(financialSourceId) {
-
-    const payload = {
-      "financialSourceId": financialSourceId,
-      "groupId": this.groupId
-    }
-
-    this.http.getMonthlySummarydata('financialSources/getMonthlyData', payload).subscribe((res: any) => {
-      if (res.data) {
-        this.monthlyTotal = res.data[0].total
-      }
-    })
-
   }
 
   deleteBudget(id, budgetName) {
@@ -120,6 +111,21 @@ export class BudgetComponent implements OnInit {
       console.log('The dialog was closed');
       this.getBudgets();
     });
+  }
+
+  editTransaction(d) {
+    this._router.navigate(['/update-entry/' + d._id]);
+  }
+
+  convertNumberinPositive(num) {
+    return Math.abs(num);
+  }
+
+  transactionMonth(month, year) {
+    let today = new Date()
+    today.setMonth(month - 1);
+    today.setUTCFullYear(year);
+    return today;
   }
 
   closeDeleteModal() {
@@ -153,14 +159,12 @@ export class BudgetComponent implements OnInit {
           this.bname = this.expenseArray[0].name;
           this.selectedBudgetId = this.expenseArray[0]._id;
           this.getBudgetDetailsById(this.expenseArray[0]._id);
-          // this.getMonthlyDataSummary(this.expenseArray[0]._id);
         } else {
           this.incomeArray = res.data.data;
           console.log('-------------------------', this.incomeArray);
           this.bname = this.incomeArray[0].name;
           this.selectedBudgetId = this.expenseArray[0]._id;
           this.getBudgetDetailsById(this.incomeArray[0]._id);
-          // this.getMonthlyDataSummary(this.incomeArray[0]._id);
         }
       }
     });

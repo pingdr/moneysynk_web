@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { TableModel } from 'src/app/shared/models/table.common.model';
 import { HttpService } from '../../services/http.service';
-import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditAccountComponent } from 'src/app/shared/modals/add-edit-account/add-edit-account.component';
@@ -162,23 +161,6 @@ export class AccountsComponent implements OnInit {
     });
   }
 
-  getMonthlyTransactionData(accountId) {
-    console.log(accountId);
-
-    const payload = {
-      "year": "1",
-      "groupId": this.groupId,
-      "accountId": accountId
-    }
-
-    this.http.getMonthlySummarydata("accounts/getMonthlyData", payload).subscribe((res: any) => {
-      console.log(res);
-      if (res.data) {
-        this.monthlyData = res.data[0].total;
-      }
-    });
-  }
-
   setDoughnutChartData(data) {
     this.doughnutChartLabels = [];
     this.doughnutChartData = [];
@@ -252,8 +234,11 @@ export class AccountsComponent implements OnInit {
     this.http.get(ApiUrl.accountMonths, payload).subscribe((res) => {
       console.log('Account Details ', res);
       if (res.data.length != 0) {
-        this.accountDetails = res.data[0];
-        this.accountSummaryPageIndexTotal = res.data[0].totalTransaction;
+        this.accountDetails = res.data;
+
+        if (this.accountSummaryPageIndexTotal != '' || !this.accountSummaryPageIndexTotal) {
+          this.accountSummaryPageIndexTotal = res.data[0].totalTransaction;
+        }
       } else {
         this.accountSummaryPageIndexTotal = '0';
         this.accountDetails = [];
@@ -261,6 +246,22 @@ export class AccountsComponent implements OnInit {
       this.isApiCalling = false;
     })
   }
+
+  editTransaction(d) {
+    this._router.navigate(['/update-entry/' + d._id]);    
+  }
+
+  convertNumberinPositive(num) {
+    return Math.abs(num);
+  }
+
+  transactionMonth(month, year) {
+    let today = new Date()
+    today.setMonth(month - 1);
+    today.setUTCFullYear(year);
+    return today;
+  }
+
   getAccountdata() {
 
     var payload = {
@@ -286,12 +287,10 @@ export class AccountsComponent implements OnInit {
         if (res.data.data.length > 0) {
           this.getAccountDetailsById(res.data.data[0]._id)
           this.getAccountSummary(res.data.data[0]._id)
-          // this.getMonthlyTransactionData(res.data.data[0]._id)
         }
         for (let i = 0; i < this.accountList.length; i++) {
           this.accountList[i]['isViewAmount'] = true;
         }
-        // this.filter = res.data;
       }
     });
 
@@ -300,6 +299,7 @@ export class AccountsComponent implements OnInit {
       elem.click();
     }, 1000)
   }
+
   pageChange(event) {
     console.log(event);
     this.pageIndex = event.pageIndex;
@@ -323,7 +323,6 @@ export class AccountsComponent implements OnInit {
     if (id) {
       this.getAccountDetailsById(id);
       this.getAccountSummary(id);
-     // this.getMonthlyTransactionData(id);
       this.accountSummaryId = id;
       this.getSummaryDetails('Expanse');
     }
@@ -345,8 +344,6 @@ export class AccountsComponent implements OnInit {
   }
 
   deleteAccount(id, accountName, type) {
-
-    console.log(id, accountName, type);
 
     let dialogRef: any;
 
@@ -408,7 +405,6 @@ export class AccountsComponent implements OnInit {
         if (res.data.data.length > 0) {
           this.getAccountDetailsById(res.data.data[0]._id)
           this.getAccountSummary(res.data.data[0]._id)
-         // this.getMonthlyTransactionData(res.data.data[0]._id)
         } else {
           this.accountDetails = null
         }
