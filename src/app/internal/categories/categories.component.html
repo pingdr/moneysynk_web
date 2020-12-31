@@ -47,7 +47,8 @@
                                         <mat-expansion-panel-header (click)="selectRecord(cat)">
                                             <mat-panel-title>
                                                 <span>{{cat.name}}</span>
-                                                <img src="{{cat.icon}}">
+                                                <img src="{{cat.icon}}"
+                                                    [ngStyle]="{'height':cat.name=='Other'?'40px':''}">
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 <div class="main-right-heading">
@@ -143,7 +144,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="main-strips">
-                                                                    <div class="date-and-time">{{d.createdAt | date}}
+                                                                    <div class="date-and-time">{{d.createdAt | date:'dd
+                                                                        MMM yyyy hh:mm a'}}
                                                                     </div>
                                                                     <img class="edit-icon" (click)="editTransaction(d)"
                                                                         src="../../../assets/images/edit-pencil.svg">
@@ -193,7 +195,7 @@
                                         <mat-expansion-panel-header (click)="selectRecord(inc)">
                                             <mat-panel-title>
                                                 <span>{{inc.name}}</span>
-                                                <img src="{{inc.icon}}">
+                                                <img src="{{inc.icon}}" [ngStyle]="{'height':inc.name=='Other'?'40px':''}">
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 <div class="main-right-heading">
@@ -289,7 +291,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="main-strips">
-                                                                    <div class="date-and-time">{{d.createdAt | date}}
+                                                                    <div class="date-and-time">{{d.createdAt | date:'dd
+                                                                        MMM yyyy hh:mm a'}}
                                                                     </div>
                                                                     <img class="edit-icon" (click)="editTransaction(d)"
                                                                         src="../../../assets/images/edit-pencil.svg">
@@ -300,7 +303,8 @@
                                                     </div>
                                                 </mat-expansion-panel>
                                             </ng-container>
-                                            <div style="display: flex;float: right; position: relative;top: -28px;" *ngIf="MonthlyIndexListTotal > 5">
+                                            <div style="display: flex;float: right; position: relative;top: -28px;"
+                                                *ngIf="MonthlyIndexListTotal > 5">
                                                 <mat-paginator (page)="pageDetailChange($event)"
                                                     [length]="MonthlyIndexListTotal" [pageSize]="5">
                                                 </mat-paginator>
