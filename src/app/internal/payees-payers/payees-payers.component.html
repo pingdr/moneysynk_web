@@ -154,7 +154,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="main-strips">
-                                                                    <div class="date-and-time">{{d.createdAt | date:'dd MMM yyyy  hh:mm a'}}
+                                                                    <div class="date-and-time">{{d.createdAt | date:'dd
+                                                                        MMM yyyy hh:mm a'}}
                                                                     </div>
                                                                     <img class="edit-icon" (click)="editTransaction(d)"
                                                                         src="../../../assets/images/edit-pencil.svg">
@@ -320,7 +321,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="main-strips">
-                                                                    <div class="date-and-time">{{d.createdAt | date:'dd MMM yyyy  hh:mm a'}}
+                                                                    <div class="date-and-time">{{d.createdAt | date:'dd
+                                                                        MMM yyyy hh:mm a'}}
                                                                     </div>
                                                                     <img class="edit-icon" (click)="editTransaction(d)"
                                                                         src="../../../assets/images/edit-pencil.svg">
@@ -357,17 +359,21 @@
     <div class="inner-expanse-panal-main">
         <div class="boxes">
             <span class="label red-total-expanse">Total Expanse : </span>
-            <span class="value red-total-expanse">{{convertNumberinPositive(payeeSummary.expenseTotal) |
+            <span class="value red-total-expanse"
+                *ngIf="payeeSummary.expenseTotal">{{convertNumberinPositive(payeeSummary.expenseTotal) |
                 currency}}</span>
+            <span class="value red-total-expanse" *ngIf="!payeeSummary.expenseTotal">$0.00</span>
         </div>
         <div class="boxes">
             <span class="label green-cleared">Current Balance : </span>
-            <span class="value green-cleared">{{convertNumberinPositive(payeeSummary.currentBalance) | currency
+            <span class="value green-cleared" *ngIf="payeeSummary.currentBalance">{{convertNumberinPositive(payeeSummary.currentBalance) | currency
                 }}</span>
+            <span class="value green-cleared" *ngIf="!payeeSummary.currentBalance">$0.00</span>
         </div>
         <div class="boxes">
             <span class="label">Income Total : </span>
-            <span class="value">${{convertNumberinPositive(payeeSummary.incomeTotal) | currency}}</span>
+            <span class="value" *ngIf="payeeSummary.incomeTotal">{{convertNumberinPositive(payeeSummary.incomeTotal) | currency}}</span>
+            <span class="value" *ngIf="!payeeSummary.incomeTotal">$0.00</span>
         </div>
     </div>
 </div>

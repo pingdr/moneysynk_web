@@ -93,8 +93,8 @@ export class AccountsComponent implements OnInit {
     private _router: Router,
     private toastr: ToastrService,
     public dialog: MatDialog) {
-    
-    this.sharedserive.groupChange.subscribe((data) => {      
+
+    this.sharedserive.groupChange.subscribe((data) => {
       this.isSelected = null;
       if (data) {
         this.groupId = data;
@@ -102,9 +102,33 @@ export class AccountsComponent implements OnInit {
 
         this.accountList = [];
         this.accountTypeList = [];
+        this.accountDetails = [];
+        this.accountSummary = [];
+        this.accountSummaryData = [];
+
+        this.accountSummaryId = '';
+        this.isAccountSummaryType = false;
+        this.accountSummaryPageIndex = 0;
+        this.accountSummaryPageIndexTotal = '';
+
+
+        this.donutColors = [
+          {
+            backgroundColor: [
+            ]
+          }
+        ];
+
+        this.doughnutChartData = [
+          1
+        ];
+        this.doughnutChartLabels = [
+          'Empty'
+        ]
+
         this.accountType_id = "";
         this.getAccountTypedata();
-        
+
       }
     });
 
@@ -262,6 +286,11 @@ export class AccountsComponent implements OnInit {
     return today;
   }
 
+  totalBalance(totalIncom, totalExpanse) {
+    let totalBalance = totalIncom - totalExpanse;
+    return Math.abs(totalBalance);
+  }
+
   getAccountdata() {
 
     var payload = {
@@ -296,7 +325,9 @@ export class AccountsComponent implements OnInit {
 
     setTimeout(() => {
       let elem = document.getElementById('accountList0') as HTMLDivElement;
-      elem.click();
+      if (elem) {
+        elem.click();
+      }
     }, 1000)
   }
 

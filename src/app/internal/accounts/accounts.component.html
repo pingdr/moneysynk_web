@@ -143,14 +143,23 @@
                                                         <div class="main-strips">
                                                             <div class="holder-name">{{d.accountId.name}}</div>
                                                             <div *ngIf="d.transactionType == 'IN'"
-                                                                class="price-tag green-color">{{
-                                                                convertNumberinPositive(d.amount) | currency}}</div>
+                                                                class="price-tag green-color">
+                                                                <span *ngIf="d.amount">
+                                                                    {{convertNumberinPositive(d.amount) |
+                                                                    currency}}</span>
+                                                                <span *ngIf="!d.amount">$0</span>
+                                                            </div>
                                                             <div *ngIf="d.transactionType == 'OUT'"
                                                                 class="price-tag red-color">
-                                                                {{ convertNumberinPositive(d.amount) | currency}}</div>
+                                                                <span *ngIf="d.amount">
+                                                                    {{ convertNumberinPositive(d.amount) | currency}}
+                                                                </span>
+                                                                <span *ngIf="!d.amount">$0</span>
+                                                            </div>
                                                         </div>
                                                         <div class="main-strips">
-                                                            <div class="date-and-time">{{d.createdAt | date:'dd MMM yyyy'}}</div>
+                                                            <div class="date-and-time">{{d.createdAt | date:'dd MMM
+                                                                yyyy'}}</div>
                                                             <img class="edit-icon" (click)="editTransaction(d)"
                                                                 src="../../../assets/images/edit-pencil.svg">
                                                         </div>
@@ -183,17 +192,20 @@
                                         [ngStyle]="{'border': !isAccountSummaryType ?  '1px solid #FD4755':''}"
                                         (click)="getSummaryDetails('Expanse')">
                                         <span class="sub-heading red">Expanse</span>
-                                        <span
+                                        <span *ngIf="accountSummary.expenseTotal"
                                             class="priceing-main red">{{convertNumberinPositive(accountSummary.expenseTotal)
                                             | currency}}</span>
+                                        <span *ngIf="!accountSummary.expenseTotal" class="priceing-main red">$0</span>
                                     </div>
                                     <div class="strips-main"
                                         [ngStyle]="{'border': isAccountSummaryType ?  '1px solid #27AE60':''}"
                                         (click)="getSummaryDetails('Income')">
                                         <span class="sub-heading income green">Income</span>
-                                        <span
+                                        <span *ngIf="accountSummary.incomeTotal"
                                             class="priceing-main green">{{convertNumberinPositive(accountSummary.incomeTotal)
                                             | currency}}</span>
+
+                                        <span *ngIf="!accountSummary.incomeTotal" class="priceing-main red">$0</span>
                                     </div>
                                 </div>
                             </div>
@@ -219,20 +231,34 @@
     <div class="inner-expanse-panal-main">
         <div class="boxes">
             <span class="label red-total-expanse">Total Expanse : </span>
-            <span class="value red-total-expanse">{{convertNumberinPositive(accountSummary.expenseTotal) |
-                currency}}</span>
+            <span class="value red-total-expanse" *ngIf="accountSummary.expenseTotal">
+                {{convertNumberinPositive(accountSummary.expenseTotal) |
+                currency}}
+            </span>
+            <span class="value red-total-expanse" *ngIf="!accountSummary.expenseTotal">
+                $00
+            </span>
         </div>
         <div class="boxes">
             <span class="label green-cleared">Total Income : </span>
-            <span class="value green-cleared">{{convertNumberinPositive(accountSummary.incomeTotal) | currency}}</span>
+            <span class="value green-cleared" *ngIf="accountSummary.incomeTotal">
+                {{convertNumberinPositive(accountSummary.incomeTotal) | currency}}
+            </span>
+            <span class="value green-cleared" *ngIf="!accountSummary.incomeTotal">
+                $00
+            </span>
         </div>
         <div class="boxes">
             <span class="label">Total Balance : </span>
-            <span class="value">$00</span>
-        </div>
-        <div class="boxes">
-            <span class="label">Total Cleared Balance : </span>
-            <span class="bold value">$00</span>
+            <span class="value red-total-expanse" *ngIf="!accountSummary.incomeTotal && !accountSummary.expenseTotal">
+                $00
+            </span>
+            <span class="value green-cleared" *ngIf="totalBalance(accountSummary.incomeTotal,accountSummary.expenseTotal) > 0">
+                {{totalBalance(accountSummary.incomeTotal,accountSummary.expenseTotal) | currency}}
+            </span>
+            <span class="value red-total-expanse" *ngIf="totalBalance(accountSummary.incomeTotal,accountSummary.expenseTotal) <= 0">
+                {{totalBalance(accountSummary.incomeTotal,accountSummary.expenseTotal) | currency}}
+            </span>
         </div>
     </div>
 </div>

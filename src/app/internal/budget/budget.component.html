@@ -132,7 +132,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="main-strips">
-                                                                    <div class="date-and-time">{{d.createdAt | date:'dd MMM yyyy hh:mm a'}}
+                                                                    <div class="date-and-time">{{d.createdAt | date:'dd
+                                                                        MMM yyyy hh:mm a'}}
                                                                     </div>
                                                                     <img class="edit-icon" (click)="editTransaction(d)"
                                                                         src="../../../assets/images/edit-pencil.svg">
@@ -270,7 +271,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="main-strips">
-                                                                    <div class="date-and-time">{{d.createdAt | date:'dd MMM yyyy hh:mm a'}}
+                                                                    <div class="date-and-time">{{d.createdAt | date:'dd
+                                                                        MMM yyyy hh:mm a'}}
                                                                     </div>
                                                                     <img class="edit-icon" (click)="editTransaction(d)"
                                                                         src="../../../assets/images/edit-pencil.svg">
@@ -304,13 +306,18 @@
     <div class="inner-expanse-panal-main">
         <div class="boxes">
             <span class="label red-total-expanse">Total Expanse : </span>
-            <span class="value red-total-expanse"> $0.00 / $ {{convertNumberinPositive(budgetSummary.expenseTotal) |
+            <span class="value red-total-expanse" *ngIf="budgetSummary.expenseTotal"> $0.00 /
+                {{convertNumberinPositive(budgetSummary.expenseTotal) |
                 currency}}</span>
+
+            <span class="value red-total-expanse" *ngIf="!budgetSummary.expenseTotal"> $0.00 / $0.00</span>
         </div>
         <div class="boxes">
             <span class="label green-cleared">Current Balance : </span>
-            <span class="value green-cleared">$0.00 / {{convertNumberinPositive(budgetSummary.currentBalance) |
+            <span class="value green-cleared" *ngIf="budgetSummary.currentBalance">$0.00 /
+                {{convertNumberinPositive(budgetSummary.currentBalance) |
                 currency}}</span>
+            <span class="value green-cleared" *ngIf="!budgetSummary.currentBalance">$0.00 / $0.00</span>
         </div>
         <div class="boxes">
             <a class="transfer" (click)="openTransferModal()" title="transfer" style="cursor: pointer;">

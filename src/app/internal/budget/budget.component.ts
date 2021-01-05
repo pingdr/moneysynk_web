@@ -51,6 +51,20 @@ export class BudgetComponent implements OnInit {
   ngOnInit(): void {
     this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
+
+      this.budgetSummary = [];
+      this.expenseArray = [];
+      this.incomeArray = [];
+      this.budgets = [];
+      this.budgetDetails = [];
+
+      this.pageIndex = 0;
+      this.bname = '';
+      this.selectedBudgetId = '';
+
+      this.budgetDetailPageIndex = 0;
+      this.budgetDetailPageIndexTotal = 0;
+
       if (data) {
         this.getBudgets();
         this.getPayeeSummary();
@@ -202,10 +216,23 @@ export class BudgetComponent implements OnInit {
     this.step++;
   }
   setType(type) {
-    this.pageIndex = 0;
-    this.budgetDetailPageIndex = 0;
+    this.pageIndex = 0;    
     this.recordSelected = 0;
     this.type = type;
+
+    this.budgetSummary = [];
+    this.expenseArray = [];
+    this.incomeArray = [];
+    this.budgets = [];
+    this.budgetDetails = [];
+
+    this.pageIndex = 0;
+    this.bname = '';
+    this.selectedBudgetId = '';
+
+    this.budgetDetailPageIndex = 0;
+    this.budgetDetailPageIndexTotal = 0;
+
     this.getBudgets();
   }
   prevStep() {
