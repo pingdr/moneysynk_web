@@ -10,7 +10,7 @@
             <mat-option *ngFor="let data of groupList" (click)="groupSelect(data)" value="{{data._id}}">{{ data.name }}
             </mat-option>
             <mat-form-field appearance="fill">
-              <input maxlength="26" [(ngModel)]="filterName" name="filterName" (keyup)="addGroup($event.target.value)"
+              <input maxlength="40" [(ngModel)]="filterName" name="filterName" (keyup)="addGroup($event.target.value)"
                 (keydown)="$event.stopPropagation()" matInput placeholder="Add New Group">
               <button style="  background: transparent !important;
               padding: 0;

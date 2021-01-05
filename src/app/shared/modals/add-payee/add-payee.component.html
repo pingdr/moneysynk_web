@@ -15,7 +15,7 @@
         <div class="form-group">
             <label>Name</label>
             <mat-form-field appearance="fill">
-                <input matInput maxlength="26" placeholder="{{data.type === 'PAYEE' ? 'Add Payee' : 'Add Payer'}}" formControlName="name" [ngModel]="catgroyDetails.name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <input matInput maxlength="40" placeholder="{{data.type === 'PAYEE' ? 'Add Payee' : 'Add Payer'}}" formControlName="name" [ngModel]="catgroyDetails.name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                     <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                 </div>

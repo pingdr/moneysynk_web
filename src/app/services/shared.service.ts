@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { dataUri } from '@rxweb/reactive-form-validators';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -24,8 +25,8 @@ export class SharedService {
   constructor() { }
 
 
-  groupUpdateData(data?) {
-    this.groupChange.next(data ? data : false);
+  groupUpdateData(data?) {    
+      this.groupChange.next(data ? data : false);    
   }
 
   /**
@@ -44,7 +45,7 @@ export class SharedService {
     this.addGroupChange.next(data ? data : false);
   }
 
-  deleteEditGroup(data?){
+  deleteEditGroup(data?) {
     this.deleteEditGroupChange.next(data ? data : false);
   }
 }

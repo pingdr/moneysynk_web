@@ -11,7 +11,7 @@
         <div class="form-group">
             <label>Name</label>
             <mat-form-field appearance="fill">
-                <input matInput placeholder="Budget Name" formControlName="name" maxlength="26"
+                <input matInput placeholder="Budget Name" formControlName="name" maxlength="40"
                     [ngModel]="budgetData.name"
                     [ngClass]="{ 'is-invalid': submitted && f.name.errors || f.name.errors?.maxlength}">
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
@@ -82,7 +82,7 @@
             <mat-form-field appearance="fill">
                 <input matInput placeholder="$0.00" formControlName="currentBalance" [ngModel]="budgetData.amount"
                     [ngClass]="{ 'is-invalid': submitted && f.currentBalance.errors }" (keypress)="numberOnly($event)"
-                    [readonly]="isEdit">
+                    [readonly]="isEdit" maxlength="6">
                 <div *ngIf="submitted && f.currentBalance.errors" class="invalid-feedback" autocomplete="off">
                     <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                 </div>

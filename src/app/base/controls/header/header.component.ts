@@ -100,7 +100,7 @@ export class HeaderComponent implements OnInit {
       if (res.data != undefined) {
         this.groupList = res.data;
         this.selectedGroup(this.groupList);
-        this.sharedserive.groupUpdateData(this.groupList[0]._id);
+       // this.sharedserive.groupUpdateData(this.groupList[0]._id);
       }
     });
   }
@@ -111,10 +111,12 @@ export class HeaderComponent implements OnInit {
         console.log(groupData[index]);
         if (localStorage.getItem('selectedGroupId') == groupData[index]._id) {
           this.modeselect = groupData[index]._id;
+          this.sharedserive.groupUpdateData(this.modeselect);
         }
       }
     } else {
       this.modeselect = groupData[0]._id;
+      this.sharedserive.groupUpdateData(this.modeselect);
     }
   }
 

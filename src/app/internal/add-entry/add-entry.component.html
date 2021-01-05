@@ -74,7 +74,7 @@
                         <mat-option>None</mat-option>
                         <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option>
                         <mat-form-field appearance="fill">
-                            <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}"
+                            <input maxlength="40" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}"
                                 name="filterName" (keyup)="addclass($event.target.value)"
                                 (keydown)="$event.stopPropagation()" [value]="className" matInput
                                 placeholder="Add New Class">
@@ -90,7 +90,11 @@
                     <mat-select formControlName="categoryId" (selectionChange)="parentSelected($event)"
                         [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
                         <mat-option>None</mat-option>
-                        <mat-option *ngFor="let c of categories" value="{{c._id}}">{{c.name}}</mat-option>
+                        <mat-option *ngFor="let c of categories" [value]="c._id">
+                            <span>
+                                <img style="width: 30px;padding-right: 5px;" src="{{c.icon}}"></span>
+                            {{c.name}}
+                        </mat-option>
                     </mat-select>
                     <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback">
                         <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
@@ -114,7 +118,7 @@
             <div class="form-group">
                 <label>Check#</label>
                 <mat-form-field appearance="fill">
-                    <input matInput placeholder="Check Number" appOnlynumberDirective formControlName="chequeNumber">
+                    <input matInput placeholder="Check Number" maxlength="40" appOnlynumberDirective formControlName="chequeNumber">
                     <!-- <div *ngIf="submitted && f.chequeNumber.errors" class="invalid-feedback">
                         <div *ngIf="f.Accountname.errors.required">First Name is required</div>
                     </div> -->
@@ -124,7 +128,7 @@
             <div class="form-group">
                 <label>Date Time</label>
                 <mat-form-field appearance="fill">
-                    <input formControlName="dateTime" (focus)="picker.open()" matInput [matDatepicker]="picker"
+                    <input formControlName="dateTime" (focus)="picker.open()" maxlength="40" matInput [matDatepicker]="picker"
                         [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
@@ -159,7 +163,7 @@
             <div class="form-group Add-not-main">
                 <label>Note</label>
                 <mat-form-field appearance="fill">
-                    <input formControlName="note" matInput placeholder="Add note here">
+                    <input formControlName="note" matInput maxlength="150" placeholder="Add note here">
                 </mat-form-field>
             </div>
             <div class="last-section">

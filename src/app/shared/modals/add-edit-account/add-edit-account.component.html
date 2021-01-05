@@ -17,14 +17,14 @@
         <div class="form-group">
             <label>Name</label>
             <mat-form-field appearance="fill">
-                <input class="textTransform" matInput maxlength="26" placeholder="Account Name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <input class="textTransform" matInput maxlength="40" placeholder="Account Name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
 
             </mat-form-field>
         </div>
         <div class="form-group">
             <label>Account No.</label>
             <mat-form-field appearance="fill">
-                <input class="textTransform" maxlength="26" appOnlynumberDirective matInput placeholder="Account Number" formControlName="accountNo" [ngClass]="{ 'is-invalid': submitted && f.accountNo.errors }">
+                <input class="textTransform" maxlength="40" appOnlynumberDirective matInput placeholder="Account Number" formControlName="accountNo" [ngClass]="{ 'is-invalid': submitted && f.accountNo.errors }">
 
             </mat-form-field>
         </div>
@@ -94,7 +94,7 @@
 
                     <!-- <mat-option *ngFor="let data of accountModel" value="{{data._id}}">{{ data.name }}</mat-option> -->
                     <mat-form-field appearance="fill">
-                        <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}" name="filterName" (keyup)="addType($event.target.value)" (keydown)="$event.stopPropagation()" [value]="accountType" matInput placeholder="Add New Type" />
+                        <input maxlength="40" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}" name="filterName" (keyup)="addType($event.target.value)" (keydown)="$event.stopPropagation()" [value]="accountType" matInput placeholder="Add New Type" />
                         <button (click)="saveType()" class="btn add-btn"> Add</button>
                     </mat-form-field>
 
@@ -111,7 +111,7 @@
 
                   <mat-option *ngFor="let data of accountModel" value="{{data._id}}">{{ data.name }}</mat-option>
                   <mat-form-field appearance="fill">
-                      <input maxlength="20" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}" name="filterName" (keyup)="addType($event.target.value)" [value]="accountType" matInput placeholder="Add New Type">
+                      <input maxlength="40" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}" name="filterName" (keyup)="addType($event.target.value)" [value]="accountType" matInput placeholder="Add New Type">
                       <button (click)="saveType()" class="btn add-btn"> Add</button>
                   </mat-form-field>
 
@@ -123,7 +123,7 @@
         <div class="form-group">
             <label>Website</label>
             <mat-form-field appearance="fill">
-                <input class="dot textTransform" matInput placeholder="Website" formControlName="website" [ngClass]="{ 'is-invalid': submitted && f.website.errors }">
+                <input class="dot textTransform" maxlength="40" matInput placeholder="Website" formControlName="website" [ngClass]="{ 'is-invalid': submitted && f.website.errors }">
 
             </mat-form-field>
 

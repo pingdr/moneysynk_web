@@ -93,7 +93,8 @@ export class AccountsComponent implements OnInit {
     private _router: Router,
     private toastr: ToastrService,
     public dialog: MatDialog) {
-    this.sharedserive.groupChange.subscribe((data) => {
+    
+    this.sharedserive.groupChange.subscribe((data) => {      
       this.isSelected = null;
       if (data) {
         this.groupId = data;
@@ -101,10 +102,9 @@ export class AccountsComponent implements OnInit {
 
         this.accountList = [];
         this.accountTypeList = [];
-        // this.isSelected = 0
         this.accountType_id = "";
         this.getAccountTypedata();
-        // this.getAccountdata();
+        
       }
     });
 
@@ -248,7 +248,7 @@ export class AccountsComponent implements OnInit {
   }
 
   editTransaction(d) {
-    this._router.navigate(['/update-entry/' + d._id]);    
+    this._router.navigate(['/update-entry/' + d._id]);
   }
 
   convertNumberinPositive(num) {
