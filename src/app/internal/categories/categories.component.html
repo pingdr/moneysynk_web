@@ -92,7 +92,7 @@
                             </div>
                         </ng-container>
 
-                        <div style="display: flex;float: right;" *ngIf="total > 10">
+                        <div class="pagination-customize" *ngIf="total > 10">
                             <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10">
                             </mat-paginator>
                         </div>
@@ -238,7 +238,7 @@
                             </div>
                         </ng-container>
 
-                        <div style="display: flex;float: right;" *ngIf="total > 10">
+                        <div class="pagination-customize" *ngIf="total > 10">
                             <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10">
                             </mat-paginator>
                         </div>
@@ -326,17 +326,17 @@
 <div class="fixed-foot total-expanse-panal-bottom-main">
     <div class="inner-expanse-panal-main">
 
-        <div class="boxes">
-            <span class="label red-total-expanse">Total Expanse : </span>
+        <div class="boxes border-right-custom">
+            <span class="label">Total Expanse : </span>
             <span class="value red-total-expanse">{{convertNumberinPositive(categorySummary.expenseTotal) |
-                currency}}}</span>
-        </div>
-        <div class="boxes">
-            <span class="label green-cleared">Current Balance : </span>
-            <span class="value green-cleared">{{convertNumberinPositive(categorySummary.currentBalance) |
                 currency}}</span>
         </div>
         <div class="boxes">
+            <span class="label">Current Balance : </span>
+            <span class="value green-cleared">{{convertNumberinPositive(categorySummary.currentBalance) |
+                currency}}</span>
+        </div>
+        <div class="boxes border-left-custom">
             <span class="label">Income Total : </span>
             <span class="value">{{convertNumberinPositive(categorySummary.incomeTotal) | currency}}</span>
         </div>

@@ -41,7 +41,7 @@
 
       <div *ngIf="user" class="dropdown header-third-drop-down">
 
-        <button class="btn btn-secondary dropdown-toggle" type="button" [matMenuTriggerFor]="profileMenu">
+        <button   class="btn btn-secondary dropdown-toggle" type="button" [matMenuTriggerFor]="profileMenu">
           <span class="user-text-logo">
             <!-- #e1e1e1 -->
             {{user.username.charAt(0)}}
@@ -52,7 +52,7 @@
           </span> -->
           {{user.username}}</button>
 
-        <mat-menu #profileMenu="matMenu">
+        <mat-menu #profileMenu="matMenu" class="header-right-dropdown">
           <button mat-menu-item style="border: none !important;">Action</button>
           <button mat-menu-item>Another action</button>
           <button mat-menu-item (click)="Logout()">Logout</button>

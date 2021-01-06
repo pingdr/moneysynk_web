@@ -165,10 +165,10 @@ label {
 // margin-top: 0;
 // font-size: $font-12px + 1;
 // }
-// -----Modal Popup -----------//
-.cdk-overlay-container {
-    // background: rgba(0, 0, 0, 0.6);
-}
+// // -----Modal Popup -----------//
+// .cdk-overlay-container {
+//     background: rgba(0, 0, 0, 0.6);
+// }
 
 // ---otp-modal-popup--//
 .otp-modal-main {
@@ -655,7 +655,8 @@ label {
             background: none !important;
             .mat-form-field-infix {
                 padding: 0 !important;
-                margin: 10px !important;
+                // margin: 10px !important;
+                margin: 0px !important;
                 border: none !important;
                 width: 100%;
                 .mat-input-element {
@@ -679,15 +680,25 @@ label {
                     padding: 16px 19px !important;
                 }
                 .mat-form-field-label-wrapper {
+                    // position: absolute;
+                    // top: 14px;
+                    // left: 20px;
+                    // padding-top: 0;
+                    // bottom: 0;
+                    // margin: auto;
+                    // font-size: 11px;
+                    // color: #5e5e5e !important;
+                    // font-weight: 100 !important;
                     position: absolute;
-                    top: 14px;
-                    left: 20px;
+                    top: 12px;
+                    left: 24px;
                     padding-top: 0;
                     bottom: 0;
                     margin: auto;
-                    font-size: 11px;
-                    color: #5e5e5e !important;
-                    font-weight: 100 !important;
+                    font-size: 12px;
+                    color: #c9d8e3 !important;
+                    font-weight: 400 !important;
+                    font-family: 'Sul Sans' !important;
                     .mat-form-field-label {
                         width: 100% !important;
                         margin: 0 !important;
@@ -741,7 +752,7 @@ label {
 
 #group {
     background: #f9f9f9 !important;
-    padding: 18px 19px !important;
+    // padding: 18px 19px !important;
     border-radius: 100px;
     .mat-select-arrow-wrapper {
         transform: inherit !important;
@@ -999,12 +1010,12 @@ body {
 .budget-main {
     border: 1px solid #ebebeb;
     border-radius: 11px;
-    padding: 10px;
+    padding: 15px 5px;
     display: flex;
     align-items: center;
     justify-content: space-around;
     position: relative;
-    margin-bottom: 8px;
+    margin-bottom: 15px;
     cursor: pointer;
     &:last-child {
         margin-bottom: 0px;
@@ -1014,7 +1025,7 @@ body {
         .first-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             .name-budget {
                 font-size: 12px;
                 line-height: 12px;
@@ -1048,7 +1059,7 @@ body {
             color: #fd4755;
         }
         .color-grey {
-            font-size: 10px;
+            font-size: 11px;
             margin-left: 8px;
         }
     }
@@ -1059,7 +1070,7 @@ body {
         .mat-accordion {
             .mat-expansion-panel {
                 .mat-expansion-panel-header {
-                    padding: 23px 20px !important;
+                    padding: 23px 40px !important;
                     padding-left: 70px !important;
                     .mat-expansion-indicator {
                         left: 35px;
@@ -1095,7 +1106,7 @@ body {
                             width: 70%;
                             .right-col {
                                 a {
-                                    margin-right: 23px;
+                                    margin-right: 15px;
                                     &:last-child {
                                         margin-right: 0px;
                                     }
@@ -1326,7 +1337,7 @@ body {
 }
 
 .start-entry {
-    padding: 30px 0px;
+    padding: 40px 10px;
     .add-entry-main-form {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -1348,9 +1359,9 @@ body {
                 font-size: 12px;
                 line-height: 10px;
             }
-            .mat-form-field {
-                // width: 80% !important;
-            }
+            // .mat-form-field {
+            //     width: 80% !important;
+            // }
             .mat-checkbox {
                 width: 40% !important;
             }
@@ -1405,11 +1416,13 @@ body {
         .Add-not-main {
             grid-column-start: 2;
             grid-column-end: -1;
+            
         }
         .last-section {
             grid-column-start: 2;
             grid-column-end: -1;
             text-align: right;
+            margin-top: 20px;
             .btn {
                 padding: 14px 41px;
                 font-weight: 300;
@@ -1436,3 +1449,204 @@ body {
 // .mat-menu-panel{
 //     right: 10px !important;
 // }
+
+
+
+// --------------New Added --------------//
+
+.start-entry{
+    .new-entry-class{
+        width: 80%;
+        // grid-column-gap: 10px;
+        grid-column-gap: 60px;
+        .form-group{
+            label{
+                width: 20%;
+            }
+            .mat-form-field{
+                width: 80% !important;
+            }
+            .mat-checkbox{
+                width: 70% !important;
+            }
+        }
+        .file-input{
+            .inner-file-upload{
+                .mat-form-field{
+                    width: 100% !important;
+                }
+            }
+        }
+        .Add-not-main{
+            align-items: self-start;
+            label{
+                padding-top: 20px;
+            }
+            .mat-form-field{
+                .mat-form-field-wrapper {
+                    .mat-form-field-flex{
+                        .mat-form-field-infix{
+                            textarea{
+                                height: 120px !important;
+                                border-radius: 20px !important;
+                                resize: none !important;
+                            }
+                        }
+                    }
+                }
+            }
+           
+        }
+    }
+}
+
+
+
+.new-entry-class .mat-form-field.mat-form-field-invalid .mat-form-field-label{
+    top: 11px !important;
+}
+// account-screen
+
+.asset-main-tab{
+    .slick-slider{
+        .slick-prev{
+            left: 10px;
+            background: transparent;
+            z-index: 999;
+            display: block;
+            &::before{
+                color: #f7be32;
+                font-size: 22px;
+                opacity: 0.45;
+                top: -8px !important;
+                position: relative;
+            }
+            &:hover{
+                &::before{
+                    opacity: 1;
+                }
+            }
+        }
+        .slick-next{
+            right: 15px;
+            background: transparent;
+            z-index: 999;
+            display: block;
+            &::before{
+                color: #f7be32;
+                font-size: 22px;
+                opacity: 0.45;
+                top: -8px !important;
+                position: relative;
+            }
+            &:hover{
+                &::before{
+                    opacity: 1;
+                }
+            }
+        }
+        .slick-disabled {
+            display: none;
+        }
+        .slick-list{
+            .slick-track{
+                a{
+                    &:focus{
+                        outline: none ;
+                    }
+                }
+            }
+        }   
+    }
+}
+
+// -------------sul-sans----------//
+.mat-expansion-panel-header-title {
+    font-family: 'Sul Sans' !important;
+}
+
+.mat-expansion-panel-header {
+    font-family: 'Sul Sans' !important;
+}
+
+
+.border-right-custom {
+    border-right: 1px solid #929292 !important;
+}
+
+.border-left-custom{
+    border-left:1px solid #929292 !important;
+}
+
+.mat-expansion-panel-content {
+    font-family: 'Sul Sans' !important;
+}
+
+.pagination-customize {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    .mat-paginator{
+        .mat-paginator-outer-container{
+            .mat-paginator-container{
+                .mat-paginator-page-size{
+                    .mat-paginator-page-size-label{
+                        font-family: 'Sul Sans' !important;
+                        font-size: 12px;
+                    }
+                    .mat-paginator-page-size-value{
+                        font-family: 'Sul Sans' !important;
+                        font-size: 12px;
+                        color: #7299ff;
+                    }
+                }
+                .mat-paginator-range-actions{
+                    .mat-paginator-range-label {
+                        font-size: 12px;
+                        font-weight: 500;
+                        font-family: 'Sul Sans';
+                    }
+                    button{
+                        width: 25px;
+                        span.mat-button-wrapper{
+                            .mat-paginator-icon{
+                                width: 23px ;
+                            }
+                        }
+                    }
+                }
+
+
+            }
+            
+        }
+    }
+}
+
+
+// ----for-text-area--------//
+.notes-section-main{
+    align-items: self-start !important;
+    label {
+        padding-top: 13px;
+    }
+    .mat-form-field{
+        .mat-form-field-infix{
+            textarea{
+                height: 100px !important;
+                border-radius: 20px !important;
+                resize: none !important;
+            }
+        }
+    }
+}
+
+
+.mat-datepicker-toggle button svg {
+    width: 17px !important;
+}
+
+.add-bils-main .add-entry-main-form .form-group .mat-checkbox {
+    width: 100% !important;
+    padding-left: 20px;
+}

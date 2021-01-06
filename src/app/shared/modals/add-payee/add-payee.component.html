@@ -64,10 +64,10 @@
             </div>
         </ng-container>
 
-        <div class="form-group">
+        <div class="form-group notes-section-main">
             <label>Note</label>
             <mat-form-field appearance="fill">
-                <input matInput placeholder="Add note here" maxlength="150" formControlName="note" name="note" [ngModel]="catgroyDetails.note" />
+                <textarea style="border-radius: 20px !important;" matInput placeholder="Add note here" maxlength="150" formControlName="note" name="note" [ngModel]="catgroyDetails.note"></textarea>
 
             </mat-form-field>
         </div>

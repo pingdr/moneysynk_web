@@ -35,15 +35,15 @@
                     (click)="getType(data._id,i)">
                     <span style="position: relative;">
                         {{data.name }}
-                        <span *ngIf="!data.default" style="position: absolute;right: -18px;">
+                        <span *ngIf="!data.default" style="position: absolute;right: -25px; top: -1px;">
                             <i (click)="deleteAccount(data._id,data.name,'deleteAccountType')"><img
-                                    style="font-size: 13px;" src="../../../assets/images/delete-trash.svg"></i>
+                                    style="font-size: 13px; width: 14px;" src="../../../assets/images/delete-trash.svg"></i>
                         </span>
                     </span>
 
-                    <span (click)="getType(data._id,i)" class="balance-btn"
-                        [ngClass]="data.currentBalance > 0 ? 'green-color':'red-color'">Bal:
-                        {{ convertNumberinPositive(data.currentBalance) | currency}}</span></a>
+                    <span class="avail-bal">Bal:<span (click)="getType(data._id,i)" class="balance-btn"
+                        [ngClass]="data.currentBalance > 0 ? 'green-color':'red-color'">
+                        {{ convertNumberinPositive(data.currentBalance) | currency}}</span></span></a>
             </div>
         </nav>
         <div style="padding:20px;" class="row">
@@ -69,9 +69,9 @@
                         </div>
                         <div class="account-type"><span>{{ data.name }}</span></div>
                         <a class="view-btn">
-                            <img style="margin-left: -57px;" *ngIf="data.isViewAmount" (click)="toggleAmount(i)"
+                            <img style="width: 22px;" *ngIf="data.isViewAmount" (click)="toggleAmount(i)"
                                 src="../../../assets/images/view-eye.svg">
-                            <img style="margin-left: -57px;width: 22px;" *ngIf="!data.isViewAmount"
+                            <img style="width: 22px;" *ngIf="!data.isViewAmount"
                                 (click)="toggleAmount(i)" src="../../../assets/images/close-eyes.svg">
                         </a>
                         <div class="pricing-icon">
@@ -159,8 +159,8 @@
                                             </div>
                                         </mat-expansion-panel>
                                     </ng-container>
-                                    <div style="display: flex;float: right; position: relative;top: -28px;"
-                                        *ngIf="accountSummaryPageIndexTotal > 5">
+                                    <div style="display: flex;float: right; position: relative;top: -28px;" 
+                                    *ngIf="accountSummaryPageIndexTotal > 5">
                                         <mat-paginator (page)="accountDetailPageChange($event)"
                                             [length]="accountSummaryPageIndexTotal" [pageSize]="5">
                                         </mat-paginator>
@@ -217,22 +217,22 @@
 
 <div class="fixed-foot total-expanse-panal-bottom-main">
     <div class="inner-expanse-panal-main">
-        <div class="boxes">
-            <span class="label red-total-expanse">Total Expanse : </span>
+        <div class="boxes border-right-custom">
+            <span class="label">Total Expanse : </span>
             <span class="value red-total-expanse">{{convertNumberinPositive(accountSummary.expenseTotal) |
                 currency}}</span>
         </div>
         <div class="boxes">
-            <span class="label green-cleared">Total Income : </span>
+            <span class="label">Total Income : </span>
             <span class="value green-cleared">{{convertNumberinPositive(accountSummary.incomeTotal) | currency}}</span>
         </div>
-        <div class="boxes">
+        <div class="boxes border-left-custom">
             <span class="label">Total Balance : </span>
-            <span class="value">$00</span>
+            <span class="value green-cleared">$00</span>
         </div>
-        <div class="boxes">
+        <div class="boxes border-left-custom">
             <span class="label">Total Cleared Balance : </span>
-            <span class="bold value">$00</span>
+            <span class="bold value green-cleared">$00</span>
         </div>
     </div>
 </div>

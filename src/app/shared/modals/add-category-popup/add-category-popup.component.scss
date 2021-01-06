@@ -1,5 +1,5 @@
 .add-account-section {
-    padding: 25px 40px;
+    padding: 25px 30px;
     form.add-account-entry {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
@@ -12,8 +12,8 @@
             label {
                 margin-bottom: 0;
                 font-size: 11px;
-                margin-right: 15px !important;
-                width: 30%;
+                margin-right: 13px !important;
+                width: 24%;
                 text-align: right;
             }
         }
@@ -82,5 +82,20 @@
     .active{
         border: 2px solid #f8c038 !important;
         background: #fff;
+    }
+}
+
+
+// ----------new-csss------------//
+
+
+.add-account-section{
+    .add-account-entry{
+        .note-section-text-area{
+            align-items: self-start !important;
+            label{
+                padding-top: 13px;
+            }
+        }
     }
 }

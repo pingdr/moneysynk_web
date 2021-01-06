@@ -98,5 +98,12 @@
 
    
    
-
+// -------new css------------//
    
+.add-account-section form.add-account-entry .form-group.note-section-last {
+    align-items: self-start !important;
+}
+
+.add-account-section form.add-account-entry .form-group.note-section-last label {
+    padding-top: 13px;
+}

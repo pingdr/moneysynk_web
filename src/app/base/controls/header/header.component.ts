@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { dataUri } from '@rxweb/reactive-form-validators';
 import { ToastrService } from 'ngx-toastr';
@@ -7,6 +7,7 @@ import { ApiUrl } from 'src/app/services/apiurl';
 import { HttpService } from 'src/app/services/http.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { LogoutModalComponent } from 'src/app/shared/modals/logout-modal/logout-modal.component';
+import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit {
   groupName: any;
   filterName: any;
   public modeselect: any;
+  // status1:boolean=false
 
   clickEventsubscription: Subscription;
 
@@ -27,7 +29,7 @@ export class HeaderComponent implements OnInit {
     private toastr: ToastrService,
     public sharedserive: SharedService,
     public dialog: MatDialog,
-    private sharedService: SharedService
+    private sharedService: SharedService, 
   ) { }
 
   ngOnInit() {
@@ -42,6 +44,11 @@ export class HeaderComponent implements OnInit {
     })
 
     this.getAllGroup();
+    
+    
+  }
+
+  openSpaghettiPanel() {
     
   }
 
@@ -126,5 +133,9 @@ export class HeaderComponent implements OnInit {
     this.sharedserive.groupUpdateData(value._id);
     localStorage.setItem('selectedGroupId', value._id);
   }
+
+  // alert(){
+  //   this.status1=true;
+  // }
 
 }

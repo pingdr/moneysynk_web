@@ -42,8 +42,8 @@
 }
 
 .asset-main-tab {
-    margin-top: 10px;
-    padding-bottom: 15px;
+    margin-top: 5px;
+    padding-bottom: 0px;
     border-bottom: 1px solid #cccccc;
     .nav-tabs {
         border-bottom: 0 !important;
@@ -61,10 +61,12 @@
             font-weight: 400;
             padding: 0;
             position: relative;
+            padding-bottom: 20px;
             .balance-btn {
                 display: block;
-                margin-top: 10px;
+                margin-top: 0px;
                 font-size: 12px;
+                margin-left: 5px;
             }
         }
         .active {
@@ -73,7 +75,7 @@
                 position: absolute !important;
                 content: "";
                 background: #f5b822 !important;
-                bottom: -16px;
+                bottom: 0px;
                 left: 0;
                 right: 0;
                 z-index: 999;
@@ -81,9 +83,9 @@
                 height: 3px;
                 margin: auto;
             }
-            .balance-btn {
-               // color: #5e5e5e;
-            }
+            // .balance-btn {
+            //    // color: #5e5e5e;
+            // }
         }
     }
 }
@@ -98,7 +100,7 @@
 .fixed-foot {
     position: fixed !important;
     bottom: 0px;
-    width: calc(100% - 200px);
+    width: calc(100% - 250px);
     z-index: 1;
 }
 
@@ -110,9 +112,12 @@
     align-items: center;
     display: flex;
     margin-top: 10px;
+    position: relative;
     .number {
-        width: 5%;
-        padding: 0px 40px 0px 0px;
+        // width: 5%;
+        // padding: 0px 40px 0px 0px;
+        padding-right: 20px;
+        padding-left: 10px;
     }
     .account-type {
         width: 60%;
@@ -125,10 +130,16 @@
     }
     .action-tab-main {
         width: 10%;
+        text-align: right;
         .edit-btn {
-            margin-right: 25px;
+            margin-right: 16px;
             @include max-mq(1200) {
                 margin-right: 10px;
+            }
+        }
+        a{
+            img{
+                width: 12px;
             }
         }
     }
@@ -141,10 +152,10 @@
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-    .number {
-    }
-    .account-type {
-    }
+    // .number {
+    // }
+    // .account-type {
+    // }
     .pricing-icon {
         .price {
             color: #fd4755;
@@ -175,9 +186,19 @@
     }
 }
 
-.active-step {
-    border-left: 10px solid #7299ff !important;
+
+.active-step:before {
+        position: absolute;
+        content: '';
+        background: #7299ff;
+        width: 6px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
 }
+
 
 .main-chart-part {
     align-items: flex-start;
@@ -204,9 +225,9 @@
                     // color: #fff;
                     font-size: 10px;
                 }
-                .right-income {
-                    // color: #fff;
-                }
+                // .right-income {
+                //     // color: #fff;
+                // }
             }
         }
         .income-btn {
@@ -223,9 +244,9 @@
                 // color: #fff;
                 font-size: 10px;
             }
-            .right-income {
-                // color: #fff;
-            }
+            // .right-income {
+            //     // color: #fff;
+            // }
         }
     }
 }
@@ -270,6 +291,11 @@
                     transition: 0.6s all ease;
                 }
             }
+            .active{
+                background: #fff !important;
+                color: #000 !important;
+
+            }
         }
         .filter-btn-group {
             width: 30%;
@@ -288,7 +314,7 @@
     background: #f3d39e;
     // border-bottom-left-radius: 10px;
     // border-bottom-right-radius: 10px;
-    padding: 8px;
+    padding: 13px;
     position: relative;
     .inner-expanse-panal-main {
         display: flex;
@@ -298,7 +324,7 @@
             width: 100%;
             padding: 15px;
             border: none;
-            margin-bottom: 5px;
+            margin-bottom: 0px;
             box-sizing: border-box;
             font-size: 1rem;
             text-align: center;
@@ -467,4 +493,37 @@
 .shimmer {
     display: inline-block !important;
     padding: 5px;
+}
+
+
+a.view-btn {
+    margin-right: 20px;
+}
+
+.pricing-icon span.price{
+    padding-top: 8px;
+    font-size: 14px;
+    display: flex;
+}
+
+.pricing-icon span.price.green-color {
+    padding-top: 0;
+}
+
+span.avail-bal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+    font-size: 11px;
+    font-weight: 400;
+    color:  #5e5e5e;
+}
+
+.border-right-custom {
+    border-right: 1px solid #929292 !important;
+}
+
+.border-left-custom{
+    border-left:1px solid #929292 !important;
 }

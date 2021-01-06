@@ -25,7 +25,7 @@
 
     <div class="white-box start-entry">
 
-        <form class="add-entry-main-form" [formGroup]="editentry" (ngSubmit)="onSubmit()">
+        <form class="add-entry-main-form new-entry-class" [formGroup]="editentry" (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <label>{{type=='PAYEE' ? 'Payee' : 'Payer'}}</label>
                 <mat-form-field appearance="fill">
@@ -59,7 +59,7 @@
                 <mat-form-field appearance="fill">
                     <input matInput placeholder="0" appOnlynumberDirective formControlName="amount"
                         [ngClass]="{ 'is-invalid': submitted && f.amount.errors }"
-                        style="padding-left: 28px !important;" maxlength="6">
+                        style="padding-left: 34px !important;" maxlength="6">
                     <span class="amount-dollar">$</span>
                     <!-- <div *ngIf="submitted && f.chequeNumber.errors" class="invalid-feedback">
                         <div *ngIf="f.Accountname.errors.required">First Name is required</div>
@@ -163,11 +163,12 @@
             <div class="form-group Add-not-main">
                 <label>Note</label>
                 <mat-form-field appearance="fill">
-                    <input formControlName="note" matInput maxlength="150" placeholder="Add note here">
+                    <!-- <input formControlName="note" matInput maxlength="150" placeholder="Add note here"> -->
+                    <textarea formControlName="note"  matInput maxlength="150" placeholder="Add note here"></textarea>
                 </mat-form-field>
             </div>
             <div class="last-section">
-                <button class="btn"> Save</button>
+                <button class="btn"> Add Income</button>
 
             </div>
         </form>

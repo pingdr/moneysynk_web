@@ -55,11 +55,11 @@
             </mat-form-field>
         </div>
 
-        <div class="form-group">
+        <div class="form-group note-section-text-area">
             <label>Note</label>
             <mat-form-field appearance="fill">
-                <input matInput placeholder="Add note here" maxlength="150" formControlName="note"
-                    [ngModel]="categoryData.note">
+                <textarea style="height: 100px !important; border-radius: 20px !important; resize: none;" matInput placeholder="Add note here" maxlength="150" formControlName="note"
+                    [ngModel]="categoryData.note"></textarea>
                 <!-- <div *ngIf="submitted && f.note.errors" class="invalid-feedback"> -->
                 <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                 <!-- </div> -->
