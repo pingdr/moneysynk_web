@@ -55,6 +55,13 @@ export class CategoriesComponent implements OnInit {
   ngOnInit(): void {
     this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
+
+      this.categoriesDetails = [];
+      this.categorySummary = [];
+      this.monthlyPageIndex = 0;
+      this.MonthlyIndexListTotal = 0;
+      this.isSubCategoryRecord = null;
+
       if (data) {
         this.getCategoriesData();
         this.getCategorySummary();
@@ -71,12 +78,15 @@ export class CategoriesComponent implements OnInit {
     this.type = type;
     this.pageIndex = 0;
     this.monthlyPageIndex = 0;
+    this.MonthlyIndexListTotal = 0;
+    this.isSubCategoryRecord = null;
     this.getCategoriesData();
   }
   getCategoriesDetailsById(id) {
     this.isApiCalling = true;
     var payload = {
       groupId: this.groupId,
+      year: 1,
       categoryId: id,
       type: this.type == 'EXPENSE' ? 'OUT' : 'IN',
       limit: 5,

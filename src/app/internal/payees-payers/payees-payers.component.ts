@@ -61,6 +61,18 @@ export class PayeesPayersComponent implements OnInit {
   ngOnInit(): void {
     this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
+
+      this.payeeSummary = [];
+      this.payeesArray = [];
+      this.sortPayeerArray = [];
+      this.payersArray = [];
+      this.payeeDetails = [];
+
+      this.payeeDetailPageIndex = 0;
+      this.payeeIndexTotal = 0;
+      this.selectedPayeeId = '';
+      this.pName = '';
+
       if (data) {
         this.getPayees();
         this.getPayeeSummary();
@@ -83,14 +95,22 @@ export class PayeesPayersComponent implements OnInit {
     }
     this.http.get(ApiUrl.payeeMonths, payload).subscribe((res) => {
       console.log("Payee Payer Detail ======>", res);
-      if (res.data.length != 0) {
-        this.payeeIndexTotal = res.data[0].totalTransaction;
-        this.payeeDetails = res.data;
+
+      if (res.data != null) {
+        if (res.data.length != 0) {
+          this.payeeIndexTotal = res.data[0].totalTransaction;
+          this.payeeDetails = res.data;
+        } else {
+          this.payeeIndexTotal = 0;
+          this.payeeDetails = [];
+          this.payeeDetails.data = [];
+        }
       } else {
         this.payeeIndexTotal = 0;
         this.payeeDetails = [];
         this.payeeDetails.data = [];
       }
+
 
       this.isApiCalling = false;
 
@@ -251,6 +271,11 @@ export class PayeesPayersComponent implements OnInit {
     this.isRecordSelected = 0;
     this.isRecordSelected1 = 0;
     this.payeeDetailPageIndex = 0;
+
+    this.payeeIndexTotal = 0;
+    this.payeeDetails = [];
+    this.payeeDetails.data = [];
+    this.pName = '';
     this.getPayees();
   }
   nextStep() {

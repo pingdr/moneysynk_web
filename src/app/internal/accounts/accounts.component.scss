@@ -85,7 +85,7 @@
             }
             // .balance-btn {
             //    // color: #5e5e5e;
-            // }
+            // }            
         }
     }
 }
@@ -294,8 +294,10 @@
             .active{
                 background: #fff !important;
                 color: #000 !important;
-
             }
+
+
+            
         }
         .filter-btn-group {
             width: 30%;
@@ -429,6 +431,7 @@
 
 .strips-main {
     background: #e8e8e8;
+    cursor: pointer;
     margin-bottom: 14px;
     padding: 7px 20px;
     display: flex;

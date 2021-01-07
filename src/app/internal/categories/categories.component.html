@@ -195,7 +195,8 @@
                                         <mat-expansion-panel-header (click)="selectRecord(inc)">
                                             <mat-panel-title>
                                                 <span>{{inc.name}}</span>
-                                                <img src="{{inc.icon}}" [ngStyle]="{'height':inc.name=='Other'?'40px':''}">
+                                                <img src="{{inc.icon}}"
+                                                    [ngStyle]="{'height':inc.name=='Other'?'40px':''}">
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 <div class="main-right-heading">
@@ -210,7 +211,8 @@
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
                                         <div class="expansion-description-main">
-                                            <div *ngFor="let c of inc.child" class="inner-strips">
+                                            <div *ngFor="let c of inc.child;let j=index" class="inner-strips"
+                                                (click)="getSubCategorySummaryData(c,j)">
                                                 <div class="left-col">
                                                     <img src="{{c.icon}}">
                                                     <span
@@ -328,17 +330,25 @@
 
         <div class="boxes border-right-custom">
             <span class="label">Total Expanse : </span>
-            <span class="value red-total-expanse">{{convertNumberinPositive(categorySummary.expenseTotal) |
-                currency}}</span>
+            <span class="value red-total-expanse" *ngIf="categorySummary.expenseTotal">
+                {{convertNumberinPositive(categorySummary.expenseTotal) |
+                currency}}
+            </span>
+            <span class="value red-total-expanse" *ngIf="!categorySummary.expenseTotal">
+                $0.00
+            </span>
         </div>
         <div class="boxes">
             <span class="label">Current Balance : </span>
-            <span class="value green-cleared">{{convertNumberinPositive(categorySummary.currentBalance) |
+            <span class="value green-cleared" *ngIf="categorySummary.currentBalance">{{convertNumberinPositive(categorySummary.currentBalance) |
                 currency}}</span>
+            <span class="value green-cleared" *ngIf="!categorySummary.currentBalance">$0.00</span>
+        
         </div>
         <div class="boxes border-left-custom">
             <span class="label">Income Total : </span>
-            <span class="value">{{convertNumberinPositive(categorySummary.incomeTotal) | currency}}</span>
+            <span class="value" *ngIf="categorySummary.incomeTotal">{{convertNumberinPositive(categorySummary.incomeTotal) | currency}}</span>
+            <span class="value" *ngIf="!categorySummary.incomeTotal">$0.00</span>
         </div>
 
     </div>
