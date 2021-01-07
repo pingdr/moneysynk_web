@@ -92,7 +92,7 @@
                             </div>
                         </ng-container>
 
-                        <div class="pagination-customize" *ngIf="total > 10">
+                        <div style="display: flex;float: right;" class="pagination-customize" *ngIf="total > 10">
                             <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10">
                             </mat-paginator>
                         </div>
