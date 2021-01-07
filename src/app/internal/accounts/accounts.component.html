@@ -158,8 +158,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="main-strips">
-                                                            <div class="date-and-time">{{d.createdAt | date:'dd MMM
-                                                                yyyy'}}</div>
+                                                            <div class="date-and-time">{{d.createdAt | date:'dd MMM yyyy'}}></div>
                                                             <img class="edit-icon" (click)="editTransaction(d)"
                                                                 src="../../../assets/images/edit-pencil.svg">
                                                         </div>
@@ -168,8 +167,7 @@
                                             </div>
                                         </mat-expansion-panel>
                                     </ng-container>
-                                    <div style="display: flex;float: right; position: relative;top: -28px;" 
-                                    *ngIf="accountSummaryPageIndexTotal > 5">
+                                    <div style="display: flex;float: right; position: relative;top: -28px;" *ngIf="accountSummaryPageIndexTotal > 5">
                                         <mat-paginator (page)="accountDetailPageChange($event)"
                                             [length]="accountSummaryPageIndexTotal" [pageSize]="5">
                                         </mat-paginator>
@@ -231,14 +229,6 @@
     <div class="inner-expanse-panal-main">
         <div class="boxes border-right-custom">
             <span class="label">Total Expanse : </span>
-            <span class="value red-total-expanse">{{convertNumberinPositive(accountSummary.expenseTotal) |
-                currency}}</span>
-        </div>
-        <div class="boxes">
-            <span class="label">Total Income : </span>
-            <span class="value green-cleared">{{convertNumberinPositive(accountSummary.incomeTotal) | currency}}</span>
-        <div class="boxes">
-            <span class="label red-total-expanse">Total Expanse : </span>
             <span class="value red-total-expanse" *ngIf="accountSummary.expenseTotal">
                 {{convertNumberinPositive(accountSummary.expenseTotal) |
                 currency}}
@@ -248,14 +238,14 @@
             </span>
         </div>
         <div class="boxes">
-            <span class="label green-cleared">Total Income : </span>
+            <span class="label">Total Income : </span>
             <span class="value green-cleared" *ngIf="accountSummary.incomeTotal">
                 {{convertNumberinPositive(accountSummary.incomeTotal) | currency}}
             </span>
             <span class="value green-cleared" *ngIf="!accountSummary.incomeTotal">
                 $00
             </span>
-        </div>
+        </div>        
         <div class="boxes border-left-custom">
             <span class="label">Total Balance : </span>
             <span class="value green-cleared">$00</span>
