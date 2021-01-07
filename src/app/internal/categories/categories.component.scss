@@ -264,3 +264,38 @@
         width: 100%;
     }
 }
+
+
+.list-main-filter{
+    height: 100%;
+    
+}
+
+.not-transaction-added {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .inner-img-main{
+        img{
+            width: 300px;
+            margin-bottom: 20px;
+            @include max-mq(1660){
+                width: 280px;
+            }
+            @include max-mq(1500){
+                width: 250px;
+            }
+            @include max-mq(1400){
+                width: 200px;
+            }
+            @include max-mq(1300){
+                width: 180px;
+            }
+        }
+    }
+}

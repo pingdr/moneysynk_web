@@ -259,6 +259,8 @@ export class AccountsComponent implements OnInit {
       console.log('Account Details ', res);
       if (res.data.length != 0) {
         this.accountDetails = res.data;
+        console.log('this.accountDetails')
+        console.log(this.accountDetails)
 
         if (this.accountSummaryPageIndexTotal != '' || !this.accountSummaryPageIndexTotal) {
           this.accountSummaryPageIndexTotal = res.data[0].totalTransaction;
@@ -437,7 +439,7 @@ export class AccountsComponent implements OnInit {
           this.getAccountDetailsById(res.data.data[0]._id)
           this.getAccountSummary(res.data.data[0]._id)
         } else {
-          this.accountDetails = null
+          this.accountDetails = []
         }
         for (let i = 0; i < this.accountList.length; i++) {
           this.accountList[i]['isViewAmount'] = true;
