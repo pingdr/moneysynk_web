@@ -9,11 +9,16 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { SharedService } from 'src/app/services/shared.service';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { Categories } from 'src/app/services/CustomPaginatorConfiguration';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+  styleUrls: ['./categories.component.scss'],
+  providers: [
+    { provide: MatPaginatorIntl, useValue: Categories() }
+  ]
 })
 export class CategoriesComponent implements OnInit {
 

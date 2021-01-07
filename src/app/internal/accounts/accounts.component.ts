@@ -10,13 +10,18 @@ import { AddEditAccountComponent } from 'src/app/shared/modals/add-edit-account/
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import { SharedService } from 'src/app/services/shared.service';
 import { Slick } from 'ngx-slickjs';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomPaginator } from 'src/app/services/CustomPaginatorConfiguration';
 
 
 
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
-  styleUrls: ['./accounts.component.scss']
+  styleUrls: ['./accounts.component.scss'],
+  providers: [
+    { provide: MatPaginatorIntl, useValue: CustomPaginator() }
+  ]
 })
 export class AccountsComponent implements OnInit {
 

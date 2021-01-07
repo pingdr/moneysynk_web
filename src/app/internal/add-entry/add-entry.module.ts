@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 const routes: Routes = [
     {
@@ -40,7 +41,9 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         MatExpansionModule,
         MatButtonModule,
-        SharedModule
+        SharedModule,
+        OwlDateTimeModule, 
+        OwlNativeDateTimeModule,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

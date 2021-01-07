@@ -127,12 +127,26 @@
             </div>
             <div class="form-group">
                 <label>Date Time</label>
-                <mat-form-field appearance="fill">
+                <!-- <mat-form-field appearance="fill">
                     <input formControlName="dateTime" (focus)="picker.open()" maxlength="40" matInput [matDatepicker]="picker"
                         [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
+                 </mat-form-field> -->
+
+                 <mat-form-field appearance="fill">
+                    <input matInput formControlName="dateTime" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="Date Time"
+                    [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }">
+                    <span [owlDateTimeTrigger]="dt2"><i style="position: absolute;
+                        top: 17px;
+                        bottom: 0;
+                        margin: auto;
+                        right: 22px;" class="fa fa-calendar"></i></span>
+                    <owl-date-time #dt2 [hour12Timer]="true" ></owl-date-time>
                 </mat-form-field>
+
+
+
             </div>
             <div class="form-group check-box-cleared">
                 <label>Cleared</label>

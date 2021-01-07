@@ -7,11 +7,16 @@ import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { Router } from '@angular/router';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { transactionLists } from 'src/app/services/CustomPaginatorConfiguration';
 
 @Component({
   selector: 'app-transaction',
   templateUrl: './transaction.component.html',
-  styleUrls: ['./transaction.component.scss']
+  styleUrls: ['./transaction.component.scss'],
+  providers: [
+    { provide: MatPaginatorIntl, useValue: transactionLists() }
+  ]
 })
 export class TransactionComponent implements OnInit {
   groupId: any;
@@ -64,6 +69,8 @@ export class TransactionComponent implements OnInit {
         this.transactionList = [];
         this.resultsLength = res.data.totalTransactions;
         this.transactionList = res.data.data;
+        console.log('------------------------------------')
+        console.log(this.transactionList)
       }
     });
   }
