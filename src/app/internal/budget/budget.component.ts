@@ -27,6 +27,7 @@ export class BudgetComponent implements OnInit {
 
   isApiCalling: boolean = false;
   isShimmerloading: boolean = false;
+  budgetDetailsShimmer = true
 
   type: any = "EXPENSE";
   budgetSummary: any = [];
@@ -83,7 +84,7 @@ export class BudgetComponent implements OnInit {
   }
 
   selectRecord(i, b) {
-
+    this.budgetDetailsShimmer=true
     if (i || i == 0)
       this.recordSelected = i;
     this.bname = b.name;
@@ -106,6 +107,7 @@ export class BudgetComponent implements OnInit {
     }
 
     this.http.get(ApiUrl.budgetMonths, payload).subscribe((res) => {
+      this.budgetDetailsShimmer=false
       console.log('Budget List Details=====>', res);
       if (res.data.length != 0) {
         this.budgetDetailPageIndexTotal = res.data[0].totalTransaction;

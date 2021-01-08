@@ -45,6 +45,7 @@ export class CategoriesComponent implements OnInit {
   MonthlyTotal: any = '';
   MonthlyIndexListTotal: any = '';
   monthlyPageIndex: any = 0;
+  categoriesDetailsShimmer=true;
 
 
   pageIndex: any = 0;
@@ -79,6 +80,7 @@ export class CategoriesComponent implements OnInit {
     this.step = index;
   }
   setType(type) {
+    this.categoriesDetailsShimmer=true;
     this.categoriesDetails = [];
     this.type = type;
     this.pageIndex = 0;
@@ -98,6 +100,7 @@ export class CategoriesComponent implements OnInit {
       pageIndex: this.monthlyPageIndex
     }
     this.http.get(ApiUrl.categoryMonths, payload).subscribe((res) => {
+      this.categoriesDetailsShimmer=false
       if (res.data.length != 0) {
         this.categoriesDetails = res.data;
         this.MonthlyIndexListTotal = res.data[0].totalTransaction;
@@ -113,6 +116,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   selectRecord(c) {
+    this.categoriesDetailsShimmer=true
     console.log(c);
     this.cName = c.name;
     this.selectedCategoryId = c._id;
@@ -187,6 +191,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   getSubCategorySummaryData(c, j) {
+    this.categoriesDetailsShimmer=true
     console.log(c, j);
 
     this.isSubCategoryRecord = j;

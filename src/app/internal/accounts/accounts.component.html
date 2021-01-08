@@ -117,7 +117,7 @@
                     </mat-paginator>
                 </div>
             </div>
-            <div class="col-4 col-md-4 col-lg-4" style="margin-bottom: 20px;">
+            <div class="col-4 col-md-4 col-lg-4" style="margin-bottom: 70px;">
                 <div class="list-main-filter">
                     <nav class="asset-main-tab">
                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
@@ -145,6 +145,18 @@
                         <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
                             aria-labelledby="nav-list-tab">
                             <div class="accordian-main">
+                                <ng-container *ngIf="accountDetailShimmer">
+                                    <div class="shimmer1">
+                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'" [height]="'30px'">
+                                        </ngx-shimmer-loading>
+                                    </div>
+                                    <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                        <div class="shimmer1">
+                                            <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'" [height]="'60px'">
+                                            </ngx-shimmer-loading>
+                                        </div>
+                                    </div>
+                                </ng-container>
                                 <ng-container *ngIf="accountDetails.length>0; else other_content2">
                                     <mat-accordion>
                                         <ng-container *ngFor="let ad of accountDetails">
@@ -197,8 +209,9 @@
                                                 </div>
                                             </mat-expansion-panel>
                                         </ng-container>
-                                        <div style="display: flex;float: right; position: relative;top: -28px;"
-                                            *ngIf="accountSummaryPageIndexTotal > 5">
+                                        <div style="display: flex; float: right; position: relative; top: 0; background: #fff;
+                                        left: 0; right: 0; margin: auto; width: 100%; justify-content: center;"
+                                            *ngIf="accountSummaryPageIndexTotal > 3">
                                             <mat-paginator (page)="accountDetailPageChange($event)"
                                                 [length]="accountSummaryPageIndexTotal" [pageSize]="5">
                                             </mat-paginator>
@@ -206,7 +219,7 @@
                                     </mat-accordion>
                                 </ng-container>
                                 <ng-template #other_content2>
-                                    <div class="not-transaction-added">
+                                    <div *ngIf="accountDetailShimmer == false" class="not-transaction-added">
                                         <div class="inner-img-main">
                                             <img src="../../../assets/images/transaction-no.svg">
                                         </div>
@@ -248,13 +261,33 @@
                             </div>
                             <!------------------------after-charts------------------------------------>
                             <div class="after-charts-main">
+                                <ng-container *ngIf="accountSummaryDataShimmer">
+                                    <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                        <div class="shimmer1">
+                                            <ngx-shimmer-loading [shape]="'rect'" [width]="'450px'" [height]="'60px'">
+                                            </ngx-shimmer-loading>
+                                        </div>
+                                    </div>
+                                </ng-container>
                                 <div class="after-charts-strips-main" *ngFor="let data of accountSummaryData">
                                     <div class="comm-col first-col">{{data.name}}</div>
                                     <div class="comm-col red second-col">{{convertNumberinPositive(data.amount) |
                                         currency}}</div>
                                     <div class=" comm-col third-col"> {{data.percentage}}%</div>
                                 </div>
+                             
                             </div>
+                            <div style="display: flex; float: right; position: relative; top: 0; background: #fff;
+                            left: 0; right: 0; margin: auto; width: 100%; justify-content: center;">
+                            <!-- <mat-paginator (page)="accountDetailPageChange($event)"
+                                [length]="accountSummaryPageIndexTotal" [pageSize]="5">
+                            </mat-paginator> -->
+
+                            
+                                <mat-paginator (page)="accountSummaryDataEvent($event)" [length]="0" [pageSize]="5">
+                                </mat-paginator>
+                            
+                        </div>
 
                         </div>
                     </div>

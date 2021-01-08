@@ -494,6 +494,11 @@
     padding: 5px;
 }
 
+.shimmer1 {
+    display: inline-block !important;
+    padding: 10px;
+}
+
 a.view-btn {
     margin-right: 20px;
 }
@@ -593,4 +598,10 @@ span.avail-bal {
             }
         }
     }
+}
+
+
+.after-charts-main{
+    height: 300px;
+    overflow: auto;
 }

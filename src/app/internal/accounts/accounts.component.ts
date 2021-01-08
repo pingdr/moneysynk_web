@@ -31,6 +31,9 @@ export class AccountsComponent implements OnInit {
   isAccountSummaryType: any = false;
   accountSummaryData: any = [];
   arrayLength = 10;
+  accountDetailShimmer = true
+  accountSummaryDataShimmer=true
+  summeryType:string
 
   isApiCalling: boolean = false;
   isShimmerloading: boolean = false;
@@ -91,6 +94,7 @@ export class AccountsComponent implements OnInit {
   pageIndex: any = 0;
 
   accountSummaryPageIndex = 0;
+  accountSummarydataPageIndex = 0;
   accountSummaryPageIndexTotal = '';
 
 
@@ -159,18 +163,25 @@ export class AccountsComponent implements OnInit {
 
 
   getSummaryDetails(type) {
-    if (type == "Income") {
+    this.accountSummaryDataShimmer = true
+    this.summeryType = type
+    if (this.summeryType == "Income") {
       var payload = {
         "groupId": this.groupId,
         "accountId": this.accountSummaryId,
-        "transactionType": "IN"
+        "transactionType": "IN",
+        "pageIndex": this.accountSummarydataPageIndex,
+        "limit": 5,
+        
       }
       this.isAccountSummaryType = true;
     } else {
       var payload = {
         "groupId": this.groupId,
         "accountId": this.accountSummaryId,
-        "transactionType": "OUT"
+        "transactionType": "OUT",
+        "pageIndex": this.accountSummarydataPageIndex,
+        "limit": 5,
       }
       this.isAccountSummaryType = false;
     }
@@ -180,6 +191,7 @@ export class AccountsComponent implements OnInit {
       console.log('Account Summary Detail Data', res);
       if (res && res.data) {
         if (res.data.data != undefined) {
+          this.accountSummaryDataShimmer = false
           this.accountSummaryData = res.data.data;
           this.setDoughnutChartData(res.data.data);
         } else {
@@ -261,6 +273,7 @@ export class AccountsComponent implements OnInit {
       pageIndex: this.accountSummaryPageIndex
     }
     this.http.get(ApiUrl.accountMonths, payload).subscribe((res) => {
+      this.accountDetailShimmer = false;
       console.log('Account Details ', res);
       if (res.data.length != 0) {
         this.accountDetails = res.data;
@@ -344,6 +357,11 @@ export class AccountsComponent implements OnInit {
     this.getAccountdata();
   }
 
+  accountSummaryDataEvent(event){
+    this.accountSummarydataPageIndex = event.pageIndex
+    this.getSummaryDetails(this.summeryType)
+  }
+
   accountDetailPageChange(event) {
     console.log(event, this.accountSummaryId);
     this.accountSummaryPageIndex = event.pageIndex;
@@ -355,6 +373,8 @@ export class AccountsComponent implements OnInit {
   }
 
   recordSelected(i, id?) {
+    this.accountDetailShimmer = true;
+    this.accountSummaryDataShimmer = true;
     if (i || i == 0)
       this.isRecordSelected = i;
 
