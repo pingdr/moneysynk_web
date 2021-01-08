@@ -9,11 +9,16 @@ import { ToastrService } from 'ngx-toastr';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import { TransferModalComponent } from 'src/app/shared/modals/transfer-modal/transfer-modal.component';
 import { Router } from '@angular/router';
+import { Budget } from 'src/app/services/CustomPaginatorConfiguration';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-budget',
   templateUrl: './budget.component.html',
-  styleUrls: ['./budget.component.scss']
+  styleUrls: ['./budget.component.scss'],
+  providers: [
+    { provide: MatPaginatorIntl, useValue: Budget() }
+  ]
 })
 export class BudgetComponent implements OnInit {
   budgetName: any;
@@ -216,7 +221,7 @@ export class BudgetComponent implements OnInit {
     this.step++;
   }
   setType(type) {
-    this.pageIndex = 0;    
+    this.pageIndex = 0;
     this.recordSelected = 0;
     this.type = type;
 

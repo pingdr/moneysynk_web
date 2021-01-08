@@ -17,6 +17,14 @@ export function Categories() {
   return customPaginatorIntl;
 }
 
+export function Budget() {
+  const customPaginatorIntl = new MatPaginatorIntl();
+
+  customPaginatorIntl.itemsPerPageLabel = 'Budget per page:';
+
+  return customPaginatorIntl;
+}
+
 
 export function transactionLists() {
   const customPaginatorIntl = new MatPaginatorIntl();

@@ -62,7 +62,7 @@
                 </ng-container>
 
                 <ng-container *ngIf="!isShimmerloading">
-                    <ng-container *ngIf="accountList.length >0; else other_content" >
+                    <ng-container *ngIf="accountList.length >0; else other_content">
                         <div *ngFor="let data of accountList; let i = index" id="accountList{{i}}"
                             [ngClass]="{ 'active-step' : isRecordSelected == i }" class="editable-account"
                             (click)="recordSelected(i,data._id)">
@@ -73,8 +73,8 @@
                             <a class="view-btn">
                                 <img style="width: 22px;" *ngIf="data.isViewAmount" (click)="toggleAmount(i)"
                                     src="../../../assets/images/view-eye.svg">
-                                <img style="width: 22px;" *ngIf="!data.isViewAmount"
-                                    (click)="toggleAmount(i)" src="../../../assets/images/close-eyes.svg">
+                                <img style="width: 22px;" *ngIf="!data.isViewAmount" (click)="toggleAmount(i)"
+                                    src="../../../assets/images/close-eyes.svg">
                             </a>
                             <div class="pricing-icon">
                                 <span class="price" *ngIf="!data.isViewAmount"
@@ -93,21 +93,21 @@
                             </div>
 
                         </div>
-                        
+
                     </ng-container>
                     <!---------blank-img------>
                     <ng-template #other_content>
-                                <div class="blank-img">
-                                            <div class="inner-div-img-width">
-                                                <div class="inner-img">
-                                                    <img src="../../../assets/images/no-accounts.svg" title="no-added">
-                                                </div>
-                                                <div class="text-of-nothing-to-show">
-                                                        Manage your Accounts
-                                                </div>
-                                            </div>
+                        <div class="blank-img">
+                            <div class="inner-div-img-width">
+                                <div class="inner-img">
+                                    <img src="../../../assets/images/no-accounts.svg" title="no-added">
                                 </div>
-                                
+                                <div class="text-of-nothing-to-show">
+                                    Manage your Accounts
+                                </div>
+                            </div>
+                        </div>
+
 
                     </ng-template>
                 </ng-container>
@@ -128,15 +128,15 @@
                                 role="tab" aria-controls="nav-profile" aria-selected="false">Summary</a>
                         </div>
                         <div class="filter-btn-group">
-                            <a href="#" class="btn filter-btn" title="filter">
+                            <a [matMenuTriggerFor]="filterMenu" class="btn filter-btn" title="filter">
                                 <img src="../../../assets/images/fillter.svg">
                             </a>
                         </div>
 
                         <div class="account-filter-menu">
                             <mat-menu #filterMenu="matMenu" xPosition="before">
-                                <button mat-menu-item style="border: none !important;">Greter then 10,000</button>
-                                <button mat-menu-item>Less then 10,000</button>
+                                <button mat-menu-item style="border: none !important;">Greater-than10,000</button>
+                                <button mat-menu-item>Less-than 10,000</button>
                                 <button mat-menu-item>Date wise</button>
                             </mat-menu>
                         </div>
@@ -180,13 +180,15 @@
                                                                 <div *ngIf="d.transactionType == 'OUT'"
                                                                     class="price-tag red-color">
                                                                     <span *ngIf="d.amount">
-                                                                        {{ convertNumberinPositive(d.amount) | currency}}
+                                                                        {{ convertNumberinPositive(d.amount) |
+                                                                        currency}}
                                                                     </span>
                                                                     <span *ngIf="!d.amount">$0</span>
                                                                 </div>
                                                             </div>
                                                             <div class="main-strips">
-                                                                <div class="date-and-time">{{d.createdAt | date:'dd MMM yyyy'}}></div>
+                                                                <div class="date-and-time">{{d.createdAt | date:'dd MMM
+                                                                    yyyy'}}</div>
                                                                 <img class="edit-icon" (click)="editTransaction(d)"
                                                                     src="../../../assets/images/edit-pencil.svg">
                                                             </div>
@@ -195,7 +197,8 @@
                                                 </div>
                                             </mat-expansion-panel>
                                         </ng-container>
-                                        <div style="display: flex;float: right; position: relative;top: -28px;" *ngIf="accountSummaryPageIndexTotal > 5">
+                                        <div style="display: flex;float: right; position: relative;top: -28px;"
+                                            *ngIf="accountSummaryPageIndexTotal > 5">
                                             <mat-paginator (page)="accountDetailPageChange($event)"
                                                 [length]="accountSummaryPageIndexTotal" [pageSize]="5">
                                             </mat-paginator>
@@ -203,12 +206,12 @@
                                     </mat-accordion>
                                 </ng-container>
                                 <ng-template #other_content2>
-                                            <div class="not-transaction-added">
-                                                    <div class="inner-img-main">
-                                                        <img src="../../../assets/images/transaction-no.svg">
-                                                    </div>
-                                                    <div class="not-text-main">No Transaction Found</div>
-                                            </div>
+                                    <div class="not-transaction-added">
+                                        <div class="inner-img-main">
+                                            <img src="../../../assets/images/transaction-no.svg">
+                                        </div>
+                                        <div class="not-text-main">No Transaction Found</div>
+                                    </div>
                                 </ng-template>
                             </div>
                         </div>
@@ -289,10 +292,6 @@
             </span>
             <span class="value green-cleared"
                 *ngIf="totalBalance(accountSummary.incomeTotal,accountSummary.expenseTotal) > 0">
-                {{totalBalance(accountSummary.incomeTotal,accountSummary.expenseTotal) | currency}}
-            </span>
-            <span class="value red-total-expanse"
-                *ngIf="totalBalance(accountSummary.incomeTotal,accountSummary.expenseTotal) <= 0">
                 {{totalBalance(accountSummary.incomeTotal,accountSummary.expenseTotal) | currency}}
             </span>
         </div>
