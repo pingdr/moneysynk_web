@@ -90,7 +90,7 @@ export class AddPayeeComponent implements OnInit {
           this.isApiCalling = false;
           let response = res;
           if (response.statusCode == 200) {
-            this.toastr.success('Payee update successfully', 'success', {
+            this.toastr.success('Payee updated successfully', 'success', {
               timeOut: 2000
             });
           }

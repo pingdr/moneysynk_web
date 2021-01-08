@@ -50,7 +50,7 @@ export class AddEditClassComponent implements OnInit {
         .subscribe(res => {
           let response = res;
           if (response.statusCode == 200) {
-            this.toastr.success('Class Update successfully', 'success', {
+            this.toastr.success('Class updated successfully', 'success', {
               timeOut: 2000
             });
           }

@@ -31,7 +31,7 @@ export class EditGroupModalComponent implements OnInit {
       this.http.editGroup(this.data.id, { name: this.groupName }).subscribe((res:any) => {
         console.log('Group Response',res);  
         if(res.statusCode==200){
-          this.toastr.success('Group Updated Successfully');
+          this.toastr.success('Group updated Successfully');
         }
         this.hideModal();                      
       })

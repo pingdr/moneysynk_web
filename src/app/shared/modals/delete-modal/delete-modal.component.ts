@@ -95,7 +95,7 @@ export class DeleteModalComponent implements OnInit {
   deleteCategory() {
     this.http.deleteCategory(this.data.id).subscribe(
       (data: any) => {
-        this.toastr.error("Category Delete Successfully", "Success");
+        this.toastr.error("Category deleted successfully", "Success");
         this.hideModal();
       }, err => {
         this.toastr.error("Oops! Something went wrong", 'Error');
@@ -127,7 +127,7 @@ export class DeleteModalComponent implements OnInit {
   deleteBudget() {
     this.http.deleteAccount(ApiUrl.getBudget, this.data.id).subscribe(
       (data: any) => {
-        this.toastr.error("Budget Delete Successfully", "Success");
+        this.toastr.error("Budget deleted successfully", "Success");
         this.hideModal();
       }, err => {
         this.toastr.error("Oops! Something went wrong", 'Error');
@@ -139,7 +139,7 @@ export class DeleteModalComponent implements OnInit {
   deleteGroup() {
     this.http.deleteGroup(this.data.id).subscribe(
       (data: any) => {
-        this.toastr.error("Group Delete Successfully", "Success");
+        this.toastr.error("Group deleted successfully", "Success");
         this.hideModal();
       }, err => {
         this.toastr.error("Oops! Something went wrong", 'Error');
@@ -150,7 +150,7 @@ export class DeleteModalComponent implements OnInit {
 
   deleteTransaction() {
     this.http.deleteTransaction(this.data.id).subscribe((data: any) => {
-      this.toastr.error("Transaction Delete Successfully", "Success");
+      this.toastr.error("Transaction deleted successfully", "Success");
       this.hideModal();
     }, err => {
       this.toastr.error("Oops! Something went wrong", 'Error');
@@ -160,7 +160,7 @@ export class DeleteModalComponent implements OnInit {
 
   deleteClass() {
     this.http.deleteClasses(this.data.id).subscribe((data: any) => {
-      this.toastr.error("Class Delete Successfully", "Success");
+      this.toastr.error("Class deleted successfully", "Success");
       this.hideModal();
     }, err => {
       this.toastr.error("Oops! Something went wrong", 'Error');

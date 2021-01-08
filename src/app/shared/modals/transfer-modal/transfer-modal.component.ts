@@ -95,7 +95,7 @@ export class TransferModalComponent implements OnInit {
     this.http.post(ApiUrl.addTransfer, data).subscribe((res: any) => {
       console.log(res);
       if (res.statusCode == 200) {
-        this.toastr.success('Budget Transferred successfully')
+        this.toastr.success('Budget transferred successfully')
         this.hideModal();
       }
     });

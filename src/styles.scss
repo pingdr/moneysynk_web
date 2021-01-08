@@ -550,7 +550,7 @@ label {
                         display: flex;
                         justify-content: space-between;
                         margin-bottom: 15px;
-                        .edit-icon{
+                        .edit-icon {
                             cursor: pointer;
                         }
                         &:last-child {
@@ -699,7 +699,7 @@ label {
                     font-size: 12px;
                     color: #c9d8e3 !important;
                     font-weight: 400 !important;
-                    font-family: 'Sul Sans' !important;
+                    font-family: "Sul Sans" !important;
                     .mat-form-field-label {
                         width: 100% !important;
                         margin: 0 !important;
@@ -1417,7 +1417,6 @@ body {
         .Add-not-main {
             grid-column-start: 2;
             grid-column-end: -1;
-            
         }
         .last-section {
             grid-column-start: 2;
@@ -1438,7 +1437,7 @@ body {
     font-weight: 400 !important;
 }
 
-.mat-expansion-panel{
+.mat-expansion-panel {
     z-index: 1 !important;
 }
 
@@ -1451,43 +1450,41 @@ body {
 //     right: 10px !important;
 // }
 
-
-
 // --------------New Added --------------//
 
-.start-entry{
-    .new-entry-class{
+.start-entry {
+    .new-entry-class {
         width: 80%;
         // grid-column-gap: 10px;
         grid-column-gap: 60px;
-        .form-group{
-            label{
+        .form-group {
+            label {
                 width: 20%;
             }
-            .mat-form-field{
+            .mat-form-field {
                 width: 80% !important;
             }
-            .mat-checkbox{
+            .mat-checkbox {
                 width: 70% !important;
             }
         }
-        .file-input{
-            .inner-file-upload{
-                .mat-form-field{
+        .file-input {
+            .inner-file-upload {
+                .mat-form-field {
                     width: 100% !important;
                 }
             }
         }
-        .Add-not-main{
+        .Add-not-main {
             align-items: self-start;
-            label{
+            label {
                 padding-top: 20px;
             }
-            .mat-form-field{
+            .mat-form-field {
                 .mat-form-field-wrapper {
-                    .mat-form-field-flex{
-                        .mat-form-field-infix{
-                            textarea{
+                    .mat-form-field-flex {
+                        .mat-form-field-infix {
+                            textarea {
                                 height: 120px !important;
                                 border-radius: 20px !important;
                                 resize: none !important;
@@ -1496,52 +1493,49 @@ body {
                     }
                 }
             }
-           
         }
     }
 }
 
-
-
-.new-entry-class .mat-form-field.mat-form-field-invalid .mat-form-field-label{
+.new-entry-class .mat-form-field.mat-form-field-invalid .mat-form-field-label {
     top: 11px !important;
 }
 // account-screen
 
-.asset-main-tab{
-    .slick-slider{
-        .slick-prev{
+.asset-main-tab {
+    .slick-slider {
+        .slick-prev {
             left: 10px;
             background: transparent;
             z-index: 999;
             display: block;
-            &::before{
+            &::before {
                 color: #f7be32;
                 font-size: 22px;
                 opacity: 0.45;
                 top: -8px !important;
                 position: relative;
             }
-            &:hover{
-                &::before{
+            &:hover {
+                &::before {
                     opacity: 1;
                 }
             }
         }
-        .slick-next{
+        .slick-next {
             right: 15px;
             background: transparent;
             z-index: 999;
             display: block;
-            &::before{
+            &::before {
                 color: #f7be32;
                 font-size: 22px;
                 opacity: 0.45;
                 top: -8px !important;
                 position: relative;
             }
-            &:hover{
-                &::before{
+            &:hover {
+                &::before {
                     opacity: 1;
                 }
             }
@@ -1549,91 +1543,86 @@ body {
         .slick-disabled {
             display: none;
         }
-        .slick-list{
-            .slick-track{
-                a{
-                    &:focus{
-                        outline: none ;
+        .slick-list {
+            .slick-track {
+                a {
+                    &:focus {
+                        outline: none;
                     }
                 }
             }
-        }   
+        }
     }
 }
 
 // -------------sul-sans----------//
 .mat-expansion-panel-header-title {
-    font-family: 'Sul Sans' !important;
+    font-family: "Sul Sans" !important;
 }
 
 .mat-expansion-panel-header {
-    font-family: 'Sul Sans' !important;
+    font-family: "Sul Sans" !important;
 }
-
 
 .border-right-custom {
     border-right: 1px solid #929292 !important;
 }
 
-.border-left-custom{
-    border-left:1px solid #929292 !important;
+.border-left-custom {
+    border-left: 1px solid #929292 !important;
 }
 
 .mat-expansion-panel-content {
-    font-family: 'Sul Sans' !important;
+    font-family: "Sul Sans" !important;
 }
 
 .pagination-customize {
     display: flex;
     justify-content: center;
     margin-top: 10px;
-    .mat-paginator{
-        .mat-paginator-outer-container{
-            .mat-paginator-container{
-                .mat-paginator-page-size{
-                    .mat-paginator-page-size-label{
-                        font-family: 'Sul Sans' !important;
+    .mat-paginator {
+        .mat-paginator-outer-container {
+            .mat-paginator-container {
+                .mat-paginator-page-size {
+                    .mat-paginator-page-size-label {
+                        font-family: "Sul Sans" !important;
                         font-size: 12px;
                     }
-                    .mat-paginator-page-size-value{
-                        font-family: 'Sul Sans' !important;
+                    .mat-paginator-page-size-value {
+                        font-family: "Sul Sans" !important;
                         font-size: 12px;
                         color: #7299ff;
                     }
                 }
-                .mat-paginator-range-actions{
+                .mat-paginator-range-actions {
                     .mat-paginator-range-label {
                         font-size: 12px;
                         font-weight: 500;
-                        font-family: 'Sul Sans';
+                        font-family: "Sul Sans";
                     }
-                    button{
+                    button {
                         width: 25px;
-                        span.mat-button-wrapper{
-                            .mat-paginator-icon{
-                                width: 23px ;
+                        span.mat-button-wrapper {
+                            .mat-paginator-icon {
+                                width: 23px;
                             }
                         }
                     }
                 }
-
-
             }
-            
         }
     }
 }
 
-
 // ----for-text-area--------//
-.notes-section-main{
+.notes-section-main {
     align-items: self-start !important;
     label {
         padding-top: 13px;
     }
-    .mat-form-field{
-        .mat-form-field-infix{
-            textarea{
+    .mat-form-field {
+        .mat-form-field-infix {
+            textarea {
                 height: 100px !important;
                 border-radius: 20px !important;
                 resize: none !important;
@@ -1642,7 +1631,6 @@ body {
     }
 }
 
-
 .mat-datepicker-toggle button svg {
     width: 17px !important;
 }
@@ -1650,4 +1638,9 @@ body {
 .add-bils-main .add-entry-main-form .form-group .mat-checkbox {
     width: 100% !important;
     padding-left: 20px;
+}
+
+.mat-menu-panel {
+    position: absolute !important;
+    right: 0 !important;
 }

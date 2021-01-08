@@ -85,7 +85,7 @@ export class ChangePasswordComponent implements OnInit {
           console.log(response);
           if (response.statusCode == 200) {
 
-            this.toastr.success('password reset successfully', 'success', {
+            this.toastr.success('Password reset successfully', 'success', {
               timeOut: 2000
             });
             this.dialogRef.close(this.dialogRef);

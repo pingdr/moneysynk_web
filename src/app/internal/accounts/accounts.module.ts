@@ -12,6 +12,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
+import { MatMenuModule } from '@angular/material/menu';
 
 const routes: Routes = [
     {
@@ -36,6 +37,7 @@ const routes: Routes = [
         NgxChartsModule,
         CommonModule,
         MatPaginatorModule,
+        MatMenuModule,
         RouterModule.forChild(routes),
         MatExpansionModule,
         MatDialogModule,

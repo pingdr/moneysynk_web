@@ -127,7 +127,7 @@ export class AddBudgetModalComponent implements OnInit {
           this.isApiCalling = false;
           let response = res;
           if (response.statusCode == 200) {
-            this.toastr.success('Budget Update successfully', 'success', {
+            this.toastr.success('Budget updated successfully', 'success', {
               timeOut: 2000
             });
           }

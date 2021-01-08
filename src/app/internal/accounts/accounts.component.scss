@@ -85,7 +85,7 @@
             }
             // .balance-btn {
             //    // color: #5e5e5e;
-            // }            
+            // }
         }
     }
 }
@@ -137,8 +137,8 @@
                 margin-right: 10px;
             }
         }
-        a{
-            img{
+        a {
+            img {
                 width: 12px;
             }
         }
@@ -186,19 +186,17 @@
     }
 }
 
-
 .active-step:before {
-        position: absolute;
-        content: '';
-        background: #7299ff;
-        width: 6px;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        border-top-left-radius: 8px;
-        border-bottom-left-radius: 8px;
+    position: absolute;
+    content: "";
+    background: #7299ff;
+    width: 6px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
-
 
 .main-chart-part {
     align-items: flex-start;
@@ -291,13 +289,10 @@
                     transition: 0.6s all ease;
                 }
             }
-            .active{
+            .active {
                 background: #fff !important;
                 color: #000 !important;
             }
-
-
-            
         }
         .filter-btn-group {
             width: 30%;
@@ -333,6 +328,7 @@
         }
     }
 }
+
 
 // .total-expanse-panal-bottom-main {
 //     margin-top: 20px;
@@ -498,12 +494,11 @@
     padding: 5px;
 }
 
-
 a.view-btn {
     margin-right: 20px;
 }
 
-.pricing-icon span.price{
+.pricing-icon span.price {
     padding-top: 8px;
     font-size: 14px;
     display: flex;
@@ -520,7 +515,7 @@ span.avail-bal {
     margin-top: 6px;
     font-size: 11px;
     font-weight: 400;
-    color:  #5e5e5e;
+    color: #5e5e5e;
 }
 
 .border-right-custom {

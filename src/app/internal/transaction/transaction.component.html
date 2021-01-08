@@ -1,3 +1,8 @@
+
+
+
+
+
 <app-progress-bar *ngIf="isApiCalling"></app-progress-bar>
 
 <div class="heading-pannel">
@@ -85,7 +90,10 @@
                                 <td class="account-type"><span class="label-saving">{{t.accountId.name}}</span> </td>
                                 <td class="category">{{t.categoryId.name}}</td>
                                 <td class="created-date"> {{t.dateTime | date}} </td>
-                                <td class="class-name">{{t.classId.name}}</td>
+                                <td class="class-name">
+                                    <span *ngIf="t.classId?.name">{{t.classId?.name}}</span>
+                                    <span *ngIf="!t.classId?.name">-</span>
+                                </td>
                                 <td class="action">
                                     <a style="cursor: pointer;" title="edit" class="edit-icon" (click)="editEntry(t._id)">
                                         <img src="../../../assets/images/edit-pencil.svg">
@@ -586,14 +594,9 @@
                                     <img src="../../../assets/images/delete-trash.svg">
                                 </a>
                             </td>
-
-
-
                         </tr>
                     </tbody>
-
                 </table>
-
             </div>
 
         </div>

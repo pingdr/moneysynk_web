@@ -419,6 +419,8 @@ export class AccountsComponent implements OnInit {
     this.accountType_id = id
     this.pageIndex = 0;
     this.isRecordSelected = 0;
+
+
     var payload = {
       "groupId": this.groupId,
       "pageIndex": this.pageIndex,
@@ -441,10 +443,33 @@ export class AccountsComponent implements OnInit {
 
         // this.filter = res.data;
         if (res.data.data.length > 0) {
+          this.getAccountdata();
           this.getAccountDetailsById(res.data.data[0]._id)
           this.getAccountSummary(res.data.data[0]._id)
         } else {
-          this.accountDetails = []
+          this.accountDetails = [];
+          this.accountSummary = [];
+          this.accountSummaryData = [];
+
+          this.accountSummaryId = '';
+          this.isAccountSummaryType = false;
+          this.accountSummaryPageIndex = 0;
+          this.accountSummaryPageIndexTotal = '';
+
+
+          this.donutColors = [
+            {
+              backgroundColor: [
+              ]
+            }
+          ];
+
+          this.doughnutChartData = [
+            1
+          ];
+          this.doughnutChartLabels = [
+            'Empty'
+          ]
         }
         for (let i = 0; i < this.accountList.length; i++) {
           this.accountList[i]['isViewAmount'] = true;

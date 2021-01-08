@@ -83,7 +83,7 @@ export class AddCategoryPopupComponent implements OnInit {
           this.isApiCalling = false;
           let response = res;
           if (response.statusCode == 200) {
-            this.toastr.success('Category update successfully', 'success', {
+            this.toastr.success('Category updated successfully', 'success', {
               timeOut: 2000
             });
           }

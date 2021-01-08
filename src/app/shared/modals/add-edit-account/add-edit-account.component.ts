@@ -231,7 +231,7 @@ export class AddEditAccountComponent implements OnInit {
           let response = res;
           if (response.statusCode == 200) {
             this.accountType = "";
-            this.toastr.success('Account Type added successfully', 'success', {
+            this.toastr.success('Account type added successfully', 'success', {
               timeOut: 2000
             });
 
@@ -241,7 +241,7 @@ export class AddEditAccountComponent implements OnInit {
         });
 
     } else {
-      alert('please add account Type')
+      alert('Please add account Type')
     }
   }
 
