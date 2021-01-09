@@ -41,6 +41,10 @@
     overflow-y: scroll !important;
 }
 
+.shimmer-loading .ngx-shimmer {
+    padding: 10px 25px !important;
+}
+
 .shimmer {
     display: inline-block !important;
     padding: 5px;
@@ -48,7 +52,12 @@
 
 .shimmer1 {
     display: inline-block !important;
-    padding: 5px;
+    width: 100% !important;
+    overflow: hidden;    
+}
+.for-shimmer-accordian {
+    margin: 0px 10px;
+    margin-top: 10px;
 }
 
 

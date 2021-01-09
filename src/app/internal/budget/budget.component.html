@@ -105,7 +105,7 @@
                                 <!-- list -->
                                 <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
                                     aria-labelledby="nav-list-tab">
-                                    <div class="accordian-main">
+                                    <div class="accordian-main for-shimmer-accordian">
                                         <ng-container *ngIf="budgetDetailsShimmer">
                                             <div class="shimmer1">
                                                 <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'" [height]="'30px'">
@@ -285,7 +285,19 @@
                                 <!-- list -->
                                 <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel"
                                     aria-labelledby="nav-list-tab">
-                                    <div class="accordian-main">
+                                    <div class="accordian-main for-shimmer-accordian">
+                                        <ng-container *ngIf="budgetDetailsShimmer">
+                                            <div class="shimmer1">
+                                                <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'" [height]="'30px'">
+                                                </ngx-shimmer-loading>
+                                            </div>
+                                            <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                                <div class="shimmer1">
+                                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'" [height]="'60px'">
+                                                    </ngx-shimmer-loading>
+                                                </div>
+                                            </div>
+                                        </ng-container>
                                         <ng-container *ngIf="budgetDetails.length>0; else other_content3">
                                             <mat-accordion>
                                                 <!-- first-panal -->
@@ -337,14 +349,20 @@
                                                 </ng-container>
                                                 <div style="display: flex;float: right; position: relative;top: -28px;"
                                                     *ngIf="budgetDetailPageIndexTotal > 5">
-                                                    <mat-paginator (page)="budgetPageChangeDetail($event)"
+                                                    <!-- <mat-paginator (page)="budgetPageChangeDetail($event)"
                                                         [length]="budgetDetailPageIndexTotal" pageSize="5">
-                                                    </mat-paginator>
+                                                    </mat-paginator> -->
+                                                      
+                                                    <app-budgetpagination
+                                                    [length]="budgetDetailPageIndexTotal"
+                                                    (page)="budgetPageChangeDetail($event)"
+                                                    [pageSize]="5"></app-budgetpagination>
+
                                                 </div>
                                             </mat-accordion>
                                         </ng-container>
                                         <ng-template #other_content3>
-                                            <div class="not-transaction-added">
+                                            <div *ngIf="budgetDetailsShimmer == false" class="not-transaction-added">
                                                 <div class="inner-img-main">
                                                     <img src="../../../assets/images/transaction-no.svg">
                                                 </div>

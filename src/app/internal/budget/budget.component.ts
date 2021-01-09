@@ -242,6 +242,8 @@ export class BudgetComponent implements OnInit {
     this.step++;
   }
   setType(type) {
+    this.budgetDetails=[]
+    this.budgetDetailsShimmer = true
     this.pageIndex = 0;
     this.recordSelected = 0;
     this.type = type;
