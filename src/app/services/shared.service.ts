@@ -20,13 +20,17 @@ export class SharedService {
   public deleteEditGroupChange = new BehaviorSubject<any>(null);
   public deleteEditGroupChangeId = this.deleteEditGroupChange.asObservable();
 
+
+  public searchDataChange = new BehaviorSubject<any>(null);
+  public searchDataChangeValue = this.searchDataChange.asObservable();
+
   private subject = new BehaviorSubject<any>(null);
 
   constructor() { }
 
 
-  groupUpdateData(data?) {    
-      this.groupChange.next(data ? data : false);    
+  groupUpdateData(data?) {
+    this.groupChange.next(data ? data : false);
   }
 
   /**
@@ -47,5 +51,9 @@ export class SharedService {
 
   deleteEditGroup(data?) {
     this.deleteEditGroupChange.next(data ? data : false);
+  }
+
+  searchData(data) {
+    this.searchDataChange.next(data ? data : false);
   }
 }

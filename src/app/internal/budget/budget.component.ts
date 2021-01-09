@@ -11,6 +11,7 @@ import { TransferModalComponent } from 'src/app/shared/modals/transfer-modal/tra
 import { Router } from '@angular/router';
 import { Budget } from 'src/app/services/CustomPaginatorConfiguration';
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-budget',
@@ -44,6 +45,8 @@ export class BudgetComponent implements OnInit {
   budgetDetailPageIndex: any = 0;
   budgetDetailPageIndexTotal: any = 0;
 
+  searchChangeEventSubscription: Subscription;
+
   dialogRefofOtpModal: MatDialogRef<AddBudgetModalComponent>;
   constructor(
     public http: HttpService,
@@ -76,6 +79,17 @@ export class BudgetComponent implements OnInit {
         this.getPayeeSummary();
       }
     });
+
+
+    this.searchChangeEventSubscription = this.sharedserive.searchDataChange.subscribe((data) => {
+      console.log('subscribe Data', data);
+      if (data) {
+        this.searchData(data);
+      } else {
+        this.getBudgets();
+        this.getPayeeSummary();
+      }
+    })
   }
   step = 0;
 
@@ -84,7 +98,7 @@ export class BudgetComponent implements OnInit {
   }
 
   selectRecord(i, b) {
-    this.budgetDetailsShimmer=true
+    this.budgetDetailsShimmer = true
     if (i || i == 0)
       this.recordSelected = i;
     this.bname = b.name;
@@ -107,7 +121,7 @@ export class BudgetComponent implements OnInit {
     }
 
     this.http.get(ApiUrl.budgetMonths, payload).subscribe((res) => {
-      this.budgetDetailsShimmer=false
+      this.budgetDetailsShimmer = false
       console.log('Budget List Details=====>', res);
       if (res.data.length != 0) {
         this.budgetDetailPageIndexTotal = res.data[0].totalTransaction;
@@ -291,6 +305,39 @@ export class BudgetComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+    });
+  }
+
+  searchData(searchValue) {
+    const payload = {
+      'type': this.type,
+      'groupId': this.groupId,
+      'value': searchValue
+    }
+
+    this.isApiCalling = true;
+    this.isShimmerloading = true;
+
+    this.http.get(ApiUrl.searchBudget, payload).subscribe((res) => {
+
+      console.log(res)
+
+      this.isApiCalling = false;
+      this.isShimmerloading = false;
+
+      this.resultsLength = res.data.totalFinancialSources;
+      if (this.type === "EXPENSE") {
+        this.expenseArray = res.data;
+        this.bname = this.expenseArray[0].name;
+        this.selectedBudgetId = this.expenseArray[0]._id;
+        this.getBudgetDetailsById(this.expenseArray[0]._id);
+      } else {
+        this.incomeArray = res.data;
+        console.log('-------------------------', this.incomeArray);
+        this.bname = this.incomeArray[0].name;
+        this.selectedBudgetId = this.expenseArray[0]._id;
+        this.getBudgetDetailsById(this.incomeArray[0]._id);
+      }
     });
   }
 

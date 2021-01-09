@@ -8,7 +8,7 @@
 
    <div class="main-nav-item">
       <ul class="nav-item-inner">
-         <li *ngFor="let menu of sideBar" class="nav-list-parents" routerLinkActive="active"
+         <li *ngFor="let menu of sideBar" class="nav-list-parents" routerLinkActive="active" (click)="routerLinkClick(menu.path)"
             [routerLinkActiveOptions]="{exact:
                true}">
             <a class="navlinks" title="Reports" *ngIf="!menu?.children?.length" [routerLink]="[menu.path]"

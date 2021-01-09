@@ -12,6 +12,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { Slick } from 'ngx-slickjs';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomPaginator } from 'src/app/services/CustomPaginatorConfiguration';
+import { Subscription } from 'rxjs';
 
 
 
@@ -32,8 +33,8 @@ export class AccountsComponent implements OnInit {
   accountSummaryData: any = [];
   arrayLength = 10;
   accountDetailShimmer = true
-  accountSummaryDataShimmer=true
-  summeryType:string
+  accountSummaryDataShimmer = true
+  summeryType: string
 
   isApiCalling: boolean = false;
   isShimmerloading: boolean = false;
@@ -97,11 +98,17 @@ export class AccountsComponent implements OnInit {
   accountSummarydataPageIndex = 0;
   accountSummaryPageIndexTotal = '';
 
+  searchChangeEventSubscription: Subscription;
+
+
 
   constructor(public http: HttpService, public activeRoute: ActivatedRoute, public changeDetect: ChangeDetectorRef, public sharedserive: SharedService,
     private _router: Router,
     private toastr: ToastrService,
     public dialog: MatDialog) {
+  }
+
+  ngOnInit(): void {
 
     this.sharedserive.groupChange.subscribe((data) => {
       this.isSelected = null;
@@ -141,10 +148,15 @@ export class AccountsComponent implements OnInit {
       }
     });
 
-  }
-
-  ngOnInit(): void {
-
+    this.searchChangeEventSubscription = this.sharedserive.searchDataChange.subscribe((data) => {
+      console.log('subscribe Data', data);
+      if (data) {
+        this.searchData(data);
+      } else {
+        this.accountTypeList = [];
+        this.getAccountTypedata();
+      }
+    })
 
   }
   step = 0;
@@ -172,7 +184,7 @@ export class AccountsComponent implements OnInit {
         "transactionType": "IN",
         "pageIndex": this.accountSummarydataPageIndex,
         "limit": 5,
-        
+
       }
       this.isAccountSummaryType = true;
     } else {
@@ -357,7 +369,7 @@ export class AccountsComponent implements OnInit {
     this.getAccountdata();
   }
 
-  accountSummaryDataEvent(event){
+  accountSummaryDataEvent(event) {
     this.accountSummarydataPageIndex = event.pageIndex
     this.getSummaryDetails(this.summeryType)
   }
@@ -496,6 +508,42 @@ export class AccountsComponent implements OnInit {
         }
       }
     });
+  }
+
+  searchData(searchValue) {
+    console.log(searchValue)
+
+    const payload = {
+      'groupId': this.groupId,
+      'value': searchValue
+    }
+
+    this.isApiCalling = true;
+    this.isShimmerloading = true;
+    this.http.getAccount(ApiUrl.searchAccount, payload).subscribe(res => {
+
+      this.isApiCalling = false;
+      this.isShimmerloading = false;
+
+      this.http.showLoader();
+      console.log(res)
+
+      // if (res.data != undefined) {
+      //   this.accountList = [];
+      //   this.resultsLength = res.data.total;
+      //   this.accountList = res.data.data;
+
+      //   if (res.data.data.length > 0) {
+      //     this.getAccountDetailsById(res.data.data[0]._id)
+      //     this.getAccountSummary(res.data.data[0]._id)
+      //   }
+      //   for (let i = 0; i < this.accountList.length; i++) {
+      //     this.accountList[i]['isViewAmount'] = true;
+      //   }
+      // }
+    });
+
+
   }
 
 }

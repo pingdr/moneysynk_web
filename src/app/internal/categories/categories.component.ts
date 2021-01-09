@@ -11,6 +11,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { Categories } from 'src/app/services/CustomPaginatorConfiguration';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-categories',
@@ -45,11 +46,14 @@ export class CategoriesComponent implements OnInit {
   MonthlyTotal: any = '';
   MonthlyIndexListTotal: any = '';
   monthlyPageIndex: any = 0;
-  categoriesDetailsShimmer=true;
+  categoriesDetailsShimmer = true;
 
 
   pageIndex: any = 0;
   isDefault: boolean = true;
+
+  searchChangeEventSubscription: Subscription;
+
 
   constructor(public http: HttpService, public activeRoute: ActivatedRoute,
     private SpinnerService: NgxSpinnerService,
@@ -73,6 +77,16 @@ export class CategoriesComponent implements OnInit {
         this.getCategorySummary();
       }
     });
+
+    this.searchChangeEventSubscription = this.sharedserive.searchDataChange.subscribe((data) => {
+      console.log('subscribe Data', data);
+      if (data) {
+        this.searchData(data);
+      } else {
+        this.getCategoriesData();
+        this.getCategorySummary();
+      }
+    })
   }
   step = 0;
 
@@ -80,7 +94,7 @@ export class CategoriesComponent implements OnInit {
     this.step = index;
   }
   setType(type) {
-    this.categoriesDetailsShimmer=true;
+    this.categoriesDetailsShimmer = true;
     this.categoriesDetails = [];
     this.type = type;
     this.pageIndex = 0;
@@ -100,7 +114,7 @@ export class CategoriesComponent implements OnInit {
       pageIndex: this.monthlyPageIndex
     }
     this.http.get(ApiUrl.categoryMonths, payload).subscribe((res) => {
-      this.categoriesDetailsShimmer=false
+      this.categoriesDetailsShimmer = false
       if (res.data.length != 0) {
         this.categoriesDetails = res.data;
         this.MonthlyIndexListTotal = res.data[0].totalTransaction;
@@ -116,7 +130,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   selectRecord(c) {
-    this.categoriesDetailsShimmer=true
+    this.categoriesDetailsShimmer = true
     console.log(c);
     this.cName = c.name;
     this.selectedCategoryId = c._id;
@@ -191,7 +205,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   getSubCategorySummaryData(c, j) {
-    this.categoriesDetailsShimmer=true
+    this.categoriesDetailsShimmer = true
     console.log(c, j);
 
     this.isSubCategoryRecord = j;
@@ -266,6 +280,45 @@ export class CategoriesComponent implements OnInit {
 
   closeAllModal() {
     this.dialog.closeAll();
+  }
+
+  searchData(searchValue) {
+
+    const payload = {
+      'type': this.type,
+      'groupId': this.groupId,
+      'value': searchValue
+    }
+
+    this.isApiCalling = true;
+    this.isShimmerloading = true;
+
+
+    this.expenseArray = [];
+    this.incomeArray = [];
+    this.http.getCategories(ApiUrl.searchCategory, payload).subscribe(res => {
+      console.log("Category List", res);
+      this.isApiCalling = false;
+      this.isShimmerloading = false;
+      
+      this.http.showLoader();
+
+      if (res.data != undefined) {
+        this.total = res.data.totalCategories;
+        if (this.type === "EXPENSE") {
+          this.expenseArray = res.data;
+          this.cName = this.expenseArray[0].name;
+          this.selectedCategoryId = this.expenseArray[0]._id;
+          this.getCategoriesDetailsById(this.expenseArray[0]._id);
+        } else {
+          this.incomeArray = res.data;
+          this.cName = this.incomeArray[0].name;
+          this.selectedCategoryId = this.incomeArray[0]._id;
+          this.getCategoriesDetailsById(this.incomeArray[0]._id);
+        }
+      }
+    });
+
   }
 
 }

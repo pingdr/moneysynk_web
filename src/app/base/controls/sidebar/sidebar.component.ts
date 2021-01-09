@@ -1,15 +1,16 @@
-import {AfterViewInit, Component} from '@angular/core';
-import {Router} from '@angular/router';
+import { AfterViewInit, Component } from '@angular/core';
+import { Router } from '@angular/router';
 import 'jquery-slimscroll';
-import {HttpService} from '../../../services/http.service';
-import {smoothlyMenu} from '../../../app.helpers';
+import { HttpService } from '../../../services/http.service';
+import { smoothlyMenu } from '../../../app.helpers';
+import { SharedService } from 'src/app/services/shared.service';
 
 declare var jQuery: any;
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements AfterViewInit {
 
@@ -17,7 +18,8 @@ export class SidebarComponent implements AfterViewInit {
     childBar: any = [];
 
     constructor(private router: Router,
-                public http: HttpService
+        public http: HttpService,
+        private sharedService: SharedService
     ) {
         jQuery(document).ready(function () {
 
@@ -66,5 +68,15 @@ export class SidebarComponent implements AfterViewInit {
         jQuery('body').toggleClass('mini-navbar ');
     }
 
+
+    routerLinkClick(routeUrl) {
+        this.sharedService.searchData(null);
+        this.router.navigate(['/' + routeUrl])
+        console.log(routeUrl);
+    }
+
+    routeUrl(routeUrl) {
+        console.log(routeUrl);
+    }
 
 }

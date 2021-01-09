@@ -8,6 +8,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { LogoutModalComponent } from 'src/app/shared/modals/logout-modal/logout-modal.component';
 import { Overlay } from '@angular/cdk/overlay';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -29,7 +30,8 @@ export class HeaderComponent implements OnInit {
     private toastr: ToastrService,
     public sharedserive: SharedService,
     public dialog: MatDialog,
-    private sharedService: SharedService, 
+    private sharedService: SharedService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -44,12 +46,11 @@ export class HeaderComponent implements OnInit {
     })
 
     this.getAllGroup();
-    
-    
+    this.getActivatedRoute();
   }
 
   openSpaghettiPanel() {
-    
+
   }
 
   Logout() {
@@ -107,7 +108,7 @@ export class HeaderComponent implements OnInit {
       if (res.data != undefined) {
         this.groupList = res.data;
         this.selectedGroup(this.groupList);
-       // this.sharedserive.groupUpdateData(this.groupList[0]._id);
+        // this.sharedserive.groupUpdateData(this.groupList[0]._id);
       }
     });
   }
@@ -132,6 +133,44 @@ export class HeaderComponent implements OnInit {
     this.groupName = value._id;
     this.sharedserive.groupUpdateData(value._id);
     localStorage.setItem('selectedGroupId', value._id);
+  }
+
+
+  getActivatedRoute(){
+    let activatedUrl: any = this.router.url;
+    console.log(activatedUrl)
+  }
+
+  searchData(event: any) {
+    let activatedUrl: any = this.router.url;
+    let searchValue = event.target.value;
+    this.sharedService.searchData(searchValue);
+    
+    console.log(searchValue)
+
+    // switch (activatedUrl) {
+    //   case '/accounts':
+    //     console.log('1 accounts')
+    //     this.sharedService.searchData(searchValue);
+    //     break;
+    //   case '/categories':
+    //     console.log('2 categories')
+    //     this.sharedService.searchData(searchValue);
+    //     break;
+    //   case '/payees':
+    //     console.log('3 payees')
+    //     this.sharedService.searchData(searchValue);
+    //     break;
+    //   case '/budget':
+    //     console.log('4 budget')
+    //     this.sharedService.searchData(searchValue);
+    //     break;
+    //   case '/spliwise':
+    //     console.log('4 budget')
+    //     break;
+    //   default:
+    //     break;
+    // }
   }
 
   // alert(){

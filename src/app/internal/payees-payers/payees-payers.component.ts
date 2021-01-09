@@ -9,6 +9,7 @@ import { AddPayeeComponent } from 'src/app/shared/modals/add-payee/add-payee.com
 import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-modal.component';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-payees-payers',
@@ -49,6 +50,7 @@ export class PayeesPayersComponent implements OnInit {
   ]
 
   payeePayer: any = [];
+  searchChangeEventSubscription: Subscription;
 
   constructor(
     public dialog: MatDialog,
@@ -78,6 +80,16 @@ export class PayeesPayersComponent implements OnInit {
         this.getPayeeSummary();
       }
     });
+
+    this.searchChangeEventSubscription = this.sharedserive.searchDataChange.subscribe((data) => {
+      console.log('subscribe Data', data);
+      if (data) {
+        this.searchData(data);
+      } else {
+        this.getPayees();
+        this.getPayeeSummary();
+      }
+    })
   }
 
   step = 0;
@@ -346,6 +358,49 @@ export class PayeesPayersComponent implements OnInit {
       this.isRecordSelected = 0;
       this.getPayees();
     });
+  }
+
+
+  searchData(searchValue) {
+    console.log("============================ Payee/ Payer", searchValue)
+
+    this.isApiCalling = true;
+    this.isShimmerLoading = true;
+
+    const payload = {
+      'type': this.type,
+      'groupId': this.groupId,
+      'value': searchValue
+    }
+
+    this.http.get(ApiUrl.searchPayeePayer, payload).subscribe(res => {
+
+      console.log(res);
+      this.isApiCalling = false;
+      this.isShimmerLoading = false;
+
+       this.http.showLoader();
+
+      if (res.data != undefined) {
+        this.total = res.data.totalFinancialBeneficiaries;
+
+        if (this.type === "PAYEE") {
+          this.payeesArray = res.data;
+          this.sortOutByChar(this.payeesArray);
+          this.pName = res.data[0].name;
+          this.selectedPayeeId = res.data[0]._id;
+          this.getPayeeDetailsById(this.payeesArray[0]._id);
+        } else {
+          this.payersArray = res.data;
+          this.sortOutByChar(this.payersArray);
+          this.pName = res.data[0].name;
+          this.selectedPayeeId = res.data[0]._id;
+          this.getPayeeDetailsById(this.payersArray[0]._id);
+        }
+
+      }
+    });
+
   }
 
   closeDeleteModal() {

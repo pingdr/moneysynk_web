@@ -35,7 +35,7 @@
 
       <div class="form-group search-input">
         <div class="form-field">
-          <input type="text" class="form-control" placeholder="Search Here...">
+          <input type="text" class="form-control" (keyup)="searchData($event)" (change)="searchData($event)" placeholder="Search Here...">
         </div>
       </div>
 
