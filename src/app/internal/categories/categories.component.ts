@@ -94,7 +94,8 @@ export class CategoriesComponent implements OnInit {
     this.step = index;
   }
   setType(type) {
-    this.categoriesDetailsShimmer = true;
+    this.categoriesDetails=[]
+    this.categoriesDetailsShimmer=true;
     this.categoriesDetails = [];
     this.type = type;
     this.pageIndex = 0;
@@ -130,7 +131,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   selectRecord(c) {
-    this.categoriesDetailsShimmer = true
+    this.categoriesDetails=[]
+    this.categoriesDetailsShimmer=true
     console.log(c);
     this.cName = c.name;
     this.selectedCategoryId = c._id;
@@ -205,7 +207,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   getSubCategorySummaryData(c, j) {
-    this.categoriesDetailsShimmer = true
+    this.categoriesDetails=[]
+    this.categoriesDetailsShimmer=true
     console.log(c, j);
 
     this.isSubCategoryRecord = j;

@@ -8,6 +8,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
+import { CategorypaginationComponent } from './categorypagination/categorypagination.component';
 
 const routes: Routes = [
     {
@@ -24,7 +25,8 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        CategoriesComponent
+        CategoriesComponent,
+        CategorypaginationComponent
     ],
     imports: [
         SharedModule,

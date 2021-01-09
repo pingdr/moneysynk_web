@@ -496,7 +496,12 @@
 
 .shimmer1 {
     display: inline-block !important;
-    padding: 10px;
+    width: 100% !important;
+    overflow: hidden;    
+}
+.for-shimmer-accordian {
+    margin: 0px 10px;
+    margin-top: 10px;
 }
 
 a.view-btn {
@@ -605,3 +610,4 @@ span.avail-bal {
     height: 300px;
     overflow: auto;
 }
+

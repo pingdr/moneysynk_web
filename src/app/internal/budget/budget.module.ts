@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BudgetComponent } from './budget.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
+import { BudgetpaginationComponent } from './budgetpagination/budgetpagination.component';
 
 const routes: Routes = [
     {
@@ -24,7 +25,8 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        BudgetComponent
+        BudgetComponent,
+        BudgetpaginationComponent
     ],
     imports: [
         SharedModule,

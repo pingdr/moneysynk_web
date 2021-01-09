@@ -169,9 +169,17 @@
                                                 </ng-container>
                                                 <div style="display: flex;float: right; position: relative;top: -28px;"
                                                     *ngIf="budgetDetailPageIndexTotal > 5">
-                                                    <mat-paginator (page)="budgetPageChangeDetail($event)"
+                                                    <!-- <mat-paginator (page)="budgetPageChangeDetail($event)"
                                                         [length]="budgetDetailPageIndexTotal" pageSize="5">
-                                                    </mat-paginator>
+                                                    </mat-paginator> -->
+                                                  
+                                                    <app-budgetpagination
+                                                    [length]="budgetDetailPageIndexTotal"
+                                                    (page)="budgetPageChangeDetail($event)"
+                                                    [pageSize]="5"></app-budgetpagination>
+
+                                                  
+
                                                 </div>
                                             </mat-accordion>
                                         </ng-container>

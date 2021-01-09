@@ -35,6 +35,7 @@ export class AccountsComponent implements OnInit {
   accountDetailShimmer = true
   accountSummaryDataShimmer = true
   summeryType: string
+  accountSummaryDataTotal = '';
 
   isApiCalling: boolean = false;
   isShimmerloading: boolean = false;
@@ -205,6 +206,8 @@ export class AccountsComponent implements OnInit {
         if (res.data.data != undefined) {
           this.accountSummaryDataShimmer = false
           this.accountSummaryData = res.data.data;
+          this.accountSummaryDataTotal = res.data.totalTransaction
+          console.log('totalnumber', this.accountSummaryDataTotal);
           this.setDoughnutChartData(res.data.data);
         } else {
           this.accountSummaryData = [];
@@ -341,6 +344,7 @@ export class AccountsComponent implements OnInit {
 
       this.http.showLoader();
       if (res.data != undefined) {
+        this.accountDetailShimmer = false
         this.accountList = [];
         this.resultsLength = res.data.total;
         this.accountList = res.data.data;
@@ -442,6 +446,10 @@ export class AccountsComponent implements OnInit {
 
   getType(id, i?: any) {
 
+    this.accountDetails=[];
+    this.accountSummaryData=[]
+    this.accountDetailShimmer=true
+
     console.log('Acount Type ID :: ', id);
 
 
@@ -464,6 +472,7 @@ export class AccountsComponent implements OnInit {
     this.isApiCalling = true;
     this.isShimmerloading = true;
     this.http.getAccountById(ApiUrl.getAccountById, payload).subscribe(res => {
+      this.accountDetailShimmer=false
       this.isApiCalling = false;
       this.isShimmerloading = false;
       this.http.showLoader();

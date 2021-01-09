@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 import { MatMenuModule } from '@angular/material/menu';
+import { AccountpaginationComponent } from './accountpagination/accountpagination.component';
 
 
 const routes: Routes = [
@@ -30,7 +31,8 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        AccountsComponent
+        AccountsComponent,
+        AccountpaginationComponent
     ],
     imports: [
         SharedModule,
