@@ -110,6 +110,7 @@ export class AccountsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.accountTypeList = [];
 
     this.sharedserive.groupChange.subscribe((data) => {
       this.isSelected = null;
@@ -261,21 +262,23 @@ export class AccountsComponent implements OnInit {
   getAccountTypedata() {
 
     this.isShimmerloading = true;
-    var payload = {
-      "groupId": this.groupId
-    }
-
-    this.http.getAllAccountType(ApiUrl.getAllAccountType, payload).subscribe(res => {
-      this.accountTypeList = [];
-      if (res.data != undefined) {
-        this.accountTypeList = res.data;
-        console.log('this.accountTypeList');
-        console.log(this.accountTypeList);
-        this.accountType_id = res.data[0]._id;
-        this.isSelected = 0;
-        this.getAccountdata();
+    if (this.groupId) {
+      var payload = {
+        "groupId": this.groupId
       }
-    });
+      
+      this.http.getAllAccountType(ApiUrl.getAllAccountType, payload).subscribe(res => {
+        this.accountTypeList = [];
+        if (res.data != undefined) {
+          this.accountTypeList = res.data;
+          console.log('this.accountTypeList');
+          console.log(this.accountTypeList);
+          this.accountType_id = res.data[0]._id;
+          this.isSelected = 0;
+          this.getAccountdata();
+        }
+      });
+    }
 
   }
   getAccountDetailsById(id) {
@@ -446,9 +449,9 @@ export class AccountsComponent implements OnInit {
 
   getType(id, i?: any) {
 
-    this.accountDetails=[];
-    this.accountSummaryData=[]
-    this.accountDetailShimmer=true
+    this.accountDetails = [];
+    this.accountSummaryData = []
+    this.accountDetailShimmer = true
 
     console.log('Acount Type ID :: ', id);
 
@@ -472,7 +475,7 @@ export class AccountsComponent implements OnInit {
     this.isApiCalling = true;
     this.isShimmerloading = true;
     this.http.getAccountById(ApiUrl.getAccountById, payload).subscribe(res => {
-      this.accountDetailShimmer=false
+      this.accountDetailShimmer = false
       this.isApiCalling = false;
       this.isShimmerloading = false;
       this.http.showLoader();
@@ -523,8 +526,8 @@ export class AccountsComponent implements OnInit {
     console.log(searchValue)
 
     const payload = {
+      'value': searchValue,
       'groupId': this.groupId,
-      'value': searchValue
     }
 
     this.isApiCalling = true;

@@ -172,37 +172,39 @@ export class BudgetComponent implements OnInit {
     this.isApiCalling = true;
     this.isShimmerloading = true;
 
-    var payload = {
-      "groupId": this.groupId,
-      pageIndex: this.pageIndex,
-      limit: 10,
-      "type": this.type
-    }
-    this.recordSelected = 0;
-    this.http.getCategories(ApiUrl.getBudget, payload).subscribe(res => {
-
-      this.isApiCalling = false;
-      this.isShimmerloading = false;
-
-      this.http.showLoader();
-      console.log('Budget List', res);
-      if (res.data != undefined) {
-        // this.budgets = res.data.data;
-        this.resultsLength = res.data.totalFinancialSources;
-        if (this.type === "EXPENSE") {
-          this.expenseArray = res.data.data;
-          this.bname = this.expenseArray[0].name;
-          this.selectedBudgetId = this.expenseArray[0]._id;
-          this.getBudgetDetailsById(this.expenseArray[0]._id);
-        } else {
-          this.incomeArray = res.data.data;
-          console.log('-------------------------', this.incomeArray);
-          this.bname = this.incomeArray[0].name;
-          this.selectedBudgetId = this.expenseArray[0]._id;
-          this.getBudgetDetailsById(this.incomeArray[0]._id);
-        }
+    if (this.groupId) {
+      var payload = {
+        "groupId": this.groupId,
+        pageIndex: this.pageIndex,
+        limit: 10,
+        "type": this.type
       }
-    });
+      this.recordSelected = 0;
+      this.http.getCategories(ApiUrl.getBudget, payload).subscribe(res => {
+
+        this.isApiCalling = false;
+        this.isShimmerloading = false;
+
+        this.http.showLoader();
+        console.log('Budget List', res);
+        if (res.data != undefined) {
+          // this.budgets = res.data.data;
+          this.resultsLength = res.data.totalFinancialSources;
+          if (this.type === "EXPENSE") {
+            this.expenseArray = res.data.data;
+            this.bname = this.expenseArray[0].name;
+            this.selectedBudgetId = this.expenseArray[0]._id;
+            this.getBudgetDetailsById(this.expenseArray[0]._id);
+          } else {
+            this.incomeArray = res.data.data;
+            console.log('-------------------------', this.incomeArray);
+            this.bname = this.incomeArray[0].name;
+            this.selectedBudgetId = this.expenseArray[0]._id;
+            this.getBudgetDetailsById(this.incomeArray[0]._id);
+          }
+        }
+      });
+    }
   }
 
   pageChange(event) {
@@ -219,18 +221,21 @@ export class BudgetComponent implements OnInit {
 
   getPayeeSummary() {
     this.isApiCalling = true;
-    var payload = {
-      "groupId": this.groupId,
-    }
 
-    this.http.get(ApiUrl.getBudgetSummary, payload).subscribe((res) => {
-      this.isApiCalling = false;
-      this.http.showLoader();
-      console.log('Budget Summary Data', res);
-      if (res && res.data) {
-        this.budgetSummary = res.data;
+    if (this.groupId) {
+      var payload = {
+        "groupId": this.groupId,
       }
-    });
+
+      this.http.get(ApiUrl.getBudgetSummary, payload).subscribe((res) => {
+        this.isApiCalling = false;
+        this.http.showLoader();
+        console.log('Budget Summary Data', res);
+        if (res && res.data) {
+          this.budgetSummary = res.data;
+        }
+      });
+    }
   }
 
   nextStep() {

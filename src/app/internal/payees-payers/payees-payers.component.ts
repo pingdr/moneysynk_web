@@ -134,38 +134,40 @@ export class PayeesPayersComponent implements OnInit {
     this.isApiCalling = true;
     this.isShimmerLoading = true;
 
-    var payload = {
-      "groupId": this.groupId,
-      // "pageIndex": this.pageIndex,
-      // "limit": 10,
-      type: this.type
-    }
-    this.http.get(ApiUrl.getAllPayees, payload).subscribe(res => {
-
-      this.isApiCalling = false;
-      this.isShimmerLoading = false;
-
-      this.http.showLoader();
-
-      if (res.data.data != undefined) {
-        this.total = res.data.totalFinancialBeneficiaries;
-
-        if (this.type === "PAYEE") {
-          this.payeesArray = res.data.data;
-          this.sortOutByChar(this.payeesArray);
-          this.pName = res.data.data[0].name;
-          this.selectedPayeeId = res.data.data[0]._id;
-          this.getPayeeDetailsById(this.payeesArray[0]._id);
-        } else {
-          this.payersArray = res.data.data;
-          this.sortOutByChar(this.payersArray);
-          this.pName = res.data.data[0].name;
-          this.selectedPayeeId = res.data.data[0]._id;
-          this.getPayeeDetailsById(this.payersArray[0]._id);
-        }
-
+    if (this.groupId) {
+      var payload = {
+        "groupId": this.groupId,
+        // "pageIndex": this.pageIndex,
+        // "limit": 10,
+        type: this.type
       }
-    });
+      this.http.get(ApiUrl.getAllPayees, payload).subscribe(res => {
+
+        this.isApiCalling = false;
+        this.isShimmerLoading = false;
+
+        this.http.showLoader();
+
+        if (res.data.data != undefined) {
+          this.total = res.data.totalFinancialBeneficiaries;
+
+          if (this.type === "PAYEE") {
+            this.payeesArray = res.data.data;
+            this.sortOutByChar(this.payeesArray);
+            this.pName = res.data.data[0].name;
+            this.selectedPayeeId = res.data.data[0]._id;
+            this.getPayeeDetailsById(this.payeesArray[0]._id);
+          } else {
+            this.payersArray = res.data.data;
+            this.sortOutByChar(this.payersArray);
+            this.pName = res.data.data[0].name;
+            this.selectedPayeeId = res.data.data[0]._id;
+            this.getPayeeDetailsById(this.payersArray[0]._id);
+          }
+
+        }
+      });
+    }
   }
 
   sortOutByChar(data) {
@@ -229,18 +231,21 @@ export class PayeesPayersComponent implements OnInit {
 
   getPayeeSummary() {
     this.isApiCalling = true;
-    var payload = {
-      "groupId": this.groupId,
-    }
 
-    this.http.get(ApiUrl.getPayeeSummary, payload).subscribe((res) => {
-      this.isApiCalling = false;
-      this.http.showLoader();
-      console.log('Payee Summary Data', res);
-      if (res && res.data) {
-        this.payeeSummary = res.data;
+    if (this.groupId) {
+      var payload = {
+        "groupId": this.groupId,
       }
-    });
+
+      this.http.get(ApiUrl.getPayeeSummary, payload).subscribe((res) => {
+        this.isApiCalling = false;
+        this.http.showLoader();
+        console.log('Payee Summary Data', res);
+        if (res && res.data) {
+          this.payeeSummary = res.data;
+        }
+      });
+    }
   }
 
   pageChange(event) {
@@ -379,7 +384,7 @@ export class PayeesPayersComponent implements OnInit {
       this.isApiCalling = false;
       this.isShimmerLoading = false;
 
-       this.http.showLoader();
+      this.http.showLoader();
 
       if (res.data != undefined) {
         this.total = res.data.totalFinancialBeneficiaries;

@@ -144,33 +144,33 @@ export class HeaderComponent implements OnInit {
   searchData(event: any) {
     let activatedUrl: any = this.router.url;
     let searchValue = event.target.value;
-    this.sharedService.searchData(searchValue);
+    // this.sharedService.searchData(searchValue);
     
     console.log(searchValue)
 
-    // switch (activatedUrl) {
-    //   case '/accounts':
-    //     console.log('1 accounts')
-    //     this.sharedService.searchData(searchValue);
-    //     break;
-    //   case '/categories':
-    //     console.log('2 categories')
-    //     this.sharedService.searchData(searchValue);
-    //     break;
-    //   case '/payees':
-    //     console.log('3 payees')
-    //     this.sharedService.searchData(searchValue);
-    //     break;
-    //   case '/budget':
-    //     console.log('4 budget')
-    //     this.sharedService.searchData(searchValue);
-    //     break;
-    //   case '/spliwise':
-    //     console.log('4 budget')
-    //     break;
-    //   default:
-    //     break;
-    // }
+    switch (activatedUrl) {
+      case '/accounts':
+        console.log('1 accounts')
+        this.sharedService.searchData(searchValue);
+        break;
+      case '/categories':
+        console.log('2 categories')
+        this.sharedService.searchData(searchValue);
+        break;
+      case '/payees':
+        console.log('3 payees')
+        this.sharedService.searchData(searchValue);
+        break;
+      case '/budget':
+        console.log('4 budget')
+        this.sharedService.searchData(searchValue);
+        break;
+      case '/spliwise':
+        console.log('4 budget')
+        break;
+      default:
+        break;
+    }
   }
 
   // alert(){

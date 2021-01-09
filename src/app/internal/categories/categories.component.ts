@@ -94,8 +94,8 @@ export class CategoriesComponent implements OnInit {
     this.step = index;
   }
   setType(type) {
-    this.categoriesDetails=[]
-    this.categoriesDetailsShimmer=true;
+    this.categoriesDetails = []
+    this.categoriesDetailsShimmer = true;
     this.categoriesDetails = [];
     this.type = type;
     this.pageIndex = 0;
@@ -131,8 +131,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   selectRecord(c) {
-    this.categoriesDetails=[]
-    this.categoriesDetailsShimmer=true
+    this.categoriesDetails = []
+    this.categoriesDetailsShimmer = true
     console.log(c);
     this.cName = c.name;
     this.selectedCategoryId = c._id;
@@ -143,35 +143,38 @@ export class CategoriesComponent implements OnInit {
   getCategoriesData() {
     this.isApiCalling = true;
     this.isShimmerloading = true;
-    var payload = {
-      "groupId": this.groupId,
-      "pageIndex": this.pageIndex,
-      "limit": 10,
-      parent: true,
-      type: this.type
-    }
-    this.expenseArray = [];
-    this.incomeArray = [];
-    this.http.getCategories(ApiUrl.getCategories, payload).subscribe(res => {
-      console.log("Category List", res);
-      this.isApiCalling = false;
-      this.isShimmerloading = false;
-      this.http.showLoader();
-      if (res.data.data != undefined) {
-        this.total = res.data.totalCategories;
-        if (this.type === "EXPENSE") {
-          this.expenseArray = res.data.data;
-          this.cName = this.expenseArray[0].name;
-          this.selectedCategoryId = this.expenseArray[0]._id;
-          this.getCategoriesDetailsById(this.expenseArray[0]._id);
-        } else {
-          this.incomeArray = res.data.data;
-          this.cName = this.incomeArray[0].name;
-          this.selectedCategoryId = this.incomeArray[0]._id;
-          this.getCategoriesDetailsById(this.incomeArray[0]._id);
-        }
+
+    if (this.groupId) {
+      var payload = {
+        "groupId": this.groupId,
+        "pageIndex": this.pageIndex,
+        "limit": 10,
+        parent: true,
+        type: this.type
       }
-    });
+      this.expenseArray = [];
+      this.incomeArray = [];
+      this.http.getCategories(ApiUrl.getCategories, payload).subscribe(res => {
+        console.log("Category List", res);
+        this.isApiCalling = false;
+        this.isShimmerloading = false;
+        this.http.showLoader();
+        if (res.data.data != undefined) {
+          this.total = res.data.totalCategories;
+          if (this.type === "EXPENSE") {
+            this.expenseArray = res.data.data;
+            this.cName = this.expenseArray[0].name;
+            this.selectedCategoryId = this.expenseArray[0]._id;
+            this.getCategoriesDetailsById(this.expenseArray[0]._id);
+          } else {
+            this.incomeArray = res.data.data;
+            this.cName = this.incomeArray[0].name;
+            this.selectedCategoryId = this.incomeArray[0]._id;
+            this.getCategoriesDetailsById(this.incomeArray[0]._id);
+          }
+        }
+      });
+    }
 
   }
 
@@ -192,23 +195,25 @@ export class CategoriesComponent implements OnInit {
 
   getCategorySummary() {
     this.isApiCalling = true;
-    var payload = {
-      "groupId": this.groupId,
-    }
-
-    this.http.getCategoriesSummary(ApiUrl.getCategorySummaryData, payload).subscribe((res) => {
-      this.isApiCalling = false;
-      this.http.showLoader();
-      console.log('Category Summary Data', res);
-      if (res && res.data) {
-        this.categorySummary = res.data;
+    if (this.groupId) {
+      var payload = {
+        "groupId": this.groupId,
       }
-    });
+
+      this.http.getCategoriesSummary(ApiUrl.getCategorySummaryData, payload).subscribe((res) => {
+        this.isApiCalling = false;
+        this.http.showLoader();
+        console.log('Category Summary Data', res);
+        if (res && res.data) {
+          this.categorySummary = res.data;
+        }
+      });
+    }
   }
 
   getSubCategorySummaryData(c, j) {
-    this.categoriesDetails=[]
-    this.categoriesDetailsShimmer=true
+    this.categoriesDetails = []
+    this.categoriesDetailsShimmer = true
     console.log(c, j);
 
     this.isSubCategoryRecord = j;
@@ -303,7 +308,7 @@ export class CategoriesComponent implements OnInit {
       console.log("Category List", res);
       this.isApiCalling = false;
       this.isShimmerloading = false;
-      
+
       this.http.showLoader();
 
       if (res.data != undefined) {
