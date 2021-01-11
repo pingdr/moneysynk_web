@@ -20,6 +20,7 @@ export const ApiUrl = {
     categoryMonths: 'categories/getMonthlyData',
     classes: 'classes',
     getTransactions: 'transactions',
+    getTransactionsSearch: 'transactions/search',
     icons: 'icons',
     getCategories: 'categories',
     getCategorySummaryData: 'categories/getSummaryData',

@@ -9,6 +9,7 @@ import * as fs from 'file-saver';
 import { Router } from '@angular/router';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { transactionLists } from 'src/app/services/CustomPaginatorConfiguration';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-transaction',
@@ -32,6 +33,8 @@ export class TransactionComponent implements OnInit {
   startDate: any = '';
   endDate: any = '';
 
+  searchChangeEventSubscription: Subscription;
+
   constructor(
     public http: HttpService,
     public sharedserive: SharedService,
@@ -46,7 +49,48 @@ export class TransactionComponent implements OnInit {
         this.getTansactionData();
       }
     });
+
+    this.searchChangeEventSubscription = this.sharedserive.searchDataChange.subscribe((data) => {
+      console.log('subscribe Data', data);
+      if (data) {
+        this.searchData(data);
+      }
+      
+      else {
+        this.getTansactionData();
+      }
+    })
+
   }
+
+
+  searchData(searchValue) {
+
+    var payload = {
+      'groupId': this.groupId,
+      'value': searchValue
+    }
+
+    this.isApiCalling = true;
+    this.isShimmerloding = true;
+
+    this.http.getAccount(ApiUrl.getTransactionsSearch, payload).subscribe(res => {
+
+      this.isApiCalling = false;
+      this.isShimmerloding = false;
+
+      this.http.showLoader();
+      if (res.data != undefined) {
+        this.transactionList = [];
+        this.resultsLength = res.data.totalTransactions;
+        this.transactionList = res.data;
+        console.log(this.transactionList)
+      }
+    });
+
+  }
+
+  
 
   getTansactionData() {
     var payload = {
