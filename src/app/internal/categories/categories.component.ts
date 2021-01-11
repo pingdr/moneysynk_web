@@ -71,6 +71,7 @@ export class CategoriesComponent implements OnInit {
       this.monthlyPageIndex = 0;
       this.MonthlyIndexListTotal = 0;
       this.isSubCategoryRecord = null;
+      this.categoriesDetailsShimmer = true;
 
       if (data) {
         this.getCategoriesData();

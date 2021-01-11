@@ -126,6 +126,8 @@ export class AccountsComponent implements OnInit {
 
         this.accountSummaryId = '';
         this.isAccountSummaryType = false;
+        this.accountDetailShimmer = true;
+
         this.accountSummaryPageIndex = 0;
         this.accountSummaryPageIndexTotal = '';
 
@@ -260,21 +262,21 @@ export class AccountsComponent implements OnInit {
   }
 
   getAccountTypedata() {
-
     this.isShimmerloading = true;
     if (this.groupId) {
       var payload = {
         "groupId": this.groupId
       }
-      
+
       this.http.getAllAccountType(ApiUrl.getAllAccountType, payload).subscribe(res => {
-        this.accountTypeList = [];
         if (res.data != undefined) {
-          this.accountTypeList = res.data;
-          console.log('this.accountTypeList');
-          console.log(this.accountTypeList);
-          this.accountType_id = res.data[0]._id;
-          this.isSelected = 0;
+          if (this.accountTypeList.length == 0) {
+            this.accountTypeList = res.data;
+            console.log('this.accountTypeList');
+            console.log(this.accountTypeList);
+            this.accountType_id = res.data[0]._id;
+            this.isSelected = 0;
+          }
           this.getAccountdata();
         }
       });
@@ -540,19 +542,19 @@ export class AccountsComponent implements OnInit {
       this.http.showLoader();
       console.log(res)
 
-      // if (res.data != undefined) {
-      //   this.accountList = [];
-      //   this.resultsLength = res.data.total;
-      //   this.accountList = res.data.data;
+      if (res.data != undefined) {
+        this.accountList = [];
+        this.resultsLength = res.data.total;
+        this.accountList = res.data;
 
-      //   if (res.data.data.length > 0) {
-      //     this.getAccountDetailsById(res.data.data[0]._id)
-      //     this.getAccountSummary(res.data.data[0]._id)
-      //   }
-      //   for (let i = 0; i < this.accountList.length; i++) {
-      //     this.accountList[i]['isViewAmount'] = true;
-      //   }
-      // }
+        if (res.data.data.length > 0) {
+          this.getAccountDetailsById(res.data[0]._id)
+          this.getAccountSummary(res.data[0]._id)
+        }
+        for (let i = 0; i < this.accountList.length; i++) {
+          this.accountList[i]['isViewAmount'] = true;
+        }
+      }
     });
 
 

@@ -69,14 +69,9 @@ export class SidebarComponent implements AfterViewInit {
     }
 
 
-    routerLinkClick(routeUrl) {
+    routerLinkClick(routeUrl) {        
         this.sharedService.searchData(null);
-        this.router.navigate(['/' + routeUrl])
+        this.router.navigate(['/' + routeUrl]);     
         console.log(routeUrl);
     }
-
-    routeUrl(routeUrl) {
-        console.log(routeUrl);
-    }
-
 }

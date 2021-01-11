@@ -10,11 +10,16 @@ import { DeleteModalComponent } from 'src/app/shared/modals/delete-modal/delete-
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { transactionLists } from 'src/app/services/CustomPaginatorConfiguration';
 
 @Component({
   selector: 'app-payees-payers',
   templateUrl: './payees-payers.component.html',
-  styleUrls: ['./payees-payers.component.scss']
+  styleUrls: ['./payees-payers.component.scss'],
+  providers: [
+    { provide: MatPaginatorIntl, useValue: transactionLists() }
+  ]
 })
 export class PayeesPayersComponent implements OnInit {
   dialogRefofOtpModal: MatDialogRef<AddPayeeComponent>;
@@ -31,6 +36,7 @@ export class PayeesPayersComponent implements OnInit {
 
   isApiCalling: boolean = false;
   isShimmerLoading: boolean = false;
+  payeePayerShimmarLoding = true;
 
   payeeId;
   payeeName;
@@ -71,6 +77,7 @@ export class PayeesPayersComponent implements OnInit {
       this.payeeDetails = [];
 
       this.payeeDetailPageIndex = 0;
+      this.payeePayerShimmarLoding = true;
       this.payeeIndexTotal = 0;
       this.selectedPayeeId = '';
       this.pName = '';
@@ -96,6 +103,7 @@ export class PayeesPayersComponent implements OnInit {
 
   getPayeeDetailsById(id) {
     this.isApiCalling = true;
+    this.payeePayerShimmarLoding = true;
     var payload = {
       groupId: this.groupId,
       year: 1,
@@ -125,6 +133,7 @@ export class PayeesPayersComponent implements OnInit {
 
 
       this.isApiCalling = false;
+      this.payeePayerShimmarLoding = false;
 
     })
   }
@@ -133,6 +142,7 @@ export class PayeesPayersComponent implements OnInit {
 
     this.isApiCalling = true;
     this.isShimmerLoading = true;
+    this.payeePayerShimmarLoding = true;
 
     if (this.groupId) {
       var payload = {
@@ -145,6 +155,7 @@ export class PayeesPayersComponent implements OnInit {
 
         this.isApiCalling = false;
         this.isShimmerLoading = false;
+        this.payeePayerShimmarLoding = false;
 
         this.http.showLoader();
 

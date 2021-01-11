@@ -25,7 +25,6 @@
             <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
                     <div class="col-8 col-md-8 col-lg-8 scroller-class">
-
                         <ng-container *ngIf="isShimmerloading">
                             <div *ngFor="let shimmer of [1,2,3,4,5,6,7,8,9,10]">
                                 <div class="shimmer">
@@ -59,7 +58,8 @@
                                         </div>
                                     </div>
                                     <div class="dollar-priceing">
-                                        <span class="red">{{convertNumberinPositive(b.currentBalance) | currency}}</span>
+                                        <span class="red">{{convertNumberinPositive(b.currentBalance) |
+                                            currency}}</span>
                                         <span class="color-grey">($62.00)</span>
                                     </div>
                                     <div class="delete-icon">
@@ -77,8 +77,8 @@
                             <ng-template #other_content>
                                 <div class="main-div-payyes">
                                     <div class="inner-div-height">
-                                            <img src="../../../assets/images/no-budgets.svg">
-                                            <div class="no-payee-found">No Budget Found</div>
+                                        <img src="../../../assets/images/no-budgets.svg">
+                                        <div class="no-payee-found">No Budget Found</div>
 
                                     </div>
                                 </div>
@@ -105,19 +105,23 @@
                                 <!-- list -->
                                 <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
                                     aria-labelledby="nav-list-tab">
-                                    <div class="accordian-main for-shimmer-accordian">
-                                        <ng-container *ngIf="budgetDetailsShimmer">
-                                            <div class="shimmer1">
-                                                <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'" [height]="'30px'">
-                                                </ngx-shimmer-loading>
-                                            </div>
-                                            <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                    <div class="accordian-main">
+                                        <div class="for-shimmer-accordian">
+                                            <ng-container *ngIf="budgetDetailsShimmer">
                                                 <div class="shimmer1">
-                                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'" [height]="'60px'">
+                                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                        [height]="'30px'">
                                                     </ngx-shimmer-loading>
                                                 </div>
-                                            </div>
-                                        </ng-container>
+                                                <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                                    <div class="shimmer2">
+                                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                            [height]="'70px'">
+                                                        </ngx-shimmer-loading>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
                                         <ng-container *ngIf="budgetDetails.length>0; else other_content2">
                                             <mat-accordion>
                                                 <!-- first-panal -->
@@ -142,24 +146,30 @@
 
                                                         <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2 }"
                                                             *ngIf="ad.data !=undefined">
-                                                            <div *ngFor="let d of ad?.data" class="inner-expansion-main">
+                                                            <div *ngFor="let d of ad?.data"
+                                                                class="inner-expansion-main">
                                                                 <div class="inner-sub-left">
                                                                     <div class="main-strips">
-                                                                        <div class="holder-name">{{d.accountId.name}}</div>
+                                                                        <div class="holder-name">{{d.accountId.name}}
+                                                                        </div>
                                                                         <div *ngIf="d.transactionType == 'IN'"
                                                                             class="price-tag green-color">
-                                                                            {{convertNumberinPositive(d.amount) | currency}}
+                                                                            {{convertNumberinPositive(d.amount) |
+                                                                            currency}}
                                                                         </div>
                                                                         <div *ngIf="d.transactionType == 'OUT'"
                                                                             class="price-tag red-color">
-                                                                            {{convertNumberinPositive(d.amount) | currency}}
+                                                                            {{convertNumberinPositive(d.amount) |
+                                                                            currency}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="main-strips">
-                                                                        <div class="date-and-time">{{d.createdAt | date:'dd
+                                                                        <div class="date-and-time">{{d.createdAt |
+                                                                            date:'dd
                                                                             MMM yyyy hh:mm a'}}
                                                                         </div>
-                                                                        <img class="edit-icon" (click)="editTransaction(d)"
+                                                                        <img class="edit-icon"
+                                                                            (click)="editTransaction(d)"
                                                                             src="../../../assets/images/edit-pencil.svg">
                                                                     </div>
                                                                 </div>
@@ -167,18 +177,17 @@
                                                         </div>
                                                     </mat-expansion-panel>
                                                 </ng-container>
-                                                <div style="display: flex;float: right; position: relative;top: -28px;"
+                                                <div style="display: flex;float: right; position: relative;top: -11px;"
                                                     *ngIf="budgetDetailPageIndexTotal > 5">
                                                     <!-- <mat-paginator (page)="budgetPageChangeDetail($event)"
                                                         [length]="budgetDetailPageIndexTotal" pageSize="5">
                                                     </mat-paginator> -->
-                                                  
-                                                    <app-budgetpagination
-                                                    [length]="budgetDetailPageIndexTotal"
-                                                    (page)="budgetPageChangeDetail($event)"
-                                                    [pageSize]="5"></app-budgetpagination>
 
-                                                  
+                                                    <app-budgetpagination [length]="budgetDetailPageIndexTotal"
+                                                        (page)="budgetPageChangeDetail($event)" [pageSize]="5">
+                                                    </app-budgetpagination>
+
+
 
                                                 </div>
                                             </mat-accordion>
@@ -239,7 +248,8 @@
                                         </div>
                                     </div>
                                     <div class="dollar-priceing">
-                                        <span class="red">{{convertNumberinPositive(b.currentBalance) | currency}}</span>
+                                        <span class="red">{{convertNumberinPositive(b.currentBalance) |
+                                            currency}}</span>
                                         <span class="color-grey">($62.00)</span>
                                     </div>
                                     <div class="delete-icon">
@@ -256,8 +266,8 @@
                             <ng-template #other_content1>
                                 <div class="main-div-payyes">
                                     <div class="inner-div-height">
-                                            <img src="../../../assets/images/no-budgets.svg">
-                                            <div class="no-payee-found">No Budget Found</div>
+                                        <img src="../../../assets/images/no-budgets.svg">
+                                        <div class="no-payee-found">No Budget Found</div>
 
                                     </div>
                                 </div>
@@ -285,19 +295,23 @@
                                 <!-- list -->
                                 <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel"
                                     aria-labelledby="nav-list-tab">
-                                    <div class="accordian-main for-shimmer-accordian">
-                                        <ng-container *ngIf="budgetDetailsShimmer">
-                                            <div class="shimmer1">
-                                                <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'" [height]="'30px'">
-                                                </ngx-shimmer-loading>
-                                            </div>
-                                            <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                    <div class="accordian-main">
+                                        <div class="for-shimmer-accordian">
+                                            <ng-container *ngIf="budgetDetailsShimmer">
                                                 <div class="shimmer1">
-                                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'" [height]="'60px'">
+                                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                        [height]="'30px'">
                                                     </ngx-shimmer-loading>
                                                 </div>
-                                            </div>
-                                        </ng-container>
+                                                <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                                    <div class="shimmer2">
+                                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                            [height]="'70px'">
+                                                        </ngx-shimmer-loading>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
                                         <ng-container *ngIf="budgetDetails.length>0; else other_content3">
                                             <mat-accordion>
                                                 <!-- first-panal -->
@@ -325,21 +339,26 @@
                                                             <div *ngFor="let d of ad.data" class="inner-expansion-main">
                                                                 <div class="inner-sub-left">
                                                                     <div class="main-strips">
-                                                                        <div class="holder-name">{{d.accountId.name}}</div>
+                                                                        <div class="holder-name">{{d.accountId.name}}
+                                                                        </div>
                                                                         <div *ngIf="d.transactionType == 'IN'"
                                                                             class="price-tag green-color">
-                                                                            {{convertNumberinPositive(d.amount) | currency}}
+                                                                            {{convertNumberinPositive(d.amount) |
+                                                                            currency}}
                                                                         </div>
                                                                         <div *ngIf="d.transactionType == 'OUT'"
                                                                             class="price-tag red-color">
-                                                                            {{convertNumberinPositive(d.amount) | currency}}
+                                                                            {{convertNumberinPositive(d.amount) |
+                                                                            currency}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="main-strips">
-                                                                        <div class="date-and-time">{{d.createdAt | date:'dd
+                                                                        <div class="date-and-time">{{d.createdAt |
+                                                                            date:'dd
                                                                             MMM yyyy hh:mm a'}}
                                                                         </div>
-                                                                        <img class="edit-icon" (click)="editTransaction(d)"
+                                                                        <img class="edit-icon"
+                                                                            (click)="editTransaction(d)"
                                                                             src="../../../assets/images/edit-pencil.svg">
                                                                     </div>
                                                                 </div>
@@ -347,16 +366,15 @@
                                                         </div>
                                                     </mat-expansion-panel>
                                                 </ng-container>
-                                                <div style="display: flex;float: right; position: relative;top: -28px;"
+                                                <div style="display: flex;float: right; position: relative;top: -11px;"
                                                     *ngIf="budgetDetailPageIndexTotal > 5">
                                                     <!-- <mat-paginator (page)="budgetPageChangeDetail($event)"
                                                         [length]="budgetDetailPageIndexTotal" pageSize="5">
                                                     </mat-paginator> -->
-                                                      
-                                                    <app-budgetpagination
-                                                    [length]="budgetDetailPageIndexTotal"
-                                                    (page)="budgetPageChangeDetail($event)"
-                                                    [pageSize]="5"></app-budgetpagination>
+
+                                                    <app-budgetpagination [length]="budgetDetailPageIndexTotal"
+                                                        (page)="budgetPageChangeDetail($event)" [pageSize]="5">
+                                                    </app-budgetpagination>
 
                                                 </div>
                                             </mat-accordion>
@@ -391,7 +409,7 @@
                 currency}}</span>
 
             <span class="value red-total-expanse" *ngIf="!budgetSummary.expenseTotal"> $0.00 / $0.00</span>
-        
+
         </div>
         <div class="boxes">
             <span class="label">Current Balance : </span>
@@ -399,7 +417,7 @@
                 {{convertNumberinPositive(budgetSummary.currentBalance) |
                 currency}}</span>
             <span class="value green-cleared" *ngIf="!budgetSummary.currentBalance">$0.00 / $0.00</span>
-            
+
         </div>
         <div class="boxes border-left-custom">
             <a class="transfer" (click)="openTransferModal()" title="transfer" style="cursor: pointer;">

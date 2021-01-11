@@ -37,10 +37,27 @@
     }
 }
 
-
 .sidebar-scroller {
     height: calc(100vh - 550px) !important;
     overflow-y: scroll !important;
+}
+
+.shimmer1 {
+    display: inline-block !important;
+    width: 100% !important;
+    overflow: hidden;
+}
+
+.shimmer2 {
+    display: inline-block !important;
+    width: 90% !important;
+    overflow: hidden;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.for-shimmer-accordian {
+    margin: 0px 0px;
 }
 
 .asset-main-tab {
@@ -164,8 +181,8 @@
 .total-expanse-panal-bottom-main {
     margin-top: 20px;
     background: #f3d39e;
-   // border-bottom-left-radius: 10px;
-   // border-bottom-right-radius: 10px;
+    // border-bottom-left-radius: 10px;
+    // border-bottom-right-radius: 10px;
     padding: 10px;
     position: relative;
 
@@ -359,12 +376,9 @@
     }
 }
 
-
-.list-main-filter{
+.list-main-filter {
     height: 100%;
-    
 }
-
 
 .not-transaction-added {
     position: absolute;
@@ -375,43 +389,42 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    .inner-img-main{
-        img{
+    .inner-img-main {
+        img {
             width: 300px;
             margin-bottom: 20px;
-            @include max-mq(1660){
+            @include max-mq(1660) {
                 width: 280px;
             }
-            @include max-mq(1500){
+            @include max-mq(1500) {
                 width: 250px;
             }
-            @include max-mq(1400){
+            @include max-mq(1400) {
                 width: 200px;
             }
-            @include max-mq(1300){
+            @include max-mq(1300) {
                 width: 180px;
             }
         }
     }
 }
 
-
 .main-div-payyes {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    .inner-div-height{
-        .no-payee-found{
+    .inner-div-height {
+        .no-payee-found {
             text-align: center;
             margin-top: 25px;
             font-size: 12px;
         }
-        img{
-            @include max-mq(1660){
+        img {
+            @include max-mq(1660) {
                 width: 300px;
             }
-            @include max-mq(1500){
+            @include max-mq(1500) {
                 width: 250px;
             }
         }

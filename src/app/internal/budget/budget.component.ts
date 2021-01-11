@@ -171,6 +171,7 @@ export class BudgetComponent implements OnInit {
 
     this.isApiCalling = true;
     this.isShimmerloading = true;
+    this.budgetDetailsShimmer = true;
 
     if (this.groupId) {
       var payload = {
@@ -183,7 +184,11 @@ export class BudgetComponent implements OnInit {
       this.http.getCategories(ApiUrl.getBudget, payload).subscribe(res => {
 
         this.isApiCalling = false;
-        this.isShimmerloading = false;
+        this.isShimmerloading = false;        
+
+        if (res.data.data.length == 0) {
+          this.budgetDetailsShimmer = false;
+        }
 
         this.http.showLoader();
         console.log('Budget List', res);
@@ -199,7 +204,7 @@ export class BudgetComponent implements OnInit {
             this.incomeArray = res.data.data;
             console.log('-------------------------', this.incomeArray);
             this.bname = this.incomeArray[0].name;
-            this.selectedBudgetId = this.expenseArray[0]._id;
+            this.selectedBudgetId = this.incomeArray[0]._id;
             this.getBudgetDetailsById(this.incomeArray[0]._id);
           }
         }
@@ -242,7 +247,7 @@ export class BudgetComponent implements OnInit {
     this.step++;
   }
   setType(type) {
-    this.budgetDetails=[]
+    this.budgetDetails = []
     this.budgetDetailsShimmer = true
     this.pageIndex = 0;
     this.recordSelected = 0;
@@ -262,6 +267,7 @@ export class BudgetComponent implements OnInit {
     this.budgetDetailPageIndexTotal = 0;
 
     this.getBudgets();
+    this.getPayeeSummary();
   }
   prevStep() {
     this.step--;

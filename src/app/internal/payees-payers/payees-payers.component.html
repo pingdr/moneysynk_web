@@ -65,15 +65,15 @@
                                             </ng-container>
                                         </div>
                                     </ng-container>
-                                    <ng-template #other_content>    
-                                            <div class="main-div-payyes">
-                                                    <div class="inner-div-height">
-                                                            <img src="../../../assets/images/Payee-found.svg">
-                                                            <div class="no-payee-found">No Payees Found</div>
+                                    <ng-template #other_content>
+                                        <div class="main-div-payyes">
+                                            <div class="inner-div-height">
+                                                <img src="../../../assets/images/Payee-found.svg">
+                                                <div class="no-payee-found">No Payees Found</div>
 
-                                                    </div>
                                             </div>
-            
+                                        </div>
+
                                     </ng-template>
 
                                     <!-- <div class="main-box-character" *ngFor="let char of availableSortData"
@@ -130,6 +130,23 @@
                                 <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
                                     aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
+                                        <div class="for-shimmer-accordian">
+                                            <ng-container *ngIf="payeePayerShimmarLoding">
+                                                <div class="shimmer1">
+                                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                        [height]="'30px'">
+                                                    </ngx-shimmer-loading>
+                                                </div>
+                                                <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                                    <div class="shimmer2">
+                                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                            [height]="'70px'">
+                                                        </ngx-shimmer-loading>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+
                                         <ng-container *ngIf="payeeDetails.length >0; else other_content2">
                                             <mat-accordion>
                                                 <ng-container *ngFor="let ad of payeeDetails">
@@ -152,24 +169,30 @@
                                                         </mat-expansion-panel-header>
                                                         <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2 }"
                                                             *ngIf="ad?.data !=undefined">
-                                                            <div *ngFor="let d of ad?.data" class="inner-expansion-main">
+                                                            <div *ngFor="let d of ad?.data"
+                                                                class="inner-expansion-main">
                                                                 <div class="inner-sub-left">
                                                                     <div class="main-strips">
-                                                                        <div class="holder-name">{{d.accountId.name}}</div>
+                                                                        <div class="holder-name">{{d.accountId.name}}
+                                                                        </div>
                                                                         <div *ngIf="d.transactionType == 'IN'"
                                                                             class="price-tag green-color">
-                                                                            {{convertNumberinPositive(d.amount) | currency}}
+                                                                            {{convertNumberinPositive(d.amount) |
+                                                                            currency}}
                                                                         </div>
                                                                         <div *ngIf="d.transactionType == 'OUT'"
                                                                             class="price-tag red-color">
-                                                                            {{convertNumberinPositive(d.amount) |currency}}
+                                                                            {{convertNumberinPositive(d.amount)
+                                                                            |currency}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="main-strips">
-                                                                        <div class="date-and-time">{{d.createdAt | date:'dd
+                                                                        <div class="date-and-time">{{d.createdAt |
+                                                                            date:'dd
                                                                             MMM yyyy hh:mm a'}}
                                                                         </div>
-                                                                        <img class="edit-icon" (click)="editTransaction(d)"
+                                                                        <img class="edit-icon"
+                                                                            (click)="editTransaction(d)"
                                                                             src="../../../assets/images/edit-pencil.svg">
                                                                     </div>
                                                                 </div>
@@ -177,7 +200,7 @@
                                                         </div>
                                                     </mat-expansion-panel>
                                                 </ng-container>
-                                                <div style="display: flex;float: right; position: relative;top: -28px;"
+                                                <div style="display: flex;float: right; position: relative;top: -11px;"
                                                     *ngIf="payeeIndexTotal > 5">
                                                     <mat-paginator (page)="payeeDetailPageChange($event)"
                                                         [length]="payeeIndexTotal" [pageSize]="5">
@@ -186,11 +209,11 @@
                                             </mat-accordion>
                                         </ng-container>
                                         <ng-template #other_content2>
-                                            <div class="not-transaction-added">
-                                                    <div class="inner-img-main">
-                                                        <img src="../../../assets/images/transaction-no.svg">
-                                                    </div>
-                                                    <div class="not-text-main">No Transaction Found</div>
+                                            <div *ngIf="!payeePayerShimmarLoding" class="not-transaction-added">
+                                                <div class="inner-img-main">
+                                                    <img src="../../../assets/images/transaction-no.svg">
+                                                </div>
+                                                <div class="not-text-main">No Transaction Found</div>
                                             </div>
                                         </ng-template>
                                     </div>
@@ -252,12 +275,12 @@
                                     <ng-template #other_content1>
                                         <div class="main-div-payyes">
                                             <div class="inner-div-height">
-                                                    <img src="../../../assets/images/Payee-found.svg">
-                                                    <div class="no-payee-found">No Payers Found</div>
+                                                <img src="../../../assets/images/Payee-found.svg">
+                                                <div class="no-payee-found">No Payers Found</div>
 
                                             </div>
                                         </div>
-        
+
                                     </ng-template>
 
 
@@ -318,6 +341,23 @@
                                 <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel"
                                     aria-labelledby="nav-list-tab">
                                     <div class="accordian-main">
+                                        <div class="for-shimmer-accordian">
+                                            <ng-container *ngIf="payeePayerShimmarLoding">
+                                                <div class="shimmer1">
+                                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                        [height]="'30px'">
+                                                    </ngx-shimmer-loading>
+                                                </div>
+                                                <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                                    <div class="shimmer2">
+                                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                            [height]="'70px'">
+                                                        </ngx-shimmer-loading>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+
                                         <ng-container *ngIf="payeeDetails.length >0; else other_content3">
                                             <mat-accordion>
                                                 <ng-container *ngFor="let ad of payeeDetails">
@@ -341,24 +381,30 @@
 
                                                         <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2 }"
                                                             *ngIf="ad?.data !=undefined">
-                                                            <div *ngFor="let d of ad?.data" class="inner-expansion-main">
+                                                            <div *ngFor="let d of ad?.data"
+                                                                class="inner-expansion-main">
                                                                 <div class="inner-sub-left">
                                                                     <div class="main-strips">
-                                                                        <div class="holder-name">{{d.accountId.name}}</div>
+                                                                        <div class="holder-name">{{d.accountId.name}}
+                                                                        </div>
                                                                         <div *ngIf="d.transactionType == 'IN'"
                                                                             class="price-tag green-color">
-                                                                            {{convertNumberinPositive(d.amount) | currency}}
+                                                                            {{convertNumberinPositive(d.amount) |
+                                                                            currency}}
                                                                         </div>
                                                                         <div *ngIf="d.transactionType == 'OUT'"
                                                                             class="price-tag red-color">
-                                                                            {{convertNumberinPositive(d.amount) | currency}}
+                                                                            {{convertNumberinPositive(d.amount) |
+                                                                            currency}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="main-strips">
-                                                                        <div class="date-and-time">{{d.createdAt | date:'dd
+                                                                        <div class="date-and-time">{{d.createdAt |
+                                                                            date:'dd
                                                                             MMM yyyy hh:mm a'}}
                                                                         </div>
-                                                                        <img class="edit-icon" (click)="editTransaction(d)"
+                                                                        <img class="edit-icon"
+                                                                            (click)="editTransaction(d)"
                                                                             src="../../../assets/images/edit-pencil.svg">
                                                                     </div>
                                                                 </div>
@@ -366,7 +412,7 @@
                                                         </div>
                                                     </mat-expansion-panel>
                                                 </ng-container>
-                                                <div style="display: flex;float: right; position: relative;top: -28px;"
+                                                <div style="display: flex;float: right; position: relative;top: -11px;"
                                                     *ngIf="payeeIndexTotal > 5">
                                                     <mat-paginator (page)="payeeDetailPageChange($event)"
                                                         [length]="payeeIndexTotal" [pageSize]="5">
@@ -375,11 +421,11 @@
                                             </mat-accordion>
                                         </ng-container>
                                         <ng-template #other_content3>
-                                            <div class="not-transaction-added">
-                                                    <div class="inner-img-main">
-                                                        <img src="../../../assets/images/transaction-no.svg">
-                                                    </div>
-                                                    <div class="not-text-main">No Transaction Found</div>
+                                            <div *ngIf="!payeePayerShimmarLoding" class="not-transaction-added">
+                                                <div class="inner-img-main">
+                                                    <img src="../../../assets/images/transaction-no.svg">
+                                                </div>
+                                                <div class="not-text-main">No Transaction Found</div>
                                             </div>
                                         </ng-template>
                                     </div>
@@ -409,14 +455,16 @@
         </div>
         <div class="boxes">
             <span class="label">Current Balance : </span>
-            <span class="value green-cleared" *ngIf="payeeSummary.currentBalance">{{convertNumberinPositive(payeeSummary.currentBalance) | currency
-            }}</span>
+            <span class="value green-cleared"
+                *ngIf="payeeSummary.currentBalance">{{convertNumberinPositive(payeeSummary.currentBalance) | currency
+                }}</span>
             <span class="value green-cleared" *ngIf="!payeeSummary.currentBalance">$0.00</span>
-            
+
         </div>
         <div class="boxes border-left-custom">
             <span class="label">Income Total : </span>
-            <span class="value" *ngIf="payeeSummary.incomeTotal">{{convertNumberinPositive(payeeSummary.incomeTotal) | currency}}</span>
+            <span class="value" *ngIf="payeeSummary.incomeTotal">{{convertNumberinPositive(payeeSummary.incomeTotal) |
+                currency}}</span>
             <span class="value" *ngIf="!payeeSummary.incomeTotal">$0.00</span>
         </div>
     </div>
