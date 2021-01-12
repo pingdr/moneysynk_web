@@ -18,6 +18,8 @@ import { ChangePasswordComponent } from 'src/app/shared/modals/change-password/c
 export class LoginComponent implements OnInit {
   LoginForm: FormGroup;
   submitted = false;
+  button = 'Login';
+  isLoading = false;
   public loader = false;
   isPasswordShow: boolean = false;
   rememberMeControl = new FormControl(false);
@@ -27,7 +29,7 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, public dialog: MatDialog, public http: HttpService) {
     this.LoginForm = this.formBuilder.group({
 
-      user: ['', [Validators.required, Validators.email]],
+      user: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       rememberme: ['']
 
@@ -48,13 +50,18 @@ export class LoginComponent implements OnInit {
 
   get f() { return this.LoginForm.controls; }
 
+
+
+
   onSubmit() {
     this.submitted = true;
-
     // stop here if form is invalid
     if (this.LoginForm.invalid) {
       return;
     }
+
+    this.isLoading = true;
+    this.button = 'Processing';
 
     if (this.http.isFormValid(this.LoginForm)) {
       this.loader = true;
@@ -76,6 +83,8 @@ export class LoginComponent implements OnInit {
         },
           () => {
             this.loader = false;
+            this.isLoading = false;
+            this.button = 'Login';
           });
     }
 

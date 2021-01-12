@@ -24,7 +24,7 @@ export class ForgotPasswordComponent implements OnInit {
     private toastr: ToastrService,
     public dialogRef: MatDialogRef<ForgotPasswordComponent>) {
     this.email = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
     });
   }
 

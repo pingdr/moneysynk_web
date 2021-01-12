@@ -22,24 +22,30 @@
                         <label class="label-login">Signup to MoneySynk</label>
                         <form autocomplete="new-form" [formGroup]="SignupForm" (ngSubmit)="onSubmit()">
                             <div class="form-group User-name">
-                                <input maxlength="30" type="text" class="form-control" placeholder="Full Name"
+                                <input (keypress)="special_char($event)" maxlength="30" type="text" class="form-control string_trim" placeholder="Full Name"
                                     formControlName="fullName" name="fullName" autocomplete="new-fullName"
                                     [ngClass]="{ 'validate-field': submitted && f.fullName.errors }">
 
                             </div>
                             <div *ngIf="submitted && f.fullName.errors" class="validation-label">
-                                <span *ngIf="f.fullName.errors.required">Full name is required</span>
+                                <span *ngIf="f.fullName.errors.required">
+                                    <!-- Full name is required -->
+                                </span>
                                 <span *ngIf="f.fullName.errors.maxlength"></span>
                             </div>
 
                             <div class="form-group Email-id">
-                                <input type="text" class="form-control" placeholder="Email" formControlName="email"
+                                <input type="text" class="form-control string_trim1" placeholder="Email" formControlName="email"
                                     [ngClass]="{ 'validate-field': submitted && f.email.errors }" name="email"
                                     autocomplete="new-email">
                             </div>
                             <div *ngIf="submitted && f.email.errors" class="validation-label">
-                                <span *ngIf="f.email.errors.required">Email is required</span>
-                                <span *ngIf="f.email.errors.email">Invalid email</span>
+                                <span *ngIf="f.email.errors.required">
+                                    <!-- Email is required -->
+                                </span>
+                                <span *ngIf="f.email.errors.email">
+                                    <!-- Invalid email -->
+                                </span>
                             </div>
 
                             <div class="form-group Password">
@@ -51,15 +57,19 @@
                                         src="../../../assets/images/close-eyes.svg" (click)="showPassword('password')"
                                         *ngIf="isPasswordShow">
                                 </a>
-                                <input maxlength="12" [type]="isPasswordShow ? 'text':'password'" class="form-control"
+                                <input maxlength="12" [type]="isPasswordShow ? 'text':'password'" class="form-control string_trim2"
                                     placeholder="Password" formControlName="password" autocomplete="new-password"
                                     [ngClass]="{ 'validate-field': submitted && f.password.errors }">
                             </div>
 
                             <div *ngIf="submitted && f.password.errors" class="validation-label">
-                                <div *ngIf="f.password.errors.required">Password is required</div>
-                                <div *ngIf="f.password.errors.minlength">Please enter password between 6-12
-                                    character</div>
+                                <div *ngIf="f.password.errors.required">
+                                    <!-- Password is required -->
+                                </div>
+                                <div *ngIf="f.password.errors.minlength">
+                                    <!-- Please enter password between 6-12
+                                    character -->
+                                </div>
                                 <div *ngIf="f.password.errors.maxlength"></div>
                             </div>
 
@@ -73,14 +83,18 @@
                                         (click)="showPassword('confirmPassword')" *ngIf="isConfirmPassworShow">
                                 </a>
                                 <input maxlength="12" [type]="isConfirmPassworShow ? 'text':'password'"
-                                    class="form-control" placeholder="Confirm Password"
+                                    class="form-control string_trim3" placeholder="Confirm Password"
                                     formControlName="confirmPassword"
                                     [ngClass]="{ 'validate-field': submitted && f.confirmPassword.errors }"
                                     autocomplete="new-confirmPassword">                                
                             </div>
                             <div *ngIf="submitted && f.confirmPassword.errors" class="validation-label">
-                                <div *ngIf="f.confirmPassword.errors.required">Confirm password is required</div>
-                                <div *ngIf="f.confirmPassword.errors.mustMatch">Password does not match.</div>
+                                <div *ngIf="f.confirmPassword.errors.required">
+                                    <!-- Confirm password is required -->
+                                </div>
+                                <div *ngIf="f.confirmPassword.errors.mustMatch">
+                                    <!-- Password does not match. -->
+                                </div>
                             </div>
 
                             <div class="form-group Remember-me">
