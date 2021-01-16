@@ -43,7 +43,7 @@ export class AddBudgetModalComponent implements OnInit {
       type: [this.type],
       currentBalance: ['', Validators.required],
       groupId: [this.data.groupId],
-      icon: ['', Validators.required],
+      icon: [''],
       note: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
@@ -140,9 +140,21 @@ export class AddBudgetModalComponent implements OnInit {
           });
     } else {
 
+
+      if(this.editaccount.value.icon == ''){
+       
+        var imageIcon = this.icons[0].path
+
+      }
+      else{
+
+        var imageIcon = this.editaccount.value.icon
+       
+      }
+     
       const data = {
         "name": this.editaccount.value.name,
-        "icon": this.editaccount.value.icon,
+        "icon": imageIcon,
         "type": this.type,
         "startDate": new Date(this.editaccount.value.startDate),
         "endDate": new Date(this.editaccount.value.endDate),

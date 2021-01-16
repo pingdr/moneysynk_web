@@ -111,14 +111,14 @@ export class SignupComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (!this.SignupForm.controls.acceptTerms.value && this.isTermsAndCondition != 0) {
-      this.toastr.error('Please accept T&C');
-    }
+    // if (!this.SignupForm.controls.acceptTerms.value && this.isTermsAndCondition != 0) {
+    //   this.toastr.error('Please accept T&C');
+    // }
 
   
 
     if (this.SignupForm.invalid) {
-      this.isTermsAndCondition = this.isTermsAndCondition + 1;
+      // this.isTermsAndCondition = this.isTermsAndCondition + 1;
       return;
     }
 
