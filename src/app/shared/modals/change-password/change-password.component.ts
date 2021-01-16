@@ -22,6 +22,8 @@ export class ChangePasswordComponent implements OnInit {
   email: any;
   isPasswordShow: boolean = false;
   isConfirmPassworShow: boolean = false;
+  button = 'Submit';
+  isLoading = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -77,6 +79,10 @@ export class ChangePasswordComponent implements OnInit {
       return;
     }
 
+
+    this.isLoading = true;
+    this.button = 'Processing';
+
     if (this.http.isFormValid(this.Password)) {
       this.loader = true;
       this.http.Forgotpassword(ApiUrl.Forgotpassword, this.data.email, this.Password.value.password, false)
@@ -100,6 +106,8 @@ export class ChangePasswordComponent implements OnInit {
           () => {
             console.log('failed');
             this.loader = false;
+            this.isLoading = false;
+            this.button = 'Submit';
           });
 
     }

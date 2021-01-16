@@ -18,6 +18,8 @@ export class VerifyMobileOtpComponent implements OnInit {
   otp: string;
   counctrycode:any;
   showOtpComponent = true;
+  button = 'Verify & Enter';
+  isLoading = false;
   @ViewChild('ngOtpInput', { static: false }) ngOtpInput: any;
   config = {
     allowNumbersOnly: false,
@@ -53,6 +55,8 @@ console.log(this.data);
       countryCode:this.data.counctrycode
     }
     this.loader = true;
+    this.isLoading = true;
+    this.button = 'Processing';
     this.http.verifyMobileOtp(ApiUrl.varifyotp, payload, false)
       .subscribe(data => {
         console.log(data);
@@ -61,6 +65,8 @@ console.log(this.data);
           this.toastr.success('otp verify successfully', 'success', {
             timeOut: 2000
           });
+          this.isLoading = false;
+          this.button = 'Verify & Enter';
           this.sharedserive.mobile_number=this.data.mobile
           this.sharedserive.country_code=this.data.counctrycode
           this.loader = false;
@@ -72,6 +78,8 @@ console.log(this.data);
         () => {
           console.log('failed');
           this.loader = false;
+          this.isLoading = false;
+          this.button = 'Verify & Enter';
         });
 
 

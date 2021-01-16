@@ -17,6 +17,8 @@ export class ForgotPasswordComponent implements OnInit {
   submitted = false;
   public loader = false;
   forgotFlag: any = 1;
+  button = 'Enter';
+  isLoading = false;
 
   constructor(private formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -52,6 +54,10 @@ export class ForgotPasswordComponent implements OnInit {
       return;
     }
 
+
+    this.isLoading = true;
+    this.button = 'Processing';
+
     if (this.http.isFormValid(this.email)) {
       this.loader = true;
       this.http.sendEmailtoForgotPassword(ApiUrl.Forgot, this.email.value.email, false)
@@ -79,6 +85,8 @@ export class ForgotPasswordComponent implements OnInit {
           () => {
             console.log('failed');
             this.loader = false;
+            this.isLoading = false;
+            this.button = 'Enter';
           });
 
     }

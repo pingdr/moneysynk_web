@@ -109,7 +109,8 @@
 
                             </div>
                             <div class="login-btn">
-                                <button title="SignUp" class="btn">SignUp</button>
+                                <!-- <button title="SignUp" class="btn">SignUp</button> -->
+                                <button [disabled]="isLoading" title="SignUp" class="btn"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading}"></i>{{button}}</button>
                             </div>
 
                         </form>

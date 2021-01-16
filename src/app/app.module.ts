@@ -58,6 +58,7 @@ import { EditGroupModalComponent } from './shared/modals/edit-group-modal/edit-g
 import { LogoutModalComponent } from './shared/modals/logout-modal/logout-modal.component';
 import { SharedModule } from './shared/modules/shared.module';
 import { AddEditClassComponent } from './shared/modals/add-edit-class/add-edit-class.component';
+import { CookieService } from 'angular2-cookie/services/cookies.service'
 
 @NgModule({
   declarations: [
@@ -140,7 +141,8 @@ import { AddEditClassComponent } from './shared/modals/add-edit-class/add-edit-c
     SharedService,
     AsyncPipe,
     ExternalAuthguardService,
-    Title
+    Title,
+    CookieService
   ],
   bootstrap: [AppComponent],
   exports: [

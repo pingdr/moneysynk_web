@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "-": "0.0.1",
     "@angular-material-components/datetime-picker": "^5.0.3",
     "@angular/animations": "^10.1.5",
     "@angular/cdk": "^10.2.0",
@@ -27,6 +28,7 @@
     "@rxweb/reactive-form-validators": "^2.1.2",
     "@swimlane/ngx-charts": "^16.0.0",
     "angular-material": "^1.2.0",
+    "angular2-cookie": "^1.2.6",
     "bootstrap": "^4.5.3",
     "chart": "^0.1.2",
     "chart.js": "^2.9.3",

@@ -22,7 +22,10 @@
     </div>
     <div class="otp-code-main">
 
-        <button data-dismiss="modal" data-toggle="modal" class="btn Verify w-100 d-block enter-btn"
-            (click)="save()">Enter</button>
+        <!-- <button data-dismiss="modal" data-toggle="modal" class="btn Verify w-100 d-block enter-btn"
+            (click)="save()">Enter</button> -->
+
+        <button [disabled]="isLoading" data-dismiss="modal" data-toggle="modal" class="btn Verify w-100 d-block enter-btn"
+            (click)="save()"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading}"></i>{{button}}</button>
     </div>
 </div>

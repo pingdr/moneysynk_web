@@ -22,6 +22,8 @@ export class SignupComponent implements OnInit {
   public loader = false;
   public isPasswordShow: boolean = false;
   public isConfirmPassworShow: boolean = false;
+  button = 'SignUp';
+  isLoading = false;
 
   isTermsAndCondition: number = 0;
 
@@ -109,15 +111,20 @@ export class SignupComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-
     if (!this.SignupForm.controls.acceptTerms.value && this.isTermsAndCondition != 0) {
       this.toastr.error('Please accept T&C');
     }
+
+  
 
     if (this.SignupForm.invalid) {
       this.isTermsAndCondition = this.isTermsAndCondition + 1;
       return;
     }
+
+   
+    this.isLoading = true;
+    this.button = 'Processing';
 
     console.log('Signup Form Value', this.SignupForm.value);
 
@@ -133,7 +140,8 @@ export class SignupComponent implements OnInit {
               timeOut: 2000
             });
             const dialogRef = this.dialog.open(EmailOtpComponent, { panelClass: 'otp-modal-main', data: { isforgot: false, email: this.SignupForm.value.email } });
-
+            this.isLoading = false;
+            this.button = 'SignUp';
             dialogRef.afterClosed().subscribe(result => {
               console.log('----------------------------------------', result);
               console.log(`Dialog result: ${result}`);
@@ -142,12 +150,17 @@ export class SignupComponent implements OnInit {
             this.toastr.error('otp not send', 'Error', {
               timeOut: 3000
             });
+           
           }
 
         },
           () => {
             console.log('failed');
             this.loader = false;
+
+            this.isLoading = false;
+            this.button = 'SignUp';
+           
           });
 
     }

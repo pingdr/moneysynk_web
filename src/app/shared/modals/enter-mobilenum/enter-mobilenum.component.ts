@@ -24,6 +24,8 @@ export class EnterMobilenumComponent implements OnInit {
   public loader = false;
   isValidFormSubmitted = null;
   dialogRefofOtpModal: MatDialogRef<VerifyMobileOtpComponent>;
+  button = 'Enter';
+  isLoading = false;
 
   public form: FormGroup;
   constructor(private testService: TestService,
@@ -67,6 +69,11 @@ export class EnterMobilenumComponent implements OnInit {
     if (this.addmobile.get('mobile_no').errors) {
       return;
     }
+
+
+    this.isLoading = true;
+    this.button = 'Processing';
+
     
     this.dialogRef.close(this.dialogRef);
 
@@ -87,7 +94,9 @@ export class EnterMobilenumComponent implements OnInit {
           });
           const dialogRef = this.dialog.open(VerifyMobileOtpComponent, { panelClass: 'otp-modal-main',
           data: { mobile: payload.mobile,counctrycode:payload.countryCode } });
-
+        
+          this.isLoading = false;
+          this.button = 'Enter';
 
           dialogRef.afterClosed().subscribe(result => {
             console.log(`Dialog result: ${result}`);
@@ -104,6 +113,9 @@ export class EnterMobilenumComponent implements OnInit {
         () => {
           console.log('failed');
           this.loader = false;
+          this.isLoading = false;
+          this.button = 'Enter';
+      
         });
 
   }

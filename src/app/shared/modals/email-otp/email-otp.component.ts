@@ -18,6 +18,8 @@ export class EmailOtpComponent implements OnInit {
   public loader = false;
   email: any;
   forgoteEmail: any;
+  button = 'Verify';
+  isLoading = false;
 
   dialogRefofOtpModal: MatDialogRef<EnterMobilenumComponent>;
 
@@ -108,6 +110,8 @@ else{
   openOtpmodal() {
 
     this.loader = true;
+    this.isLoading = true;
+    this.button = 'Processing';
     this.http.verifyOtp(ApiUrl.varifyotp, this.data.email, this.otp, false)
       .subscribe(data => {
         console.log(data);
@@ -148,6 +152,8 @@ else{
         () => {
 
           this.loader = false;
+          this.isLoading = false;
+          this.button = 'Verify';
         });
 
 
