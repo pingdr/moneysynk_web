@@ -45,6 +45,7 @@ export class TransactionComponent implements OnInit {
   ngOnInit() {
     this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
+      console.log(this.groupId)
       if (data) {
         this.getTansactionData();
       }
@@ -97,7 +98,9 @@ export class TransactionComponent implements OnInit {
       pageIndex: this.pageIndex,
       limit: 10,
       startDate: this.startDate,
-      endDate: this.endDate
+      endDate: this.endDate,
+      'groupId': this.groupId
+
     }
 
     this.isApiCalling = true;

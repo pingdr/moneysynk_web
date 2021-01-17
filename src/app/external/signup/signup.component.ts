@@ -50,7 +50,7 @@ export class SignupComponent implements OnInit {
       email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
       confirmPassword: ['', Validators.required],
-      acceptTerms: ['', Validators.required]
+      acceptTerms: ['']
     }, {
       validator: MustMatch('password', 'confirmPassword')
     });

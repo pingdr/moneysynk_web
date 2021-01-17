@@ -37,7 +37,9 @@
         width: 5%;
     }
     .account-type {
-        width: 70%;
+
+        width: 88%;
+
     }
     .pricing-icon {
         width: 25%;
@@ -57,7 +59,8 @@
         width: 10%;
         text-align: right;
         .edit-btn {
-            margin-right: 25px;
+        
+    margin-right: 33px;
             cursor: pointer;
             @include max-mq(1200) {
                 margin-right: 10px;

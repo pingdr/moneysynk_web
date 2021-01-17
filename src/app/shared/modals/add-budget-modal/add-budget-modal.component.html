@@ -163,9 +163,11 @@
         <div class="form-group notes-section-main">
             <label>Note</label>
             <mat-form-field appearance="fill">
-                <textarea style="border-radius: 20px !important;" matInput placeholder="Add note here" formControlName="note" [ngModel]="budgetData.note"
+                <!-- <textarea style="border-radius: 20px !important;" matInput placeholder="Add note here" formControlName="note" [ngModel]="budgetData.note"
                     maxlength="150" [ngClass]="{ 'is-invalid': submitted && f.note.errors || f.note.errors?.maxlength }"
-                    [readonly]="isEdit"></textarea>
+                    [readonly]="isEdit"></textarea> -->
+                    <textarea style="border-radius: 20px !important;" matInput placeholder="Add note here" formControlName="note" [ngModel]="budgetData.note"
+                    maxlength="150" [ngClass]="{ 'is-invalid': submitted && f.note.errors || f.note.errors?.maxlength }"></textarea>
             </mat-form-field>
         </div>
 
