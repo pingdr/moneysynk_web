@@ -44,7 +44,7 @@ export class AddBudgetModalComponent implements OnInit {
       currentBalance: ['', Validators.required],
       groupId: [this.data.groupId],
       icon: [''],
-      note: ['', Validators.required],
+      note: [''],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       cyclePeriod: ['', Validators.required],

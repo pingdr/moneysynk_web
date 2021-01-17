@@ -327,6 +327,15 @@ export class AddEntryComponent implements OnInit {
       return;
     }
 
+    if(this.editentry.value.amount<1){
+      this.toastr.error('Zero is not allowed in amount', 'error', {
+        timeOut: 2000
+      });
+
+      return;
+
+    }
+
     if (this.selectedChild) {
       this.editentry.controls.categoryId.setValue(this.selectedChild);
     }

@@ -167,7 +167,7 @@
                     maxlength="150" [ngClass]="{ 'is-invalid': submitted && f.note.errors || f.note.errors?.maxlength }"
                     [readonly]="isEdit"></textarea> -->
                     <textarea style="border-radius: 20px !important;" matInput placeholder="Add note here" formControlName="note" [ngModel]="budgetData.note"
-                    maxlength="150" [ngClass]="{ 'is-invalid': submitted && f.note.errors || f.note.errors?.maxlength }"></textarea>
+                    maxlength="150"></textarea>
             </mat-form-field>
         </div>
 
