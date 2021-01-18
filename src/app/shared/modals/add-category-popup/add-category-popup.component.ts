@@ -25,7 +25,7 @@ export class AddCategoryPopupComponent implements OnInit {
     this.Addaccountentry = this.formBuilder.group({
       // title: ['', Validators.required],
       name: ['', Validators.required],
-      icon: ['', Validators.required],
+      icon: [''],
       parent: ['', Validators.required],
       note: [null],
       type: [this.data.type],
@@ -39,7 +39,7 @@ export class AddCategoryPopupComponent implements OnInit {
     this.http.get(ApiUrl.icons).subscribe((res) => {
       this.isApiCalling = false;
       this.icons = res.data
-
+   
       if (this.categoryData.icon != undefined) {
         this.isSelected = this.icons.findIndex(x => x.path === this.categoryData.icon);
         this.Addaccountentry.controls.icon.setValue(this.categoryData.icon);
@@ -95,7 +95,26 @@ export class AddCategoryPopupComponent implements OnInit {
             this.loader = false;
           });
     } else {
-      this.http.addEditCategory(ApiUrl.addEditCategory, this.Addaccountentry.value, false)
+     
+
+      if(this.Addaccountentry.value.icon!=''){
+
+        var imageIcon=this.Addaccountentry.value.icon
+
+      }else{
+        var imageIcon=this.icons[0].path
+      }
+   
+      var payload ={
+        "groupId":this.data.groupId,
+        "icon":imageIcon,
+        "name":this.Addaccountentry.value.name,
+        "note":this.Addaccountentry.value.note,
+        "parent":this.Addaccountentry.value.parent,
+        "type":this.data.type
+      }
+
+      this.http.addEditCategory(ApiUrl.addEditCategory, payload, false)
         .subscribe(res => {
           this.isApiCalling = false;
           let response = res;
