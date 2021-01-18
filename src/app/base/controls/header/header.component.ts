@@ -9,6 +9,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { LogoutModalComponent } from 'src/app/shared/modals/logout-modal/logout-modal.component';
 import { Overlay } from '@angular/cdk/overlay';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+declare var $:any
 
 @Component({
   selector: 'app-header',
@@ -35,6 +36,16 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+
+    $(document).on('keypress', '#inputTextBox', function (event) {
+      var regex = new RegExp("^[a-zA-Z ]+$");
+      var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+      if (!regex.test(key)) {
+          event.preventDefault();
+          return false;
+      }
+  });
 
     this.user = JSON.parse(localStorage.getItem('loginData'));
 
@@ -176,5 +187,15 @@ export class HeaderComponent implements OnInit {
   // alert(){
   //   this.status1=true;
   // }
+  special_char(event)
+  {   
+     var k;  
+     k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+     return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57)); 
+  
+
+  }
+
+
 
 }

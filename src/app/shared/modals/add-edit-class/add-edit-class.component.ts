@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/services/http.service';
 import { ApiUrl } from 'src/app/services/apiurl';
+declare var $:any
 
 @Component({
   selector: 'app-add-edit-class',
@@ -24,6 +25,18 @@ export class AddEditClassComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    $(document).on('keypress', '#inputTextBox', function (event) {
+      var regex = new RegExp("^[a-zA-Z ]+$");
+      var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+      if (!regex.test(key)) {
+          event.preventDefault();
+          return false;
+      }
+  });
+
+
+
     this.classForm = this.formBuilder.group({
       name: ['', Validators.required],
     });
@@ -76,6 +89,15 @@ export class AddEditClassComponent implements OnInit {
 
   hideModal() {
     this.dialogRef.close(this.dialogRef);
+  }
+
+  special_char(event)
+  {   
+     var k;  
+     k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+     return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57)); 
+  
+
   }
 
 }

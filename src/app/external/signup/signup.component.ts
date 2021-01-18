@@ -136,7 +136,7 @@ export class SignupComponent implements OnInit {
           console.log('SignUp Response', response);
           if (response.statusCode == 200) {
 
-            this.toastr.success('otp send successfully', 'success', {
+            this.toastr.success('New otp sent successfully', 'success', {
               timeOut: 2000
             });
             const dialogRef = this.dialog.open(EmailOtpComponent, { panelClass: 'otp-modal-main', data: { isforgot: false, email: this.SignupForm.value.email } });

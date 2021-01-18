@@ -63,12 +63,12 @@ export class EmailOtpComponent implements OnInit {
         let response: any = data;
 
         if (response.statusCode == 200) {
-          this.toastr.success('otp send successfully', 'success', {
+          this.toastr.success('New otp sent successfully', 'success', {
             timeOut: 2000
           });
           // localStorage.setItem('otpemail', this.data.email);
         } else {
-          this.toastr.error('otp not send', ' Error', {
+          this.toastr.error('Otp not send', ' Error', {
             timeOut: 3000
           });
         }
@@ -86,12 +86,12 @@ else{
         let response: any = data;
 
         if (response.statusCode == 200) {
-          this.toastr.success('otp send successfully', 'success', {
+          this.toastr.success('New otp sent successfully', 'success', {
             timeOut: 2000
           });
           // localStorage.setItem('otpemail', this.data.email);
         } else {
-          this.toastr.error('otp not send', ' Error', {
+          this.toastr.error('Otp not send', ' Error', {
             timeOut: 3000
           });
         }
@@ -135,7 +135,7 @@ else{
 
             this.dialogRef.close(this.dialogRef);
             const dialogRef = this.dialog.open(EnterMobilenumComponent, { panelClass: 'otp-modal-main' });
-            this.toastr.success('otp verify successfully', 'success', {
+            this.toastr.success('Otp verify successfully', 'success', {
               timeOut: 2000
             });
 

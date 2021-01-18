@@ -47,6 +47,19 @@ export class AppComponent {
         var s = str.replace(/\s+/, "");
         $('.string_trim6').val($.trim(s));
       });
+      $(document).on("keyup", ".string_trim7", function () {
+        var str = $(this).val();
+        var s = str.replace(/\s+/, "");
+        $('.string_trim7').val($.trim(s));
+      });
+
+      $(document).on("keyup", ".string_trim8", function () {
+        var str = $(this).val();
+        var s = str.replace(/\s+/, "");
+        $('.string_trim8').val($.trim(s));
+      });
+
+      
     });
   }
 
