@@ -126,6 +126,17 @@ export class AddEditAccountComponent implements OnInit {
 
     if (this.data.editdata == undefined) {
 
+      if(this.editaccount.value.icon == ''){
+       
+        var imageIcon = this.icons[0].path
+
+      }
+      else{
+
+        var imageIcon = this.editaccount.value.icon
+       
+      }
+
       var payload = {
 
         "groupId": this.groupId,
@@ -137,7 +148,7 @@ export class AddEditAccountComponent implements OnInit {
         "phoneNumber": this.editaccount.value.phoneNumber,
         "accountType": this.editaccount.value.accountType,
         "website": this.editaccount.value.website,
-        "icon": this.editaccount.value.icon,
+        "icon": imageIcon,
         "note": this.editaccount.value.note
 
 
