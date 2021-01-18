@@ -17,7 +17,7 @@
         <div class="form-group">
             <label>Name</label>
             <mat-form-field appearance="fill">
-                <input class="textTransform" matInput maxlength="40" placeholder="Account Name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <input id="inputTextBox" class="textTransform" matInput maxlength="40" placeholder="Account Name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
 
             </mat-form-field>
         </div>
@@ -45,7 +45,7 @@
             <label>Open Date</label>
             <mat-form-field appearance="fill">
 
-                <input matInput [matDatepicker]="picker" (focus)="picker.open()" formControlName="openDate" [ngClass]="{ 'is-invalid': submitted && f.openDate.errors }">
+                <input placeholder="Select Date" matInput [matDatepicker]="picker" (focus)="picker.open()" formControlName="openDate" [ngClass]="{ 'is-invalid': submitted && f.openDate.errors }">
 
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>

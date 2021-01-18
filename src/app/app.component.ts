@@ -59,6 +59,16 @@ export class AppComponent {
         $('.string_trim8').val($.trim(s));
       });
 
+
+      $(document).on('keypress', '#inputTextBox', function (event) {
+        var regex = new RegExp("^[a-zA-Z ]+$");
+        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        if (!regex.test(key)) {
+            event.preventDefault();
+            return false;
+        }
+    });
+
       
     });
   }

@@ -37,16 +37,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-
-    $(document).on('keypress', '#inputTextBox', function (event) {
-      var regex = new RegExp("^[a-zA-Z ]+$");
-      var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-      if (!regex.test(key)) {
-          event.preventDefault();
-          return false;
-      }
-  });
-
     this.user = JSON.parse(localStorage.getItem('loginData'));
 
     this.clickEventsubscription = this.sharedService.deleteEditGroupChange.subscribe((data) => {

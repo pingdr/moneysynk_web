@@ -10,7 +10,7 @@
     <div class="container">
         <form [formGroup]="classForm" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="fill">
-                <input (keypress)="special_char($event)" id="inputTextBox" class="string_trim8" matInput placeholder="Enter Class Name" name="className" maxlength="40" formControlName="name"
+                <input (keypress)="special_char($event)" id="inputTextBox"  matInput placeholder="Enter Class Name" name="className" maxlength="40" formControlName="name"
                     [(ngModel)]="data.className" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
             </mat-form-field>
 

@@ -22,7 +22,7 @@
                         <label class="label-login">Signup to MoneySynk</label>
                         <form autocomplete="new-form" [formGroup]="SignupForm" (ngSubmit)="onSubmit()">
                             <div class="form-group User-name">
-                                <input (keypress)="special_char($event)" maxlength="30" type="text" class="form-control string_trim" placeholder="Full Name"
+                                <input id="inputTextBox" (keypress)="special_char($event)" maxlength="30" type="text" class="form-control" placeholder="Full Name"
                                     formControlName="fullName" name="fullName" autocomplete="new-fullName"
                                     [ngClass]="{ 'validate-field': submitted && f.fullName.errors }">
 
