@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { transactionLists } from 'src/app/services/CustomPaginatorConfiguration';
 import { Subscription } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-transaction',
@@ -56,7 +57,7 @@ export class TransactionComponent implements OnInit {
       if (data) {
         this.searchData(data);
       }
-      
+
       else {
         this.getTansactionData();
       }
@@ -66,7 +67,6 @@ export class TransactionComponent implements OnInit {
 
 
   searchData(searchValue) {
-
     var payload = {
       'groupId': this.groupId,
       'value': searchValue
@@ -91,46 +91,145 @@ export class TransactionComponent implements OnInit {
 
   }
 
-  
+
 
   getTansactionData() {
-    var payload = {
-      pageIndex: this.pageIndex,
-      limit: 10,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      'groupId': this.groupId
-
-    }
 
     this.isApiCalling = true;
     this.isShimmerloding = true;
 
-    this.http.getAccount(ApiUrl.getTransactions, payload).subscribe(res => {
-
-      this.isApiCalling = false;
-      this.isShimmerloding = false;
-
-      this.http.showLoader();
-      if (res.data != undefined) {
-        this.transactionList = [];
-        this.resultsLength = res.data.totalTransactions;
-        this.transactionList = res.data.data;
-        console.log('------------------------------------')
-        console.log(this.transactionList)
+    if (this.groupId) {
+      var payload = {
+        pageIndex: this.pageIndex,
+        limit: 10,
+        startDate: this.startDate,
+        endDate: this.endDate,
+        'groupId': this.groupId
       }
-    });
+
+      this.http.getAccount(ApiUrl.getTransactions, payload).subscribe(res => {
+
+        this.isApiCalling = false;
+        this.isShimmerloding = false;
+
+        this.http.showLoader();
+        if (res.data != undefined) {
+          this.transactionList = [];
+          this.resultsLength = res.data.totalTransactions;
+          this.transactionList = res.data.data;
+          console.log('------------------------------------')
+          console.log(this.transactionList)
+        }
+      });
+    }
   }
 
-  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {    
+
+  onFilterChange(type) {
+    console.log(type);
+
+    switch (type) {
+      case 'Daily':
+        this.onDailyList();
+        break;
+      case 'Weekly':
+        this.onWeeklyList();
+        break;
+      case 'Monthly':
+        this.onMonthlyList();
+        break;
+      case 'Quaterly':
+        this.onQuaterlyList();
+        break;
+      case 'Yearly':
+        this.onYearlyList();
+        break;
+      default:
+        break;
+    }
+  }
+
+
+  onDailyList() {
+    this.startDate = "";
+    this.startDate = "";
+    this.pageIndex = 0;
+    this.resultsLength = 0;
+    this.getTansactionData();
+  }
+
+  onWeeklyList() {
+    let startOfWeek: any = moment().startOf('isoWeek');;
+    let endOfWeekany: any = moment().endOf('isoWeek');
+
+    this.startDate = moment(startOfWeek).format('YYYY-MM-DD');
+    this.endDate = moment(endOfWeekany).add(1, 'day').format('YYYY-MM-DD');
+    this.pageIndex = 0;
+    this.resultsLength = 0;
+
+    if (this.startDate && this.endDate) {
+      this.getTansactionData();
+    }
+  }
+
+
+  onMonthlyList() {
+    let month: any;
+
+    this.startDate = moment(month).startOf('month').format('YYYY-MM-DD');
+    this.endDate = moment(month).endOf('month').add(1, 'day').format('YYYY-MM-DD');
+    this.pageIndex = 0;
+    this.resultsLength = 0;
+
+    console.log(this.startDate, this.endDate);
+
+    if (this.startDate && this.endDate) {
+      this.getTansactionData();
+    }
+  }
+
+  onQuaterlyList() {
+    let quater: any;
+
+    this.startDate = moment(quater).startOf('quarter').format('YYYY-MM-DD');
+    this.endDate = moment(quater).endOf('quarter').add(1, 'day').format('YYYY-MM-DD');
+    this.pageIndex = 0;
+    this.resultsLength = 0;
+
+    console.log(this.startDate, this.endDate);
+
+    if (this.startDate && this.endDate) {
+      this.getTansactionData();
+    }
+  }
+
+
+  onYearlyList() {
+    let year: any;
+
+    this.startDate = moment(year).startOf('year').format('YYYY-MM-DD');
+    this.endDate = moment(year).endOf('year').add(1, 'day').format('YYYY-MM-DD');
+    this.pageIndex = 0;
+    this.resultsLength = 0;
+
+    console.log(this.startDate, this.endDate);
+
+    if (this.startDate && this.endDate) {
+      this.getTansactionData();
+    }
+  }
+
+  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
     let startDate: Date = new Date(dateRangeStart.value);
     let endDate: Date = new Date(dateRangeEnd.value);
 
     let startMonth = startDate.getMonth() + 1;
     let endMonth = endDate.getMonth() + 1;
 
+    let endGetDate = endDate.getDate() + 1;
+
     this.startDate = startDate.getFullYear() + '-' + startMonth + '-' + startDate.getDate();
-    this.endDate = endDate.getFullYear() + '-' + endMonth + '-' + endDate.getDate();
+    this.endDate = endDate.getFullYear() + '-' + endMonth + '-' + endGetDate;
 
     if (dateRangeStart.value && dateRangeEnd.value) {
       this.getTansactionData();
@@ -145,7 +244,7 @@ export class TransactionComponent implements OnInit {
 
 
   editEntry(id) {
-    this.router.navigate(['/update-entry/' + id]);    
+    this.router.navigate(['/update-entry/' + id]);
   }
 
   deleteTransaction(id, beneficiaryName) {

@@ -22,15 +22,19 @@
     <nav class="asset-main-tab">
         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-asset" role="tab"
-                aria-controls="nav-home" aria-selected="true">Daily</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-cash" role="tab"
-                aria-controls="nav-profile" aria-selected="false">Weekly</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-monthly" role="tab"
-                aria-controls="nav-profile" aria-selected="false">Monthly</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-quaterly" role="tab"
-                aria-controls="nav-profile" aria-selected="false">Quaterly</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-yearly" role="tab"
-                aria-controls="nav-profile" aria-selected="false">Yearly</a>
+                aria-controls="nav-home" aria-selected="true" (click)="onFilterChange('Daily')">Daily</a>
+
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-asset" role="tab"
+                aria-controls="nav-profile" aria-selected="false" (click)="onFilterChange('Weekly')">Weekly</a>
+
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-asset" role="tab"
+                aria-controls="nav-profile" aria-selected="false" (click)="onFilterChange('Monthly')">Monthly</a>
+
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-asset" role="tab"
+                aria-controls="nav-profile" aria-selected="false" (click)="onFilterChange('Quaterly')">Quaterly</a>
+
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-asset" role="tab"
+                aria-controls="nav-profile" aria-selected="false" (click)="onFilterChange('Yearly')">Yearly</a>
 
         </div>
         <div class="filter-main">
@@ -89,7 +93,7 @@
                                 <td class="amount">${{t.amount}}</td>
                                 <td class="account-type"><span class="label-saving">{{t.accountId.name}}</span> </td>
                                 <td class="category">{{t.categoryId.name}}</td>
-                                <td class="created-date"> {{t.dateTime | date}} </td>
+                                <td class="created-date"> {{t.createdAt | date}} </td>
                                 <td class="class-name">
                                     <span *ngIf="t.classId?.name">{{t.classId?.name}}</span>
                                     <span *ngIf="!t.classId?.name">-</span>
@@ -118,9 +122,8 @@
             </div>
         </div>
         <!-------------------------second tab--------------------------- -->
-        <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
-
-            <!---------------------------Table--------------------------------------->
+        
+        <!-- <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
             <div class="table-main">
                 <table class="tran-table">
                     <thead>
@@ -229,12 +232,12 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> -->
         <!-------------------------third tab--------------------------- -->
         <div class="tab-pane fade" id="nav-monthly" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-            <!---------------------------Table--------------------------------------->
-            <div class="table-main">
+            
+            <!-- <div class="table-main">
                 <table class="tran-table">
                     <thead>
                         <tr>
@@ -351,15 +354,14 @@
                     </tbody>
                 </table>
 
-            </div>
+            </div> -->
 
         </div>
 
         <!-------------------------Fourth tab--------------------------- -->
         <div class="tab-pane fade" id="nav-quaterly" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-            <!---------------------------Table--------------------------------------->
-            <div class="table-main">
+            <!-- <div class="table-main">
                 <table class="tran-table">
                     <thead>
                         <tr>
@@ -477,14 +479,12 @@
 
                 </table>
 
-            </div>
+            </div> -->
 
         </div>
         <!-------------------------Fifth tab--------------------------- -->
-        <div class="tab-pane fade" id="nav-yearly" role="tabpanel" aria-labelledby="nav-profile-tab">
-
-            <!---------------------------Table--------------------------------------->
-            <div class="table-main">
+        <div class="tab-pane fade" id="nav-yearly" role="tabpanel" aria-labelledby="nav-profile-tab">            
+            <!-- <div class="table-main">
                 <table class="tran-table">
                     <thead>
                         <tr>
@@ -597,8 +597,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-
+            </div> -->
         </div>
 
 
