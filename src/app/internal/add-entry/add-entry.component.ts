@@ -328,7 +328,7 @@ export class AddEntryComponent implements OnInit {
     }
 
     if(this.editentry.value.amount<1){
-      this.toastr.error('Zero is not allowed in amount', 'error', {
+      this.toastr.error('zero is not allowed in amount', 'error', {
         timeOut: 2000
       });
 

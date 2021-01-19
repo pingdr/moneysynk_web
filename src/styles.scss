@@ -1650,3 +1650,8 @@ body {
 //     position: absolute !important;
 //     right: 30px !important;
 // }
+
+
+.toast-message:first-letter {
+    text-transform: capitalize;
+  }

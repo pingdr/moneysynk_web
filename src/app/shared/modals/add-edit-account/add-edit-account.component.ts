@@ -126,6 +126,14 @@ export class AddEditAccountComponent implements OnInit {
 
     if (this.data.editdata == undefined) {
 
+      if (!isNaN(this.editaccount.value.name)) {
+       this.editaccount.value.name.invalid
+        this.toastr.error('only number is not allow in account name', 'error', {
+          timeOut: 2000
+        });
+        return;
+      }
+ 
       if(this.editaccount.value.icon == ''){
        
         var imageIcon = this.icons[0].path
@@ -258,6 +266,15 @@ export class AddEditAccountComponent implements OnInit {
 
   hideModal() {
     this.dialogRef.close(this.dialogRef);
+  }
+
+
+  special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+
+
   }
 
 

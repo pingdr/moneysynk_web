@@ -43,6 +43,16 @@ export class AddEditClassComponent implements OnInit {
       return;
     }
 
+    if(!isNaN(this.classForm.value.name)){
+      this.toastr.error('only number is not allow', 'error', {
+        timeOut: 2000
+      });
+      return;
+    }
+
+
+   
+
     var payload = {
       "groupId": this.data.groupId,
       "name": this.classForm.value.name,

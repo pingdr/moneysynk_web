@@ -9,7 +9,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { LogoutModalComponent } from 'src/app/shared/modals/logout-modal/logout-modal.component';
 import { Overlay } from '@angular/cdk/overlay';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-declare var $:any
+declare var $: any
 
 @Component({
   selector: 'app-header',
@@ -71,9 +71,14 @@ export class HeaderComponent implements OnInit {
   }
 
   saveGroup() {
-    this.filterName = '';
 
-    if (this.group != null) {
+    if (this.group != '') {
+      if (!isNaN(this.group)) {
+        this.toastr.error('only number is not allow', 'error', {
+          timeOut: 2000
+        });
+        return;
+      }
 
       var payload = {
 
@@ -85,7 +90,7 @@ export class HeaderComponent implements OnInit {
         .subscribe(res => {
           let response = res;
           if (response.statusCode == 200) {
-
+            this.filterName = '';
             this.toastr.success('Group added successfully', 'success', {
               timeOut: 2000
             });
@@ -137,7 +142,7 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  getActivatedRoute(){
+  getActivatedRoute() {
     let activatedUrl: any = this.router.url;
     console.log(activatedUrl)
   }
@@ -146,7 +151,7 @@ export class HeaderComponent implements OnInit {
     let activatedUrl: any = this.router.url;
     let searchValue = event.target.value;
     this.sharedService.searchData(searchValue);
-    
+
     console.log(searchValue)
 
     // switch (activatedUrl) {
@@ -177,12 +182,11 @@ export class HeaderComponent implements OnInit {
   // alert(){
   //   this.status1=true;
   // }
-  special_char(event)
-  {   
-     var k;  
-     k = event.charCode;  //         k = event.keyCode;  (Both can be used)
-     return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57)); 
-  
+  special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+
 
   }
 

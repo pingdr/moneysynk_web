@@ -89,7 +89,7 @@ export class EnterMobilenumComponent implements OnInit {
         console.log(response);
         if (response.statusCode == 200) {
 
-          this.toastr.success('otp send successfully', 'success', {
+          this.toastr.success('Otp send successfully', 'success', {
             timeOut: 2000
           });
           const dialogRef = this.dialog.open(VerifyMobileOtpComponent, { panelClass: 'otp-modal-main',

@@ -62,7 +62,7 @@ console.log(this.data);
         console.log(data);
         let response: any = data;
         if (response.statusCode == 200) {
-          this.toastr.success('otp verify successfully', 'success', {
+          this.toastr.success('Otp verify successfully', 'success', {
             timeOut: 2000
           });
           this.isLoading = false;
@@ -110,12 +110,12 @@ console.log(this.data);
         let response: any = data;
       
         if(response.statusCode==200){
-          this.toastr.success('otp resend successfully', 'success', {
+          this.toastr.success('Otp resend successfully', 'success', {
             timeOut: 2000
           });
     
         }else{
-          this.toastr.error('otp not send', 'Major Error', {
+          this.toastr.error('Otp not send', 'Major Error', {
             timeOut: 3000
           });
         }
