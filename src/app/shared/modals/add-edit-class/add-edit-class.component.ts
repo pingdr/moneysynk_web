@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/services/http.service';
 import { ApiUrl } from 'src/app/services/apiurl';
-declare var $:any
+declare var $: any
 
 @Component({
   selector: 'app-add-edit-class',
@@ -26,7 +26,7 @@ export class AddEditClassComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
+
     this.classForm = this.formBuilder.group({
       name: ['', Validators.required],
     });
@@ -43,47 +43,53 @@ export class AddEditClassComponent implements OnInit {
       return;
     }
 
-    if(!isNaN(this.classForm.value.name)){
-      this.toastr.error('only number is not allow', 'error', {
-        timeOut: 2000
-      });
-      return;
-    }
+    // if(!isNaN(this.classForm.value.name)){
+    //   this.toastr.error('only number is not allow', 'error', {
+    //     timeOut: 2000
+    //   });
+    //   return;
+    // }
 
 
-   
 
-    var payload = {
-      "groupId": this.data.groupId,
-      "name": this.classForm.value.name,
-    }
 
-    if (this.data.id != undefined) {
-      this.http.addAccountType(ApiUrl.classes + '/' + this.data.id, payload, false)
-        .subscribe(res => {
-          let response = res;
-          if (response.statusCode == 200) {
-            this.toastr.success('Class updated successfully', 'success', {
-              timeOut: 2000
-            });
-          }
+    var regex = new RegExp("[a-zA-Z][a-zA-Z ]*");
 
-          this.hideModal();
-
-        });
+    if (!regex.test(this.classForm.value.name,)) {
+      this.toastr.error('Please enter valid class name', 'Invalid')
     } else {
-      this.http.addAccountType(ApiUrl.classes, payload, false)
-        .subscribe(res => {
-          let response = res;
-          if (response.statusCode == 200) {
-            this.toastr.success('Class added successfully', 'success', {
-              timeOut: 2000
-            });
-          }
+      var payload = {
+        "groupId": this.data.groupId,
+        "name": this.classForm.value.name,
+      }
 
-          this.hideModal();
+      if (this.data.id != undefined) {
+        this.http.addAccountType(ApiUrl.classes + '/' + this.data.id, payload, false)
+          .subscribe(res => {
+            let response = res;
+            if (response.statusCode == 200) {
+              this.toastr.success('Class updated successfully', 'success', {
+                timeOut: 2000
+              });
+            }
 
-        });
+            this.hideModal();
+
+          });
+      } else {
+        this.http.addAccountType(ApiUrl.classes, payload, false)
+          .subscribe(res => {
+            let response = res;
+            if (response.statusCode == 200) {
+              this.toastr.success('Class added successfully', 'success', {
+                timeOut: 2000
+              });
+            }
+
+            this.hideModal();
+
+          });
+      }
     }
   }
 
@@ -91,12 +97,11 @@ export class AddEditClassComponent implements OnInit {
     this.dialogRef.close(this.dialogRef);
   }
 
-  special_char(event)
-  {   
-     var k;  
-     k = event.charCode;  //         k = event.keyCode;  (Both can be used)
-     return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57)); 
-  
+  special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+
 
   }
 

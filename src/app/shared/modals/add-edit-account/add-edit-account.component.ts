@@ -53,7 +53,7 @@ export class AddEditAccountComponent implements OnInit {
         icon: [this.data.editdata.icon],
         note: [this.data.editdata.note]
       });
-      this.editaccount.controls.currentBalance.disable({onlySelf:true})
+      this.editaccount.controls.currentBalance.disable({ onlySelf: true })
     } else {
       this.editaccount = this.formBuilder.group({
         name: ['', Validators.required],
@@ -127,22 +127,22 @@ export class AddEditAccountComponent implements OnInit {
     if (this.data.editdata == undefined) {
 
       if (!isNaN(this.editaccount.value.name)) {
-       this.editaccount.value.name.invalid
+        this.editaccount.value.name.invalid
         this.toastr.error('only number is not allow in account name', 'error', {
           timeOut: 2000
         });
         return;
       }
- 
-      if(this.editaccount.value.icon == ''){
-       
+
+      if (this.editaccount.value.icon == '') {
+
         var imageIcon = this.icons[0].path
 
       }
-      else{
+      else {
 
         var imageIcon = this.editaccount.value.icon
-       
+
       }
 
       var payload = {
@@ -234,33 +234,41 @@ export class AddEditAccountComponent implements OnInit {
     this.editaccount.controls.icon.setValue(path);
   }
   saveType() {
+
+    var regex = new RegExp("[a-zA-Z][a-zA-Z ]*");
     this.filterName = '';
 
     if (this.accountType != "") {
 
-      var payload = {
 
-        "groupId": this.groupId,
-        "name": this.accountType,
+      if (!regex.test(this.accountType)) {
+        this.toastr.error('Please enter valid account type name', 'Invalid')
+      } else {
 
+        var payload = {
+
+          "groupId": this.groupId,
+          "name": this.accountType,
+
+        }
+        this.loader = true;
+        this.http.addAccountType(ApiUrl.addAccountType, payload, false)
+          .subscribe(res => {
+            let response = res;
+            if (response.statusCode == 200) {
+              this.accountType = "";
+              this.toastr.success('Account type added successfully', 'success', {
+                timeOut: 2000
+              });
+
+            }
+
+            this.getAllAccountType();
+          });
       }
-      this.loader = true;
-      this.http.addAccountType(ApiUrl.addAccountType, payload, false)
-        .subscribe(res => {
-          let response = res;
-          if (response.statusCode == 200) {
-            this.accountType = "";
-            this.toastr.success('Account type added successfully', 'success', {
-              timeOut: 2000
-            });
-
-          }
-
-          this.getAllAccountType();
-        });
 
     } else {
-      alert('Please add account Type')
+      this.toastr.error('Please enter account type name', 'Empty')
     }
   }
 

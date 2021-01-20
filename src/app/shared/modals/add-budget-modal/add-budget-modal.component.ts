@@ -93,6 +93,10 @@ export class AddBudgetModalComponent implements OnInit {
 
   onSubmit() {
 
+    var regex = new RegExp("[a-zA-Z][a-zA-Z ]*");
+
+
+
     this.submitted = true;
     console.log(this.editaccount.invalid);
 
@@ -103,87 +107,91 @@ export class AddBudgetModalComponent implements OnInit {
       return;
     }
 
-    this.loader = true;
-    this.isApiCalling = true;
-
-
-    if (this.budgetData._id) {
-      const data = {
-        "name": this.editaccount.value.name,
-        "icon": this.editaccount.value.icon,
-        "type": this.type,
-        "startDate": new Date(this.editaccount.value.startDate),
-        "endDate": new Date(this.editaccount.value.endDate),
-        "cycle": {
-          "period": this.editaccount.value.cyclePeriod,
-          "value": this.editaccount.value.cycleValue.toString()
-        },
-        "note": this.editaccount.value.note,
-        "groupId": this.editaccount.value.groupId
-      };
-
-      this.http.addEditBudget(ApiUrl.addEditBudget + '/' + this.budgetData._id, data, false)
-        .subscribe(res => {
-          this.isApiCalling = false;
-          let response = res;
-          if (response.statusCode == 200) {
-            this.toastr.success('Budget updated successfully', 'success', {
-              timeOut: 2000
-            });
-          }
-          this.dialogRef.close(this.dialogRef);
-          this.http.navigate('budget');
-        },
-          () => {
-            this.isApiCalling = false;
-            this.loader = false;
-          });
+    if (!regex.test(this.editaccount.value.name)) {
+      this.toastr.error('Please enter valid budget name', 'Invalid');
     } else {
+      this.loader = true;
+      this.isApiCalling = true;
 
+      if (this.budgetData._id) {
+        const data = {
+          "name": this.editaccount.value.name,
+          "icon": this.editaccount.value.icon,
+          "type": this.type,
+          "startDate": new Date(this.editaccount.value.startDate),
+          "endDate": new Date(this.editaccount.value.endDate),
+          "cycle": {
+            "period": this.editaccount.value.cyclePeriod,
+            "value": this.editaccount.value.cycleValue.toString()
+          },
+          "note": this.editaccount.value.note,
+          "groupId": this.editaccount.value.groupId
+        };
 
-      if(this.editaccount.value.icon == ''){
-       
-        var imageIcon = this.icons[0].path
-
-      }
-      else{
-
-        var imageIcon = this.editaccount.value.icon
-       
-      }
-     
-      const data = {
-        "name": this.editaccount.value.name,
-        "icon": imageIcon,
-        "type": this.type,
-        "startDate": new Date(this.editaccount.value.startDate),
-        "endDate": new Date(this.editaccount.value.endDate),
-        "currentBalance":this.editaccount.value.currentBalance,
-        "cycle": {
-          "period": this.editaccount.value.cyclePeriod,
-          "value": this.editaccount.value.cycleValue.toString()
-        },
-        "note": this.editaccount.value.note,
-        "groupId": this.editaccount.value.groupId
-      };
-
-      this.http.addEditBudget(ApiUrl.addEditBudget, data, false)
-        .subscribe(res => {
-          this.isApiCalling = false;
-          let response = res;
-          if (response.statusCode == 200) {
-            this.toastr.success('Budget added successfully', 'success', {
-              timeOut: 2000
-            });
-          }
-          this.dialogRef.close(this.dialogRef);
-          this.http.navigate('budget');
-        },
-          () => {
+        this.http.addEditBudget(ApiUrl.addEditBudget + '/' + this.budgetData._id, data, false)
+          .subscribe(res => {
             this.isApiCalling = false;
-            this.loader = false;
-          });
+            let response = res;
+            if (response.statusCode == 200) {
+              this.toastr.success('Budget updated successfully', 'success', {
+                timeOut: 2000
+              });
+            }
+            this.dialogRef.close(this.dialogRef);
+            this.http.navigate('budget');
+          },
+            () => {
+              this.isApiCalling = false;
+              this.loader = false;
+            });
+      } else {
+
+
+        if (this.editaccount.value.icon == '') {
+
+          var imageIcon = this.icons[0].path
+
+        }
+        else {
+
+          var imageIcon = this.editaccount.value.icon
+
+        }
+
+        const data = {
+          "name": this.editaccount.value.name,
+          "icon": imageIcon,
+          "type": this.type,
+          "startDate": new Date(this.editaccount.value.startDate),
+          "endDate": new Date(this.editaccount.value.endDate),
+          "currentBalance": this.editaccount.value.currentBalance,
+          "cycle": {
+            "period": this.editaccount.value.cyclePeriod,
+            "value": this.editaccount.value.cycleValue.toString()
+          },
+          "note": this.editaccount.value.note,
+          "groupId": this.editaccount.value.groupId
+        };
+
+        this.http.addEditBudget(ApiUrl.addEditBudget, data, false)
+          .subscribe(res => {
+            this.isApiCalling = false;
+            let response = res;
+            if (response.statusCode == 200) {
+              this.toastr.success('Budget added successfully', 'success', {
+                timeOut: 2000
+              });
+            }
+            this.dialogRef.close(this.dialogRef);
+            this.http.navigate('budget');
+          },
+            () => {
+              this.isApiCalling = false;
+              this.loader = false;
+            });
+      }
     }
+
   }
 
 
