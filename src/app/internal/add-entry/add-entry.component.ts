@@ -321,14 +321,14 @@ export class AddEntryComponent implements OnInit {
   }
 
   onSubmit() {
-    
+
     this.submitted = true;
     // stop here if form is invalid
     if (this.editentry.invalid) {
       return;
     }
 
-    if(this.editentry.value.amount<1){
+    if (this.editentry.value.amount < 1) {
       this.toastr.error('zero is not allowed in amount', 'error', {
         timeOut: 2000
       });
@@ -364,24 +364,81 @@ export class AddEntryComponent implements OnInit {
             this.isApiCalling = false;
           });
     } else {
-      this.http.post(ApiUrl.getTransactions, this.editentry.value, false)
-        .subscribe(res => {
-          this.isApiCalling = false;
-          let response = res;
-          if (response.statusCode == 200) {
-            this.toastr.success('Transaction added successfully', 'success', {
-              timeOut: 2000
+      console.log('this.editentry.value.financialSourceId')
+      console.log(this.editentry.value)
+
+      if (this.editentry.value.financialSourceId) {
+        var payload = {
+          "accountId": this.editentry.value.accountId,
+          "amount": this.editentry.value.amount,
+          "beneficiaryId": this.editentry.value.beneficiaryId,
+          "beneficiaryType": this.editentry.value.beneficiaryType,
+          "categoryId": this.editentry.value.categoryId,
+          "chequeNumber": this.editentry.value.chequeNumber,
+          "classId": this.editentry.value.classId,
+          "cleared": this.editentry.value.cleared,
+          "dateTime": this.editentry.value.dateTime,
+          "financialSourceId": this.editentry.value.financialSourceId,
+          "groupId": this.editentry.value.groupId,
+          "note": this.editentry.value.note,
+          "transactionType": this.editentry.value.transactionType,
+        }
+
+        this.http.post(ApiUrl.getTransactions, payload, false)
+          .subscribe(res => {
+            this.isApiCalling = false;
+            let response = res;
+            if (response.statusCode == 200) {
+              this.toastr.success('Transaction added successfully', 'success', {
+                timeOut: 2000
+              });
+
+              this.router.navigate(['/transactions']);
+            }
+          },
+            () => {
+              this.isApiCalling = false;
             });
 
-            this.router.navigate(['/transactions']);
-          }
-        },
-          () => {
+      }
+      else {
+
+        var payload1 = {
+          "accountId": this.editentry.value.accountId,
+          "amount": this.editentry.value.amount,
+          "beneficiaryId": this.editentry.value.beneficiaryId,
+          "beneficiaryType": this.editentry.value.beneficiaryType,
+          "categoryId": this.editentry.value.categoryId,
+          "chequeNumber": this.editentry.value.chequeNumber,
+          "classId": this.editentry.value.classId,
+          "cleared": this.editentry.value.cleared,
+          "dateTime": this.editentry.value.dateTime,
+          "groupId": this.editentry.value.groupId,
+          "note": this.editentry.value.note,
+          "transactionType": this.editentry.value.transactionType,
+        }
+
+
+
+        this.http.post(ApiUrl.getTransactions, payload1, false)
+          .subscribe(res => {
             this.isApiCalling = false;
-          });
+            let response = res;
+            if (response.statusCode == 200) {
+              this.toastr.success('Transaction added successfully', 'success', {
+                timeOut: 2000
+              });
+
+              this.router.navigate(['/transactions']);
+            }
+          },
+            () => {
+              this.isApiCalling = false;
+            });
+
+      }
+
     }
-    // display form values on success
-    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.editaccount.value, null, 4));
   }
 
 
