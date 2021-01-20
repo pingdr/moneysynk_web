@@ -149,18 +149,25 @@ export class AddEntryComponent implements OnInit {
   getEntryBYId() {
     let transactionId: any = this.activatedRouter.snapshot.params['id'];
     this.http.getEntryById('transactions?transactionId=' + transactionId).subscribe((res: any) => {
+
       if (res && res.data.data) {
         this.accountEntryDetail = res.data.data;
         this.editentry.controls.beneficiaryId.setValue(this.accountEntryDetail.beneficiaryId._id);
         this.editentry.controls.amount.setValue(this.accountEntryDetail.amount);
         this.editentry.controls.accountId.setValue(this.accountEntryDetail.accountId._id);
-        this.editentry.controls.classId.setValue(this.accountEntryDetail.classId._id);
-        // this.editentry.controls.categoryId.setValue(this.accountEntryDetail.categoryId._id);
+        this.editentry.controls.categoryId.setValue(this.accountEntryDetail.categoryId._id);
         this.editentry.controls.chequeNumber.setValue(this.accountEntryDetail.chequeNumber);
         this.editentry.controls.dateTime.setValue(this.accountEntryDetail.dateTime);
-        this.editentry.controls.cleared.setValue(this.accountEntryDetail.cleared);
-        this.editentry.controls.financialSourceId.setValue(this.accountEntryDetail.financialSourceId._id);
+        // this.editentry.controls.cleared.setValue(this.accountEntryDetail.cleared);
         this.editentry.controls.note.setValue(this.accountEntryDetail.note);
+        if(this.accountEntryDetail.financialSourceId._id){
+        this.editentry.controls.financialSourceId.setValue(this.accountEntryDetail.financialSourceId._id);
+        }
+        if(this.accountEntryDetail.classId._id){
+          this.editentry.controls.classId.setValue(this.accountEntryDetail.classId._id);
+        }
+    
+       
 
         this.amount = this.accountEntryDetail.amount;
 
@@ -177,6 +184,7 @@ export class AddEntryComponent implements OnInit {
         console.log('Account Detail', res.data.data);
       }
     });
+   
   }
 
   setCategoryOrSubCategory(data) {
@@ -349,7 +357,42 @@ export class AddEntryComponent implements OnInit {
     this.isApiCalling = true;
 
     if (this.accountEntryDetail._id && this.accountEntryDetail._id != undefined) {
-      this.http.post(ApiUrl.getTransactions + '/' + this.accountEntryDetail._id, this.editentry.value, false)
+         
+     var classdata
+
+     var financialdata
+
+if(this.editentry.value.classId){
+   classdata = this.editentry.value.classId
+}else{
+  classdata = ""
+}
+
+if (this.editentry.value.financialSourceId){
+
+  financialdata = this.editentry.value.financialSourceId
+
+}else{
+  financialdata = ""
+}
+        var payload = {
+          "accountId": this.editentry.value.accountId,
+          "amount": this.editentry.value.amount,
+          "beneficiaryId": this.editentry.value.beneficiaryId,
+          "beneficiaryType": this.editentry.value.beneficiaryType,
+          "categoryId": this.editentry.value.categoryId,
+          "chequeNumber": this.editentry.value.chequeNumber,
+          "classId": classdata,
+          "cleared": this.editentry.value.cleared,
+          "dateTime": this.editentry.value.dateTime,
+          "financialSourceId": financialdata,
+          "groupId": this.editentry.value.groupId,
+          "note": this.editentry.value.note,
+          "transactionType": this.editentry.value.transactionType,
+        }
+
+
+        this.http.post(ApiUrl.getTransactions + '/' + this.accountEntryDetail._id, payload, false)
         .subscribe(res => {
           this.isApiCalling = false;
           let response = res;
@@ -363,6 +406,12 @@ export class AddEntryComponent implements OnInit {
           () => {
             this.isApiCalling = false;
           });
+
+
+      
+   
+
+     
     } else {
       console.log('this.editentry.value.financialSourceId')
       console.log(this.editentry.value)
