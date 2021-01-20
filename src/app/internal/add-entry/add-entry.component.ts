@@ -71,28 +71,33 @@ export class AddEntryComponent implements OnInit {
 
     if (this.className != "") {
 
-      var payload = {
-        "groupId": this.groupId,
-        "name": this.className,
+      var regex = new RegExp("[a-zA-Z][a-zA-Z ]*");
+
+      if (!regex.test(this.className)) {
+        this.toastr.error('Please enter valid class name', 'Invalid');
+      } else {
+        var payload = {
+          "groupId": this.groupId,
+          "name": this.className,
+        }
+        this.isApiCalling = true;
+        this.http.addAccountType(ApiUrl.classes, payload, false)
+          .subscribe(res => {
+            this.isApiCalling = false;
+            let response = res;
+            if (response.statusCode == 200) {
+              this.className = "";
+              this.toastr.success('Class added successfully', 'success', {
+                timeOut: 2000
+              });
+
+            }
+
+            this.getClasses();
+          });
       }
-      this.isApiCalling = true;
-      this.http.addAccountType(ApiUrl.classes, payload, false)
-        .subscribe(res => {
-          this.isApiCalling = false;
-          let response = res;
-          if (response.statusCode == 200) {
-            this.className = "";
-            this.toastr.success('Class added successfully', 'success', {
-              timeOut: 2000
-            });
-
-          }
-
-          this.getClasses();
-        });
-
     } else {
-      alert('please add class name')
+      this.toastr.error('Please enter class name', 'Empty');
     }
   }
 

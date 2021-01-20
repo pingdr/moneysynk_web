@@ -62,6 +62,9 @@ export class AddPayeeComponent implements OnInit {
   }
 
   onSubmit() {
+
+    var regex = new RegExp("^[a-zA-Z]");
+
     this.submitted = true;
 
     // stop here if form is invalid
@@ -70,63 +73,68 @@ export class AddPayeeComponent implements OnInit {
       return;
     }
 
-    this.loader = true;
-    this.isApiCalling = true;
-    if (this.selectedChild) {
-      this.Addaccountentry.value.categoryId = this.selectedChild;
-    }
-
-    if (this.catgroyDetails._id != undefined) {
-      const data = {
-        "name": this.capitalizeFirstLetter(this.Addaccountentry.value.name),
-        "categoryId": this.catgroyDetails.categoryId,
-        "type": this.Addaccountentry.value.type,
-        "note": this.Addaccountentry.value.note,
-        "groupId": this.data.groupId
-      }
-
-      this.http.post(ApiUrl.addEditPayee + '/' + this.data.objData._id, data, false)
-        .subscribe(res => {
-          this.isApiCalling = false;
-          let response = res;
-          if (response.statusCode == 200) {
-            this.toastr.success('Payee updated successfully', 'success', {
-              timeOut: 2000
-            });
-          }
-          this.dialogRef.close(this.dialogRef);
-          this.http.navigate('payees');
-        },
-          () => {
-            this.loader = false;
-            this.isApiCalling = false;
-          });
+    if (!regex.test(this.Addaccountentry.value.name)) {
+      this.toastr.error(`Please enter valid ${(this.data.type).toLowerCase()} name`, 'Invalid');
     } else {
-
-      const data = {
-        "name": this.capitalizeFirstLetter(this.Addaccountentry.value.name),
-        "categoryId": this.Addaccountentry.value.categoryId,
-        "type": this.Addaccountentry.value.type,
-        "note": this.Addaccountentry.value.note,
-        "groupId": this.data.groupId
+      this.loader = true;
+      this.isApiCalling = true;
+      if (this.selectedChild) {
+        this.Addaccountentry.value.categoryId = this.selectedChild;
       }
 
-      this.http.post(ApiUrl.addEditPayee, data, false)
-        .subscribe(res => {
-          this.isApiCalling = false;
-          let response = res;
-          if (response.statusCode == 200) {
-            this.toastr.success('Payee added successfully', 'success', {
-              timeOut: 2000
-            });
-          }
-          this.dialogRef.close(this.dialogRef);
-          this.http.navigate('payees');
-        },
-          () => {
-            this.loader = false;
+      if (this.catgroyDetails._id != undefined) {
+        const data = {
+          "name": this.capitalizeFirstLetter(this.Addaccountentry.value.name),
+          "categoryId": this.catgroyDetails.categoryId,
+          "type": this.Addaccountentry.value.type,
+          "note": this.Addaccountentry.value.note,
+          "groupId": this.data.groupId
+        }
+
+        this.http.post(ApiUrl.addEditPayee + '/' + this.data.objData._id, data, false)
+          .subscribe(res => {
             this.isApiCalling = false;
-          });
+            let response = res;
+            if (response.statusCode == 200) {
+              this.toastr.success('Payee updated successfully', 'success', {
+                timeOut: 2000
+              });
+            }
+            this.dialogRef.close(this.dialogRef);
+            this.http.navigate('payees');
+          },
+            () => {
+              this.loader = false;
+              this.isApiCalling = false;
+            });
+      } else {
+
+        const data = {
+          "name": this.capitalizeFirstLetter(this.Addaccountentry.value.name),
+          "categoryId": this.Addaccountentry.value.categoryId,
+          "type": this.Addaccountentry.value.type,
+          "note": this.Addaccountentry.value.note,
+          "groupId": this.data.groupId
+        }
+
+        this.http.post(ApiUrl.addEditPayee, data, false)
+          .subscribe(res => {
+            this.isApiCalling = false;
+            let response = res;
+            if (response.statusCode == 200) {
+              this.toastr.success('Payee added successfully', 'success', {
+                timeOut: 2000
+              });
+            }
+            this.dialogRef.close(this.dialogRef);
+            this.http.navigate('payees');
+          },
+            () => {
+              this.loader = false;
+              this.isApiCalling = false;
+            });
+      }
+
     }
 
 
