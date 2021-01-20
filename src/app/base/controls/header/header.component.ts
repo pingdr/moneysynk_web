@@ -73,34 +73,41 @@ export class HeaderComponent implements OnInit {
   saveGroup() {
 
     if (this.group != '') {
-      if (!isNaN(this.group)) {
-        this.toastr.error('only number is not allow', 'error', {
-          timeOut: 2000
-        });
-        return;
+
+      // if (!isNaN(this.group)) {
+      //   this.toastr.error('only number is not allow', 'error', {
+      //     timeOut: 2000
+      //   });
+      //   return;
+      // }
+
+
+      var regex = new RegExp("[a-zA-Z][a-zA-Z ]*");
+
+      if (!regex.test(this.group)) {
+        this.toastr.error('Please enter valid group name', 'Invalid');
+      } else {
+
+        var payload = {
+          "name": this.group
+        }
+
+        this.http.addGroup(ApiUrl.addGrop, payload, false)
+          .subscribe(res => {
+            let response = res;
+            if (response.statusCode == 200) {
+              this.filterName = '';
+              this.toastr.success('Group added successfully', 'success', {
+                timeOut: 2000
+              });
+
+              this.getAllGroup();
+              this.sharedService.addGroup(true);
+              // this.sharedService.getSettingsGroupList();
+            }
+
+          });
       }
-
-      var payload = {
-
-        "name": this.group
-
-      }
-
-      this.http.addGroup(ApiUrl.addGrop, payload, false)
-        .subscribe(res => {
-          let response = res;
-          if (response.statusCode == 200) {
-            this.filterName = '';
-            this.toastr.success('Group added successfully', 'success', {
-              timeOut: 2000
-            });
-
-            this.getAllGroup();
-            this.sharedService.addGroup(true);
-            // this.sharedService.getSettingsGroupList();
-          }
-
-        });
 
     } else {
       this.toastr.error('Please enter group name');

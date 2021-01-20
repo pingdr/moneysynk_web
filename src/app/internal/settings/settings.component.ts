@@ -159,6 +159,21 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+
+  openAddGroupModal() {
+    const dialogRef = this.dialog.open(EditGroupModalComponent, {
+      panelClass: 'account-modal-main',
+      width: '350px',
+      data: { type: 'AddGroup', data: '' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');      
+      this.getAllGroup();
+      this.sharedService.deleteEditGroup(true);
+    });
+  }
+
   openAddClassModal() {
     const dialogRef = this.dialog.open(AddEditClassComponent, {
       panelClass: 'account-modal-main',
