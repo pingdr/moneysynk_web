@@ -27,7 +27,14 @@ export class EditGroupModalComponent implements OnInit {
   }
 
   editGroup() {    
-    if (this.groupName != '') {     
+    if (this.groupName != '') {
+      if (!isNaN(this.groupName)) {
+        this.toastr.error('only number is not allow', 'error', {
+          timeOut: 2000
+        });
+        return;
+      }
+           
       this.http.editGroup(this.data.id, { name: this.groupName }).subscribe((res:any) => {
         console.log('Group Response',res);  
         if(res.statusCode==200){
@@ -42,5 +49,15 @@ export class EditGroupModalComponent implements OnInit {
   hideModal() {
     this.dialogRef.close(this.dialogRef);
   }
+
+
+  special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+
+
+  }
+
 
 }

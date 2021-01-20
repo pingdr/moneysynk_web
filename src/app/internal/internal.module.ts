@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 
 
+
 const routes: Routes = [{
     path: '', component: InternalComponent,
     children: [
@@ -63,6 +64,10 @@ const routes: Routes = [{
         {
             path: 'update-entry/:id',
             loadChildren: () => import('./add-entry/add-entry.module').then(m => m.AddEntryModule)
+        },
+        {
+            path: 'bill-list',
+            loadChildren: () => import('./bill-list/bill-list.module').then(m => m.BillListModule)
         }
     ]
 }];
@@ -94,6 +99,7 @@ const routes: Routes = [{
         HeaderComponent,
         SidebarComponent,
         FooterComponent,
+    
 
 
 

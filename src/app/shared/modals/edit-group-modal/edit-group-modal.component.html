@@ -8,7 +8,7 @@
 <div class="form-group-main group-edit-section">
     <div class="container">
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Check Number" name="groupName" [(ngModel)]="groupName">
+            <input (keypress)="special_char($event)" matInput placeholder="Check Number" name="groupName" [(ngModel)]="groupName">
         </mat-form-field>
 
         <div class="last-section">

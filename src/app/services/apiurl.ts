@@ -38,7 +38,8 @@ export const ApiUrl = {
     deleteAccountTypes: 'accountTypes',
     getAccountById: 'accounts',
     addBill: 'bills',
-    addTransfer: 'transferFinancialSources'
+    addTransfer: 'transferFinancialSources',
+    getbill: 'bills',
 
 };
 

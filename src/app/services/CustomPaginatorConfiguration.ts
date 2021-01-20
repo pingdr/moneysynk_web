@@ -34,4 +34,13 @@ export function transactionLists() {
   return customPaginatorIntl;
 }
 
+export function billperpage() {
+  const customPaginatorIntl = new MatPaginatorIntl();
+
+  customPaginatorIntl.itemsPerPageLabel = 'Bills per page:';
+
+  return customPaginatorIntl;
+}
+
+
 
