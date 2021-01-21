@@ -5,8 +5,9 @@
                 <div class="main-left-login">
                     <div class="logo">
                         <img src="/assets/images/logo.svg" alt="logo" title="Moneysynk" class="image-responsive">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                            been the industry's standard dummy text ever since the 1500s,</p>
+                        <p>Eradicate complex payment records, instead, maintain your balance sheet and client portfolios
+                            with simplicity. Don’t rely upon vague predictions but make wiser financial choices with
+                            Moneysynk's statistics-driven analysis.</p>
                     </div>
 
                     <div class="login-graphic">
@@ -22,8 +23,9 @@
                         <label class="label-login">Signup to MoneySynk</label>
                         <form autocomplete="new-form" [formGroup]="SignupForm" (ngSubmit)="onSubmit()">
                             <div class="form-group User-name">
-                                <input id="inputTextBox" (keypress)="special_char($event)" maxlength="30" type="text" class="form-control" placeholder="Full Name"
-                                    formControlName="fullName" name="fullName" autocomplete="new-fullName"
+                                <input id="inputTextBox" (keypress)="special_char($event)" maxlength="30" type="text"
+                                    class="form-control" placeholder="Full Name" formControlName="fullName"
+                                    name="fullName" autocomplete="new-fullName"
                                     [ngClass]="{ 'validate-field': submitted && f.fullName.errors }">
 
                             </div>
@@ -35,7 +37,8 @@
                             </div>
 
                             <div class="form-group Email-id">
-                                <input type="text" class="form-control string_trim1" placeholder="Email" formControlName="email"
+                                <input type="text" class="form-control string_trim1" placeholder="Email"
+                                    formControlName="email"
                                     [ngClass]="{ 'validate-field': submitted && f.email.errors }" name="email"
                                     autocomplete="new-email">
                             </div>
@@ -57,8 +60,9 @@
                                         src="../../../assets/images/close-eyes.svg" (click)="showPassword('password')"
                                         *ngIf="isPasswordShow">
                                 </a>
-                                <input maxlength="12" [type]="isPasswordShow ? 'text':'password'" class="form-control string_trim2"
-                                    placeholder="Password" formControlName="password" autocomplete="new-password"
+                                <input maxlength="12" [type]="isPasswordShow ? 'text':'password'"
+                                    class="form-control string_trim2" placeholder="Password" formControlName="password"
+                                    autocomplete="new-password"
                                     [ngClass]="{ 'validate-field': submitted && f.password.errors }">
                             </div>
 
@@ -86,7 +90,7 @@
                                     class="form-control string_trim3" placeholder="Confirm Password"
                                     formControlName="confirmPassword"
                                     [ngClass]="{ 'validate-field': submitted && f.confirmPassword.errors }"
-                                    autocomplete="new-confirmPassword">                                
+                                    autocomplete="new-confirmPassword">
                             </div>
                             <div *ngIf="submitted && f.confirmPassword.errors" class="validation-label">
                                 <div *ngIf="f.confirmPassword.errors.required">
@@ -102,7 +106,7 @@
                                     <!-- <input type="checkbox" formControlName="acceptTerms" id="acceptTerms"
                                         class="form-check-input" (change)="onchangeTnC($event)"
                                         [ngClass]="{ 'validate-field': submitted && f.acceptTerms.errors }"> -->
-                                    <label for="vehicle1"> By registering you agree to T&C </label>
+                                    <label for="vehicle1"> By registering you agree to <span style="text-decoration: underline; cursor: pointer;">T&C</span> </label>
                                     <div *ngIf="submitted && f.acceptTerms.errors" class="validation-label"
                                         style="display: none"></div>
                                 </div>
@@ -110,7 +114,10 @@
                             </div>
                             <div class="login-btn">
                                 <!-- <button title="SignUp" class="btn">SignUp</button> -->
-                                <button [disabled]="isLoading" title="SignUp" class="btn"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading}"></i>{{button}}</button>
+                                <!-- <button [disabled]="isLoading" title="SignUp" class="btn"><i class="fa"
+                                        [ngClass]="{'fa-spin fa-spinner': isLoading}"></i>{{button}}</button> -->
+
+                                        <button title="SignUp" [disabled]="isLoading" class="btn"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading}"></i> {{button}}</button>
                             </div>
 
                         </form>

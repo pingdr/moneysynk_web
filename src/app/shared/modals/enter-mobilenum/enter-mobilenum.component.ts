@@ -75,7 +75,7 @@ export class EnterMobilenumComponent implements OnInit {
     this.button = 'Processing';
 
     
-    this.dialogRef.close(this.dialogRef);
+  
 
     this.loader = true;
     let payload = {
@@ -88,6 +88,8 @@ export class EnterMobilenumComponent implements OnInit {
       
         console.log(response);
         if (response.statusCode == 200) {
+
+            this.dialogRef.close(this.dialogRef);
 
           this.toastr.success('Otp send successfully', 'success', {
             timeOut: 2000

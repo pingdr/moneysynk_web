@@ -17,7 +17,7 @@
         <div class="form-group">
             <label>Name</label>
             <mat-form-field appearance="fill">
-                <input (keypress)="special_char($event)" class="textTransform" matInput maxlength="40" placeholder="Account Name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <input class="textTransform" matInput maxlength="40" placeholder="Account Name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
 
             </mat-form-field>
         </div>

@@ -223,9 +223,16 @@ export class AddBillComponent implements OnInit {
   }
 
   onSubmit() {
+    
     this.submitted = true;
 
-    console.log(this.editentry.value);
+    if(this.amount==undefined){
+
+      this.toastr.error('please enter bill amount', 'error', {
+        timeOut: 2000
+      });
+
+    }
 
     const data = {
       "amount": this.amount,
@@ -249,6 +256,7 @@ export class AddBillComponent implements OnInit {
     if (this.editentry.invalid) {
       return false;
     }
+   
     if (this.amount) {
       this.editentry.controls.amount.setValue(this.amount);
       this.isApiCalling = true;

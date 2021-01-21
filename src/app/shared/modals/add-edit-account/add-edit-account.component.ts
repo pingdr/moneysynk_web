@@ -124,15 +124,14 @@ export class AddEditAccountComponent implements OnInit {
       return;
     }
 
-    if (this.data.editdata == undefined) {
+    var regex = new RegExp("[a-zA-Z][a-zA-Z ]*");
 
-      if (!isNaN(this.editaccount.value.name)) {
-        this.editaccount.value.name.invalid
-        this.toastr.error('only number is not allow in account name', 'error', {
-          timeOut: 2000
-        });
-        return;
-      }
+    if (!regex.test(this.editaccount.value.name)) {
+      this.toastr.error('Please enter valid account name', 'Invalid');
+      return
+    }
+
+    if (this.data.editdata == undefined) {
 
       if (this.editaccount.value.icon == '') {
 
