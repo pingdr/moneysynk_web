@@ -1,5 +1,6 @@
 <div class="heading-modal">
-    <span>Add Budget</span>
+    <span *ngIf="budgetData._id==undefined">Add Budget</span>
+    <span *ngIf="budgetData._id!=undefined">Update Budget</span>
     <button class="btn" [mat-dialog-close]>
         <img src="../../../assets/images/close.svg">
     </button>
@@ -67,7 +68,7 @@
             <label>Start Date</label>
             <mat-form-field appearance="fill">
 
-                <input matInput [matDatepicker]="picker" (focus)="picker.open()" formControlName="startDate"
+                <input placeholder="Select Date" matInput [matDatepicker]="picker" (focus)="picker.open()" formControlName="startDate"
                     [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }" [ngModel]="budgetData.startDate"
                     [disabled]="isEdit">
                 <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
@@ -92,7 +93,7 @@
             <label>End Date</label>
             <mat-form-field appearance="fill">
 
-                <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" formControlName="endDate"
+                <input placeholder="Select Date" matInput [matDatepicker]="picker1" (focus)="picker1.open()" formControlName="endDate"
                     [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }" [ngModel]="budgetData.endDate"
                     [disabled]="isEdit">
                 <div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">

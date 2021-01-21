@@ -110,6 +110,15 @@ export class AddBudgetModalComponent implements OnInit {
     if (!regex.test(this.editaccount.value.name)) {
       this.toastr.error('Please enter valid budget name', 'Invalid');
     } else {
+
+      if (this.editaccount.value.currentBalance < 1) {
+        this.toastr.error('zero is not allowed in amount', 'error', {
+          timeOut: 2000
+        });
+  
+        return;
+  
+      }
       this.loader = true;
       this.isApiCalling = true;
 
