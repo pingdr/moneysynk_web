@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy, VERSION } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy, VERSION, ChangeDetectorRef } from '@angular/core';
 import { TestService } from './test.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
@@ -31,7 +31,9 @@ export class EnterMobilenumComponent implements OnInit {
   constructor(private testService: TestService,
     public http: HttpService, public dialog: MatDialog, private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<EnterMobilenumComponent>,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    public detectChange:ChangeDetectorRef
+    ) {
     this.testService.initializeForm();
   }
 
@@ -117,7 +119,7 @@ export class EnterMobilenumComponent implements OnInit {
           this.loader = false;
           this.isLoading = false;
           this.button = 'Enter';
-      
+          this.detectChange.detectChanges()
         });
 
   }

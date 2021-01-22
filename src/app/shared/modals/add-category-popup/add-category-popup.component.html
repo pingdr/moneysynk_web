@@ -67,7 +67,8 @@
         </div>
 
         <div class="last-section">
-            <button class="btn"> Save</button>
+            <button *ngIf="!categoryData._id" class="btn"> Save</button>
+            <button *ngIf="categoryData._id" class="btn"> Update</button>
         </div>
     </form>
 

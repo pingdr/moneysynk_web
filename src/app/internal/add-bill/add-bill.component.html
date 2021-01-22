@@ -12,7 +12,7 @@
             <button class="refresh-btn" [ngClass]="{ 'active-btn' : isbtnSelected == 3 }"> refresh</button>
         </div>
         <div class="main-input-filed-entry">
-            <input type="text" [(ngModel)]="amount" name="amount" placeholder="$0" maxlength="6">
+            <input  type="text" [(ngModel)]="amount" name="amount" placeholder="$0" maxlength="6">
         </div>
     </div>
 </div>
@@ -66,8 +66,7 @@
             <div class="form-group">
                 <label>Class</label>
                 <mat-form-field appearance="fill">
-                    <mat-select name="group" id="group" class="groupRight" appearance="fill" formControlName="classId"
-                        [ngClass]="{ 'is-invalid': submitted && f.classId.errors }">
+                    <mat-select name="group" id="group" class="groupRight" appearance="fill" formControlName="classId">
                         <mat-option>None</mat-option>
                         <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option>
                         <mat-form-field appearance="fill">
@@ -106,12 +105,23 @@
             </div>
             <div class="form-group">
                 <label>Date Time</label>
-                <mat-form-field appearance="fill">
+                <!-- <mat-form-field appearance="fill">
                     <input formControlName="dateTime" (focus)="picker.open()" matInput [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field> -->
+                <mat-form-field appearance="fill">
+                    <input matInput formControlName="dateTime" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2"
+                        placeholder="Date Time" [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }">
+                    <span [owlDateTimeTrigger]="dt2"><i style="position: absolute;
+                        top: 17px;
+                        bottom: 0;
+                        margin: auto;
+                        right: 22px;" class="fa fa-calendar"></i></span>
+                    <owl-date-time #dt2 [hour12Timer]="true"></owl-date-time>
                 </mat-form-field>
             </div>
+            
             <div class="form-group check-box-cleared">
                 <label>Auto Pay</label>
                 <mat-checkbox formControlName="autopay" class="example-margin">Yes</mat-checkbox>
@@ -120,14 +130,13 @@
                 <label>Budget</label>
                 <mat-form-field appearance="fill">
                     <!-- <mat-label>Add Account</mat-label> -->
-                    <mat-select formControlName="financialSourceId" required
-                        [ngClass]="{ 'is-invalid': submitted && f.financialSourceId.errors }">
+                    <mat-select formControlName="financialSourceId">
                         <mat-option>None</mat-option>
                         <mat-option *ngFor="let a of budgets" value="{{a._id}}">{{a.name}}</mat-option>
                     </mat-select>
-                    <div *ngIf="submitted && f.financialSourceId.errors" class="invalid-feedback">
-                        <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
-                    </div>
+                    <!-- <div *ngIf="submitted && f.financialSourceId.errors" class="invalid-feedback">
+                        <div *ngIf="f.Accountname.errors.required">First Name is required</div>
+                    </div> -->
                 </mat-form-field>
             </div>
             <div class="form-group Add-not-main notes-section-main">

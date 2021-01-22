@@ -244,7 +244,7 @@ export class BillListComponent implements OnInit {
 
 
   editEntry(id) {
-    this.router.navigate(['/update-entry/' + id]);
+    this.router.navigate(['/update-bill/' + id]);
   }
 
   deleteTransaction(id, beneficiaryName) {

@@ -68,6 +68,10 @@ const routes: Routes = [{
         {
             path: 'bill-list',
             loadChildren: () => import('./bill-list/bill-list.module').then(m => m.BillListModule)
+        },
+        {
+            path: 'update-bill/:id',
+            loadChildren: () => import('./add-bill/add-bill.module').then(m => m.AddBillModule)
         }
     ]
 }];

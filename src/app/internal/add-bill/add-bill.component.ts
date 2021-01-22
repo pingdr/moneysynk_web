@@ -4,6 +4,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-bill',
@@ -29,10 +30,11 @@ export class AddBillComponent implements OnInit {
   amount: any;
   budgets: any;
   transactionType: any = 'IN'
+  amountdata=false
   public entryModal: any = {};
 
   constructor(
-    private formBuilder: FormBuilder, private toastr: ToastrService, public sharedserive: SharedService, public http: HttpService,
+    private formBuilder: FormBuilder, private toastr: ToastrService, public sharedserive: SharedService, public http: HttpService,public router: Router
   ) {
 
     this.editentry = this.formBuilder.group({
@@ -42,11 +44,11 @@ export class AddBillComponent implements OnInit {
       beneficiaryId: ['', Validators.required],
       // Never: ['', Validators.required],
       accountId: ['', Validators.required],
-      classId: ['', Validators.required],
+      classId: [''],
       dateTime: ['', Validators.required],
       categoryId: ['', Validators.required],
       chequeNumber: ['', Validators.required],
-      financialSourceId: ['', Validators.required],
+      financialSourceId: [''],
       autopay: [Boolean],
       groupId: [''],
       note: ['', Validators.maxLength(255)]
@@ -243,7 +245,7 @@ export class AddBillComponent implements OnInit {
       "dueDate": new Date(this.editentry.value.dateTime),
       "repeat": false,
       "classId": this.editentry.value.categoryId,
-      "remind": true,
+      "remind":"2020-10-31T00:00:00.000+00:00",
       "autoPay": this.editentry.value.autopay,
       "financialSourceId": this.editentry.value.financialSourceId,
       "note": this.editentry.value.note,
@@ -269,6 +271,7 @@ export class AddBillComponent implements OnInit {
             this.toastr.success('Bill added successfully', 'success', {
               timeOut: 2000
             });
+            this.router.navigate(['/bill-list']);
           }
         },
           () => {
@@ -276,6 +279,8 @@ export class AddBillComponent implements OnInit {
           });
     }
   }
+
+  
 
 
 }
