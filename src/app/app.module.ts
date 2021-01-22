@@ -59,6 +59,7 @@ import { LogoutModalComponent } from './shared/modals/logout-modal/logout-modal.
 import { SharedModule } from './shared/modules/shared.module';
 import { AddEditClassComponent } from './shared/modals/add-edit-class/add-edit-class.component';
 import { CookieService } from 'angular2-cookie/services/cookies.service'
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime'
 
 @NgModule({
   declarations: [
@@ -119,7 +120,9 @@ import { CookieService } from 'angular2-cookie/services/cookies.service'
     MatNativeDateModule,
     MatMomentDateModule,
     MatProgressBarModule,
-    SharedModule
+    SharedModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   entryComponents: [
     EmailOtpComponent,

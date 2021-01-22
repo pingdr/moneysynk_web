@@ -1,7 +1,8 @@
 <app-progress-bar *ngIf="isApiCalling"></app-progress-bar>
 <div class="heading-pannel add-entry-main">
     <div class="component-heading">
-        <span>Add Transaction</span>
+        <span *ngIf="this.accountEntryDetail._id == undefined">Add Transaction</span>
+        <span *ngIf="this.accountEntryDetail._id != undefined">Edit Transaction</span>
     </div>
     <div class="component-btn">
         <div class="btn-compo-main">
@@ -44,7 +45,7 @@
                 <label>Account</label>
                 <mat-form-field appearance="fill">
                     <!-- <mat-label>Add Account</mat-label> -->
-                    <mat-select formControlName="accountId" [disabled]="this.accountEntryDetail._id"
+                    <mat-select placeholder="Select Account" formControlName="accountId" [disabled]="this.accountEntryDetail._id"
                         [ngClass]="{ 'is-invalid': submitted && f.accountId.errors }">
                         <mat-option>None</mat-option>
                         <mat-option *ngFor="let a of accountList" value="{{a._id}}">{{a.name}}</mat-option>
@@ -70,7 +71,7 @@
             <div class="form-group">
                 <label>Class</label>
                 <mat-form-field appearance="fill">
-                    <mat-select name="group" id="group" appearance="fill" formControlName="classId">
+                    <mat-select placeholder="Select Class" name="group" id="group" appearance="fill" formControlName="classId">
                         <mat-option>None</mat-option>
                         <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option>
                         <mat-form-field appearance="fill">
@@ -154,7 +155,7 @@
                 <label>Budget</label>
                 <mat-form-field appearance="fill">
                     <!-- <mat-label>Add Account</mat-label> -->
-                    <mat-select formControlName="financialSourceId">
+                    <mat-select placeholder="Select Budget" formControlName="financialSourceId">
                         <mat-option>None</mat-option>
                         <mat-option *ngFor="let a of budgets" value="{{a._id}}">{{a.name}}</mat-option>
                     </mat-select>
@@ -182,7 +183,8 @@
                 </mat-form-field>
             </div>
             <div class="last-section">
-                <button (click)="onSubmit()"  class="btn"> Save</button>
+                <button *ngIf="this.accountEntryDetail._id == undefined" (click)="onSubmit()"  class="btn"> Save</button>
+                <button *ngIf="this.accountEntryDetail._id != undefined" (click)="onSubmit()"  class="btn"> Update</button>
 
             </div>
         </form>

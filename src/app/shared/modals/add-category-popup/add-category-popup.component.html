@@ -43,7 +43,7 @@
             <label>Parent category</label>
             <mat-form-field appearance="fill">
                 <!-- <mat-label>0</mat-label> -->
-                <mat-select formControlName="parent" [ngClass]="{ 'is-invalid': submitted && f.parent.errors }"
+                <mat-select  placeholder="Select Category" formControlName="parent" [ngClass]="{ 'is-invalid': submitted && f.parent.errors }"
                     [ngModel]="categoryData.parent" [disabled]="categoryData._id">
                     <mat-option>None</mat-option>
                     <mat-option *ngFor="let p of allParents" [value]="p._id"><span><img
