@@ -4,7 +4,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-bill',
@@ -32,9 +32,10 @@ export class AddBillComponent implements OnInit {
   transactionType: any = 'IN'
   amountdata=false
   public entryModal: any = {};
+  public accountEntryDetail: any = {};
 
   constructor(
-    private formBuilder: FormBuilder, private toastr: ToastrService, public sharedserive: SharedService, public http: HttpService,public router: Router
+    private formBuilder: FormBuilder, private toastr: ToastrService, public sharedserive: SharedService, public http: HttpService,public router: Router,  public activatedRouter: ActivatedRoute,
   ) {
 
     this.editentry = this.formBuilder.group({
@@ -50,12 +51,20 @@ export class AddBillComponent implements OnInit {
       chequeNumber: ['', Validators.required],
       financialSourceId: [''],
       autopay: [Boolean],
+      remind:['', Validators.required],
       groupId: [''],
       note: ['', Validators.maxLength(255)]
     });
   }
 
   ngOnInit(): void {
+
+    if (this.activatedRouter.snapshot.params['id']) {
+      
+      // this.getEntryBYId();
+    }
+
+
     this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
       if (data) {
@@ -67,6 +76,49 @@ export class AddBillComponent implements OnInit {
         this.getBudgets();
       }
     });
+  }
+
+
+  getEntryBYId() {
+    let transactionId: any = this.activatedRouter.snapshot.params['id'];
+    this.http.getEntryById('bills?transactionId=' + transactionId).subscribe((res: any) => {
+      console.log(res)
+      if (res && res.data.data) {
+        this.accountEntryDetail = res.data.data;
+       
+        // this.editentry.controls.beneficiaryId.setValue(this.accountEntryDetail.beneficiaryId._id);
+        // this.editentry.controls.amount.setValue(this.accountEntryDetail.amount);
+        // this.editentry.controls.accountId.setValue(this.accountEntryDetail.accountId._id);
+        // this.editentry.controls.categoryId.setValue(this.accountEntryDetail.categoryId._id);
+        // this.editentry.controls.chequeNumber.setValue(this.accountEntryDetail.chequeNumber);
+        // this.editentry.controls.dateTime.setValue(this.accountEntryDetail.dateTime);
+        // // this.editentry.controls.cleared.setValue(this.accountEntryDetail.cleared);
+        // this.editentry.controls.note.setValue(this.accountEntryDetail.note);
+        // if(this.accountEntryDetail.financialSourceId._id){
+        // this.editentry.controls.financialSourceId.setValue(this.accountEntryDetail.financialSourceId._id);
+        // }
+        // if(this.accountEntryDetail.classId._id){
+        //   this.editentry.controls.classId.setValue(this.accountEntryDetail.classId._id);
+        // }
+    
+       
+
+        // this.amount = this.accountEntryDetail.amount;
+
+        // if (this.accountEntryDetail.transactionType == "IN") {
+        //   this.isbtnSelected = 1;
+        // } else if (this.accountEntryDetail.transactionType == "OUT") {
+        //   let elem = document.getElementById('minus-btn');
+        //   elem.click();
+        //   this.isbtnSelected = 2;
+        // } else {
+        //   this.isbtnSelected = 3;
+        // }
+
+     
+      }
+    });
+   
   }
 
   get f() { return this.editentry.controls; }
@@ -245,7 +297,7 @@ export class AddBillComponent implements OnInit {
       "dueDate": new Date(this.editentry.value.dateTime),
       "repeat": false,
       "classId": this.editentry.value.categoryId,
-      "remind":"2020-10-31T00:00:00.000+00:00",
+      "remind":this.editentry.value.remind,
       "autoPay": this.editentry.value.autopay,
       "financialSourceId": this.editentry.value.financialSourceId,
       "note": this.editentry.value.note,

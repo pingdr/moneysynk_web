@@ -111,8 +111,26 @@
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field> -->
                 <mat-form-field appearance="fill">
-                    <input matInput formControlName="dateTime" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2"
+                    <input matInput formControlName="dateTime" [owlDateTime]="dt21" [owlDateTimeTrigger]="dt21"
                         placeholder="Date Time" [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }">
+                    <span [owlDateTimeTrigger]="dt21"><i style="position: absolute;
+                        top: 17px;
+                        bottom: 0;
+                        margin: auto;
+                        right: 22px;" class="fa fa-calendar"></i></span>
+                    <owl-date-time #dt21 [hour12Timer]="true"></owl-date-time>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <label>Remind</label>
+                <!-- <mat-form-field appearance="fill">
+                    <input formControlName="dateTime" (focus)="picker.open()" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field> -->
+                <mat-form-field appearance="fill">
+                    <input matInput formControlName="remind" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2"
+                        placeholder="Date Time" [ngClass]="{ 'is-invalid': submitted && f.remind.errors }">
                     <span [owlDateTimeTrigger]="dt2"><i style="position: absolute;
                         top: 17px;
                         bottom: 0;
@@ -126,7 +144,7 @@
                 <label>Auto Pay</label>
                 <mat-checkbox formControlName="autopay" class="example-margin">Yes</mat-checkbox>
             </div>
-            <div class="form-group budget-input-main-entry" style="margin-top: -70px;">
+            <div class="form-group budget-input-main-entry">
                 <label>Budget</label>
                 <mat-form-field appearance="fill">
                     <!-- <mat-label>Add Account</mat-label> -->
@@ -145,7 +163,7 @@
                     <textarea formControlName="note" matInput placeholder="Add note here" maxlength="150" style="border-radius: 20px !important; height: 120px !important;"></textarea>
                 </mat-form-field>
             </div>
-            <div class="form-group file-input custom-btn-file-upload" style="margin-top: -150px;">
+            <div class="form-group file-input custom-btn-file-upload" style="margin-top: -60px;">
                 <label>File</label>
                 <div class="inner-file-upload">
                     <mat-form-field appearance="fill">
