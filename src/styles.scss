@@ -1651,7 +1651,15 @@ body {
 //     right: 30px !important;
 // }
 
-
 .toast-message:first-letter {
     text-transform: capitalize;
-  }
+}
+
+.myfilterMenu {
+    right: 0px !important;
+}
+
+.header-right-dropdown {
+    right: -30px !important;
+    top: 15px !important;
+}

@@ -30,7 +30,8 @@ export class AddEditAccountComponent implements OnInit {
   public modeselect = 'Dollar';
   filterName: any;
   groupId: any;
-  isApiCalling: boolean = false;;
+  isApiCalling: boolean = false;
+  isSpinnerLoading: boolean = false;
   isSelected: any = 0;
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -124,6 +125,11 @@ export class AddEditAccountComponent implements OnInit {
       return;
     }
 
+    if (this.editaccount.value.currentBalance < 1) {
+      this.toastr.error('zero is not allowed in amount', 'error')
+      return;
+    }
+
     var regex = new RegExp("[a-zA-Z][a-zA-Z ]*");
 
     if (!regex.test(this.editaccount.value.name)) {
@@ -164,6 +170,8 @@ export class AddEditAccountComponent implements OnInit {
 
       this.loader = true;
       this.isApiCalling = true;
+      this.isSpinnerLoading = true;
+
       this.http.addEditAccount(ApiUrl.addEditAccount, payload, false)
         .subscribe(res => {
           let response = res;
@@ -174,12 +182,14 @@ export class AddEditAccountComponent implements OnInit {
             this.isApiCalling = false;
           }
           this.dialogRef.close(this.dialogRef);
+          this.isSpinnerLoading = false;
           this.http.navigate('accounts');
 
         },
           () => {
             this.loader = false;
             this.isApiCalling = false;
+            this.isSpinnerLoading = false;
           });
     } else {
 
@@ -203,6 +213,7 @@ export class AddEditAccountComponent implements OnInit {
 
       this.loader = true;
       this.isApiCalling = true;
+      this.isSpinnerLoading = true;
       this.http.updateAccount(ApiUrl.updateAccount, this.data.editdata._id, payload, false)
         .subscribe(res => {
           this.isApiCalling = false;
@@ -213,11 +224,13 @@ export class AddEditAccountComponent implements OnInit {
             });
           }
           this.dialogRef.close(this.dialogRef);
+          this.isSpinnerLoading = false;
           this.http.navigate('accounts');
         },
           () => {
             this.loader = false;
             this.isApiCalling = false;
+            this.isSpinnerLoading = false;
           });
 
     }

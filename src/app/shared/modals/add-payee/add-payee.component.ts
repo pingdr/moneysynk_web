@@ -26,6 +26,7 @@ export class AddPayeeComponent implements OnInit {
   categoryName: string = '';
   childCategoryName: string = '';
   isShowChildCategory: boolean = false;
+  isSpinnerLoading: boolean = false;
 
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, public http: HttpService, private toastr: ToastrService, public dialogRef: MatDialogRef<AddPayeeComponent>) {
     this.Addaccountentry = this.formBuilder.group({
@@ -78,6 +79,7 @@ export class AddPayeeComponent implements OnInit {
     } else {
       this.loader = true;
       this.isApiCalling = true;
+      this.isSpinnerLoading=true;
       if (this.selectedChild) {
         this.Addaccountentry.value.categoryId = this.selectedChild;
       }
@@ -93,7 +95,7 @@ export class AddPayeeComponent implements OnInit {
 
         this.http.post(ApiUrl.addEditPayee + '/' + this.data.objData._id, data, false)
           .subscribe(res => {
-            this.isApiCalling = false;
+            this.isApiCalling = false;            
             let response = res;
             if (response.statusCode == 200) {
               this.toastr.success('Payee updated successfully', 'success', {
@@ -101,11 +103,13 @@ export class AddPayeeComponent implements OnInit {
               });
             }
             this.dialogRef.close(this.dialogRef);
+            this.isSpinnerLoading=false;
             this.http.navigate('payees');
           },
             () => {
               this.loader = false;
               this.isApiCalling = false;
+              this.isSpinnerLoading=false;
             });
       } else {
 
@@ -127,11 +131,13 @@ export class AddPayeeComponent implements OnInit {
               });
             }
             this.dialogRef.close(this.dialogRef);
+            this.isSpinnerLoading=false;
             this.http.navigate('payees');
           },
             () => {
               this.loader = false;
               this.isApiCalling = false;
+              this.isSpinnerLoading=false;
             });
       }
 

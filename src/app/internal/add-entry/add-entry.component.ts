@@ -34,6 +34,8 @@ export class AddEntryComponent implements OnInit {
   transactionType: any = 'IN'
   public entryModal: any = {};
 
+  isSpinnerLoading: boolean = false;
+
   public accountEntryDetail: any = {};
 
   constructor(
@@ -165,14 +167,14 @@ export class AddEntryComponent implements OnInit {
         this.editentry.controls.dateTime.setValue(this.accountEntryDetail.dateTime);
         // this.editentry.controls.cleared.setValue(this.accountEntryDetail.cleared);
         this.editentry.controls.note.setValue(this.accountEntryDetail.note);
-        if(this.accountEntryDetail.financialSourceId._id){
-        this.editentry.controls.financialSourceId.setValue(this.accountEntryDetail.financialSourceId._id);
+        if (this.accountEntryDetail.financialSourceId._id) {
+          this.editentry.controls.financialSourceId.setValue(this.accountEntryDetail.financialSourceId._id);
         }
-        if(this.accountEntryDetail.classId._id){
+        if (this.accountEntryDetail.classId._id) {
           this.editentry.controls.classId.setValue(this.accountEntryDetail.classId._id);
         }
-    
-       
+
+
 
         this.amount = this.accountEntryDetail.amount;
 
@@ -189,7 +191,7 @@ export class AddEntryComponent implements OnInit {
         console.log('Account Detail', res.data.data);
       }
     });
-   
+
   }
 
   setCategoryOrSubCategory(data) {
@@ -360,44 +362,45 @@ export class AddEntryComponent implements OnInit {
 
 
     this.isApiCalling = true;
+    this.isSpinnerLoading = true;
 
     if (this.accountEntryDetail._id && this.accountEntryDetail._id != undefined) {
-         
-     var classdata
 
-     var financialdata
+      var classdata
 
-if(this.editentry.value.classId){
-   classdata = this.editentry.value.classId
-}else{
-  classdata = ""
-}
+      var financialdata
 
-if (this.editentry.value.financialSourceId){
+      if (this.editentry.value.classId) {
+        classdata = this.editentry.value.classId
+      } else {
+        classdata = ""
+      }
 
-  financialdata = this.editentry.value.financialSourceId
+      if (this.editentry.value.financialSourceId) {
 
-}else{
-  financialdata = ""
-}
-        var payload = {
-          "accountId": this.editentry.value.accountId,
-          "amount": this.editentry.value.amount,
-          "beneficiaryId": this.editentry.value.beneficiaryId,
-          "beneficiaryType": this.editentry.value.beneficiaryType,
-          "categoryId": this.editentry.value.categoryId,
-          "chequeNumber": this.editentry.value.chequeNumber,
-          "classId": classdata,
-          "cleared": this.editentry.value.cleared,
-          "dateTime": this.editentry.value.dateTime,
-          "financialSourceId": financialdata,
-          "groupId": this.editentry.value.groupId,
-          "note": this.editentry.value.note,
-          "transactionType": this.editentry.value.transactionType,
-        }
+        financialdata = this.editentry.value.financialSourceId
+
+      } else {
+        financialdata = ""
+      }
+      var payload = {
+        "accountId": this.editentry.value.accountId,
+        "amount": this.editentry.value.amount,
+        "beneficiaryId": this.editentry.value.beneficiaryId,
+        "beneficiaryType": this.editentry.value.beneficiaryType,
+        "categoryId": this.editentry.value.categoryId,
+        "chequeNumber": this.editentry.value.chequeNumber,
+        "classId": classdata,
+        "cleared": this.editentry.value.cleared,
+        "dateTime": this.editentry.value.dateTime,
+        "financialSourceId": financialdata,
+        "groupId": this.editentry.value.groupId,
+        "note": this.editentry.value.note,
+        "transactionType": this.editentry.value.transactionType,
+      }
 
 
-        this.http.post(ApiUrl.getTransactions + '/' + this.accountEntryDetail._id, payload, false)
+      this.http.post(ApiUrl.getTransactions + '/' + this.accountEntryDetail._id, payload, false)
         .subscribe(res => {
           this.isApiCalling = false;
           let response = res;
@@ -406,17 +409,19 @@ if (this.editentry.value.financialSourceId){
               timeOut: 2000
             });
             this.router.navigate(['/transactions']);
+            this.isSpinnerLoading = false;
           }
         },
           () => {
             this.isApiCalling = false;
+            this.isSpinnerLoading = false;
           });
 
 
-      
-   
 
-     
+
+
+
     } else {
       console.log('this.editentry.value.financialSourceId')
       console.log(this.editentry.value)
@@ -440,7 +445,7 @@ if (this.editentry.value.financialSourceId){
 
         this.http.post(ApiUrl.getTransactions, payload, false)
           .subscribe(res => {
-            this.isApiCalling = false;
+            this.isApiCalling = false;            
             let response = res;
             if (response.statusCode == 200) {
               this.toastr.success('Transaction added successfully', 'success', {
@@ -448,10 +453,12 @@ if (this.editentry.value.financialSourceId){
               });
 
               this.router.navigate(['/transactions']);
+              this.isSpinnerLoading = false;
             }
           },
             () => {
               this.isApiCalling = false;
+              this.isSpinnerLoading = false;
             });
 
       }

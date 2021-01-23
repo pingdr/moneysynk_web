@@ -15,6 +15,7 @@ export class TransferModalComponent implements OnInit {
 
   transferForm: FormGroup;
   submitted = false;
+  isSpinnerLoading = false;
 
   fromBudgetList: any = [];
   toBudgetList: any = [];
@@ -84,6 +85,12 @@ export class TransferModalComponent implements OnInit {
       return;
     }
 
+    if (this.transferForm.value.amount < 1) {
+      this.toastr.error('zero is not allowed in amount', 'error');
+      return;
+    }
+
+    this.isSpinnerLoading = true;
     const data = {
       "from": this.transferForm.value.fromBudget,
       "to": this.transferForm.value.toBudget,
@@ -96,8 +103,12 @@ export class TransferModalComponent implements OnInit {
       console.log(res);
       if (res.statusCode == 200) {
         this.toastr.success('Budget transferred successfully')
-        this.hideModal();
       }
+
+      this.hideModal();
+      this.isSpinnerLoading = false;
+    }, () => {
+      this.isSpinnerLoading = false;
     });
   }
 

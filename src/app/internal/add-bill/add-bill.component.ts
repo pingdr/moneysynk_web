@@ -30,11 +30,14 @@ export class AddBillComponent implements OnInit {
   amount: any;
   budgets: any;
   transactionType: any = 'IN'
-  amountdata=false
+  amountdata = false
+
+  isSpinnerLoading: boolean = false;
+
   public entryModal: any = {};
 
   constructor(
-    private formBuilder: FormBuilder, private toastr: ToastrService, public sharedserive: SharedService, public http: HttpService,public router: Router
+    private formBuilder: FormBuilder, private toastr: ToastrService, public sharedserive: SharedService, public http: HttpService, public router: Router
   ) {
 
     this.editentry = this.formBuilder.group({
@@ -225,16 +228,23 @@ export class AddBillComponent implements OnInit {
   }
 
   onSubmit() {
-    
+
     this.submitted = true;
 
-    if(this.amount==undefined){
+
+    // stop here if form is invalid
+    if (this.editentry.invalid) {
+      return false;
+    }
+
+    if (this.amount == undefined) {
 
       this.toastr.error('please enter bill amount', 'error', {
         timeOut: 2000
       });
 
     }
+
 
     const data = {
       "amount": this.amount,
@@ -245,7 +255,7 @@ export class AddBillComponent implements OnInit {
       "dueDate": new Date(this.editentry.value.dateTime),
       "repeat": false,
       "classId": this.editentry.value.categoryId,
-      "remind":"2020-10-31T00:00:00.000+00:00",
+      "remind": "2020-10-31T00:00:00.000+00:00",
       "autoPay": this.editentry.value.autopay,
       "financialSourceId": this.editentry.value.financialSourceId,
       "note": this.editentry.value.note,
@@ -254,14 +264,12 @@ export class AddBillComponent implements OnInit {
 
     console.log(data);
 
-    // stop here if form is invalid
-    if (this.editentry.invalid) {
-      return false;
-    }
-   
+
+
     if (this.amount) {
       this.editentry.controls.amount.setValue(this.amount);
       this.isApiCalling = true;
+      this.isSpinnerLoading = true;
 
       this.http.post(ApiUrl.addBill, data, false)
         .subscribe(res => {
@@ -273,14 +281,17 @@ export class AddBillComponent implements OnInit {
             });
             this.router.navigate(['/bill-list']);
           }
+
+          this.isSpinnerLoading = false;
         },
           () => {
             this.isApiCalling = false;
+            this.isSpinnerLoading = false;
           });
     }
   }
 
-  
+
 
 
 }

@@ -183,8 +183,8 @@
                 </mat-form-field>
             </div>
             <div class="last-section">
-                <button *ngIf="this.accountEntryDetail._id == undefined" (click)="onSubmit()"  class="btn"> Save</button>
-                <button *ngIf="this.accountEntryDetail._id != undefined" (click)="onSubmit()"  class="btn"> Update</button>
+                <button [disabled]="isSpinnerLoading" *ngIf="this.accountEntryDetail._id == undefined" (click)="onSubmit()"  class="btn"><i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoading"></i>&nbsp; Save</button>
+                <button [disabled]="isSpinnerLoading" *ngIf="this.accountEntryDetail._id != undefined" (click)="onSubmit()"  class="btn"><i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoading"></i>&nbsp; Update</button>
 
             </div>
         </form>

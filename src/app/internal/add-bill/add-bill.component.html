@@ -12,7 +12,7 @@
             <button class="refresh-btn" [ngClass]="{ 'active-btn' : isbtnSelected == 3 }"> refresh</button>
         </div>
         <div class="main-input-filed-entry">
-            <input  type="text" [(ngModel)]="amount" name="amount" placeholder="$0" maxlength="6">
+            <input type="text" [(ngModel)]="amount" name="amount" placeholder="$0" maxlength="6">
         </div>
     </div>
 </div>
@@ -121,7 +121,7 @@
                     <owl-date-time #dt2 [hour12Timer]="true"></owl-date-time>
                 </mat-form-field>
             </div>
-            
+
             <div class="form-group check-box-cleared">
                 <label>Auto Pay</label>
                 <mat-checkbox formControlName="autopay" class="example-margin">Yes</mat-checkbox>
@@ -142,7 +142,8 @@
             <div class="form-group Add-not-main notes-section-main">
                 <label style="padding-top: 20px;">Note</label>
                 <mat-form-field appearance="fill">
-                    <textarea formControlName="note" matInput placeholder="Add note here" maxlength="150" style="border-radius: 20px !important; height: 120px !important;"></textarea>
+                    <textarea formControlName="note" matInput placeholder="Add note here" maxlength="150"
+                        style="border-radius: 20px !important; height: 120px !important;"></textarea>
                 </mat-form-field>
             </div>
             <div class="form-group file-input custom-btn-file-upload" style="margin-top: -150px;">
@@ -155,7 +156,7 @@
                 </div>
             </div>
             <div class="last-section">
-                <button class="btn"> Add Expanse</button>
+                <button class="btn" [disabled]="isSpinnerLoading"> <i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoading"></i>&nbsp; Add Expanse</button>
             </div>
         </form>
 

@@ -54,7 +54,7 @@
           </span> -->
           {{user.username}}</button>
 
-        <mat-menu #profileMenu="matMenu" class="header-right-dropdown">
+        <mat-menu #profileMenu="matMenu" class="header-right-dropdown" xPosition="before">
           <button mat-menu-item style="border: none !important;">Action</button>
           <button mat-menu-item>Another action</button>
           <button mat-menu-item (click)="Logout()">Logout</button>

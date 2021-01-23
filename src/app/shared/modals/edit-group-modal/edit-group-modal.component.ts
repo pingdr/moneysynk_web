@@ -15,6 +15,7 @@ export class EditGroupModalComponent implements OnInit {
 
   groupName: any;
   isEditGroup: Boolean = false;
+  isSpinnerLoading: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<EditGroupModalComponent>,
@@ -47,6 +48,8 @@ export class EditGroupModalComponent implements OnInit {
         this.toastr.error('Please enter valid group name', 'Invalid');
       } else {
 
+        this.isSpinnerLoading = true;
+
         if (this.isEditGroup) {
           this.http.editGroup(this.data.id, { name: this.groupName }).subscribe((res: any) => {
             console.log('Group Response', res);
@@ -54,6 +57,9 @@ export class EditGroupModalComponent implements OnInit {
               this.toastr.success('Group updated Successfully');
             }
             this.hideModal();
+            this.isSpinnerLoading = false;
+          }, () => {
+            this.isSpinnerLoading = false;
           })
         } else {
 
@@ -66,10 +72,14 @@ export class EditGroupModalComponent implements OnInit {
               let response = res;
               if (response.statusCode == 200) {
                 this.toastr.success('Group added successfully', 'success')
-                this.hideModal();
                 // this.sharedService.getSettingsGroupList();
+
+                this.hideModal();
+                this.isSpinnerLoading = false;
               }
 
+            }, () => {
+              this.isSpinnerLoading = false;
             });
         }
 

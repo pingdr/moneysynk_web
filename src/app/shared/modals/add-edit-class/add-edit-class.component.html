@@ -21,7 +21,11 @@
                     <div class="col-md-6">
                         <button type="submit" style="box-shadow: none !important;border-radius: 20px;width: 105px;
                 text-align: center;
-                height: 40px;" mat-raised-button class="orange-back">Save</button>
+                height: 40px;" mat-raised-button class="orange-back" [disabled]="isSpinnerLoading">
+                            <i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoading"></i>&nbsp;
+                            <span *ngIf="!data.id">Save</span>
+                            <span *ngIf="data.id">Update</span>
+                        </button>
                     </div>
                     <div class="col-md-6">
                         <button mat-stroked-button color="primary" style="border-radius: 20px;border: none;"
