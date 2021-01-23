@@ -6,7 +6,7 @@
         <span>Edit Account</span>
     </ng-template>
     <button class="vector" (click)="hideModal()">
-      <img src="../../../../assets/images/Vector.svg">
+        <img src="../../../../assets/images/Vector.svg">
     </button>
 </div>
 
@@ -17,14 +17,16 @@
         <div class="form-group">
             <label>Name</label>
             <mat-form-field appearance="fill">
-                <input class="textTransform" matInput maxlength="40" placeholder="Account Name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <input class="textTransform" matInput maxlength="40" placeholder="Account Name" formControlName="name"
+                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
 
             </mat-form-field>
         </div>
         <div class="form-group">
             <label>Account No.</label>
             <mat-form-field appearance="fill">
-                <input class="textTransform" maxlength="40" appOnlynumberDirective matInput placeholder="Account Number" formControlName="accountNo" [ngClass]="{ 'is-invalid': submitted && f.accountNo.errors }">
+                <input class="textTransform" maxlength="40" appOnlynumberDirective matInput placeholder="Account Number"
+                    formControlName="accountNo" [ngClass]="{ 'is-invalid': submitted && f.accountNo.errors }">
 
             </mat-form-field>
         </div>
@@ -45,7 +47,8 @@
             <label>Open Date</label>
             <mat-form-field appearance="fill">
 
-                <input placeholder="Select Date" matInput [matDatepicker]="picker" (focus)="picker.open()" formControlName="openDate" [ngClass]="{ 'is-invalid': submitted && f.openDate.errors }">
+                <input placeholder="Select Date" matInput [matDatepicker]="picker" (focus)="picker.open()"
+                    formControlName="openDate" [ngClass]="{ 'is-invalid': submitted && f.openDate.errors }">
 
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
@@ -67,13 +70,17 @@
         <div class="form-group opening-balance">
             <label>Opening Balance</label>
             <mat-form-field appearance="fill">
-                <input type="text" matInput maxlength="15" appOnlynumberDirective placeholder="Opening Balance" formControlName="currentBalance" [ngClass]="{ 'is-invalid': submitted && f.currentBalance.errors }" />
+                <input type="text" matInput maxlength="15" appOnlynumberDirective placeholder="Opening Balance"
+                    formControlName="currentBalance"
+                    [ngClass]="{ 'is-invalid': submitted && f.currentBalance.errors }" />
             </mat-form-field>
         </div>
         <div class="form-group">
             <label>Phone No.</label>
             <mat-form-field appearance="fill">
-                <input type="text" matInput maxlength="13" minlength="10" appOnlynumberDirective placeholder="Phone number" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
+                <input type="text" matInput maxlength="13" minlength="10" appOnlynumberDirective
+                    placeholder="Phone number" formControlName="phoneNumber"
+                    [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
                 <!-- <div *ngIf="mobile_no.errors"
                         [ngClass]="'error'">
                         <div *ngIf="mobile_no.errors.minlength">
@@ -90,11 +97,15 @@
             <label>Type</label>
             <mat-form-field appearance="fill">
                 <!-- <mat-label>Asset</mat-label> -->
-                <mat-select class="textTransform" formControlName="accountType" [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
+                <mat-select class="textTransform" formControlName="accountType"
+                    [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
 
                     <!-- <mat-option *ngFor="let data of accountModel" value="{{data._id}}">{{ data.name }}</mat-option> -->
                     <mat-form-field appearance="fill">
-                        <input maxlength="40" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}" name="filterName" (keyup)="addType($event.target.value)" (keydown)="$event.stopPropagation()" [value]="accountType" matInput placeholder="Add New Type" />
+                        <input maxlength="40" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}"
+                            name="filterName" (keyup)="addType($event.target.value)"
+                            (keydown)="$event.stopPropagation()" [value]="accountType" matInput
+                            placeholder="Add New Type" />
                         <button (click)="saveType()" class="btn add-btn"> Add</button>
                     </mat-form-field>
 
@@ -104,49 +115,58 @@
 
         </div>
         <div *ngIf="accountModel.length > 0" class="form-group type-main">
-          <label>Type</label>
-          <mat-form-field appearance="fill">
-              <!-- <mat-label>Asset</mat-label> -->
-              <mat-select class="textTransform" formControlName="accountType" [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
+            <label>Type</label>
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>Asset</mat-label> -->
+                <mat-select class="textTransform" formControlName="accountType"
+                    [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
 
-                  <mat-option *ngFor="let data of accountModel" value="{{data._id}}">{{ data.name }}</mat-option>
-                  <mat-form-field appearance="fill">
-                      <input maxlength="40" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}" name="filterName" (keyup)="addType($event.target.value)" [value]="accountType" matInput placeholder="Add New Type">
-                      <button (click)="saveType()" class="btn add-btn"> Add</button>
-                  </mat-form-field>
+                    <mat-option *ngFor="let data of accountModel" value="{{data._id}}">{{ data.name }}</mat-option>
+                    <mat-form-field appearance="fill">
+                        <input maxlength="40" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}"
+                            name="filterName" (keyup)="addType($event.target.value)" [value]="accountType" matInput
+                            placeholder="Add New Type">
+                        <button (click)="saveType()" class="btn add-btn"> Add</button>
+                    </mat-form-field>
 
-              </mat-select>
+                </mat-select>
 
-          </mat-form-field>
+            </mat-form-field>
 
-      </div>
+        </div>
         <div class="form-group">
             <label>Website</label>
             <mat-form-field appearance="fill">
-                <input class="dot textTransform" maxlength="40" matInput placeholder="Website" formControlName="website" [ngClass]="{ 'is-invalid': submitted && f.website.errors }">
+                <input class="dot textTransform" maxlength="40" matInput placeholder="Website" formControlName="website"
+                    [ngClass]="{ 'is-invalid': submitted && f.website.errors }">
 
             </mat-form-field>
 
         </div>
         <div class="form-group">
             <label>Icon</label>
-                <div class="icon-div-main">
-                    <div class="icon-inner-main" *ngFor="let data of icons;let i = index" [ngClass]="{ 'active' : isSelected == i }">
-                        <img src="{{data.path}}" (click)="selectIcon(i,data.path)">
-                    </div>
+            <div class="icon-div-main">
+                <div class="icon-inner-main" *ngFor="let data of icons;let i = index"
+                    [ngClass]="{ 'active' : isSelected == i }">
+                    <img src="{{data.path}}" (click)="selectIcon(i,data.path)">
                 </div>
+            </div>
         </div>
         <div class="form-group note-section-last">
             <label>Note</label>
             <mat-form-field appearance="fill">
-                <textarea style="height: 100px; border-radius: 20px !important; resize: none;" class="textTransform" maxlength="150" matInput placeholder="Add note here" formControlName="note"></textarea>
+                <textarea style="height: 100px; border-radius: 20px !important; resize: none;" class="textTransform"
+                    maxlength="150" matInput placeholder="Add note here" formControlName="note"></textarea>
 
             </mat-form-field>
         </div>
 
         <div class="last-section">
-            <button *ngIf="addEditLable == undefined" class="btn"> Save</button>
-            <button *ngIf="addEditLable != undefined" class="btn"> Update</button>
+            <button [disabled]="isSpinnerLoading" class="btn"> <i class="fa fa-spin fa-spinner"
+                    *ngIf="isSpinnerLoading"></i>&nbsp;
+                <span *ngIf="addEditLable==undefined">Save</span>
+                <span *ngIf="addEditLable!=undefined">Update</span>
+            </button>
 
         </div>
     </form>

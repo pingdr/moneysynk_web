@@ -15,6 +15,7 @@ export class AddEditClassComponent implements OnInit {
 
   submitted: boolean = false;
   classForm: FormGroup;
+  isSpinnerLoading: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<AddEditClassComponent>,
@@ -58,6 +59,9 @@ export class AddEditClassComponent implements OnInit {
     if (!regex.test(this.classForm.value.name,)) {
       this.toastr.error('Please enter valid class name', 'Invalid')
     } else {
+
+      this.isSpinnerLoading = true;
+
       var payload = {
         "groupId": this.data.groupId,
         "name": this.classForm.value.name,
@@ -74,7 +78,10 @@ export class AddEditClassComponent implements OnInit {
             }
 
             this.hideModal();
+            this.isSpinnerLoading = false;
 
+          }, () => {
+            this.isSpinnerLoading = false;
           });
       } else {
         this.http.addAccountType(ApiUrl.classes, payload, false)
@@ -87,7 +94,9 @@ export class AddEditClassComponent implements OnInit {
             }
 
             this.hideModal();
-
+            this.isSpinnerLoading = false;
+          }, () => {
+            this.isSpinnerLoading = false;
           });
       }
     }

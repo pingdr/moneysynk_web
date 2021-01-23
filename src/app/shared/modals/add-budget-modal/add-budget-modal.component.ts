@@ -24,6 +24,7 @@ export class AddBudgetModalComponent implements OnInit {
   isDisabledCycleDatys: boolean = false;
   budgetData: any = {};
   isEdit: boolean = false;
+  isSpinnerLoading: boolean = false;
 
   cyclePeriod: any = [
     { value: 'NO_CYCLE', name: 'No Cycle' },
@@ -115,12 +116,14 @@ export class AddBudgetModalComponent implements OnInit {
         this.toastr.error('zero is not allowed in amount', 'error', {
           timeOut: 2000
         });
-  
+
         return;
-  
+
       }
       this.loader = true;
       this.isApiCalling = true;
+
+      this.isSpinnerLoading=true;
 
       if (this.budgetData._id) {
         const data = {
@@ -147,10 +150,12 @@ export class AddBudgetModalComponent implements OnInit {
               });
             }
             this.dialogRef.close(this.dialogRef);
+            this.isSpinnerLoading=false;
             this.http.navigate('budget');
           },
             () => {
               this.isApiCalling = false;
+              this.isSpinnerLoading=false;
               this.loader = false;
             });
       } else {
@@ -192,11 +197,13 @@ export class AddBudgetModalComponent implements OnInit {
               });
             }
             this.dialogRef.close(this.dialogRef);
+            this.isSpinnerLoading=false;
             this.http.navigate('budget');
           },
             () => {
               this.isApiCalling = false;
               this.loader = false;
+              this.isSpinnerLoading=false;
             });
       }
     }

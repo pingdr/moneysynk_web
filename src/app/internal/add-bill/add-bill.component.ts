@@ -30,7 +30,10 @@ export class AddBillComponent implements OnInit {
   amount: any;
   budgets: any;
   transactionType: any = 'IN'
-  amountdata=false
+  amountdata = false
+
+  isSpinnerLoading: boolean = false;
+
   public entryModal: any = {};
   public accountEntryDetail: any = {};
 
@@ -277,16 +280,23 @@ export class AddBillComponent implements OnInit {
   }
 
   onSubmit() {
-    
+
     this.submitted = true;
 
-    if(this.amount==undefined){
+
+    // stop here if form is invalid
+    if (this.editentry.invalid) {
+      return false;
+    }
+
+    if (this.amount == undefined) {
 
       this.toastr.error('please enter bill amount', 'error', {
         timeOut: 2000
       });
 
     }
+
 
     const data = {
       "amount": this.amount,
@@ -306,14 +316,12 @@ export class AddBillComponent implements OnInit {
 
     console.log(data);
 
-    // stop here if form is invalid
-    if (this.editentry.invalid) {
-      return false;
-    }
-   
+
+
     if (this.amount) {
       this.editentry.controls.amount.setValue(this.amount);
       this.isApiCalling = true;
+      this.isSpinnerLoading = true;
 
       this.http.post(ApiUrl.addBill, data, false)
         .subscribe(res => {
@@ -325,14 +333,17 @@ export class AddBillComponent implements OnInit {
             });
             this.router.navigate(['/bill-list']);
           }
+
+          this.isSpinnerLoading = false;
         },
           () => {
             this.isApiCalling = false;
+            this.isSpinnerLoading = false;
           });
     }
   }
 
-  
+
 
 
 }

@@ -15,7 +15,9 @@
         <div class="form-group">
             <label>Name</label>
             <mat-form-field appearance="fill">
-                <input matInput maxlength="40" placeholder="{{data.type === 'PAYEE' ? 'Add Payee' : 'Add Payer'}}" formControlName="name" [ngModel]="catgroyDetails.name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <input matInput maxlength="40" placeholder="{{data.type === 'PAYEE' ? 'Add Payee' : 'Add Payer'}}"
+                    formControlName="name" [ngModel]="catgroyDetails.name"
+                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                     <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                 </div>
@@ -25,15 +27,18 @@
         <div class="form-group opening-balance">
             <label>Category</label>
             <mat-form-field appearance="fill">
-                <mat-select placeholder="Select category" formControlName="categoryId" (selectionChange)="parentSelected($event)" [ngModel]="catgroyDetails.categoryId" [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }" *ngIf="!isEdit">
+                <mat-select placeholder="Select category" formControlName="categoryId"
+                    (selectionChange)="parentSelected($event)" [ngModel]="catgroyDetails.categoryId"
+                    [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }" *ngIf="!isEdit">
                     <ng-container *ngFor="let cat of categories">
                         <mat-option *ngIf="cat.parent==null" [value]="cat._id"><span><img
-                                style="width: 30px;padding-right: 5px;" src="{{cat.icon}}"></span>{{cat.name}}
+                                    style="width: 30px;padding-right: 5px;" src="{{cat.icon}}"></span>{{cat.name}}
                         </mat-option>
                     </ng-container>
                 </mat-select>
 
-                <input matInput formControlName="categoryName" type="text" disabled *ngIf="isEdit" name="catgroyName" [ngModel]="categoryName" readonly/>
+                <input matInput formControlName="categoryName" type="text" disabled *ngIf="isEdit" name="catgroyName"
+                    [ngModel]="categoryName" readonly />
                 <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback">
                 </div>
             </mat-form-field>
@@ -44,10 +49,12 @@
                 <label>Sub category</label>
                 <mat-form-field appearance="fill">
                     <!-- <mat-label>0</mat-label> -->
-                    <mat-select placeholder="Select sub Category" (selectionChange)="subSelected($event)" [ngModel]="catgroyDetails.categoryId">
+                    <mat-select placeholder="Select sub Category" (selectionChange)="subSelected($event)"
+                        [ngModel]="catgroyDetails.categoryId">
                         <mat-option value="">None</mat-option>
                         <mat-option *ngFor="let p of childs" [value]="p._id"><span><img
-                                    style="width: 30px;padding-right: 5px;" src="{{p.icon}}"></span>{{p.name}}</mat-option>
+                                    style="width: 30px;padding-right: 5px;" src="{{p.icon}}"></span>{{p.name}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -57,7 +64,8 @@
             <div class="form-group opening-balance">
                 <label>Sub category</label>
                 <mat-form-field appearance="fill">
-                    <input matInput formControlName="childcategoryName" type="text" name="childCategory" [ngModel]="childCategoryName" readonly />
+                    <input matInput formControlName="childcategoryName" type="text" name="childCategory"
+                        [ngModel]="childCategoryName" readonly />
                     <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback">
                     </div>
                 </mat-form-field>
@@ -69,14 +77,18 @@
         <div class="form-group notes-section-main">
             <label>Note</label>
             <mat-form-field appearance="fill">
-                <textarea style="border-radius: 20px !important;" matInput placeholder="Add note here" maxlength="150" formControlName="note" name="note" [ngModel]="catgroyDetails.note"></textarea>
+                <textarea style="border-radius: 20px !important;" matInput placeholder="Add note here" maxlength="150"
+                    formControlName="note" name="note" [ngModel]="catgroyDetails.note"></textarea>
 
             </mat-form-field>
         </div>
 
         <div class="last-section">
-            <button *ngIf="this.catgroyDetails._id==undefined" class="btn"> Save</button>
-            <button *ngIf="this.catgroyDetails._id!=undefined" class="btn"> Update</button>
+            <button class="btn" [disabled]="isSpinnerLoading">
+                <i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoading"></i> &nbsp;
+                <span *ngIf="catgroyDetails._id==undefined">Save</span>
+                <span *ngIf="catgroyDetails._id!=undefined">Update</span>
+            </button>
         </div>
     </form>
 

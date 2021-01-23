@@ -37,7 +37,7 @@ export class AccountsComponent implements OnInit {
   summeryType: string
   accountSummaryDataTotal = '';
 
-  isApiCalling: boolean = false;
+  isApiCalling: boolean = false; 
   isShimmerloading: boolean = false;
   monthlyData: any = '';
 

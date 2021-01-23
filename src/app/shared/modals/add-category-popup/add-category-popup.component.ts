@@ -17,6 +17,7 @@ export class AddCategoryPopupComponent implements OnInit {
   public loader = false;
   allParents: any;
   isApiCalling: boolean = false;
+  isSpinnerLoding: boolean = false;
   icons: any;
   isSelected: any = 0;
   categoryData: any = {};
@@ -83,6 +84,7 @@ export class AddCategoryPopupComponent implements OnInit {
     else {
       this.loader = true;
       this.isApiCalling = true;
+      this.isSpinnerLoding = true;
       if (this.categoryData._id) {
         this.http.addEditCategory(ApiUrl.addEditCategory + '/' + this.categoryData._id, this.Addaccountentry.value, false)
           .subscribe(res => {
@@ -94,11 +96,13 @@ export class AddCategoryPopupComponent implements OnInit {
               });
             }
             this.dialogRef.close(this.dialogRef);
+            this.isSpinnerLoding = false;
             this.http.navigate('categories');
           },
             () => {
               this.isApiCalling = false;
               this.loader = false;
+              this.isSpinnerLoding = false;
             });
       } else {
 
@@ -130,11 +134,13 @@ export class AddCategoryPopupComponent implements OnInit {
               });
             }
             this.dialogRef.close(this.dialogRef);
+            this.isSpinnerLoding = false;
             this.http.navigate('categories');
           },
             () => {
               this.isApiCalling = false;
               this.loader = false;
+              this.isSpinnerLoding = false;
             });
       }
     }

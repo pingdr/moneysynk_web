@@ -10,8 +10,11 @@
         <div class="form-group">
             <label>From Budget</label>
             <mat-form-field>
-                <mat-select (selectionChange)="loadFromData($event)" placeholder="Select From Budget" formControlName="fromBudget" name="fromBudget" [ngClass]="{ 'is-invalid': submitted && f.fromBudget.errors }">
-                    <mat-option *ngFor="let fromBudget of fromBudgetList" value="{{fromBudget._id}}">{{fromBudget.name}}</mat-option>
+                <mat-select (selectionChange)="loadFromData($event)" placeholder="Select From Budget"
+                    formControlName="fromBudget" name="fromBudget"
+                    [ngClass]="{ 'is-invalid': submitted && f.fromBudget.errors }">
+                    <mat-option *ngFor="let fromBudget of fromBudgetList" value="{{fromBudget._id}}">{{fromBudget.name}}
+                    </mat-option>
                 </mat-select>
                 <div *ngIf="submitted && f.fromBudget.errors" class="invalid-feedback">
                     <!-- <div *ngIf="f.fromBudget.errors.required">From BUdget is required</div> -->
@@ -22,8 +25,10 @@
         <div class="form-group">
             <label>To Budget</label>
             <mat-form-field>
-                <mat-select placeholder="Select To Budget" name="toBudget" formControlName="toBudget" [ngClass]="{ 'is-invalid': submitted && f.toBudget.errors }">
-                    <mat-option *ngFor="let toBudget of toBudgetList" value="{{toBudget._id}}">{{toBudget.name}}</mat-option>
+                <mat-select placeholder="Select To Budget" name="toBudget" formControlName="toBudget"
+                    [ngClass]="{ 'is-invalid': submitted && f.toBudget.errors }">
+                    <mat-option *ngFor="let toBudget of toBudgetList" value="{{toBudget._id}}">{{toBudget.name}}
+                    </mat-option>
                 </mat-select>
                 <div *ngIf="submitted && f.toBudget.errors" class="invalid-feedback">
                     <!-- <div *ngIf="f.toBudget.errors.required">To Budget is required</div> -->
@@ -34,7 +39,8 @@
         <div class="form-group">
             <label>Amount</label>
             <mat-form-field appearance="fill">
-                <input matInput placeholder="0" maxlength="6" formControlName="amount" (keypress)="numberOnly($event)" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" style="padding-left: 28px !important;">
+                <input matInput placeholder="0" maxlength="6" formControlName="amount" (keypress)="numberOnly($event)"
+                    [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" style="padding-left: 28px !important;">
                 <span class="amount-dollar">$</span>
                 <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
                     <!-- <div *ngIf="f.amount.errors.required">Amount is required</div> -->
@@ -67,12 +73,15 @@
         <div class="form-group notes-section-main">
             <label>Note</label>
             <mat-form-field appearance="fill">
-                <textarea style="border-radius: 20px !important;" matInput placeholder="Add note here" maxlength="150" formControlName="note"></textarea>
+                <textarea style="border-radius: 20px !important;" matInput placeholder="Add note here" maxlength="150"
+                    formControlName="note"></textarea>
             </mat-form-field>
         </div>
 
         <div class="last-section">
-            <button class="btn"> Save</button>
+            <button class="btn" [disabled]="isSpinnerLoading">
+                <i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoading"></i>&nbsp; Save
+            </button>
         </div>
     </form>
 </div>

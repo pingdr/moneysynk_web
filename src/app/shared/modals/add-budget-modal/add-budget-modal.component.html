@@ -68,9 +68,9 @@
             <label>Start Date</label>
             <mat-form-field appearance="fill">
 
-                <input placeholder="Select Date" matInput [matDatepicker]="picker" (focus)="picker.open()" formControlName="startDate"
-                    [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }" [ngModel]="budgetData.startDate"
-                    [disabled]="isEdit">
+                <input placeholder="Select Date" matInput [matDatepicker]="picker" (focus)="picker.open()"
+                    formControlName="startDate" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }"
+                    [ngModel]="budgetData.startDate" [disabled]="isEdit">
                 <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
                     <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                 </div>
@@ -93,9 +93,9 @@
             <label>End Date</label>
             <mat-form-field appearance="fill">
 
-                <input placeholder="Select Date" matInput [matDatepicker]="picker1" (focus)="picker1.open()" formControlName="endDate"
-                    [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }" [ngModel]="budgetData.endDate"
-                    [disabled]="isEdit">
+                <input placeholder="Select Date" matInput [matDatepicker]="picker1" (focus)="picker1.open()"
+                    formControlName="endDate" [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }"
+                    [ngModel]="budgetData.endDate" [disabled]="isEdit">
                 <div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">
                     <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
                 </div>
@@ -167,15 +167,16 @@
                 <!-- <textarea style="border-radius: 20px !important;" matInput placeholder="Add note here" formControlName="note" [ngModel]="budgetData.note"
                     maxlength="150" [ngClass]="{ 'is-invalid': submitted && f.note.errors || f.note.errors?.maxlength }"
                     [readonly]="isEdit"></textarea> -->
-                    <textarea style="border-radius: 20px !important;" matInput placeholder="Add note here" formControlName="note" [ngModel]="budgetData.note"
-                    maxlength="150"></textarea>
+                <textarea style="border-radius: 20px !important;" matInput placeholder="Add note here"
+                    formControlName="note" [ngModel]="budgetData.note" maxlength="150"></textarea>
             </mat-form-field>
         </div>
 
         <div class="last-section">
-            <button *ngIf="budgetData._id==undefined" class="btn"> Save</button>
-            <button *ngIf="budgetData._id!=undefined" class="btn"> Update</button>
-
+            <button class="btn" [disabled]="isSpinnerLoading"> <i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoading"></i>&nbsp;
+                <span *ngIf="budgetData._id==undefined">Save</span>
+                <span *ngIf="budgetData._id!=undefined">Update</span>
+            </button>
         </div>
     </form>
 

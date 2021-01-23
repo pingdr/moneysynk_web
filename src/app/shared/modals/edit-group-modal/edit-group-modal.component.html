@@ -19,7 +19,9 @@
                 <div class="col-md-6">
                     <button style="box-shadow: none !important;border-radius: 20px;width: 105px;
                 text-align: center;
-                height: 40px;" mat-raised-button class="orange-back" (click)="editGroup()">
+                height: 40px;" mat-raised-button class="orange-back" (click)="editGroup()"
+                        [disabled]="isSpinnerLoading">
+                        <i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoading"></i>&nbsp;
                         <span *ngIf="isEditGroup">Confirm</span>
                         <span *ngIf="!isEditGroup">Add</span>
                     </button>
