@@ -62,10 +62,7 @@ export class AddBillComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.activatedRouter.snapshot.params['id']) {
-      
-      // this.getEntryBYId();
-    }
+  
 
 
     this.sharedserive.groupChange.subscribe((data) => {
@@ -79,19 +76,44 @@ export class AddBillComponent implements OnInit {
         this.getBudgets();
       }
     });
+
+    if (this.activatedRouter.snapshot.params['id']) {
+      
+      this.getEntryBYId();
+     }
   }
 
 
   getEntryBYId() {
     let transactionId: any = this.activatedRouter.snapshot.params['id'];
-    this.http.getEntryById('bills?transactionId=' + transactionId).subscribe((res: any) => {
-      console.log(res)
+       
+    let payload = {
+      groupId:this.groupId,
+      billId:transactionId
+
+    }
+
+    this.http.getBill(ApiUrl.getbill, payload, false).subscribe((res: any) => {
+     
       if (res && res.data.data) {
         this.accountEntryDetail = res.data.data;
+        console.log(this.accountEntryDetail)
+        
        
-        // this.editentry.controls.beneficiaryId.setValue(this.accountEntryDetail.beneficiaryId._id);
-        // this.editentry.controls.amount.setValue(this.accountEntryDetail.amount);
-        // this.editentry.controls.accountId.setValue(this.accountEntryDetail.accountId._id);
+        this.editentry.controls.beneficiaryId.setValue(this.accountEntryDetail.beneficiaryId._id);
+        this.editentry.controls.accountId.setValue(this.accountEntryDetail.accountId._id);
+        this.editentry.controls.categoryId.setValue(this.accountEntryDetail.categoryId._id);
+        this.editentry.controls.dateTime.setValue(this.accountEntryDetail.createdAt);
+        if(this.accountEntryDetail.note!=null){
+          this.editentry.controls.note.setValue(this.accountEntryDetail.note);
+        }
+        this.editentry.controls.remind.setValue(this.accountEntryDetail.remind);
+
+        if(this.accountEntryDetail.classId._id!=null){
+          this.editentry.controls.note.setValue(this.accountEntryDetail.note);
+        }
+
+       
         // this.editentry.controls.categoryId.setValue(this.accountEntryDetail.categoryId._id);
         // this.editentry.controls.chequeNumber.setValue(this.accountEntryDetail.chequeNumber);
         // this.editentry.controls.dateTime.setValue(this.accountEntryDetail.dateTime);

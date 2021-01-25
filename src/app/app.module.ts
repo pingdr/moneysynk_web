@@ -59,7 +59,9 @@ import { LogoutModalComponent } from './shared/modals/logout-modal/logout-modal.
 import { SharedModule } from './shared/modules/shared.module';
 import { AddEditClassComponent } from './shared/modals/add-edit-class/add-edit-class.component';
 import { CookieService } from 'angular2-cookie/services/cookies.service'
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime'
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { RepeatComponent } from './shared/modals/repeat/repeat.component'
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime'
     TransferModalComponent,
     EditGroupModalComponent,
     LogoutModalComponent,
-    AddEditClassComponent
+    AddEditClassComponent,
+    RepeatComponent
   ],
   imports: [
     BrowserModule,
@@ -122,7 +125,9 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime'
     MatProgressBarModule,
     SharedModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot() 
   ],
   entryComponents: [
     EmailOtpComponent,
@@ -132,7 +137,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime'
     ChangePasswordComponent,
     AddCategoryPopupComponent,
     AddPayeeComponent,
-    AddBudgetModalComponent
+    AddBudgetModalComponent,
+    RepeatComponent
   ],
   providers: [
     {

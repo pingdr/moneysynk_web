@@ -110,7 +110,7 @@ console.log(this.data);
         let response: any = data;
       
         if(response.statusCode==200){
-          this.toastr.success('Otp resend successfully', 'success', {
+          this.toastr.success('OTP resend successfully', 'success', {
             timeOut: 2000
           });
     

@@ -1,0 +1,96 @@
+<div class="heading-modal">
+	<span>Set Repeat</span>
+	<button class="vector" [mat-dialog-close]>
+		<img  class="cancel-main" src="../../../../assets/images/Vector.svg">
+	</button>
+</div>
+
+
+<div class="set-repeat-main-tabs">
+	<nav>
+		<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+				aria-controls="nav-home" aria-selected="true">Never</a>
+			<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+				aria-controls="nav-profile" aria-selected="false">Daily</a>
+			<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+				aria-controls="nav-contact" aria-selected="false">Weekly</a>
+			<a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab"
+				aria-controls="nav-about" aria-selected="false">Monthly</a>
+				<a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about1" role="tab"
+				aria-controls="nav-about" aria-selected="false">Yearly</a>
+		</div>
+	</nav>
+	<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+		<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+			<div class="cal-img">
+			<img  src="../../../../assets/images/repeatcalender.svg">
+		</div>
+			<label class="date-col">It’s only occur on 21-Jan-2021</label>
+		</div>
+		<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+		<div class="input-main">
+			<label class="every-label">Every</label>
+			<input type="text"  class="eclipse-input"/>
+			<label class="day-label">Day</label>
+		</div>
+		<div class="end-date-main">
+			<span>End Date</span>
+			<span>20-Feb-2021</span>
+		</div>
+		<div class="entry-date-repeat">
+			It’ll occur every 1 day
+		</div>
+		</div>
+		<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+			<div class="input-main">
+				<label class="every-label">Every</label>
+				<input type="text"  class="eclipse-input"/>
+				<label class="day-label">Week</label>
+			</div>
+			<div class="end-date-main">
+				<span>End Date</span>
+				<span>20-Feb-2021</span>
+			</div>
+			<div class="entry-date-repeat border-bottom">
+				It’ll occur every 1 day
+			</div>
+			<div class="days-main">Sunday</div>
+			<div class="days-main">Monday</div>
+			<div class="days-main">Tuesday</div>
+			<div class="days-main">Wednesday</div>
+			<div class="days-main">Thursday</div>
+			<div class="days-main">Friday</div>
+			<div class="days-main border-none">Saturday</div>
+			
+
+		</div>
+		<div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+			<div class="content">
+				<h4>datepicker should display current date:</h4>
+				<div class="row">
+				  <div class="col-xs-12 col-12 col-md-4 form-group">
+					<input type="text"
+						  class="form-control"
+						  [minDate]="minDate"
+						  [maxDate]="maxDate"
+						  #dp="bsDatepicker"
+						  bsDatepicker>
+				  </div>
+				</div>
+			  </div>
+		</div>
+		<div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab1">
+			Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam.
+			Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure
+			adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat.
+			Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation
+			mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim
+			ullamco ad duis occaecat ex.
+		</div>
+	</div>
+</div>
+
+<div class="btn-yeallow">
+	<button class="btn">Apply</button>
+</div>

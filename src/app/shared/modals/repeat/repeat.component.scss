@@ -1,0 +1,247 @@
+.add-account-section {
+    padding: 25px;
+    form.add-account-entry {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 10px;
+    .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    label {
+    margin-bottom: 0;
+    font-size: 11px;
+    margin-right: 15px !important;
+    width: 33.33%;
+    text-align: right;
+    }
+    }
+    }
+    }
+    
+    
+    .add-icon {
+    position: absolute;
+    right: 23px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 15px;
+    cursor: pointer;
+    }
+    
+    .add-btn {
+    background: transparent !important;
+    padding: 0;
+    position: absolute;
+    right: 18px;
+    bottom: 1px;
+    line-height: 42px;
+    font-size: 11px;
+    color: #7299FF !important;
+    font-weight: 100;
+    &:hover{
+    text-decoration: underline;
+    }
+    }
+    
+    .last-section {
+    text-align: right;
+    margin-top: 15px;
+    grid-column-start: 1;
+    grid-column-end: -1;
+    .btn{
+    padding: 12px 30px;
+    font-size: 13px;
+    font-weight: 300;
+    }
+    }
+    .vector{
+
+        border: none !important;
+        background: transparent;
+        &:focus{
+            outline: none !important;
+        }
+
+    }
+    .icon-div-main{
+        width: 100%;
+        overflow: auto;
+        overflow-x: hidden;
+        background: #f9f9f9;
+        border-radius: 26px;
+        padding: 10px 20px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-row-gap: 5px;
+        border-collapse: collapse;
+        grid-column-gap: 5px;
+        max-height: 100px;
+        .icon-inner-main{
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            padding: 4px;
+            cursor: pointer;
+            img{
+                width: 30px;
+                height: 30px;
+            }
+        }
+        .active{
+            border: 2px solid #f8c038 !important;
+            background: #fff;
+        }
+    }
+
+   
+   
+// -------new css------------//
+   
+.add-account-section form.add-account-entry .form-group.note-section-last {
+    align-items: self-start !important;
+}
+
+.add-account-section form.add-account-entry .form-group.note-section-last label {
+    padding-top: 13px;
+}
+
+
+
+.set-repeat-main-tabs {
+    padding: 30px 30px;
+    nav{
+        .nav-tabs{
+            border: none !important;
+            grid-template-columns: repeat(4, 1fr);
+            grid-column-gap: 30px;
+            a.nav-item {
+                border: none !important;
+                font-size: 11px;
+                line-height: 14px;
+                text-align: center;
+                color: #CCCCCC;
+                background: #F6F6F6;
+                border-radius: 18px !important;
+                padding: 13px 20px;
+            }
+            .active {
+                background: linear-gradient(90deg, #F5B822 0%, #FFD263 96.98%) !important;
+                color: #5E5E5E !important;
+            }
+        }
+    }
+}
+
+
+.btn-yeallow {
+    margin-bottom: 30px;
+    text-align: right;
+    padding: 0 30px;
+    .btn{
+        padding: 12px 32px;
+    }
+}
+
+
+.cal-img {
+    display: flex;
+    justify-content: center;
+    padding: 28px 0px;
+
+}
+
+label.date-col {
+    display: flex;
+    justify-content: center;
+}
+
+.repeat-modal-main .mat-dialog-container {
+    width: 539px !important;
+    padding: 0 !important;
+    border-radius: 20px !important;
+}
+
+input.eclipse-input {
+    padding: 12px 21px !important;
+    border-radius: 33.5px !important;
+    color: #5e5e5e !important;
+    border: 1px solid #ccc !important;
+    font-size: 15px !important;
+    font-family: "Sul Sans" !important;
+    font-weight: 100 !important;
+    margin: 0px 26px;
+    outline: none;
+}
+
+.input-main {
+    font-size: 16px;
+    font-family: "Sul Sans" !important;
+    color: #5e5e5e;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #ccc;
+    margin-top: 30px;
+    label {
+        margin-bottom: 0;
+    }
+}
+
+.every-label{
+    font-size: 16px;
+    font-family: "Sul Sans" !important;
+    color: #5e5e5e;
+    display: block;
+  
+}
+.day-label{
+    font-size: 16px;
+    font-family: "Sul Sans" !important;
+    color: #5e5e5e;
+    display: block;
+}
+
+
+.end-date-main {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    
+    font-size: 13px;
+    line-height: 16px;
+
+}
+
+.entry-date-repeat {
+    font-size: 11px;
+    line-height: 12px;
+    padding-bottom: 20px;
+}
+
+
+.days-main {
+    font-size: 13px;
+    padding: 10px 0px;
+    border-bottom: 1px solid #cccc;
+}
+
+.border-none{
+    border: none !important;
+}
+
+
+.mat-calendar-controls .mat-calendar-period-button {
+    display: none;
+  }
+  
+  mat-year-view .mat-calendar-body-label{
+    display: none !important;
+  }

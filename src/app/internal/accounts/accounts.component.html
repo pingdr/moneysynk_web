@@ -280,8 +280,10 @@
                                 </ng-container>
                                 <div class="after-charts-strips-main" *ngFor="let data of accountSummaryData">
                                     <div class="comm-col first-col">{{data.name}}</div>
-                                    <div class="comm-col red second-col">{{convertNumberinPositive(data.amount) |
+                                    <div *ngIf="isAccountSummaryType==false" class="comm-col red second-col">{{convertNumberinPositive(data.amount) |
                                         currency}}</div>
+                                        <div *ngIf="isAccountSummaryType==true" class="comm-col green second-col">{{convertNumberinPositive(data.amount) |
+                                            currency}}</div>
                                     <div class=" comm-col third-col"> {{data.percentage}}%</div>
                                 </div>
 

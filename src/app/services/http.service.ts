@@ -444,6 +444,19 @@ export class HttpService {
     }
 
 
+    getBill(url, obj?, isLoading?: boolean) {
+        let params = new HttpParams();
+        if (obj) {
+            Object.keys(obj).forEach(key => {
+                if (obj[key] !== '' && obj[key] !== undefined) {
+                    params = params.set(key, obj[key]);
+                }
+            });
+        }
+        return this.http.get<any>(this.apiEndpoint + url, { params: params, reportProgress: isLoading });
+    }
+
+
     getCategories(url, obj?, isLoading?: boolean) {
         let params = new HttpParams();
         if (obj) {

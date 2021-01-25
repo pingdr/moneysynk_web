@@ -63,7 +63,7 @@ export class EmailOtpComponent implements OnInit {
         let response: any = data;
 
         if (response.statusCode == 200) {
-          this.toastr.success('otp resend successfully', 'success', {
+          this.toastr.success('OTP resend successfully', 'success', {
             timeOut: 2000
           });
           // localStorage.setItem('otpemail', this.data.email);
@@ -86,7 +86,7 @@ else{
         let response: any = data;
 
         if (response.statusCode == 200) {
-          this.toastr.success('otp resend successfully', 'success', {
+          this.toastr.success('OTP resend successfully', 'success', {
             timeOut: 2000
           });
           // localStorage.setItem('otpemail', this.data.email);

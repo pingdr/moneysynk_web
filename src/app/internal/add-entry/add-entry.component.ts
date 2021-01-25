@@ -1,10 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { HttpService } from 'src/app/services/http.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { RepeatComponent } from 'src/app/shared/modals/repeat/repeat.component';
 
 @Component({
   selector: 'app-add-entry',
@@ -44,7 +46,8 @@ export class AddEntryComponent implements OnInit {
     public sharedserive: SharedService,
     public http: HttpService,
     public activatedRouter: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    public dialog: MatDialog
   ) {
 
     this.editentry = this.formBuilder.group({
@@ -500,6 +503,19 @@ export class AddEntryComponent implements OnInit {
       }
 
     }
+  }
+
+
+  openRepeat(){
+
+    const dialogRef = this.dialog.open(RepeatComponent, {
+      panelClass: 'account-modal-main'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+   
+    });
+
   }
 
 
