@@ -263,6 +263,7 @@ export class AccountsComponent implements OnInit {
 
   getAccountTypedata() {
     this.isShimmerloading = true;
+    this.accountDetailShimmer = true;
     if (this.groupId) {
       var payload = {
         "groupId": this.groupId
@@ -285,6 +286,8 @@ export class AccountsComponent implements OnInit {
   }
   getAccountDetailsById(id) {
     this.isApiCalling = true;
+    this.accountDetailShimmer = true;
+
     var payload = {
       year: 1,
       groupId: this.groupId,
@@ -293,7 +296,6 @@ export class AccountsComponent implements OnInit {
       pageIndex: this.accountSummaryPageIndex
     }
     this.http.get(ApiUrl.accountMonths, payload).subscribe((res) => {
-      this.accountDetailShimmer = false;
       console.log('Account Details ', res);
       if (res.data.length != 0) {
         this.accountDetails = res.data;
@@ -308,6 +310,10 @@ export class AccountsComponent implements OnInit {
         this.accountDetails = [];
       }
       this.isApiCalling = false;
+
+      setTimeout(() => {
+        this.accountDetailShimmer = false;
+      }, 2000)
     })
   }
 
@@ -342,6 +348,7 @@ export class AccountsComponent implements OnInit {
 
     this.isApiCalling = true;
     this.isShimmerloading = true;
+    this.accountDetailShimmer = true;
     this.http.getAccount(ApiUrl.getAccount, payload).subscribe(res => {
 
       this.isApiCalling = false;
@@ -349,7 +356,7 @@ export class AccountsComponent implements OnInit {
 
       this.http.showLoader();
       if (res.data != undefined) {
-        this.accountDetailShimmer = false
+        //this.accountDetailShimmer = false
         this.accountList = [];
         this.resultsLength = res.data.total;
         this.accountList = res.data.data;
@@ -488,7 +495,7 @@ export class AccountsComponent implements OnInit {
     this.isApiCalling = true;
     this.isShimmerloading = true;
     this.http.getAccountById(ApiUrl.getAccountById, payload).subscribe(res => {
-      this.accountDetailShimmer = false
+      // this.accountDetailShimmer = false
       this.isApiCalling = false;
       this.isShimmerloading = false;
       this.http.showLoader();
