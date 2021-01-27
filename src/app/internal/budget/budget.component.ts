@@ -213,12 +213,14 @@ export class BudgetComponent implements OnInit {
   }
 
   pageChange(event) {
+    this.budgetDetailsShimmer=true;
     console.log(event);
     this.pageIndex = event.pageIndex;
     this.getBudgets();
   }
 
   budgetPageChangeDetail(event) {
+    this.budgetDetailsShimmer=true;
     console.log(event);
     this.budgetDetailPageIndex = event.pageIndex;
     this.getBudgetDetailsById(this.selectedBudgetId)
