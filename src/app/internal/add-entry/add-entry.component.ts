@@ -407,7 +407,7 @@ export class AddEntryComponent implements OnInit {
       }
 
       if (this.editentry.value.chequeNumber == "") {
-        delete (payload.chequeNumber)
+        delete payload.chequeNumber;
       }
 
       this.http.post(ApiUrl.getTransactions + '/' + this.accountEntryDetail._id, payload, false)
@@ -455,7 +455,7 @@ export class AddEntryComponent implements OnInit {
         }
 
         if (this.editentry.value.chequeNumber == "") {
-          delete (payload.chequeNumber)
+          delete payload.chequeNumber;
         }
 
         this.http.post(ApiUrl.getTransactions, payload, false)
@@ -497,7 +497,7 @@ export class AddEntryComponent implements OnInit {
 
 
         if (this.editentry.value.chequeNumber == "") {
-          delete(payload.chequeNumber);
+          delete payload.chequeNumber;
         }
 
         this.http.post(ApiUrl.getTransactions, payload1, false)
