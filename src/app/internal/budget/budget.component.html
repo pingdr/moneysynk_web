@@ -60,7 +60,8 @@
                                     <div class="dollar-priceing">
                                         <span class="red">{{convertNumberinPositive(b.currentBalance) |
                                             currency}}</span>
-                                        <span class="color-grey">($62.00)</span>
+                                        <span class="color-grey">({{convertNumberinPositive(b.expenseTotal) |
+                                            currency}})</span>
                                     </div>
                                     <div class="delete-icon">
                                         <a title="Delete" (click)="editBudget(b)">
@@ -255,7 +256,8 @@
                                     <div class="dollar-priceing">
                                         <span class="green-color">{{convertNumberinPositive(b.currentBalance) |
                                             currency}}</span>
-                                        <span class="color-grey">($62.00)</span>
+                                        <span class="color-grey">({{convertNumberinPositive(b.expenseTotal) |
+                                            currency}})</span>
                                     </div>
                                     <div class="delete-icon">
                                         <a title="Delete" (click)="editBudget(b)">
