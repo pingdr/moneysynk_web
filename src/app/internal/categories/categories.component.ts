@@ -222,12 +222,14 @@ export class CategoriesComponent implements OnInit {
   }
 
   pageChange(event) {
+    this.categoriesDetailsShimmer = true;
     console.log(event);
     this.pageIndex = event.pageIndex;
     this.getCategoriesData();
   }
 
   pageDetailChange(event) {
+    this.categoriesDetailsShimmer = true;
     console.log(event.pageIndex, this.selectedCategoryId);
     this.monthlyPageIndex = event.pageIndex;
     this.getCategoriesDetailsById(this.selectedCategoryId);

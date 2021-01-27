@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -47,7 +47,8 @@ export class AddEntryComponent implements OnInit {
     public http: HttpService,
     public activatedRouter: ActivatedRoute,
     public router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public changeDetector: ChangeDetectorRef
   ) {
 
     this.editentry = this.formBuilder.group({
@@ -418,12 +419,13 @@ export class AddEntryComponent implements OnInit {
               timeOut: 2000
             });
             this.router.navigate(['/transactions']);
-            this.isSpinnerLoading = false;
+            // this.isSpinnerLoading = false;
           }
         },
           () => {
             this.isApiCalling = false;
             this.isSpinnerLoading = false;
+
           });
 
 
@@ -472,6 +474,7 @@ export class AddEntryComponent implements OnInit {
             () => {
               this.isApiCalling = false;
               this.isSpinnerLoading = false;
+              this.changeDetector.detectChanges();
             });
 
       }
@@ -493,6 +496,9 @@ export class AddEntryComponent implements OnInit {
         }
 
 
+        if (this.editentry.value.chequeNumber == "") {
+          delete(payload.chequeNumber);
+        }
 
         this.http.post(ApiUrl.getTransactions, payload1, false)
           .subscribe(res => {
@@ -508,6 +514,9 @@ export class AddEntryComponent implements OnInit {
           },
             () => {
               this.isApiCalling = false;
+              this.isSpinnerLoading = false;
+              this.changeDetector.detectChanges();
+
             });
 
       }
@@ -516,14 +525,14 @@ export class AddEntryComponent implements OnInit {
   }
 
 
-  openRepeat(){
+  openRepeat() {
 
     const dialogRef = this.dialog.open(RepeatComponent, {
       panelClass: 'account-modal-main'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-   
+
     });
 
   }

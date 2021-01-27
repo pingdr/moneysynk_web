@@ -162,57 +162,63 @@
                                 </div>
                                 <ng-container *ngIf="accountDetails.length>0; else other_content2">
                                     <mat-accordion>
-                                        <ng-container *ngFor="let ad of accountDetails">
-                                            <mat-expansion-panel expanded="step === 0" (opened)="setStep(0)">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title>
-                                                        <span *ngIf="ad._id != undefined">
-                                                            {{transactionMonth(ad?._id?.month,ad?._id?.year) | date:'MMM
-                                                            yyyy'}}
-                                                        </span>
-                                                    </mat-panel-title>
-                                                    <!-- <mat-panel-description>
+
+                                        <div *ngIf="!accountDetailShimmer">
+
+                                            <ng-container *ngFor="let ad of accountDetails">
+                                                <mat-expansion-panel expanded="step === 0" (opened)="setStep(0)">
+                                                    <mat-expansion-panel-header>
+                                                        <mat-panel-title>
+                                                            <span *ngIf="ad._id != undefined">
+                                                                {{transactionMonth(ad?._id?.month,ad?._id?.year) |
+                                                                date:'MMM
+                                                                yyyy'}}
+                                                            </span>
+                                                        </mat-panel-title>
+                                                        <!-- <mat-panel-description>
                                                         <span [ngClass]="ad?.total > 0 ? 'green-color':'red-color'"
                                                             *ngIf="ad?.total != undefined">
                                                             {{convertNumberinPositive(ad?.total) | currency}}
                                                         </span>
                                                     </mat-panel-description> -->
-                                                </mat-expansion-panel-header>
+                                                    </mat-expansion-panel-header>
 
-                                                <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2}"
-                                                    *ngIf="ad.data != undefined">
-                                                    <div *ngFor="let d of ad?.data" class="inner-expansion-main">
-                                                        <div class="inner-sub-left">
-                                                            <div class="main-strips">
-                                                                <div class="holder-name">{{d.accountId.name}}</div>
-                                                                <div *ngIf="d.transactionType == 'IN'"
-                                                                    class="price-tag green-color">
-                                                                    <span *ngIf="d.amount">
-                                                                        {{convertNumberinPositive(d.amount) |
-                                                                        currency}}</span>
-                                                                    <span *ngIf="!d.amount">$0</span>
+                                                    <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2}"
+                                                        *ngIf="ad.data != undefined">
+                                                        <div *ngFor="let d of ad?.data" class="inner-expansion-main">
+                                                            <div class="inner-sub-left">
+                                                                <div class="main-strips">
+                                                                    <div class="holder-name">{{d.accountId.name}}</div>
+                                                                    <div *ngIf="d.transactionType == 'IN'"
+                                                                        class="price-tag green-color">
+                                                                        <span *ngIf="d.amount">
+                                                                            {{convertNumberinPositive(d.amount) |
+                                                                            currency}}</span>
+                                                                        <span *ngIf="!d.amount">$0</span>
+                                                                    </div>
+                                                                    <div *ngIf="d.transactionType == 'OUT'"
+                                                                        class="price-tag red-color">
+                                                                        <span *ngIf="d.amount">
+                                                                            {{ convertNumberinPositive(d.amount) |
+                                                                            currency}}
+                                                                        </span>
+                                                                        <span *ngIf="!d.amount">$0</span>
+                                                                    </div>
                                                                 </div>
-                                                                <div *ngIf="d.transactionType == 'OUT'"
-                                                                    class="price-tag red-color">
-                                                                    <span *ngIf="d.amount">
-                                                                        {{ convertNumberinPositive(d.amount) |
-                                                                        currency}}
-                                                                    </span>
-                                                                    <span *ngIf="!d.amount">$0</span>
+                                                                <div class="main-strips">
+                                                                    <div class="date-and-time">{{d.createdAt | date:'dd
+                                                                        MMM
+                                                                        yyyy'}}</div>
+                                                                    <!-- <span class="acidbalance" *ngIf="d.accountId.currentBalance">${{d.accountId.currentBalance}}</span> -->
+                                                                    <img class="edit-icon" (click)="editTransaction(d)"
+                                                                        src="../../../assets/images/edit-pencil.svg">
                                                                 </div>
-                                                            </div>
-                                                            <div class="main-strips">
-                                                                <div class="date-and-time">{{d.createdAt | date:'dd MMM
-                                                                    yyyy'}}</div>
-                                                                <!-- <span class="acidbalance" *ngIf="d.accountId.currentBalance">${{d.accountId.currentBalance}}</span> -->
-                                                                <img class="edit-icon" (click)="editTransaction(d)"
-                                                                    src="../../../assets/images/edit-pencil.svg">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </mat-expansion-panel>
-                                        </ng-container>
+                                                </mat-expansion-panel>
+                                            </ng-container>
+                                        </div>
                                         <div style="float: right; position: relative; top: 0; background: #fff;
                                         left: 0; right: 0; margin: auto; width: 100%; justify-content: center;"
                                             *ngIf="accountSummaryPageIndexTotal > 3">
@@ -227,8 +233,7 @@
                                     </mat-accordion>
                                 </ng-container>
                                 <ng-template #other_content2>
-                                    <div *ngIf="!accountDetailShimmer"
-                                        class="not-transaction-added">
+                                    <div *ngIf="!accountDetailShimmer" class="not-transaction-added">
                                         <div class="inner-img-main">
                                             <img src="../../../assets/images/transaction-no.svg">
                                         </div>
@@ -280,10 +285,12 @@
                                 </ng-container>
                                 <div class="after-charts-strips-main" *ngFor="let data of accountSummaryData">
                                     <div class="comm-col first-col">{{data.name}}</div>
-                                    <div *ngIf="isAccountSummaryType==false" class="comm-col red second-col">{{convertNumberinPositive(data.amount) |
+                                    <div *ngIf="isAccountSummaryType==false" class="comm-col red second-col">
+                                        {{convertNumberinPositive(data.amount) |
                                         currency}}</div>
-                                        <div *ngIf="isAccountSummaryType==true" class="comm-col green second-col">{{convertNumberinPositive(data.amount) |
-                                            currency}}</div>
+                                    <div *ngIf="isAccountSummaryType==true" class="comm-col green second-col">
+                                        {{convertNumberinPositive(data.amount) |
+                                        currency}}</div>
                                     <div class=" comm-col third-col"> {{data.percentage}}%</div>
                                 </div>
 
