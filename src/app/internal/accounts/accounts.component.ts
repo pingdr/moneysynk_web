@@ -37,7 +37,7 @@ export class AccountsComponent implements OnInit {
   summeryType: string
   accountSummaryDataTotal = '';
 
-  isApiCalling: boolean = false; 
+  isApiCalling: boolean = false;
   isShimmerloading: boolean = false;
   monthlyData: any = '';
 
@@ -409,10 +409,21 @@ export class AccountsComponent implements OnInit {
 
 
   editAccounts(data) {
-    const dialogRef = this.dialog.open(AddEditAccountComponent, {
-      panelClass: 'account-modal-main',
-      data: { isforgot: false, editdata: data, groupId: this.groupId }
-    });
+
+    let dialogRef: any;
+
+    if (data != undefined) {
+      dialogRef = this.dialog.open(AddEditAccountComponent, {
+        panelClass: 'account-modal-main',
+        data: { isforgot: false, editdata: data, groupId: this.groupId }
+      });
+    } else {
+      dialogRef = this.dialog.open(AddEditAccountComponent, {
+        panelClass: 'account-modal-main',
+        data: { isforgot: false, accountTypeId: this.accountType_id, groupId: this.groupId }
+      });
+    }
+
 
     dialogRef.afterClosed().subscribe(result => {
       this.accountTypeList = [];

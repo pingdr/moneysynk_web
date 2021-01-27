@@ -367,6 +367,8 @@ export class AddEntryComponent implements OnInit {
     this.isApiCalling = true;
     this.isSpinnerLoading = true;
 
+
+
     if (this.accountEntryDetail._id && this.accountEntryDetail._id != undefined) {
 
       var classdata
@@ -386,6 +388,7 @@ export class AddEntryComponent implements OnInit {
       } else {
         financialdata = ""
       }
+
       var payload = {
         "accountId": this.editentry.value.accountId,
         "amount": this.editentry.value.amount,
@@ -402,6 +405,9 @@ export class AddEntryComponent implements OnInit {
         "transactionType": this.editentry.value.transactionType,
       }
 
+      if (this.editentry.value.chequeNumber == "") {
+        delete (payload.chequeNumber)
+      }
 
       this.http.post(ApiUrl.getTransactions + '/' + this.accountEntryDetail._id, payload, false)
         .subscribe(res => {
@@ -446,9 +452,13 @@ export class AddEntryComponent implements OnInit {
           "transactionType": this.editentry.value.transactionType,
         }
 
+        if (this.editentry.value.chequeNumber == "") {
+          delete (payload.chequeNumber)
+        }
+
         this.http.post(ApiUrl.getTransactions, payload, false)
           .subscribe(res => {
-            this.isApiCalling = false;            
+            this.isApiCalling = false;
             let response = res;
             if (response.statusCode == 200) {
               this.toastr.success('Transaction added successfully', 'success', {

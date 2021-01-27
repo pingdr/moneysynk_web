@@ -80,9 +80,6 @@ export class AddEditAccountComponent implements OnInit {
     this.getAllAccountType();
     this.addEditLable = this.data.editdata;
     this.getAllIcon();
-
-
-
   }
   getAllIcon() {
     this.isApiCalling = true;
@@ -104,7 +101,13 @@ export class AddEditAccountComponent implements OnInit {
       this.isApiCalling = false;
       if (res.data != undefined) {
         this.accountModel = res.data;
-        if (this.data.editdata == undefined) {
+        // if (this.data.editdata == undefined) {
+        //   this.editaccount.controls.accountType.setValue(this.accountModel[0]._id);
+        // }
+
+        if (this.data.accountTypeId != undefined) {
+          this.editaccount.controls.accountType.setValue(this.data.accountTypeId);
+        } else {
           this.editaccount.controls.accountType.setValue(this.accountModel[0]._id);
         }
       }
