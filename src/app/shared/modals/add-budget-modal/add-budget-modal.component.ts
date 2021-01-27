@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { range } from 'rxjs';
@@ -25,6 +26,7 @@ export class AddBudgetModalComponent implements OnInit {
   budgetData: any = {};
   isEdit: boolean = false;
   isSpinnerLoading: boolean = false;
+  todayDate:Date 
 
   cyclePeriod: any = [
     { value: 'NO_CYCLE', name: 'No Cycle' },
@@ -60,6 +62,9 @@ export class AddBudgetModalComponent implements OnInit {
   }
 
 
+  onChnage(event) {
+    this.todayDate = new Date(event.target.value);
+  }
   ngOnInit(): void {
     this.cycleValue = Array.from({ length: 60 }, (i, k) => k + 1);
 

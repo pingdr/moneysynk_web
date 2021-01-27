@@ -63,6 +63,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { RepeatComponent } from './shared/modals/repeat/repeat.component'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -127,7 +128,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot() 
+    DatepickerModule.forRoot()
   ],
   entryComponents: [
     EmailOtpComponent,
