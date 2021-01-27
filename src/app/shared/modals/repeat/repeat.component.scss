@@ -245,3 +245,84 @@ input.eclipse-input {
   mat-year-view .mat-calendar-body-label{
     display: none !important;
   }
+
+  .custom-calander-main {
+    width: 100%;
+    margin-bottom: 0;
+}
+  .custom-calander-main{
+    ul {
+        list-style-type: none;
+        padding: 0;
+        background: #f3f3f3;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        text-align: center;
+        grid-column-gap: 8px;
+        grid-row-gap: 8px;
+        font-size: 16px;
+        margin-top: 20px;
+        border-radius: 5px;
+        justify-content: center;
+        padding-left: 20px;
+        padding-right: 20px;
+        li {
+            padding: 11px 7px;
+            // background: #ffd263;
+            border-radius: 100%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .active{
+            background: #ffd263;
+        }
+    }
+  }
+
+
+
+  .custom-calander-month {
+    width: 100%;
+    margin-bottom: 0;
+}
+  .custom-calander-month {
+    ul {
+        list-style-type: none;
+        padding: 0;
+        background: #f3f3f3;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        text-align: center;
+        grid-column-gap: 10px;
+        grid-row-gap: 15px;
+        font-size: 16px;
+        margin-top: 20px;
+        border-radius: 5px;
+        justify-content: center;
+        padding-left: 20px;
+        padding-right: 20px;
+        li {
+            padding: 8px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 30px;
+        }
+        .active{
+            background: #ffd263;
+        }
+    }
+  }

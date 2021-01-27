@@ -112,6 +112,16 @@ export class SettingsComponent implements OnInit {
   // }
 
   deleteGroup(id, groupName) {
+ 
+    if(id == this.selectedGroup){
+      if(this.toastr.currentlyActive){
+        return
+      }
+      this.toastr.error("Selected group is not deleted", 'Error');
+      return
+    }
+
+
     const dialogRef = this.dialog.open(DeleteModalComponent, {
       panelClass: 'account-modal-main',
       width: '350px',

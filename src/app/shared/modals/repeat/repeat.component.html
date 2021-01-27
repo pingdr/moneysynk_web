@@ -67,26 +67,53 @@
 		</div>
 		<div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
 			<div class="content">
-				<h4>datepicker should display current date:</h4>
+				<div class="input-main">
+					<label class="every-label">Every</label>
+					<input type="text"  class="eclipse-input"/>
+					<label class="day-label">month</label>
+				</div>
+				<div class="end-date-main">
+					<span>End Date</span>
+					<span>20-Feb-2021</span>
+				</div>
+				<div class="entry-date-repeat border-bottom">
+					It’ll occur every 1 day
+				</div>
 				<div class="row">
-				  <div class="col-xs-12 col-12 col-md-4 form-group">
-					<input type="text"
-						  class="form-control"
-						  [minDate]="minDate"
-						  [maxDate]="maxDate"
-						  #dp="bsDatepicker"
-						  bsDatepicker>
+				  <div class="custom-calander-main form-group">
+					<ul>
+						<li *ngFor="let day of days"  #btn5 (click)="multiselect(btn5)">
+                              {{day}}
+						</li>
+					</ul>
 				  </div>
 				</div>
 			  </div>
 		</div>
-		<div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab1">
-			Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam.
-			Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure
-			adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat.
-			Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation
-			mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim
-			ullamco ad duis occaecat ex.
+		<div class="tab-pane fade" id="nav-about1" role="tabpanel" aria-labelledby="nav-about-tab1">
+			<div class="content">
+				<div class="input-main">
+					<label class="every-label">Every</label>
+					<input type="text"  class="eclipse-input"/>
+					<label class="day-label">year</label>
+				</div>
+				<div class="end-date-main">
+					<span>End Date</span>
+					<span>20-Feb-2021</span>
+				</div>
+				<div class="entry-date-repeat border-bottom">
+					It’ll occur every 1 day
+				</div>
+				<div class="row">
+				  <div class="custom-calander-month form-group">
+					<ul>
+						<li *ngFor="let month of months"  #btn5 (click)="multiselect(btn5)">
+                              {{month}}
+						</li>
+					</ul>
+				  </div>
+				</div>
+			  </div>
 		</div>
 	</div>
 </div>
