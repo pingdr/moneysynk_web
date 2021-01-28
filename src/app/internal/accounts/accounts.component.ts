@@ -213,6 +213,7 @@ export class AccountsComponent implements OnInit {
           console.log('totalnumber', this.accountSummaryDataTotal);
           this.setDoughnutChartData(res.data.data);
         } else {
+          this.accountSummaryDataShimmer = false
           this.accountSummaryData = [];
           this.setDoughnutChartData(this.accountSummaryData);
         }
@@ -298,9 +299,8 @@ export class AccountsComponent implements OnInit {
     this.http.get(ApiUrl.accountMonths, payload).subscribe((res) => {
       console.log('Account Details ', res);
       if (res.data.length != 0) {
+        this.accountDetailShimmer = false;
         this.accountDetails = res.data;
-        console.log('this.accountDetails')
-        console.log(this.accountDetails)
 
         if (this.accountSummaryPageIndexTotal != '' || !this.accountSummaryPageIndexTotal) {
           this.accountSummaryPageIndexTotal = res.data[0].totalTransaction;
@@ -353,6 +353,7 @@ export class AccountsComponent implements OnInit {
 
       this.isApiCalling = false;
       this.isShimmerloading = false;
+      this.accountDetailShimmer = false;
 
       this.http.showLoader();
       if (res.data != undefined) {
@@ -365,6 +366,8 @@ export class AccountsComponent implements OnInit {
           this.getAccountDetailsById(res.data.data[0]._id)
           this.getAccountSummary(res.data.data[0]._id)
         }
+
+      
         for (let i = 0; i < this.accountList.length; i++) {
           this.accountList[i]['isViewAmount'] = true;
         }
@@ -433,6 +436,8 @@ export class AccountsComponent implements OnInit {
 
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log('5454545454545454541351321321321')
+    console.log(result)
       this.accountTypeList = [];
       this.accountList = [];
       this.getAccountTypedata();
@@ -469,6 +474,7 @@ export class AccountsComponent implements OnInit {
 
   getType(id, i?: any) {
 
+
     this.accountDetails = [];
     this.accountSummaryData = []
     this.accountDetailShimmer = true
@@ -495,11 +501,11 @@ export class AccountsComponent implements OnInit {
     this.isApiCalling = true;
     this.isShimmerloading = true;
     this.http.getAccountById(ApiUrl.getAccountById, payload).subscribe(res => {
-      // this.accountDetailShimmer = false
       this.isApiCalling = false;
       this.isShimmerloading = false;
       this.http.showLoader();
       if (res.data != undefined) {
+        this.accountDetailShimmer = false
         if (res.data.data.length > 0) {
           this.resultsLength = res.data.total;
         }
@@ -507,6 +513,7 @@ export class AccountsComponent implements OnInit {
 
         // this.filter = res.data;
         if (res.data.data.length > 0) {
+         
           this.getAccountdata();
           this.getAccountDetailsById(res.data.data[0]._id)
           this.getAccountSummary(res.data.data[0]._id)
@@ -538,6 +545,8 @@ export class AccountsComponent implements OnInit {
         for (let i = 0; i < this.accountList.length; i++) {
           this.accountList[i]['isViewAmount'] = true;
         }
+      }else{
+        this.accountDetailShimmer = false
       }
     });
   }

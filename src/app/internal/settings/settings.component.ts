@@ -117,7 +117,7 @@ export class SettingsComponent implements OnInit {
       if(this.toastr.currentlyActive){
         return
       }
-      this.toastr.error("Selected group is not deleted", 'Error');
+      this.toastr.error("Active group can't be deleted", 'Error');
       return
     }
 

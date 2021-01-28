@@ -51,10 +51,12 @@
                 flex-direction: column;
                 justify-content: space-between;
                 .logo{
-                    padding-top: 80px;
-                    width: 40%;
+                    padding-top: 100px;
+                    width: 56%;
                     margin: auto;
                     text-align: center;
+                    position: relative;
+                    z-index: 999;
                     @include max-mq(1300){
                         padding-top: 0px;
                         width: 60%;
@@ -66,10 +68,11 @@
                         margin-top: 40px;
                     }
                     img{
-                        width: 80%;
+                        width: 40%;
+                        margin-bottom: 30px;
                     }
                     p{
-                        margin-bottom: 20px;
+                        margin-bottom: 30px;
                         margin-top: -80px;
                         color: #fff;
                         font-size: 14px;

@@ -43,7 +43,7 @@
                     </span>
 
                     <span class="avail-bal">Bal:<span (click)="getType(data._id,i)" class="balance-btn"
-                            [ngClass]="data.currentBalance > 0 ? 'green-color':'red-color'">
+                            [ngClass]="data.currentBalance >= 0 ? 'green-color':'red-color'">
                             {{ convertNumberinPositive(data.currentBalance) | currency}}</span></span></a>
             </div>
         </nav>
@@ -343,7 +343,7 @@
         </div>
         <div class="boxes border-left-custom">
             <span class="label">Total Balance : </span>
-            <span class="value red-total-expanse" *ngIf="!accountSummary.incomeTotal && !accountSummary.expenseTotal">
+            <span class="value green-cleared" *ngIf="!accountSummary.incomeTotal && !accountSummary.expenseTotal">
                 $00
             </span>
             <span class="value green-cleared"

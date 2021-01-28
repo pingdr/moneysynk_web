@@ -44,8 +44,8 @@
                 flex-direction: column;
                 justify-content: space-between;
                 .logo {
-                    padding-top: 80px;
-                    width: 50%;
+                    padding-top: 100px;
+                    width: 70%;
                     margin: auto;
                     text-align: center;
                     @include max-mq(1300) {
@@ -59,11 +59,12 @@
                         margin-top: 40px;
                     }
                     img {
-                        width: 80%;
+                        width: 34%;
+                        margin-bottom: 30px;
                     }
                     p {
                         margin-bottom: 20px;
-                        margin-top: -80px;
+                        margin-top: -60px;
                         color: #fff;
                         font-size: 14px;
                         line-height: 28px;
