@@ -54,12 +54,25 @@
                     padding: 0px 30px;
                 }
                 .logo{
+<<<<<<< HEAD
                     padding-top: 0px;
                     width: 70%;
                     margin: auto;
                     text-align: center;
                     @include max-mq(1400){
                         width: 85%;
+=======
+                    padding-top: 100px;
+                    width: 56%;
+                    margin: auto;
+                    text-align: center;
+                    position: relative;
+                    z-index: 999;
+                    @include max-mq(1300){
+                        padding-top: 0px;
+                        width: 60%;
+                        margin-top: 20px;
+>>>>>>> 1efb517097b22aeba3ecf4df9e28fcbbe1effccf
                     }
                     @include max-mq(1220){
                         width: 90%;
@@ -78,6 +91,7 @@
                     //     margin-top: 40px;
                     // }
                     img{
+<<<<<<< HEAD
                         width: 33%;
                         margin-bottom: 20px;
                         margin-top: 0px;
@@ -89,9 +103,13 @@
                         @include max-mq(991){
                             width: 60%;
                         }
+=======
+                        width: 40%;
+                        margin-bottom: 30px;
+>>>>>>> 1efb517097b22aeba3ecf4df9e28fcbbe1effccf
                     }
                     p{
-                        margin-bottom: 20px;
+                        margin-bottom: 30px;
                         margin-top: -80px;
                         color: #fff;
                         font-size: 14px;

@@ -55,13 +55,8 @@
 			<div class="entry-date-repeat border-bottom">
 				It’ll occur every 1 day
 			</div>
-			<div class="days-main">Sunday</div>
-			<div class="days-main">Monday</div>
-			<div class="days-main">Tuesday</div>
-			<div class="days-main">Wednesday</div>
-			<div class="days-main">Thursday</div>
-			<div class="days-main">Friday</div>
-			<div class="days-main border-none">Saturday</div>
+			<div #btn5 (click)="multiselect1(btn5)" [ngClass]="{'weekName': dayNames == day }" *ngFor="let day of daysData" class="days-main">{{day}}</div>
+			
 			
 
 		</div>
@@ -82,7 +77,7 @@
 				<div class="row">
 				  <div class="custom-calander-main form-group">
 					<ul>
-						<li *ngFor="let day of days"  #btn5 (click)="multiselect(btn5)">
+						<li [ngClass]="{'active': daysNumber == day }" *ngFor="let day of days"  #btn5 (click)="multiselect(btn5)">
                               {{day}}
 						</li>
 					</ul>
@@ -107,10 +102,21 @@
 				<div class="row">
 				  <div class="custom-calander-month form-group">
 					<ul>
-						<li *ngFor="let month of months"  #btn5 (click)="multiselect(btn5)">
+						<li *ngFor="let month of months" [ngClass]="{'active': monthName == month }"  #btn5 (click)="multiselect(btn5)">
                               {{month}}
 						</li>
+						
 					</ul>
+					<div class="main-days">
+						<div class="days-week">
+							Days of Week
+						</div>
+						<label class="switch">
+							<input type="checkbox">
+							<span class="slider round"></span>
+						  </label>
+					</div>
+					
 				  </div>
 				</div>
 			  </div>
