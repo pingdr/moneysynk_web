@@ -244,6 +244,23 @@
                         </div>
                         <div class="tab-pane fade" id="nav-summary-tab" role="tabpanel"
                             aria-labelledby="nav-summary-tab">
+                            <ng-container *ngIf="accountSummaryDataShimmer">
+                                <div class="shimmer1">
+                                    <ngx-shimmer-loading [shape]="'circle'" [width]="'150px'" [height]="'60px'">
+                                    </ngx-shimmer-loading>
+                                    <ngx-shimmer-loading [direction]="'ltr'" [width]="'450px'" [height]="'60px'">
+                                    </ngx-shimmer-loading>
+                                    <ngx-shimmer-loading [direction]="'ltr'" [width]="'450px'" [height]="'60px'">
+                                    </ngx-shimmer-loading>
+                                </div>
+                                <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                    <div class="shimmer1">
+                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'450px'" [height]="'60px'">
+                                        </ngx-shimmer-loading>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="accountSummaryData.length>0;else other_contentsummery">
                             <div class="summary-charts-main">
                                 <div class="item left-charts">
                                     <canvas width="150px" height="150px" baseChart chartType="doughnut"
@@ -275,14 +292,7 @@
                             </div>
                             <!------------------------after-charts------------------------------------>
                             <div class="after-charts-main">
-                                <ng-container *ngIf="accountSummaryDataShimmer">
-                                    <div *ngFor="let shimmer of [1,2,3,4,5]">
-                                        <div class="shimmer1">
-                                            <ngx-shimmer-loading [shape]="'rect'" [width]="'450px'" [height]="'60px'">
-                                            </ngx-shimmer-loading>
-                                        </div>
-                                    </div>
-                                </ng-container>
+                               
                                 <div class="after-charts-strips-main" *ngFor="let data of accountSummaryData">
                                     <div class="comm-col first-col">{{data.name}}</div>
                                     <div *ngIf="isAccountSummaryType==false" class="comm-col red second-col">
@@ -294,7 +304,18 @@
                                     <div class=" comm-col third-col"> {{data.percentage}}%</div>
                                 </div>
 
+                         
+
                             </div>
+                               </ng-container>
+                            <ng-template #other_contentsummery>
+                                <div *ngIf="!accountSummaryDataShimmer" class="not-transaction-added">
+                                    <div class="inner-img-main">
+                                        <img src="../../../assets/images/transaction-no.svg">
+                                    </div>
+                                    <div class="not-text-main">No Transaction Found</div>
+                                </div>
+                            </ng-template>
                             <div *ngIf="accountSummaryDataTotal > 3" style="display: flex; float: right; position: relative; top: 0; background: #fff;
                             left: 0; right: 0; margin: auto; width: 100%; justify-content: center;">
                                 <!-- <mat-paginator (page)="accountDetailPageChange($event)"

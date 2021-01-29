@@ -285,6 +285,9 @@ export class AccountsComponent implements OnInit {
     }
 
   }
+
+
+
   getAccountDetailsById(id) {
     this.isApiCalling = true;
     this.accountDetailShimmer = true;
@@ -338,7 +341,6 @@ export class AccountsComponent implements OnInit {
   }
 
   getAccountdata() {
-
     var payload = {
       "groupId": this.groupId,
       pageIndex: this.pageIndex,
@@ -363,6 +365,7 @@ export class AccountsComponent implements OnInit {
         this.accountList = res.data.data;
 
         if (res.data.data.length > 0) {
+
           this.getAccountDetailsById(res.data.data[0]._id)
           this.getAccountSummary(res.data.data[0]._id)
         }
@@ -373,6 +376,8 @@ export class AccountsComponent implements OnInit {
         }
       }
     });
+
+   
 
     setTimeout(() => {
       let elem = document.getElementById('accountList0') as HTMLDivElement;
@@ -436,14 +441,18 @@ export class AccountsComponent implements OnInit {
 
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('5454545454545454541351321321321')
-    console.log(result)
+    
+    if(result.close==true){
       this.accountTypeList = [];
       this.accountList = [];
       this.getAccountTypedata();
       this.getAccountdata();
+    }
     });
   }
+
+
+
 
   deleteAccount(id, accountName, type) {
 

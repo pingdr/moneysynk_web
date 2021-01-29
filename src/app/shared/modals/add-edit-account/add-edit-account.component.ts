@@ -15,6 +15,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-edit-account.component.scss']
 })
 export class AddEditAccountComponent implements OnInit {
+
+
+  
   selected = 'option2';
   editaccount: FormGroup;
   submitted = false;
@@ -24,9 +27,11 @@ export class AddEditAccountComponent implements OnInit {
   myModel: TableModel;
   search = new FormControl();
   minDate;
+  accountypeSave:boolean=false
   addEditLable: any;
   group_id: any;
   icons: any;
+  popupclose:boolean=false
   public modeselect = 'Dollar';
   filterName: any;
   groupId: any;
@@ -76,6 +81,23 @@ export class AddEditAccountComponent implements OnInit {
 
 
   ngOnInit(): void {
+     this.dialogRef.disableClose = true;
+  this.dialogRef.backdropClick().subscribe(_ => {
+
+    if(this.accountypeSave){
+
+      this.popupclose=true
+      let popupdata={
+        type:this.editaccount.value.accountType,
+        close:this.popupclose
+      }
+      this.dialogRef.close(popupdata);
+
+    }
+   else {
+      this.dialogRef.close();
+   }
+  })
     this.groupId = this.data.groupId;
     this.getAllAccountType();
     this.addEditLable = this.data.editdata;
@@ -114,6 +136,9 @@ export class AddEditAccountComponent implements OnInit {
     });
 
   }
+
+
+
 
 
 
@@ -184,7 +209,12 @@ export class AddEditAccountComponent implements OnInit {
             });
             this.isApiCalling = false;
           }
-          this.dialogRef.close(this.dialogRef);
+          this.popupclose=true
+          let popupdata={
+            type:this.editaccount.value.accountType,
+            close:this.popupclose
+          }
+          this.dialogRef.close(popupdata);
           this.isSpinnerLoading = false;
           this.http.navigate('accounts');
 
@@ -271,13 +301,14 @@ export class AddEditAccountComponent implements OnInit {
           .subscribe(res => {
             let response = res;
             if (response.statusCode == 200) {
+              this.accountypeSave=true
               this.accountType = "";
               this.toastr.success('Account type added successfully', 'success', {
                 timeOut: 2000
               });
 
             }
-
+            
             this.getAllAccountType();
           });
       }
@@ -288,7 +319,21 @@ export class AddEditAccountComponent implements OnInit {
   }
 
   hideModal() {
+
+    if(this.accountypeSave){
+
+      this.popupclose=true
+      let popupdata={
+        type:this.editaccount.value.accountType,
+        close:this.popupclose
+      }
+      this.dialogRef.close(popupdata);
+
+    }
+
+else{
     this.dialogRef.close(this.dialogRef);
+}
   }
 
 
