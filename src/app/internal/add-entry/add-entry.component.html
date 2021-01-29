@@ -60,7 +60,7 @@
                 <mat-form-field appearance="fill">
                     <input matInput placeholder="0" appOnlynumberDirective formControlName="amount"
                         [ngClass]="{ 'is-invalid': submitted && f.amount.errors }"
-                        style="padding-left: 28px !important;" maxlength="6">
+                        style="padding-left: 38px !important;" maxlength="6">
                     <span class="amount-dollar">$</span>
                     <!-- <div *ngIf="submitted && f.chequeNumber.errors" class="invalid-feedback">
                         <div *ngIf="f.Accountname.errors.required">First Name is required</div>
@@ -182,7 +182,7 @@
                 </mat-form-field>
             </div>
             <div class="last-section">
-                <button [disabled]="isSpinnerLoading" *ngIf="this.accountEntryDetail._id == undefined" (click)="onSubmit()"  class="btn"><i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoading"></i>&nbsp; Save</button>
+                <button [disabled]="isSpinnerLoading" *ngIf="this.accountEntryDetail._id == undefined" (click)="onSubmit()"  class="btn"><i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoading"></i> Save</button>
                 <button [disabled]="isSpinnerLoading" *ngIf="this.accountEntryDetail._id != undefined" (click)="onSubmit()"  class="btn"><i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoading"></i>&nbsp; Update</button>
 
             </div>
