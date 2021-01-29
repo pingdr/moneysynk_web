@@ -33,15 +33,29 @@ aside.sidenav-main {
     max-height: 100%;
     width: 250px;
     max-width: 250px;
-    @include max-mq(1320) {
-        width: 200px;
+    @include max-mq(1550) {
+        width: 210px;
         max-width: 210px;
+    }
+    @include max-mq(1100){
+        width: 180px;
+        max-width: 180px;
+    }
+    @include max-mq(991){
+        width: 160px;
+        max-width: 160px;
     }
 }
 
 .brand-sidebar {
     height: 90px;
     background: #292933;
+    @include max-mq(1100){
+        height: 80px;
+    }
+    @include max-mq(991){
+        height: 75px;
+    }
     .logo-wrapper {
         height: 100%;
         margin-bottom: 0px !important;
@@ -52,6 +66,18 @@ aside.sidenav-main {
             text-align: center;
             img {
                 width: 155px;
+                @include max-mq(1550){
+                    width: 135px;
+                }
+                @include max-mq(1100){
+                    width: 120px;
+                    position: relative;
+                    top: 7px;
+                }
+                @include max-mq(991){
+                    width: 110px;
+                    top: 4px;
+                }
             }
             span.logo-text {
                 display: none;
@@ -79,6 +105,12 @@ aside.sidenav-main {
             padding: 18px 30px;
             position: relative;
             transition: 0.8s all ease;
+            @include max-mq(1550){
+                padding: 15px 25px;
+            }
+            @include max-mq(1100){
+                padding: 11px 24px;
+            }
             &:hover {
                 cursor: pointer;
                 &::before {
@@ -90,12 +122,21 @@ aside.sidenav-main {
                     top: 0px;
                     bottom: 0px;
                     transition: 0.8s all ease;
+                    @include max-mq(1550){
+                        width: 3px;
+                    }
                 }
             }
             .navlinks {
                 color: #fff;
                 font-size: 13px;
                 position: relative;
+                @include max-mq(1550){
+                    font-size: 12px;
+                }
+                @include max-mq(1100){
+                    font-size: 11px;
+                }
                 &:hover {
                     color: #f5b822 !important;
                     text-decoration: none;
@@ -133,4 +174,9 @@ aside.sidenav-main {
     background: #5a5b67;
     padding: 12px 0px;
     text-align: center;
+    img{
+        @include max-mq(991){
+            width: 20px;
+        }
+    }
 }

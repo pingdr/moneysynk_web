@@ -50,26 +50,45 @@
                 position: relative;
                 flex-direction: column;
                 justify-content: space-between;
+                @include max-mq(1220){
+                    padding: 0px 30px;
+                }
                 .logo{
-                    padding-top: 100px;
-                    width: 56%;
+                    padding-top: 0px;
+                    width: 70%;
                     margin: auto;
                     text-align: center;
-                    position: relative;
-                    z-index: 999;
-                    @include max-mq(1300){
-                        padding-top: 0px;
-                        width: 60%;
-                        margin-top: 20px;
+                    @include max-mq(1400){
+                        width: 85%;
                     }
-                    @include max-mq(1150){
-                        padding-top: 0px;
-                        width: 80%;
-                        margin-top: 40px;
+                    @include max-mq(1220){
+                        width: 90%;
                     }
+                    @include max-mq(991){
+                        width: 70%;
+                    }
+                    // @include max-mq(1300){
+                    //     padding-top: 0px;
+                    //     width: 60%;
+                    //     margin-top: 20px;
+                    // }
+                    // @include max-mq(1150){
+                    //     padding-top: 0px;
+                    //     width: 80%;
+                    //     margin-top: 40px;
+                    // }
                     img{
-                        width: 40%;
-                        margin-bottom: 30px;
+                        width: 33%;
+                        margin-bottom: 20px;
+                        margin-top: 0px;
+                        @include max-mq(1420){
+                            width: 45%;
+                            margin-bottom: 0px;
+                            margin-top: 0px;
+                        }
+                        @include max-mq(991){
+                            width: 60%;
+                        }
                     }
                     p{
                         margin-bottom: 30px;
@@ -78,22 +97,46 @@
                         font-size: 14px;
                         line-height: 28px;
                         word-break: break-word;
-                        @include max-mq(1300){
-                            margin-top: -60px;
-                            margin-bottom:15px;
+                        @include max-mq(1660){
+                            margin-top: -50px;
                         }
-                       
+                        @include max-mq(1220){
+                            font-size: 13px;
+                            line-height: 22px;
+                        }
+                        @include max-mq(1140){
+                            font-size: 12px;
+                            line-height: 20px;
+                            margin-bottom: 170px;
+                        }
+                        @include max-mq(991){
+                            font-size: 12px;
+                            line-height: 20px;
+                            margin-bottom: 50px;
+                        }
                     }
                 }
 
                 .login-graphic {
                     text-align: center;
-                    width: 80%;
+                    width: 68%;
                     margin-left: auto;
                     margin-right: auto;
+                    @include max-mq(1550){
+                        width: 80%;
+                    }
+                    @include max-mq(1400){
+                        width: 90%;
+                    }
                    
                     @include max-mq(1150){
                         width: 90%;
+                    }
+                    @include max-mq(1100){
+                        width: 96%;
+                    }
+                    @include max-mq(991){
+                        display: none;
                     }
                 }
             }
@@ -108,6 +151,17 @@
     .main-right-login-form{
         width:100%;
         padding: 0px 50px;
+        @include max-mq(1400){
+            padding: 0px 70px;
+        }
+        @include max-mq(1140){
+            padding: 0px 50px;
+        }
+        @include max-mq(991){
+            padding: 0px 0px;
+            width: 45%;
+            margin: auto;
+        }
         .upper-div-one {
             text-align: center;
             position: relative;
@@ -138,6 +192,12 @@
                     color: #000 !important;
                     font-size: 13px !important;
                     font-weight: 400;
+                    @include max-mq(1140){
+                        padding: 28px 20px !important;
+                        padding-left: 60px !important;
+                        font-size: 12px !important;
+   
+                    }
                     &:focus{
                         box-shadow: 0 0 0 0.1rem #f39645 !important;
                         border-color: #f39645 !important;
@@ -196,6 +256,11 @@
                     label{
                         font-size: 13px;
                         margin-bottom: -5px;
+                        @include max-mq(1140){
+                            font-size: 12px;
+                            margin-bottom: -5px;
+                            margin-left: 7px;
+                        }
                     }
                     input{
                         padding: 0 !important;
@@ -215,6 +280,12 @@
                     margin-bottom: 30px;
                     padding: 22px;
                     width:100%;
+                    @include max-mq(1150){
+                        margin-bottom: 20px;
+                        padding: 16px;
+                        width: 100%;
+                        font-size: 13px;
+                    }
                 }
                 .text-btn{
                     color: #5E5E5E;
@@ -242,6 +313,10 @@
             }
             a.signup-btn{
                 padding: 15px 25px !important;
+                @include max-mq(1140){
+                    padding: 9px 25px !important;
+                    font-size: 12px;
+                }
             }
         }
     }
@@ -257,4 +332,43 @@
   
   .example-full-width {
     width: 100%;
+  }
+
+
+  .main-login{
+    .container-fluid{
+        .row{
+            .col-xl-8 {
+                @include max-mq(1400){
+                    max-width: 60% !important;
+                }
+                @include max-mq(1220){
+                    max-width: 55% !important;
+                }
+                @include max-mq(1140){
+                    max-width: 50% !important;
+                }
+                @include max-mq(991){
+                    max-width: 100% !important;
+                    flex: inherit !important;
+                }
+                
+            }
+            .right-login-main {
+                @include max-mq(1400){
+                    max-width: 40% !important;
+                    flex: unset !important;
+                }
+                @include max-mq(1220){
+                    max-width: 45% !important;
+                }
+                @include max-mq(1140){
+                    max-width: 50% !important;
+                }
+                @include max-mq(991){
+                    max-width: 100% !important;
+                }
+            }
+        }
+    }
   }

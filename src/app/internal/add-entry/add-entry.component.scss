@@ -1,3 +1,31 @@
+// ----Media query mixin-----------//
+@mixin min-mq($min-screen-size) {
+    @media (min-width: $min-screen-size +"px") {
+        @content;
+    }
+}
+
+@mixin max-mq($max-screen-size) {
+    @media (max-width: $max-screen-size +"px") {
+        @content;
+    }
+}
+
+// ----------------------------For Orientation-----------------------//
+@mixin landscape-orientation($max-screen-size, $orientation) {
+    @media (max-width: $max-screen-size +"px") and (orientation: $orientation) {
+        @content;
+    }
+}
+
+@mixin btw-mq($min-screen-size, $max-screen-size, $pixel-ratio, $orientation) {
+    @media only screen and (min-width: $min-screen-size +"px") and (max-width: $max-screen-size +"px") and (-webkit-min-device-pixel-ratio: $pixel-ratio) and (orientation: $orientation) {
+        @content;
+    }
+}
+
+// ------------END of Media Screen Mixing--------------//
+
 .add-entry-main {
     .component-heading {
         width: auto;
@@ -110,11 +138,19 @@
     font-size: 13px;
     color: #5e5e5e;
     font-family: 'Sul Sans';
+    @include max-mq(1500){
+        left: 23px;
+        top: 18px;
+        font-size: 12px;
+    }
 }
 
 
 .plus-icon-new {
-    width: 96%;
+    width: 100%;
+    margin-left: 3px;
+    position: relative;
+    top: 6px;
     a{
         font-size: 30px;
     }

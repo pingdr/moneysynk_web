@@ -122,6 +122,9 @@ label {
     color: #5e5e5e;
     margin-bottom: 28px;
     display: block;
+    @include max-mq(1140){
+        font-size: 13px;
+    }
 }
 .mat-option-text {
     font-family: "Sul Sans" !important;
@@ -439,8 +442,17 @@ label {
     margin-top: 90px;
     margin-left: 250px;
     // overflow: hidden;
-    @include max-mq(1320) {
-        margin-left: 200px;
+    @include max-mq(1550) {
+        margin-left: 210px;
+        margin-top: 90px;
+    }
+    @include max-mq(1100){
+        margin-left: 180px;
+        margin-top: 75px;
+    }
+    @include max-mq(991){
+        margin-left: 160px;
+        margin-top: 65px;
     }
 }
 
@@ -448,7 +460,7 @@ label {
 .heading-pannel {
     display: flex;
     align-items: center;
-    padding: 16px 15px;
+    padding: 15px 25px;
     .component-heading {
         width: 50%;
         span {
@@ -674,11 +686,21 @@ label {
                     font-size: 12px;
                     font-family: "Sul Sans" !important;
                     margin-top: 0 !important;
+                    @include max-mq(1500){
+                        padding: 19px 19px !important;
+                    }
                 }
                 .mat-select {
                     background: #f9f9f9 !important;
                     padding: 18px 19px !important;
                     border-radius: 100px;
+                    @include max-mq(1500){
+                        padding: 19px 24px !important;
+                    }
+                    @include max-mq(1100){
+                        // padding: 14px 15px !important;
+                        font-size: 12px !important;
+                    }
                     .mat-select-arrow-wrapper {
                         transform: inherit !important;
                     }
@@ -1345,14 +1367,29 @@ body {
 
 .start-entry {
     padding: 40px 10px;
+    @include max-mq(991){
+        padding: 40px 30px;
+    }
     .add-entry-main-form {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-column-gap: 20px;
         width: 65%;
         grid-row-gap: 14px;
+        @include max-mq(1660){
+            width: 75%;
+        }
         @include max-mq(1500) {
-            width: 80%;
+            width: 85%;
+        }
+        @include max-mq(1400){
+            width: 95%;
+            grid-column-gap: 6px;
+            grid-row-gap: 14px;
+        }
+        @include max-mq(991){
+            width: 100%;
+            grid-template-columns: repeat(1, 1fr);
         }
         .form-group {
             margin-bottom: 0;
@@ -1365,6 +1402,11 @@ body {
                 margin-right: 20px;
                 font-size: 12px;
                 line-height: 10px;
+                @include max-mq(991){
+                    font-size: 12px;
+                    width:20%;
+                    text-align: left;
+                }
             }
             // .mat-form-field {
             //     width: 80% !important;
@@ -1423,12 +1465,20 @@ body {
         .Add-not-main {
             grid-column-start: 2;
             grid-column-end: -1;
+            @include max-mq(991){
+                grid-column-start: inherit;
+                grid-column-end: inherit;
+            }
         }
         .last-section {
             grid-column-start: 2;
             grid-column-end: -1;
             text-align: right;
             margin-top: 20px;
+            @include max-mq(991){
+                grid-column-start: inherit;
+                grid-column-end: inherit;
+            }
             .btn {
                 padding: 14px 41px;
                 font-weight: 300;

@@ -30,8 +30,16 @@
     height: 90px;
     background: #fff;
     z-index: 9999;
-    @include max-mq(1320) {
-        left: 200px;
+    @include max-mq(1550) {
+        left: 210px;
+    }
+    @include max-mq(1100){
+        left: 180px;
+        height: 80px;
+    }
+    @include max-mq(991){
+        left: 160px;
+        height: 75px;
     }
 
     .navbar {
@@ -62,6 +70,14 @@
         font-weight: 400;
         margin-left: 28px;
         color: #5e5e5e !important;
+        @include max-mq(1100){
+            font-size: 12px;
+            margin-left: 0px;
+        }
+        @include max-mq(991){
+            font-size: 0;
+            margin-left: 0px;
+        }
         &:focus {
             outline: none !important;
             border: none !important;
@@ -108,11 +124,17 @@
 .search-input {
     margin-bottom: 0;
     width: 48%;
+    @include max-mq(1550){
+        width: 35%;
+    }
     @include max-mq(1250) {
-        width: 40%;
+        width: 35%;
     }
     @include max-mq(1100) {
         width: 35%;
+    }
+    @include max-mq(991){
+        width: 40%;
     }
     .form-field {
         input {
@@ -127,6 +149,14 @@
             background: #fff url(../../../../assets/images/search-mirror.svg) no-repeat !important;
             background-size: 30px;
             background-position: center left 20px !important;
+            @include max-mq(1100){
+                padding: 19px 17px !important;
+                border-radius: 25.5px !important;
+                padding-left: 43px !important;
+                font-size: 12px !important;
+                background-size: 20px;
+                background-position: center left 13px !important;
+            }
             &:focus {
                 border-color: #dba43b !important;
                 box-shadow: 0 0 0 1px #dba43b;
@@ -142,6 +172,9 @@
     @extend .header-first-drop-down;
     margin-right: 55px;
     margin-left: 0px;
+    @include max-mq(991){
+        margin-right: 40px;
+    }
     .user-pro-pic {
         img {
             width: 45px;
@@ -159,6 +192,15 @@
         margin: 10px;
         font-weight: 500;
         text-transform: uppercase;
+        @include max-mq(1100){
+            padding: 6px 6px 6px 9px;
+            font-size: 14px;
+            margin: 9px;
+        }
+        @include max-mq(991){
+            margin-left: auto;
+            margin-right: 0;
+        }
     }
 }
 
@@ -200,6 +242,12 @@
 
 .groupRight {
     margin: 30px;
+    @include max-mq(1100){
+        margin: 30px;
+    }
+    @include max-mq(991){
+        margin: 15px;
+    }
 }
 
 

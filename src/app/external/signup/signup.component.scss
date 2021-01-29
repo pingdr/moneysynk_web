@@ -43,28 +43,30 @@
                 position: relative;
                 flex-direction: column;
                 justify-content: space-between;
+                @include max-mq(1300){
+                    padding: 0px 30px;
+                }
                 .logo {
-                    padding-top: 100px;
-                    width: 70%;
+                    padding-top: 60px;
+                    width: 60%;
                     margin: auto;
                     text-align: center;
-                    @include max-mq(1300) {
-                        padding-top: 0px;
-                        width: 60%;
-                        margin-top: 20px;
-                    }
-                    @include max-mq(1150) {
+                    @include max-mq(1660){
                         padding-top: 0px;
                         width: 80%;
-                        margin-top: 40px;
                     }
+                   
                     img {
-                        width: 34%;
-                        margin-bottom: 30px;
+                        width: 45%;
+                        margin-bottom: 20px;
+                        @include max-mq(1660){
+                            width: 50%;
+                            margin-bottom: 25px;
+                        }
                     }
                     p {
-                        margin-bottom: 20px;
-                        margin-top: -60px;
+                        margin-bottom: 90px;
+                        margin-top: -90px;
                         color: #fff;
                         font-size: 14px;
                         line-height: 28px;
@@ -73,17 +75,28 @@
                             margin-top: -60px;
                             margin-bottom: 15px;
                         }
+                        @include max-mq(1500){
+                            margin-bottom: 90px;
+                            margin-top: -70px;
+                            font-size: 13px;
+                            line-height: 25px;  
+                        }
                     }
                 }
 
                 .login-graphic {
                     text-align: center;
-                    width: 80%;
+                    width: 60%;
                     margin-left: auto;
                     margin-right: auto;
-
-                    @include max-mq(1150) {
+                    @include max-mq(1660){
+                        width: 75%;
+                    }
+                    @include max-mq(1300){
                         width: 90%;
+                    }
+                    @include max-mq(991){
+                        display: none;
                     }
                 }
             }
@@ -98,6 +111,17 @@
     .main-right-login-form {
         width: 100%;
         padding: 0px 50px;
+        @include max-mq(1300){
+            padding: 0px 70px;
+        }
+        @include max-mq(1200){
+            padding: 0px 54px;
+        }
+        @include max-mq(991){
+            padding: 50px 0px;
+            width: 50%;
+            margin: auto;
+        }
         .upper-div-one {
             text-align: center;
             position: relative;
@@ -128,6 +152,10 @@
                     color: #000 !important;
                     font-size: 13px !important;
                     font-weight: 400;
+                    @include max-mq(1660){
+                        padding: 28px 30px !important;
+                        padding-left: 65px !important;
+                    }
                     &:focus {
                         box-shadow: 0 0 0 0.1rem #f39645 !important;
                         border-color: #f39645 !important;
@@ -207,6 +235,10 @@
                     margin-bottom: 26px;
                     margin-top: 26px;
                     position: relative;
+                    @include max-mq(1300){
+                        margin-bottom: 23px;
+                        margin-top: 23px;
+                    }
                     label {
                         font-size: 12px;
                         margin-bottom: 0;
@@ -297,3 +329,49 @@
     margin-bottom: 20px !important;
     margin-left: 13px !important;
 }
+
+
+.main-login{
+    .container-fluid{
+        .row{
+            .col-xl-8 {
+                @include max-mq(1400){
+                    max-width: 60% !important;
+                }
+                @include max-mq(1220){
+                    max-width: 55% !important;
+                }
+                @include max-mq(1140){
+                    max-width: 50% !important;
+                }
+                @include max-mq(991){
+                    max-width: 100% !important;
+                    flex: inherit !important;
+                }
+                
+            }
+            .right-login-main {
+                @include max-mq(1400){
+                    max-width: 40% !important;
+                    flex: unset !important;
+                }
+                @include max-mq(1220){
+                    max-width: 45% !important;
+                }
+                @include max-mq(1140){
+                    max-width: 50% !important;
+                }
+                @include max-mq(991){
+                    max-width: 100% !important;
+                }
+            }
+        }
+    }
+  }
+
+
+
+
+//   
+
+
