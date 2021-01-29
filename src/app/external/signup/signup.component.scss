@@ -47,13 +47,8 @@
                     padding: 0px 30px;
                 }
                 .logo {
-<<<<<<< HEAD
                     padding-top: 60px;
                     width: 60%;
-=======
-                    padding-top: 100px;
-                    width: 70%;
->>>>>>> 1efb517097b22aeba3ecf4df9e28fcbbe1effccf
                     margin: auto;
                     text-align: center;
                     @include max-mq(1660){
@@ -62,7 +57,6 @@
                     }
                    
                     img {
-<<<<<<< HEAD
                         width: 45%;
                         margin-bottom: 20px;
                         @include max-mq(1660){
@@ -73,14 +67,6 @@
                     p {
                         margin-bottom: 90px;
                         margin-top: -90px;
-=======
-                        width: 34%;
-                        margin-bottom: 30px;
-                    }
-                    p {
-                        margin-bottom: 20px;
-                        margin-top: -60px;
->>>>>>> 1efb517097b22aeba3ecf4df9e28fcbbe1effccf
                         color: #fff;
                         font-size: 14px;
                         line-height: 28px;
