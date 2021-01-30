@@ -98,9 +98,18 @@ export class AddPayeeComponent implements OnInit {
             this.isApiCalling = false;            
             let response = res;
             if (response.statusCode == 200) {
+              if(this.data.type=="PAYEE"){
               this.toastr.success('Payee updated successfully', 'success', {
                 timeOut: 2000
               });
+            }else {
+
+              this.toastr.success('Payer updated successfully', 'success', {
+                timeOut: 2000
+              });
+
+            }
+
             }
             this.dialogRef.close(this.dialogRef);
             this.isSpinnerLoading=false;
@@ -126,9 +135,16 @@ export class AddPayeeComponent implements OnInit {
             this.isApiCalling = false;
             let response = res;
             if (response.statusCode == 200) {
-              this.toastr.success('Payee added successfully', 'success', {
-                timeOut: 2000
-              });
+              if(this.data.type=="PAYEE"){
+                this.toastr.success('Payee added successfully', 'success', {
+                  timeOut: 2000
+                });
+              }else{
+                this.toastr.success('Payer added successfully', 'success', {
+                  timeOut: 2000
+                });
+              }
+            
             }
             this.dialogRef.close(this.dialogRef);
             this.isSpinnerLoading=false;

@@ -30,7 +30,7 @@
             <div slickContainer #slickController="slick" [slickConfig]="config" class="nav nav-tabs nav-fill"
                 id="nav-tab" role="tablist">
                 <a slickItem *ngFor="let data of accountTypeList; let i = index" style="cursor: pointer; width: 78px;"
-                    class="nav-item nav-link" [ngClass]="{ 'active' : isSelected == i }" id="nav-home-tab"
+                    class="nav-item nav-link" [ngClass]="{ 'active' : accountType_id == data._id }" id="nav-home-tab"
                     data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true"
                     (click)="getType(data._id,i)">
                     <span style="position: relative;">
@@ -245,17 +245,24 @@
                         <div class="tab-pane fade" id="nav-summary-tab" role="tabpanel"
                             aria-labelledby="nav-summary-tab">
                             <ng-container *ngIf="accountSummaryDataShimmer">
-                                <div class="shimmer1">
+                                <div class="shimmer12">
                                     <ngx-shimmer-loading [shape]="'circle'" [width]="'150px'" [height]="'60px'">
                                     </ngx-shimmer-loading>
-                                    <ngx-shimmer-loading [direction]="'ltr'" [width]="'450px'" [height]="'60px'">
-                                    </ngx-shimmer-loading>
-                                    <ngx-shimmer-loading [direction]="'ltr'" [width]="'450px'" [height]="'60px'">
+                                </div>
+                                    <div class="shimmer3"> 
+                                     <ngx-shimmer-loading [direction]="'ltr'" [width]="'326px'" [height]="'50px'">
                                     </ngx-shimmer-loading>
                                 </div>
+                                <div class="shimmer4"> 
+                                    <ngx-shimmer-loading [direction]="'ltr'" [width]="'326px'" [height]="'50px'">
+                                    </ngx-shimmer-loading>
+                                </div>
+                             
+                                  
+                             
                                 <div *ngFor="let shimmer of [1,2,3,4,5]">
-                                    <div class="shimmer1">
-                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'450px'" [height]="'60px'">
+                                    <div class="shimmer23">
+                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'484px'" [height]="'60px'">
                                         </ngx-shimmer-loading>
                                     </div>
                                 </div>

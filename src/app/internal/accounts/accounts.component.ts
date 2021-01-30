@@ -277,6 +277,8 @@ export class AccountsComponent implements OnInit {
             console.log('this.accountTypeList');
             console.log(this.accountTypeList);
             this.accountType_id = res.data[0]._id;
+            console.log('this.accountType_id')
+            console.log(this.accountType_id)
             this.isSelected = 0;
           }
           this.getAccountdata();
@@ -347,7 +349,7 @@ export class AccountsComponent implements OnInit {
       limit: 10,
       accountType: this.accountType_id
     }
-
+  
     this.isApiCalling = true;
     this.isShimmerloading = true;
     this.accountDetailShimmer = true;
@@ -441,18 +443,69 @@ export class AccountsComponent implements OnInit {
 
 
     dialogRef.afterClosed().subscribe(result => {
+ 
     
-    if(result.close==true){
+    if(result.backdata==2){
       this.accountTypeList = [];
       this.accountList = [];
-      this.getAccountTypedata();
+      this.accountType_id=result.type
+      this.getAccountTypedataFetch();
       this.getAccountdata();
+    }else if(result.backdata==1){
+      this.getAccountdataFetch();
+      this.accountType_id=result.type
     }
     });
   }
 
 
+  getAccountTypedataFetch() {
+    this.isShimmerloading = true;
+    this.accountDetailShimmer = true;
+    if (this.groupId) {
+      var payload = {
+        "groupId": this.groupId
+      }
 
+      this.http.getAllAccountType(ApiUrl.getAllAccountType, payload).subscribe(res => {
+        if (res.data != undefined) {
+          if (this.accountTypeList.length == 0) {
+            this.accountTypeList = res.data;
+            // console.log('this.accountTypeList');
+            // console.log(this.accountTypeList);
+            // this.accountType_id = res.data[0]._id;
+            // console.log('this.accountType_id')
+            // console.log(this.accountType_id)
+            // this.isSelected = 0;
+          }
+          this.getAccountdata();
+        }
+      });
+    }
+
+  }
+
+
+
+  getAccountdataFetch(){
+
+    if (this.groupId) {
+      var payload = {
+        "groupId": this.groupId
+      }
+      this.accountTypeList=[]
+      this.http.getAllAccountType(ApiUrl.getAllAccountType, payload).subscribe(res => {
+        if (res.data != undefined) {
+          if (this.accountTypeList.length == 0) {
+            this.accountTypeList = res.data;
+            this.isSelected = 1;
+          }
+         
+        }
+      });
+    }
+
+  }
 
   deleteAccount(id, accountName, type) {
 
@@ -476,10 +529,13 @@ export class AccountsComponent implements OnInit {
       console.log('The dialog was closed');
       this.accountTypeList = [];
       this.accountList = [];
-      this.getAccountTypedata();
+      this.getAccountTypedataFetch();
       this.getAccountdata();
     });
   }
+
+
+  
 
   getType(id, i?: any) {
 

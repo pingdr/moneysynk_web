@@ -30,6 +30,7 @@ export class PayeesPayersComponent implements OnInit {
   payersArray: any = [];
   pName: any = '';
   groupId: any;
+  deletePayees:any
 
   isRecordSelected: any = 0;
   isRecordSelected1: any = 0;
@@ -39,6 +40,7 @@ export class PayeesPayersComponent implements OnInit {
   payeePayerShimmarLoding = true;
 
   payeeId;
+  
   payeeName;
   total: any = 0;
   pageIndex: any = 0;
@@ -351,9 +353,11 @@ export class PayeesPayersComponent implements OnInit {
   }
 
   deletePayee(id, payeeName, type) {
+
+console.log(type)
     let dialogRef;
 
-    if (type == 'deletePayee') {
+    if (type == 'AddText') {
       dialogRef = this.dialog.open(DeleteModalComponent, {
         panelClass: 'account-modal-main',
         width: '350px',

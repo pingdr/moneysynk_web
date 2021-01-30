@@ -89,7 +89,8 @@ export class AddEditAccountComponent implements OnInit {
       this.popupclose=true
       let popupdata={
         type:this.editaccount.value.accountType,
-        close:this.popupclose
+        close:this.popupclose,
+        backdata:1
       }
       this.dialogRef.close(popupdata);
 
@@ -212,7 +213,8 @@ export class AddEditAccountComponent implements OnInit {
           this.popupclose=true
           let popupdata={
             type:this.editaccount.value.accountType,
-            close:this.popupclose
+            close:this.popupclose,
+            backdata:2
           }
           this.dialogRef.close(popupdata);
           this.isSpinnerLoading = false;
@@ -256,7 +258,13 @@ export class AddEditAccountComponent implements OnInit {
               timeOut: 2000
             });
           }
-          this.dialogRef.close(this.dialogRef);
+          this.popupclose=true
+          let popupdata={
+            type:this.editaccount.value.accountType,
+            close:this.popupclose,
+            backdata:2
+          }
+          this.dialogRef.close(popupdata);
           this.isSpinnerLoading = false;
           this.http.navigate('accounts');
         },
@@ -325,7 +333,8 @@ export class AddEditAccountComponent implements OnInit {
       this.popupclose=true
       let popupdata={
         type:this.editaccount.value.accountType,
-        close:this.popupclose
+        close:this.popupclose,
+        backdata:2
       }
       this.dialogRef.close(popupdata);
 

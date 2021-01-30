@@ -27,7 +27,7 @@
         <div class="form-group opening-balance">
             <label>Category</label>
             <mat-form-field appearance="fill">
-                <mat-select placeholder="Select category" formControlName="categoryId"
+                <mat-select style="font-size: 12px;" placeholder="Select category" formControlName="categoryId"
                     (selectionChange)="parentSelected($event)" [ngModel]="catgroyDetails.categoryId"
                     [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }" *ngIf="!isEdit">
                     <ng-container *ngFor="let cat of categories">

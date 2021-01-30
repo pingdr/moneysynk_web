@@ -39,10 +39,10 @@ export class DeleteModalComponent implements OnInit {
       case 'deleteCategory':
         this.deleteCategory();
         break;
-      case 'deletePayee':
+      case 'AddText':
         this.deletePayee()
         break;
-      case 'deletePayer':
+      case 'deletePayee':
         this.deletePayee()
         break;
       case 'deleteBudget':
@@ -107,7 +107,7 @@ export class DeleteModalComponent implements OnInit {
   deletePayee() {
     let successMessage: any = '';
 
-    if (this.data.type == 'deletePayee') {
+    if (this.data.type == 'AddText') {
       successMessage = 'Payee deleted successfully';
     } else {
       successMessage = 'Payer deleted successfully';

@@ -494,12 +494,45 @@
     padding: 5px;
 }
 
+
 .shimmer1 {
     display: inline-block !important;
     width: 100% !important;
     overflow: hidden;    
 }
 
+
+.shimmer23 {
+    position: relative;
+    width: 100% !important;
+    overflow: hidden;
+    bottom: 103px;
+    margin-top: 13px;
+    margin-left: 15px;
+}
+.shimmer12{
+    position: relative;
+    width: 100% !important;
+    overflow: hidden;
+    bottom: 3px;
+    margin-top: 13px;
+    margin-left: 15px;
+}
+
+.shimmer3 {
+    position: relative;
+    bottom: 148px;
+    left: 174px;
+    width: 64% !important;
+    overflow: hidden;
+}
+.shimmer4 {
+    position: relative;
+    bottom: 140px;
+    left: 175px;
+    width: 71% !important;
+    overflow: hidden; 
+}
 .shimmer2 {
     display: inline-block !important;
     width: 90% !important;
@@ -623,3 +656,26 @@ span.avail-bal {
     overflow: auto;
 }
 
+
+
+.shine {
+    background: #f6f7f8;
+    background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+    background-repeat: no-repeat;
+    background-size: 800px 104px; 
+    display: inline-block;
+    position: relative; 
+    
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: forwards; 
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: placeholderShimmer;
+    -webkit-animation-timing-function: linear;
+    }
+
+
+    .lines {
+        height: 10px;
+        margin-top: -10px;
+        width: 200px; 
+      }

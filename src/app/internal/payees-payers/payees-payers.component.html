@@ -46,9 +46,19 @@
                                                     <div class="name-of-holder">
                                                         {{payees.name}}
                                                     </div>
-                                                    <div class="red-color">
+                                                    <ng-container *ngIf="payees.expenseTotal==0;else other_contentexpenseTotal">
+                                                    <div class="green-color">
                                                         {{convertNumberinPositive(payees.expenseTotal) | currency}}
                                                     </div>
+                                                </ng-container>
+                                                    <ng-template #other_contentexpenseTotal> 
+                                                        <div class="red-color">
+                                                        {{convertNumberinPositive(payees.expenseTotal) | currency}}
+                                                    </div>
+                                                </ng-template>
+
+                                                    
+                                                    
                                                     <div class="del-icon">
                                                         <button class="icon-remove">
                                                             <img src="../../../assets/images/edit-pencil.svg"
@@ -57,7 +67,7 @@
 
                                                         <button class="icon-remove">
                                                             <img src="../../../assets/images/delete-trash.svg"
-                                                                (click)="deletePayee(payees._id,payees.name,'deletePayee')">
+                                                                (click)="deletePayee(payees._id,payees.name,'AddText')">
                                                         </button>
 
                                                     </div>
