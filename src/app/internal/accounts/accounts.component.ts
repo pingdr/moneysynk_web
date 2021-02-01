@@ -36,6 +36,7 @@ export class AccountsComponent implements OnInit {
   accountSummaryDataShimmer = true
   summeryType: string
   accountSummaryDataTotal = '';
+  deleteAccounts:boolean=true
 
   isApiCalling: boolean = false;
   isShimmerloading: boolean = false;
@@ -110,6 +111,7 @@ export class AccountsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.accountTypeList = [];
 
     this.sharedserive.groupChange.subscribe((data) => {
@@ -161,6 +163,8 @@ export class AccountsComponent implements OnInit {
         this.getAccountTypedata();
       }
     })
+
+    
 
   }
   step = 0;
@@ -532,6 +536,8 @@ export class AccountsComponent implements OnInit {
       this.getAccountTypedataFetch();
       this.getAccountdata();
     });
+
+
   }
 
 
@@ -539,7 +545,7 @@ export class AccountsComponent implements OnInit {
 
   getType(id, i?: any) {
 
-
+   
     this.accountDetails = [];
     this.accountSummaryData = []
     this.accountDetailShimmer = true
@@ -565,6 +571,8 @@ export class AccountsComponent implements OnInit {
 
     this.isApiCalling = true;
     this.isShimmerloading = true;
+
+    
     this.http.getAccountById(ApiUrl.getAccountById, payload).subscribe(res => {
       this.isApiCalling = false;
       this.isShimmerloading = false;
