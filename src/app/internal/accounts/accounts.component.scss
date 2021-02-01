@@ -45,6 +45,9 @@
     margin-top: 5px;
     padding-bottom: 0px;
     border-bottom: 1px solid #cccccc;
+    @include max-mq(1660){
+        margin-top: 0px;
+    }
     .nav-tabs {
         border-bottom: 0 !important;
         width: 100%;
@@ -54,6 +57,9 @@
         @include max-mq(1200) {
             width: 85%;
         }
+        @include max-mq(991){
+            width: 100%;
+        }
         .nav-item {
             border: none !important;
             font-size: 13px;
@@ -62,6 +68,9 @@
             padding: 0;
             position: relative;
             padding-bottom: 20px;
+            @include max-mq(1600){
+                font-size: 12px;
+            }
             .balance-btn {
                 display: block;
                 margin-top: 0px;
@@ -102,6 +111,15 @@
     bottom: 0px;
     width: calc(100% - 250px);
     z-index: 1;
+    @include max-mq(1600){
+        width: calc(100% - 210px);
+    }
+    @include max-mq(1150){
+        width: calc(100% - 180px);
+    }
+    @include max-mq(991){
+        width: calc(100% - 150px);
+    }
 }
 
 //----------- strips------------------
@@ -118,6 +136,7 @@
         // padding: 0px 40px 0px 0px;
         padding-right: 20px;
         padding-left: 10px;
+        
     }
     .account-type {
         width: 60%;
@@ -269,14 +288,20 @@
             margin-top: 0;
             width: 70%;
             grid-column-gap: 0;
-            @include max-mq(1200) {
-                width: 100%;
+            @include max-mq(1600){
+                width: 60%;
+            }
+            @include max-mq(1100){
+                width: 40%;
             }
             a {
                 background: rgba(255, 255, 255, 0.2);
                 color: #fff;
                 padding: 9px 5px;
                 border-radius: 18px !important;
+                @include max-mq(1500){
+                    padding: 5px 5px;
+                }
                 &::before {
                     display: none;
                 }
@@ -297,6 +322,12 @@
         .filter-btn-group {
             width: 30%;
             text-align: right;
+            @include max-mq(1600){
+                width: 40%;
+            }
+            @include max-mq(1100){
+                width: 60%;
+            }
             .filter-btn {
                 background: transparent !important;
                 padding: 0;
@@ -313,6 +344,9 @@
     // border-bottom-right-radius: 10px;
     padding: 13px;
     position: relative;
+    @include max-mq(1100){
+        padding: 5px;
+    }
     .inner-expanse-panal-main {
         display: flex;
         align-items: center;
@@ -325,6 +359,10 @@
             box-sizing: border-box;
             font-size: 1rem;
             text-align: center;
+            @include max-mq(1100){
+                padding: 12px;
+                font-size: 12px;
+            }
         }
     }
 }
@@ -509,6 +547,9 @@
     bottom: 103px;
     margin-top: 13px;
     margin-left: 15px;
+    @include max-mq(991){
+        width: 98% !important;
+    }
 }
 .shimmer12{
     position: relative;
@@ -539,6 +580,14 @@
     overflow: hidden;    
     margin-left: 20px;
     margin-top: 10px; 
+    @include max-mq(1100){
+        width: 96% !important;
+        margin-left: 18px;
+        margin-top: 8px;
+    }
+    @include max-mq(991){
+        width: 94% !important;
+    }
 }
 
 .mat-menu-panel{
@@ -611,6 +660,9 @@ span.avail-bal {
             text-align: center;
             position: relative;
             left: 16px;
+            @include max-mq(1100){
+                left: 0px;
+            }
         }
     }
 }
@@ -638,7 +690,7 @@ span.avail-bal {
                 width: 280px;
             }
             @include max-mq(1500){
-                width: 250px;
+                width: 220px;
             }
             @include max-mq(1400){
                 width: 200px;
@@ -654,6 +706,13 @@ span.avail-bal {
 .after-charts-main{
     height: 300px;
     overflow: auto;
+}
+
+.shimmer-loading{
+    @include max-mq(1100){
+        width: 100% !important;
+        max-width:100% !important;
+    }
 }
 
 
@@ -679,3 +738,59 @@ span.avail-bal {
         margin-top: -10px;
         width: 200px; 
       }
+
+
+.main-accounts-details-inner-row{
+    @include max-mq(1100){
+        flex-direction: column;
+    }      
+    .scroller-class {
+        @include max-mq(1100){
+            max-width: 100% !important;
+        }
+    }
+    .col-4 {
+        @include max-mq(1100){
+            max-width: 100% !important;
+            height: 450px !important;
+        }
+        
+    }
+
+}
+
+.main-accounts-details-inner-row{
+    .shimmer3{
+        @include max-mq(1100){
+            bottom: 115px;
+            left: 174px;
+            width: 94% !important;
+        }
+        @include max-mq(991){
+            width: 80% !important;
+        }
+        
+    }
+    .shimmer4{
+        @include max-mq(1100){
+            bottom: 110px;
+            left: 174px;
+            width: 94% !important;
+        }
+        @include max-mq(991){
+            width: 80% !important;
+        }
+    }
+    .shimmer23{
+        @include max-mq(1100){
+            bottom: 50px;
+            margin-top: 10px;
+            margin-left: 18px;
+        }
+
+    }    
+    
+}
+
+
+

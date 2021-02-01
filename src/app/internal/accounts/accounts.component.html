@@ -47,14 +47,14 @@
                             {{ convertNumberinPositive(data.currentBalance) | currency}}</span></span></a>
             </div>
         </nav>
-        <div style="padding:20px;" class="row">
+        <div style="padding:20px;" class="row main-accounts-details-inner-row">
             <div class="col-8 col-md-8 col-lg-8 scroller-class">
                 <ng-container *ngIf="isShimmerloading">
                     <div *ngFor="let shimmer of [1,2,3,4,5,6,7,8,9,10]">
-                        <div class="shimmer">
+                        <div class="shimmer shim-new-circle">
                             <ngx-shimmer-loading [shape]="'circle'" [width]="'50px'"></ngx-shimmer-loading>
                         </div>
-                        <div class="shimmer">
+                        <div class="shimmer shim-strip-new">
                             <ngx-shimmer-loading [shape]="'rect'" [width]="'500px'" [height]="'50px'">
                             </ngx-shimmer-loading>
                         </div>
