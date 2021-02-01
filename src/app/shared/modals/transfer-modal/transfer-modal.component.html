@@ -9,8 +9,8 @@
     <form class="add-account-entry" [formGroup]="transferForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label>From Budget</label>
-            <mat-form-field>
-                <mat-select (selectionChange)="loadFromData($event)" placeholder="Select From Budget"
+            <mat-form-field appearance="fill">
+                <mat-select style="font-size: 12px;" (selectionChange)="loadFromData($event)" appearance="fill" placeholder="Select From Budget"
                     formControlName="fromBudget" name="fromBudget"
                     [ngClass]="{ 'is-invalid': submitted && f.fromBudget.errors }">
                     <mat-option *ngFor="let fromBudget of fromBudgetList" value="{{fromBudget._id}}">{{fromBudget.name}}
@@ -24,8 +24,8 @@
 
         <div class="form-group">
             <label>To Budget</label>
-            <mat-form-field>
-                <mat-select placeholder="Select To Budget" name="toBudget" formControlName="toBudget"
+            <mat-form-field appearance="fill">
+                <mat-select style="font-size: 12px;" placeholder="Select To Budget" name="toBudget" appearance="fill" formControlName="toBudget"
                     [ngClass]="{ 'is-invalid': submitted && f.toBudget.errors }">
                     <mat-option *ngFor="let toBudget of toBudgetList" value="{{toBudget._id}}">{{toBudget.name}}
                     </mat-option>
@@ -59,7 +59,7 @@
                 </div>
             </mat-form-field> -->
             <mat-form-field appearance="fill">
-                <input matInput formControlName="dateTime" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2"
+                <input [min]="todayDate" matInput formControlName="dateTime" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2"
                     placeholder="Date Time" [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }">
                 <span [owlDateTimeTrigger]="dt2"><i style="position: absolute;
                     top: 17px;

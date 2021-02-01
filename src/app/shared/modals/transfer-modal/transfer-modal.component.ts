@@ -20,6 +20,8 @@ export class TransferModalComponent implements OnInit {
   fromBudgetList: any = [];
   toBudgetList: any = [];
 
+  public todayDate:any = new Date();
+
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<TransferModalComponent>,

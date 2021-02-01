@@ -248,6 +248,7 @@ export class PayeesPayersComponent implements OnInit {
     if (this.groupId) {
       var payload = {
         "groupId": this.groupId,
+         type: this.type
       }
 
       this.http.get(ApiUrl.getPayeeSummary, payload).subscribe((res) => {
@@ -307,6 +308,7 @@ export class PayeesPayersComponent implements OnInit {
     this.payeeDetails.data = [];
     this.pName = '';
     this.getPayees();
+    this.getPayeeSummary();
   }
   nextStep() {
     this.step++;
