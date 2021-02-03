@@ -30,17 +30,18 @@ export class PayeesPayersComponent implements OnInit {
   payersArray: any = [];
   pName: any = '';
   groupId: any;
-  deletePayees:any
+  deletePayees: any
 
   isRecordSelected: any = 0;
   isRecordSelected1: any = 0;
+  isRecordAction: boolean = false;
 
   isApiCalling: boolean = false;
   isShimmerLoading: boolean = false;
   payeePayerShimmarLoding = true;
 
   payeeId;
-  
+
   payeeName;
   total: any = 0;
   pageIndex: any = 0;
@@ -94,9 +95,6 @@ export class PayeesPayersComponent implements OnInit {
       console.log('subscribe Data', data);
       if (data) {
         this.searchData(data);
-      } else {
-        this.getPayees();
-        this.getPayeeSummary();
       }
     })
   }
@@ -248,7 +246,7 @@ export class PayeesPayersComponent implements OnInit {
     if (this.groupId) {
       var payload = {
         "groupId": this.groupId,
-         type: this.type
+        type: this.type
       }
 
       this.http.get(ApiUrl.getPayeeSummary, payload).subscribe((res) => {
@@ -276,16 +274,21 @@ export class PayeesPayersComponent implements OnInit {
   }
 
   recordSelected(i, j, payee) {
-    if (i || i == 0)
-      this.isRecordSelected = i;
-    this.isRecordSelected1 = j;
-    if (payee._id) {
-      this.pName = payee.name;
-      this.selectedPayeeId = payee._id;
-      this.getPayeeDetailsById(payee._id);
-    }
+    if (!this.isRecordAction) {
+      if (i || i == 0)
+        this.isRecordSelected = i;
+      this.isRecordSelected1 = j;
+      if (payee._id) {
+        this.pName = payee.name;
+        this.selectedPayeeId = payee._id;
+        this.getPayeeDetailsById(payee._id);
+      }
 
-    this.payeeDetailPageIndex = 0;
+      this.payeeDetailPageIndex = 0;
+      this.isRecordAction = false;
+    } else {
+      this.isRecordAction = false;
+    }
   }
 
   setStep(index: number) {
@@ -327,16 +330,19 @@ export class PayeesPayersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.payeesArray = [];
-      this.payersArray = [];
-      this.payeePayer = [];
-      this.isRecordSelected = 0;
-      this.getPayees();
+      if (result != "no") {
+        console.log('The dialog was closed');
+        this.payeesArray = [];
+        this.payersArray = [];
+        this.payeePayer = [];
+        this.isRecordSelected = 0;
+        this.getPayees();
+      }
     });
   }
 
   updatePayeeOrPayer(objData) {
+    this.isRecordAction = true;
     console.log(objData);
     const dialogRef = this.dialog.open(AddPayeeComponent, {
       width: '523px',
@@ -345,18 +351,20 @@ export class PayeesPayersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.payeesArray = [];
-      this.payersArray = [];
-      this.payeePayer = [];
-      this.isRecordSelected = 0;
-      this.getPayees();
+      if (result != "no") {
+        console.log('The dialog was closed');
+        this.payeesArray = [];
+        this.payersArray = [];
+        this.payeePayer = [];
+        this.isRecordSelected = 0;
+        this.getPayees();
+      }
     });
   }
 
   deletePayee(id, payeeName, type) {
-
-console.log(type)
+    this.isRecordAction = true;
+    console.log(type)
     let dialogRef;
 
     if (type == 'AddText') {
@@ -375,10 +383,12 @@ console.log(type)
 
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.payeePayer = [];
-      this.isRecordSelected = 0;
-      this.getPayees();
+      if (result != "no") {
+        console.log('The dialog was closed');
+        this.payeePayer = [];
+        this.isRecordSelected = 0;
+        this.getPayees();
+      }
     });
   }
 

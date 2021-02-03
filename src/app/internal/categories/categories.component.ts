@@ -32,6 +32,7 @@ export class CategoriesComponent implements OnInit {
 
   isApiCalling: boolean = false;
   isShimmerloading: boolean = false;
+  isRecordAction: boolean = false;
 
   categoryId;
   categoryName;
@@ -83,9 +84,6 @@ export class CategoriesComponent implements OnInit {
       console.log('subscribe Data', data);
       if (data) {
         this.searchData(data);
-      } else {
-        this.getCategoriesData();
-        this.getCategorySummary();
       }
     })
   }
@@ -132,14 +130,20 @@ export class CategoriesComponent implements OnInit {
   }
 
   selectRecord(c) {
-    this.categoriesDetails = []
-    this.categoriesDetailsShimmer = true
-    console.log(c);
-    this.cName = c.name;
-    this.selectedCategoryId = c._id;
-    this.isSubCategoryRecord = null;
-    this.monthlyPageIndex = 0;
-    this.getCategoriesDetailsById(c._id);
+    if (!this.isRecordAction) {
+      this.categoriesDetails = []
+      this.categoriesDetailsShimmer = true
+      console.log(c);
+      this.cName = c.name;
+      this.selectedCategoryId = c._id;
+      this.isSubCategoryRecord = null;
+      this.monthlyPageIndex = 0;
+      this.getCategoriesDetailsById(c._id);
+
+      this.isRecordAction = false;
+    } else {
+      this.isRecordAction = false;
+    }
   }
   getCategoriesData() {
     this.isApiCalling = true;
@@ -213,12 +217,17 @@ export class CategoriesComponent implements OnInit {
   }
 
   getSubCategorySummaryData(c, j) {
-    this.categoriesDetails = []
-    this.categoriesDetailsShimmer = true
-    console.log(c, j);
+    if (!this.isRecordAction) {
+      this.categoriesDetails = []
+      this.categoriesDetailsShimmer = true
+      console.log(c, j);
 
-    this.isSubCategoryRecord = j;
-    this.getCategoriesDetailsById(c._id);
+      this.isSubCategoryRecord = j;
+      this.getCategoriesDetailsById(c._id);
+      this.isRecordAction = false;
+    } else {
+      this.isRecordAction = false;
+    }
   }
 
   pageChange(event) {
@@ -251,14 +260,17 @@ export class CategoriesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.incomeArray = [];
-      this.expenseArray = [];
-      this.getCategoriesData();
+      if (result != "no") {
+        console.log('The dialog was closed');
+        this.incomeArray = [];
+        this.expenseArray = [];
+        this.getCategoriesData();
+      }
     });
   }
 
   deleteCategory(id, categoryName) {
+    this.isRecordAction = true;
     const dialogRef = this.dialog.open(DeleteModalComponent, {
       panelClass: 'account-modal-main',
       width: '350px',
@@ -266,13 +278,15 @@ export class CategoriesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getCategoriesData();
+      if (result != "no") {
+        console.log('The dialog was closed');
+        this.getCategoriesData();
+      }
     });
   }
 
   editCategory(objEditData) {
-
+    this.isRecordAction = true;
     console.log(objEditData);
 
     const dialogRef = this.dialog.open(AddCategoryPopupComponent, {
@@ -282,10 +296,12 @@ export class CategoriesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.incomeArray = [];
-      this.expenseArray = [];
-      this.getCategoriesData();
+      if (result != 'no') {
+        console.log('The dialog was closed');
+        this.incomeArray = [];
+        this.expenseArray = [];
+        this.getCategoriesData();
+      }
     });
   }
 

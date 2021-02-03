@@ -29,6 +29,7 @@ export class BudgetComponent implements OnInit {
   isApiCalling: boolean = false;
   isShimmerloading: boolean = false;
   budgetDetailsShimmer = true
+  isRecordAction: boolean = true;
 
   type: any = "EXPENSE";
   budgetSummary: any = [];
@@ -85,9 +86,6 @@ export class BudgetComponent implements OnInit {
       console.log('subscribe Data', data);
       if (data) {
         this.searchData(data);
-      } else {
-        this.getBudgets();
-        this.getPayeeSummary();
       }
     })
   }
@@ -98,13 +96,18 @@ export class BudgetComponent implements OnInit {
   }
 
   selectRecord(i, b) {
-    this.budgetDetailsShimmer = true
-    if (i || i == 0)
-      this.recordSelected = i;
-    this.bname = b.name;
-    this.selectedBudgetId = b._id;
-    this.budgetDetailPageIndexTotal = 0;
-    this.getBudgetDetailsById(b._id)
+    if (!this.isRecordAction) {
+      this.budgetDetailsShimmer = true
+      if (i || i == 0)
+        this.recordSelected = i;
+      this.bname = b.name;
+      this.selectedBudgetId = b._id;
+      this.budgetDetailPageIndexTotal = 0;
+      this.getBudgetDetailsById(b._id)
+      this.isRecordAction = false;
+    } else{
+      this.isRecordAction = false;
+    }
 
   }
 
@@ -136,6 +139,7 @@ export class BudgetComponent implements OnInit {
   }
 
   deleteBudget(id, budgetName) {
+    this.isRecordAction = true;
     const dialogRef = this.dialog.open(DeleteModalComponent, {
       panelClass: 'account-modal-main',
       width: '350px',
@@ -143,8 +147,10 @@ export class BudgetComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getBudgets();
+      if (result != "no") {
+        console.log('The dialog was closed');
+        this.getBudgets();
+      }
     });
   }
 
@@ -184,7 +190,7 @@ export class BudgetComponent implements OnInit {
       this.http.getCategories(ApiUrl.getBudget, payload).subscribe(res => {
 
         this.isApiCalling = false;
-        this.isShimmerloading = false;        
+        this.isShimmerloading = false;
 
         if (res.data.data.length == 0) {
           this.budgetDetailsShimmer = false;
@@ -213,14 +219,14 @@ export class BudgetComponent implements OnInit {
   }
 
   pageChange(event) {
-    this.budgetDetailsShimmer=true;
+    this.budgetDetailsShimmer = true;
     console.log(event);
     this.pageIndex = event.pageIndex;
     this.getBudgets();
   }
 
   budgetPageChangeDetail(event) {
-    this.budgetDetailsShimmer=true;
+    this.budgetDetailsShimmer = true;
     console.log(event);
     this.budgetDetailPageIndex = event.pageIndex;
     this.getBudgetDetailsById(this.selectedBudgetId)
@@ -288,6 +294,7 @@ export class BudgetComponent implements OnInit {
   }
 
   editBudget(objBudget) {
+    this.isRecordAction = true;
     console.log(objBudget);
     const dialogRef = this.dialog.open(AddBudgetModalComponent, {
       width: '976px',
@@ -295,8 +302,10 @@ export class BudgetComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getBudgets();
+      if (result != "no") {
+        console.log('The dialog was closed');
+        this.getBudgets();
+      }
     });
   }
 

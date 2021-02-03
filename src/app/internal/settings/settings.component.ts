@@ -112,9 +112,9 @@ export class SettingsComponent implements OnInit {
   // }
 
   deleteGroup(id, groupName) {
- 
-    if(id == this.selectedGroup){
-      if(this.toastr.currentlyActive){
+
+    if (id == this.selectedGroup) {
+      if (this.toastr.currentlyActive) {
         return
       }
       this.toastr.error("Active group can't be deleted", 'Error');
@@ -129,10 +129,12 @@ export class SettingsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getAllGroup();
-      this.sharedService.deleteEditGroup(true);
-      // this.sharedService.getSettingsGroupList();
+      if (result != 'no') {
+        console.log('The dialog was closed');
+        this.getAllGroup();
+        this.sharedService.deleteEditGroup(true);
+        // this.sharedService.getSettingsGroupList();
+      }
     });
   }
 
@@ -144,10 +146,12 @@ export class SettingsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getAllGroup();
-      this.sharedService.deleteEditGroup(true);
-      // this.sharedService.getSettingsGroupList();
+      if (result != 'no') {
+        console.log('The dialog was closed');
+        this.getAllGroup();
+        this.sharedService.deleteEditGroup(true);
+        // this.sharedService.getSettingsGroupList();
+      }
     });
   }
 
@@ -178,7 +182,7 @@ export class SettingsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');      
+      console.log('The dialog was closed');
       this.getAllGroup();
       this.sharedService.deleteEditGroup(true);
     });
@@ -192,8 +196,10 @@ export class SettingsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getClassList();
+      if (result != 'no') {
+        console.log('The dialog was closed');
+        this.getClassList();
+      }
     });
   }
 
@@ -205,8 +211,10 @@ export class SettingsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getClassList();
+      if (result != 'no') {
+        console.log('The dialog was closed');
+        this.getClassList();
+      }
     });
   }
 

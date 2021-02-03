@@ -47,7 +47,7 @@
                                         <mat-expansion-panel-header (click)="selectRecord(cat)">
                                             <mat-panel-title>
                                                 <span>{{cat.name}}</span>
-                                                <img src="{{cat.icon}}"
+                                                <img src="{{cat.icon}}" width="40px"
                                                     [ngStyle]="{'height':cat.name=='Other'?'40px':''}">
                                             </mat-panel-title>
                                             <mat-panel-description>
@@ -66,7 +66,7 @@
                                             <div *ngFor="let c of cat.child;let j=index" class="inner-strips"
                                                 (click)="getSubCategorySummaryData(c,j)">
                                                 <div class="left-col">
-                                                    <img src="{{c.icon}}">
+                                                    <img src="{{c.icon}}" width="40px">
                                                     <span
                                                         [ngClass]="{'sub-category-active':isSubCategoryRecord==j && isSubCategoryRecord!=null && selectedCategoryId==c.parent}">{{c.name}}</span>
                                                 </div>
@@ -241,7 +241,7 @@
                                         <mat-expansion-panel-header (click)="selectRecord(inc)">
                                             <mat-panel-title>
                                                 <span>{{inc.name}}</span>
-                                                <img src="{{inc.icon}}"
+                                                <img src="{{inc.icon}}" width="40px"
                                                     [ngStyle]="{'height':inc.name=='Other'?'40px':''}">
                                             </mat-panel-title>
                                             <mat-panel-description>
@@ -260,7 +260,7 @@
                                             <div *ngFor="let c of inc.child;let j=index" class="inner-strips"
                                                 (click)="getSubCategorySummaryData(c,j)">
                                                 <div class="left-col">
-                                                    <img src="{{c.icon}}">
+                                                    <img src="{{c.icon}}" width="40px">
                                                     <span
                                                         [ngClass]="{'sub-category-active':isSubCategoryRecord==j && isSubCategoryRecord!=null && selectedCategoryId==c.parent}">{{c.name}}</span>
                                                 </div>

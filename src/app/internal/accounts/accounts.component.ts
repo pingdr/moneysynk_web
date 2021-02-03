@@ -36,11 +36,12 @@ export class AccountsComponent implements OnInit {
   accountSummaryDataShimmer = true
   summeryType: string
   accountSummaryDataTotal = '';
-  deleteAccounts:boolean=true
+  deleteAccounts: boolean = true
 
   isApiCalling: boolean = false;
   isShimmerloading: boolean = false;
   monthlyData: any = '';
+  isRecordAction: boolean = false;
 
   accountName: string = '';
   config: Slick.Config = {
@@ -54,16 +55,16 @@ export class AccountsComponent implements OnInit {
       {
         breakpoint: 1150,
         settings: {
-          slidesToShow:3,
-          slidesToScroll:1,
+          slidesToShow: 3,
+          slidesToScroll: 1,
 
         }
       },
       {
         breakpoint: 991,
         settings: {
-          slidesToShow:2,
-          slidesToScroll:1,
+          slidesToShow: 2,
+          slidesToScroll: 1,
 
         }
       },
@@ -133,7 +134,7 @@ export class AccountsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     this.accountTypeList = [];
 
     this.sharedserive.groupChange.subscribe((data) => {
@@ -180,13 +181,10 @@ export class AccountsComponent implements OnInit {
       console.log('subscribe Data', data);
       if (data) {
         this.searchData(data);
-      } else {
-        this.accountTypeList = [];
-        this.getAccountTypedata();
       }
     })
 
-    
+
 
   }
   step = 0;
@@ -273,7 +271,6 @@ export class AccountsComponent implements OnInit {
 
 
   getAccountSummary(id) {
-
     var payload = {
       "groupId": this.groupId,
       "accountId": id
@@ -295,6 +292,8 @@ export class AccountsComponent implements OnInit {
       var payload = {
         "groupId": this.groupId
       }
+
+
 
       this.http.getAllAccountType(ApiUrl.getAllAccountType, payload).subscribe(res => {
         if (res.data != undefined) {
@@ -375,7 +374,7 @@ export class AccountsComponent implements OnInit {
       limit: 10,
       accountType: this.accountType_id
     }
-  
+
     this.isApiCalling = true;
     this.isShimmerloading = true;
     this.accountDetailShimmer = true;
@@ -394,25 +393,24 @@ export class AccountsComponent implements OnInit {
 
         if (res.data.data.length > 0) {
 
-          this.getAccountDetailsById(res.data.data[0]._id)
-          this.getAccountSummary(res.data.data[0]._id)
+          //this.getAccountDetailsById(res.data.data[0]._id)
+          // this.getAccountSummary(res.data.data[0]._id)
         }
 
-      
+
         for (let i = 0; i < this.accountList.length; i++) {
           this.accountList[i]['isViewAmount'] = true;
         }
       }
     });
 
-   
-
     setTimeout(() => {
       let elem = document.getElementById('accountList0') as HTMLDivElement;
       if (elem) {
+        console.log('Function Click')
         elem.click();
       }
-    }, 1000)
+    }, 1500)
   }
 
   pageChange(event) {
@@ -433,26 +431,37 @@ export class AccountsComponent implements OnInit {
   }
 
   toggleAmount(i) {
+    this.isRecordAction = true;
     this.accountList[i]['isViewAmount'] = !this.accountList[i]['isViewAmount']
   }
 
   recordSelected(i, id?) {
-    this.accountDetailShimmer = true;
-    this.accountSummaryDataShimmer = true;
-    if (i || i == 0)
-      this.isRecordSelected = i;
+    if (!this.isRecordAction) {
+      this.accountDetailShimmer = true;
+      this.accountSummaryDataShimmer = true;
+      if (i || i == 0)
+        this.isRecordSelected = i;
 
-    if (id) {
-      this.getAccountDetailsById(id);
-      this.getAccountSummary(id);
-      this.accountSummaryId = id;
-      this.getSummaryDetails('Expanse');
+      if (id) {
+        this.getAccountDetailsById(id);
+        this.getAccountSummary(id);
+        this.accountSummaryId = id;
+
+        let elem = document.getElementById('monthly-summary-list') as HTMLAnchorElement
+        elem.click();
+        // this.getSummaryDetails('Expanse');
+      }
+      this.isRecordAction = false;
+    } else {
+      this.isRecordAction = false;
     }
+
   }
 
 
   editAccounts(data) {
 
+    this.isRecordAction = true;
     let dialogRef: any;
 
     if (data != undefined) {
@@ -469,18 +478,18 @@ export class AccountsComponent implements OnInit {
 
 
     dialogRef.afterClosed().subscribe(result => {
- 
-    
-    if(result.backdata==2){
-      this.accountTypeList = [];
-      this.accountList = [];
-      this.accountType_id=result.type
-      this.getAccountTypedataFetch();
-      this.getAccountdata();
-    }else if(result.backdata==1){
-      this.getAccountdataFetch();
-      this.accountType_id=result.type
-    }
+
+
+      if (result.backdata == 2) {
+        this.accountTypeList = [];
+        this.accountList = [];
+        this.accountType_id = result.type
+        this.getAccountTypedataFetch();
+        this.getAccountdata();
+      } else if (result.backdata == 1) {
+        this.getAccountdataFetch();
+        this.accountType_id = result.type
+      }
     });
   }
 
@@ -513,20 +522,20 @@ export class AccountsComponent implements OnInit {
 
 
 
-  getAccountdataFetch(){
+  getAccountdataFetch() {
 
     if (this.groupId) {
       var payload = {
         "groupId": this.groupId
       }
-      this.accountTypeList=[]
+      this.accountTypeList = []
       this.http.getAllAccountType(ApiUrl.getAllAccountType, payload).subscribe(res => {
         if (res.data != undefined) {
           if (this.accountTypeList.length == 0) {
             this.accountTypeList = res.data;
             this.isSelected = 1;
           }
-         
+
         }
       });
     }
@@ -535,6 +544,7 @@ export class AccountsComponent implements OnInit {
 
   deleteAccount(id, accountName, type) {
 
+    this.isRecordAction = true;
     let dialogRef: any;
 
     if (type == 'deleteAccountType') {
@@ -552,98 +562,114 @@ export class AccountsComponent implements OnInit {
     }
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.accountTypeList = [];
-      this.accountList = [];
-      this.getAccountTypedataFetch();
-      this.getAccountdata();
+      if (result != "no") {
+        console.log('The dialog was closed');
+        this.accountTypeList = [];
+        this.accountList = [];
+        this.getAccountTypedataFetch();
+        this.getAccountdata();
+      }
     });
 
 
   }
 
 
-  
+
 
   getType(id, i?: any) {
+    if (!this.isRecordAction) {
+      this.accountDetails = [];
+      this.accountSummaryData = []
+      this.accountDetailShimmer = true
 
-   
-    this.accountDetails = [];
-    this.accountSummaryData = []
-    this.accountDetailShimmer = true
-
-    console.log('Acount Type ID :: ', id);
-
-
-    this.resultsLength = 0;
-    if (i || i == 0)
-      this.isSelected = i;
-    this.accountType_id = id
-    this.pageIndex = 0;
-    this.isRecordSelected = 0;
+      console.log('Acount Type ID :: ', id);
 
 
-    var payload = {
-      "groupId": this.groupId,
-      "pageIndex": this.pageIndex,
-      "limit": 10,
-      "accountType": id
-
-    }
-
-    this.isApiCalling = true;
-    this.isShimmerloading = true;
-
-    
-    this.http.getAccountById(ApiUrl.getAccountById, payload).subscribe(res => {
-      this.isApiCalling = false;
-      this.isShimmerloading = false;
-      this.http.showLoader();
-      if (res.data != undefined) {
-        this.accountDetailShimmer = false
-        if (res.data.data.length > 0) {
-          this.resultsLength = res.data.total;
-        }
-        this.accountList = res.data.data;
-
-        // this.filter = res.data;
-        if (res.data.data.length > 0) {
-         
-          this.getAccountdata();
-          this.getAccountDetailsById(res.data.data[0]._id)
-          this.getAccountSummary(res.data.data[0]._id)
-        } else {
-          this.accountDetails = [];
-          this.accountSummary = [];
-          this.accountSummaryData = [];
-
-          this.accountSummaryId = '';
-          this.isAccountSummaryType = false;
-          this.accountSummaryPageIndex = 0;
-          this.accountSummaryPageIndexTotal = '';
+      this.resultsLength = 0;
+      if (i || i == 0)
+        this.isSelected = i;
+      this.accountType_id = id
+      this.pageIndex = 0;
+      this.isRecordSelected = 0;
 
 
-          this.donutColors = [
-            {
-              backgroundColor: [
-              ]
-            }
-          ];
+      var payload = {
+        "groupId": this.groupId,
+        "pageIndex": this.pageIndex,
+        "limit": 10,
+        "accountType": id
 
-          this.doughnutChartData = [
-            1
-          ];
-          this.doughnutChartLabels = [
-            'Empty'
-          ]
-        }
-        for (let i = 0; i < this.accountList.length; i++) {
-          this.accountList[i]['isViewAmount'] = true;
-        }
-      }else{
-        this.accountDetailShimmer = false
       }
-    });
+
+      this.isApiCalling = true;
+      this.isShimmerloading = true;
+
+      let elem = document.getElementById('monthly-summary-list') as HTMLAnchorElement
+      elem.click();
+
+      this.accountSummary.expenseTotal = 0;
+      this.accountSummary.incomeTotal = 0;
+
+      // this.getAccountdata();
+
+      this.http.getAccountById(ApiUrl.getAccountById, payload).subscribe(res => {
+        this.isApiCalling = false;
+        this.isShimmerloading = false;
+        this.http.showLoader();
+        if (res.data != undefined) {
+          this.accountDetailShimmer = false
+          if (res.data.data.length > 0) {
+            this.resultsLength = res.data.total;
+          }
+          this.accountList = res.data.data;
+
+          // this.filter = res.data;
+          if (res.data.data.length == 0) {
+            this.accountDetails = [];
+            this.accountSummary = [];
+            this.accountSummaryData = [];
+
+            this.accountSummaryId = '';
+            this.isAccountSummaryType = false;
+            this.accountSummaryPageIndex = 0;
+            this.accountSummaryPageIndexTotal = '';
+
+
+            this.donutColors = [
+              {
+                backgroundColor: [
+                ]
+              }
+            ];
+
+            this.doughnutChartData = [
+              1
+            ];
+            this.doughnutChartLabels = [
+              'Empty'
+            ]
+          }
+          for (let i = 0; i < this.accountList.length; i++) {
+            this.accountList[i]['isViewAmount'] = true;
+          }
+        } else {
+          this.accountDetailShimmer = false
+        }
+      });
+
+      setTimeout(() => {
+        let elem = document.getElementById('accountList0') as HTMLDivElement;
+        if (elem) {
+          console.log('Function Click')
+          elem.click();
+        }
+      }, 1500)
+
+      this.isRecordAction = false;
+    } else {
+      this.isRecordAction = false;
+    }
   }
 
   searchData(searchValue) {

@@ -56,7 +56,7 @@ export class EditGroupModalComponent implements OnInit {
             if (res.statusCode == 200) {
               this.toastr.success('Group updated Successfully');
             }
-            this.hideModal();
+            this.dialogRef.close('Updated');
             this.isSpinnerLoading = false;
           }, () => {
             this.isSpinnerLoading = false;
@@ -74,7 +74,7 @@ export class EditGroupModalComponent implements OnInit {
                 this.toastr.success('Group added successfully', 'success')
                 // this.sharedService.getSettingsGroupList();
 
-                this.hideModal();
+                this.dialogRef.close('Added');
                 this.isSpinnerLoading = false;
               }
 
@@ -89,7 +89,7 @@ export class EditGroupModalComponent implements OnInit {
 
 
   hideModal() {
-    this.dialogRef.close(this.dialogRef);
+    this.dialogRef.close('no');
   }
 
 

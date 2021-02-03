@@ -57,10 +57,6 @@ export class TransactionComponent implements OnInit {
       if (data) {
         this.searchData(data);
       }
-
-      else {
-        this.getTansactionData();
-      }
     })
 
   }

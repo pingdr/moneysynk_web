@@ -77,7 +77,7 @@ export class AddEditClassComponent implements OnInit {
               });
             }
 
-            this.hideModal();
+            this.dialogRef.close('Updated');
             this.isSpinnerLoading = false;
 
           }, () => {
@@ -93,7 +93,7 @@ export class AddEditClassComponent implements OnInit {
               });
             }
 
-            this.hideModal();
+            this.dialogRef.close('Added');
             this.isSpinnerLoading = false;
           }, () => {
             this.isSpinnerLoading = false;
@@ -103,7 +103,7 @@ export class AddEditClassComponent implements OnInit {
   }
 
   hideModal() {
-    this.dialogRef.close(this.dialogRef);
+    this.dialogRef.close('no');
   }
 
   special_char(event) {
