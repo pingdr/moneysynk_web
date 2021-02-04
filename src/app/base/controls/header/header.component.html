@@ -5,7 +5,7 @@
 
         <!-- <mat-form-field class="groupRight" appearance="fill"> -->
         <mat-form-field appearance="fill">
-          <mat-select name="group" id="group" *ngIf="groupList.length!=0" class="groupRight" appearance="fill"
+          <mat-select name="group" id="group"  class="groupRight" appearance="fill"
             [(ngModel)]="modeselect">
             <mat-option *ngFor="let data of groupList" (click)="groupSelect(data)" value="{{data._id}}">{{ data.name }}
             </mat-option>

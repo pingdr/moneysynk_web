@@ -40,7 +40,6 @@ export class HeaderComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('loginData'));
 
     this.clickEventsubscription = this.sharedService.deleteEditGroupChange.subscribe((data) => {
-      console.log('subscribe Data', data);
       if (data) {
         this.getAllGroup();
       }
@@ -62,7 +61,6 @@ export class HeaderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 
@@ -117,7 +115,6 @@ export class HeaderComponent implements OnInit {
 
   getAllGroup() {
     this.http.getAllGroup(ApiUrl.addGrop).subscribe(res => {
-      console.log(res);
       if (res.data != undefined) {
         this.groupList = res.data;
         this.selectedGroup(this.groupList);
@@ -129,7 +126,6 @@ export class HeaderComponent implements OnInit {
   selectedGroup(groupData) {
     if (localStorage.getItem('selectedGroupId')) {
       for (let index = 0; index < groupData.length; index++) {
-        console.log(groupData[index]);
         if (localStorage.getItem('selectedGroupId') == groupData[index]._id) {
           this.modeselect = groupData[index]._id;
           this.sharedserive.groupUpdateData(this.modeselect);
@@ -151,7 +147,6 @@ export class HeaderComponent implements OnInit {
 
   getActivatedRoute() {
     let activatedUrl: any = this.router.url;
-    console.log(activatedUrl)
   }
 
   searchData(event: any) {
@@ -159,7 +154,7 @@ export class HeaderComponent implements OnInit {
     let searchValue = event.target.value;
     this.sharedService.searchData(searchValue);
 
-    console.log(searchValue)
+  
 
     // switch (activatedUrl) {
     //   case '/accounts':

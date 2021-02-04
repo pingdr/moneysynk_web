@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('accessToken', res.data.accessToken);
           localStorage.setItem('loginData', JSON.stringify(res.data));
           console.log(res.data.accessToken);
-          this.http.navigate('reports');
+          window.location.href = "reports";
         },
           () => {
             this.loader = false;

@@ -90,7 +90,7 @@ export class SignupComponent implements OnInit {
         // localStorage.setItem('accessToken', JSON.stringify(res.data.token));
         localStorage.setItem('accessToken', res.data.accessToken);
         localStorage.setItem('loginData', JSON.stringify(res.data));
-        this.http.navigate('reports');
+        window.location.href = "reports";
 
       })
     });

@@ -37,12 +37,12 @@ export class SidebarComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        jQuery('#side-menu').metisMenu();
-        if (jQuery('body').hasClass('fixed-sidebar')) {
-            jQuery('.sidebar-collapse').slimscroll({
-                height: '100%'
-            });
-        }
+        // jQuery('#side-menu').metisMenu();
+        // if (jQuery('body').hasClass('fixed-sidebar')) {
+        //     jQuery('.sidebar-collapse').slimscroll({
+        //         height: '100%'
+        //     });
+        // }
     }
 
     activeRoute(routename: string): boolean {
