@@ -177,13 +177,15 @@ export class AccountsComponent implements OnInit {
     });
 
     this.searchChangeEventSubscription = this.sharedserive.searchDataChange.subscribe((data) => {
-      console.log('subscribe Data', data);
-      if (data) {
-        this.searchData(data);
-      } else {
+    if(data!=undefined){
+      if (data.flag==true) {
+        this.searchData(data.search);
+      } 
+      else if(data.flag==false) {
         this.accountTypeList = [];
-        this.getAccountTypedata();
+        this.getAccountTypedataFetch();
       }
+    }
     })
 
     

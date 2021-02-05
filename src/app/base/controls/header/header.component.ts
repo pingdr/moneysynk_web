@@ -151,8 +151,22 @@ export class HeaderComponent implements OnInit {
 
   searchData(event: any) {
     let activatedUrl: any = this.router.url;
-    let searchValue = event.target.value;
+  if(event.target.value==''){
+    let searchValue = {
+      search:event.target.value,
+      flag:false
+    };
     this.sharedService.searchData(searchValue);
+  }else {
+
+    let searchValue = {
+      search:event.target.value,
+      flag:true
+    };
+    this.sharedService.searchData(searchValue);
+
+  }
+  
 
   
 
