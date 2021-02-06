@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { HttpService } from 'src/app/services/http.service';
@@ -21,7 +21,7 @@ import * as moment from 'moment';
   ]
 })
 
-export class BillListComponent implements OnInit {
+export class BillListComponent implements OnInit, OnDestroy {
   groupId: any;
 
   isApiCalling: boolean = false;
@@ -36,6 +36,8 @@ export class BillListComponent implements OnInit {
   endDate: any = '';
 
   searchChangeEventSubscription: Subscription;
+  subscribers: any = []
+
 
   constructor(
     public http: HttpService,
@@ -45,22 +47,18 @@ export class BillListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sharedserive.groupChange.subscribe((data) => {
+    this.subscribers.push(this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
       console.log(this.groupId)
       if (data) {
         this.getTansactionData();
       }
-    });
+    }))
 
     this.searchChangeEventSubscription = this.sharedserive.searchDataChange.subscribe((data) => {
       console.log('subscribe Data', data);
       if (data) {
         this.searchData(data);
-      }
-
-      else {
-        this.getTansactionData();
       }
     })
 
@@ -304,5 +302,12 @@ export class BillListComponent implements OnInit {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       fs.saveAs(blob, fname + '-' + new Date().valueOf() + '.xlsx');
     });
+  }
+
+  ngOnDestroy() {
+    for (let index = 0; index < this.subscribers.length; index++) {
+      this.subscribers[index].unsubscribe();
+    }
+    this.searchChangeEventSubscription.unsubscribe();
   }
 }

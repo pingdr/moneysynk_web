@@ -42,10 +42,10 @@ export class HeaderComponent implements OnInit {
     this.clickEventsubscription = this.sharedService.deleteEditGroupChange.subscribe((data) => {
       if (data) {
         this.getAllGroup();
+      } else{
+        this.getAllGroup();
       }
     })
-
-    this.getAllGroup();
     this.getActivatedRoute();
   }
 

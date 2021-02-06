@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { RepeatComponent } from 'src/app/shared/modals/repeat/repeat.component';
   templateUrl: './add-entry.component.html',
   styleUrls: ['./add-entry.component.scss']
 })
-export class AddEntryComponent implements OnInit {
+export class AddEntryComponent implements OnInit, OnDestroy {
 
   selected = 'option2';
   editentry: FormGroup;
@@ -39,6 +39,7 @@ export class AddEntryComponent implements OnInit {
   isSpinnerLoading: boolean = false;
 
   public accountEntryDetail: any = {};
+  subscribers: any = []
 
   constructor(
     private formBuilder: FormBuilder,
@@ -144,7 +145,7 @@ export class AddEntryComponent implements OnInit {
       this.getEntryBYId();
     }
 
-    this.sharedserive.groupChange.subscribe((data) => {
+    this.subscribers.push(this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
       if (data) {
         this.editentry.controls.groupId.setValue(data);
@@ -154,7 +155,7 @@ export class AddEntryComponent implements OnInit {
         this.getClasses();
         this.getBudgets();
       }
-    });
+    }))
   }
 
   getEntryBYId() {
@@ -535,6 +536,12 @@ export class AddEntryComponent implements OnInit {
 
     });
 
+  }
+
+  ngOnDestroy() {
+    for (let index = 0; index < this.subscribers.length; index++) {
+      this.subscribers[index].unsubscribe();
+    }
   }
 
 

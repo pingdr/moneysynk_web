@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FormBuilder } from '@angular/forms';
 import { AddCategoryPopupComponent } from 'src/app/shared/modals/add-category-popup/add-category-popup.component';
@@ -21,7 +21,7 @@ import { Subscription } from 'rxjs';
     { provide: MatPaginatorIntl, useValue: Categories() }
   ]
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, OnDestroy {
 
   categories: any;
   type: any = "EXPENSE"
@@ -54,6 +54,7 @@ export class CategoriesComponent implements OnInit {
   isDefault: boolean = true;
 
   searchChangeEventSubscription: Subscription;
+  subscribers: any = []
 
 
   constructor(public http: HttpService, public activeRoute: ActivatedRoute,
@@ -64,7 +65,8 @@ export class CategoriesComponent implements OnInit {
     public dialog: MatDialog, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.sharedserive.groupChange.subscribe((data) => {
+
+    this.subscribers.push(this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
 
       this.categoriesDetails = [];
@@ -78,7 +80,7 @@ export class CategoriesComponent implements OnInit {
         this.getCategoriesData();
         this.getCategorySummary();
       }
-    });
+    }))
 
     this.searchChangeEventSubscription = this.sharedserive.searchDataChange.subscribe((data) => {
       console.log('subscribe Data', data);
@@ -346,6 +348,13 @@ export class CategoriesComponent implements OnInit {
       }
     });
 
+  }
+
+  ngOnDestroy() {
+    for (let index = 0; index < this.subscribers.length; index++) {
+      this.subscribers[index].unsubscribe();
+    }
+    this.searchChangeEventSubscription.unsubscribe();
   }
 
 }

@@ -25,6 +25,10 @@ export class DeleteModalComponent implements OnInit {
   }
 
   hideModal() {
+    this.dialogRef.close('deleted');
+  }
+
+  onCancelModel(){
     this.dialogRef.close('no');
   }
 

@@ -512,7 +512,7 @@ export class HttpService {
     }
 
 
-    getAllAccountType(url, obj?, isLoading?: boolean) {
+    getAllAccountType(url, obj?, isLoading?: boolean) {        
         let params = new HttpParams();
         if (obj) {
             Object.keys(obj).forEach(key => {

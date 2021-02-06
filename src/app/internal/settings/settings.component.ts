@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ApiUrl } from 'src/app/services/apiurl';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
 
 
   isApiCalling: boolean = false;
@@ -40,8 +40,10 @@ export class SettingsComponent implements OnInit {
     private sharedService: SharedService,
   ) {
 
-    this.clickEventsubscription = this.sharedService.addGroupChange.subscribe(() => {
-      this.getAllGroup();
+    this.clickEventsubscription = this.sharedService.addGroupChange.subscribe((data) => {
+      if (data) {
+        this.getAllGroup();        
+      }
     })
 
     this.sharedService.groupChange.subscribe((data) => {
@@ -53,8 +55,7 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllGroup();
-
+      this.getAllGroup();
   }
   getAllGroup() {
 
@@ -182,9 +183,11 @@ export class SettingsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getAllGroup();
-      this.sharedService.deleteEditGroup(true);
+      if (result != 'no') {
+        console.log('The dialog was closed');
+        this.getAllGroup();
+        this.sharedService.deleteEditGroup(true);
+      }
     });
   }
 
@@ -235,5 +238,9 @@ export class SettingsComponent implements OnInit {
 
   closeAllModal() {
     this.dialog.closeAll();
+  }
+
+  ngOnDestroy() {
+    this.clickEventsubscription.unsubscribe();
   }
 }

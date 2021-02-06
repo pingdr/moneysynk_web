@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { dataUri } from '@rxweb/reactive-form-validators';
 import { ToastrService } from 'ngx-toastr';
@@ -21,7 +21,7 @@ import { transactionLists } from 'src/app/services/CustomPaginatorConfiguration'
     { provide: MatPaginatorIntl, useValue: transactionLists() }
   ]
 })
-export class PayeesPayersComponent implements OnInit {
+export class PayeesPayersComponent implements OnInit, OnDestroy {
   dialogRefofOtpModal: MatDialogRef<AddPayeeComponent>;
   type: any = "PAYEE";
   payeeSummary: any = [];
@@ -61,6 +61,8 @@ export class PayeesPayersComponent implements OnInit {
   payeePayer: any = [];
   searchChangeEventSubscription: Subscription;
 
+  subscribers: any = []
+
   constructor(
     public dialog: MatDialog,
     public sharedserive: SharedService,
@@ -70,7 +72,8 @@ export class PayeesPayersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.sharedserive.groupChange.subscribe((data) => {
+
+    this.subscribers.push(this.sharedserive.groupChange.subscribe((data) => {
       this.groupId = data;
 
       this.payeeSummary = [];
@@ -89,7 +92,7 @@ export class PayeesPayersComponent implements OnInit {
         this.getPayees();
         this.getPayeeSummary();
       }
-    });
+    }))
 
     this.searchChangeEventSubscription = this.sharedserive.searchDataChange.subscribe((data) => {
       console.log('subscribe Data', data);
@@ -437,5 +440,12 @@ export class PayeesPayersComponent implements OnInit {
 
   closeDeleteModal() {
     this.dialog.closeAll();
+  }
+
+  ngOnDestroy() {
+    for (let index = 0; index < this.subscribers.length; index++) {
+      this.subscribers[index].unsubscribe();
+    }
+    this.searchChangeEventSubscription.unsubscribe();
   }
 }
