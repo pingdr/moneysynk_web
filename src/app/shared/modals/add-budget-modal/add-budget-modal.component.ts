@@ -66,6 +66,9 @@ export class AddBudgetModalComponent implements OnInit {
     this.todayDate = new Date(event.target.value);
   }
   ngOnInit(): void {
+    this.dialogRef.backdropClick().subscribe(_ => {
+      this.dialogRef.close('no');
+    })
     this.cycleValue = Array.from({ length: 60 }, (i, k) => k + 1);
 
     if (this.data.objBudget) {

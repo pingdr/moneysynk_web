@@ -25,9 +25,9 @@
         <mat-label>$</mat-label>
         <mat-select formControlName="Parentcategory" [ngClass]="{ 'is-invalid': submitted && f.Parentcategory.errors }">
           <mat-option>None</mat-option>
-          <mat-option value="option1">$ 100</mat-option>
-          <mat-option value="option2">$ 200</mat-option>
-          <mat-option value="option3">$ 300</mat-option>
+          <mat-option value="Doller">$ 100</mat-option>
+          <mat-option value="Doller">$ 200</mat-option>
+          <mat-option value="Doller">$ 300</mat-option>
         </mat-select>
         <div *ngIf="submitted && f.Parentcategory.errors" class="invalid-feedback">
           <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
@@ -53,11 +53,9 @@
       <label>Add Members</label>
       <mat-form-field appearance="fill">
         <mat-label>3 members</mat-label>
-        <mat-select formControlName="Addmembers" [ngClass]="{ 'is-invalid': submitted && f.Addmembers.errors }">
-          <mat-option>None</mat-option>
-          <mat-option value="option1">member 1</mat-option>
-          <mat-option value="option2">member 2</mat-option>
-          <mat-option value="option3">member 3</mat-option>
+        <mat-select formControlName="Addmembers" multiple [ngClass]="{ 'is-invalid': submitted && f.Addmembers.errors }">
+          <!-- <mat-option>None</mat-option> -->
+          <mat-option *ngFor="let data of member" value="{{data._id}}">{{ data.name }}</mat-option>
         </mat-select>
         <div *ngIf="submitted && f.Addmembers.errors" class="invalid-feedback">
           <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->

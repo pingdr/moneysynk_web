@@ -243,6 +243,9 @@ export class AddPayeeComponent implements OnInit {
     } else {
       this.isEdit = true;
     }
+    this.dialogRef.backdropClick().subscribe(_ => {
+      this.dialogRef.close('no');
+    })
   }
 
   ngOnDestroy() {

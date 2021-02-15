@@ -288,8 +288,10 @@ export class BudgetComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (result != "no") {
       console.log('The dialog was closed');
       this.getBudgets();
+      }
     });
   }
 

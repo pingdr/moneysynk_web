@@ -40,6 +40,7 @@ export const ApiUrl = {
     addBill: 'bills',
     addTransfer: 'transferFinancialSources',
     getbill: 'bills',
+    addSplitWise:'splitWiseGroup'
 
 };
 

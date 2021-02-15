@@ -486,6 +486,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
 
 
     dialogRef.afterClosed().subscribe(result => {
+  if(result!=undefined){
       if (result.backdata == 2) {
         this.accountTypeList = [];
         this.accountList = [];
@@ -496,9 +497,10 @@ export class AccountsComponent implements OnInit, OnDestroy {
         this.getAccountdataFetch();
         this.accountType_id = result.type
       }
+    }
     });
   }
-
+  
 
   getAccountTypedataFetch() {
 
@@ -702,7 +704,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
         this.resultsLength = res.data.total;
         this.accountList = res.data;
 
-        if (res.data.data.length > 0) {
+        if (res.data.length > 0) {
           this.getAccountDetailsById(res.data[0]._id)
           this.getAccountSummary(res.data[0]._id)
         }

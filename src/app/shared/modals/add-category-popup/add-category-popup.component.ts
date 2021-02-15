@@ -156,6 +156,9 @@ export class AddCategoryPopupComponent implements OnInit {
     if (this.data.objEditData) {
       this.categoryData = this.data.objEditData;
     }
+    this.dialogRef.backdropClick().subscribe(_ => {
+      this.dialogRef.close('no');
+    })
   }
 
 }

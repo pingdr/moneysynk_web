@@ -200,13 +200,12 @@ export class AddEntryComponent implements OnInit, OnDestroy {
   }
 
   setCategoryOrSubCategory(data) {
+  
     if (this.accountEntryDetail.categoryId._id != undefined) {
-      console.log('res================================', data)
-
       data.map((cat) => {
         if (cat._id === this.accountEntryDetail.categoryId._id) {
           if (cat.parent != null) {
-            console.log("Selected Child Id", this.selectedChild);
+
             this.categories.map((parentCat) => {
               if (parentCat._id === cat.parent) {
                 this.editentry.controls.categoryId.setValue(parentCat._id);
