@@ -44,6 +44,9 @@ export class TransferModalComponent implements OnInit {
     });
 
     console.log(this.data);
+    this.dialogRef.backdropClick().subscribe(_ => {
+      this.dialogRef.close('no');
+    })
   }
 
   get f() { return this.transferForm.controls; }
@@ -125,6 +128,10 @@ export class TransferModalComponent implements OnInit {
     }
     return true;
 
+  }
+
+  hideTransfer(){
+    this.dialogRef.close('no');
   }
 
 }
