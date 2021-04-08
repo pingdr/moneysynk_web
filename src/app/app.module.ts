@@ -59,10 +59,9 @@ import { LogoutModalComponent } from './shared/modals/logout-modal/logout-modal.
 import { SharedModule } from './shared/modules/shared.module';
 import { AddEditClassComponent } from './shared/modals/add-edit-class/add-edit-class.component';
 import { CookieService } from 'angular2-cookie/services/cookies.service'
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { RepeatComponent } from './shared/modals/repeat/repeat.component'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-
 
 @NgModule({
   declarations: [
