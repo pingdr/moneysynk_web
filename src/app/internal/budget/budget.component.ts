@@ -281,7 +281,7 @@ export class BudgetComponent implements OnInit {
     this.step--;
   }
 
-  openEditmodal(objData): void {
+  openEditmodal() {
     const dialogRef = this.dialog.open(AddBudgetModalComponent, {
       width: '976px',
       panelClass: 'edit-account-main', data: { type: this.type, groupId: this.groupId }

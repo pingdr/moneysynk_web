@@ -34,7 +34,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
   accountDetailShimmer = true
   accountSummaryDataShimmer = true
   summeryType: string
-  accountSummaryDataTotal = '';
+  accountSummaryDataTotal:any;
   deleteAccounts: boolean = true
 
   isApiCalling: boolean = false;
@@ -237,7 +237,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
         if (res.data.data != undefined) {
           this.accountSummaryDataShimmer = false
           this.accountSummaryData = res.data.data;
-          this.accountSummaryDataTotal = res.data.totalTransaction
+          this.accountSummaryDataTotal = parseInt(res.data.totalTransaction)
           console.log('totalnumber', this.accountSummaryDataTotal);
           this.setDoughnutChartData(res.data.data);
         } else {

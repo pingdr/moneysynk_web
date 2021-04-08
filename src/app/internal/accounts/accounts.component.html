@@ -4,7 +4,7 @@
         <span>Accounts</span>
     </div>
     <div class="component-btn">
-        <button (click)="editAccounts()" class="btn">Add Account</button>
+        <button (click)="editAccounts('undefined')" class="btn">Add Account</button>
     </div>
 </div>
 
@@ -267,7 +267,7 @@
                             <ng-container>
                                 <div class="summary-charts-main">
                                     <div class="item left-charts">
-                                        <canvas *ngIf="accountSummaryData.length > 0; else other_content" width="150px"
+                                        <canvas *ngIf="accountSummaryData.length > 0; else other_contentsummery" width="150px"
                                             height="150px" baseChart chartType="doughnut" [data]="doughnutChartData"
                                             [labels]="doughnutChartLabels" [legend]="false" [colors]="donutColors">
                                         </canvas>
