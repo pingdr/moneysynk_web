@@ -21,7 +21,7 @@
                         <label class="label-login">Login to MoneySynk</label>
                         <form autocomplete="new-form" [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
                             <div class="form-group Email-id">
-                                <input [(ngModel)]="userdata" type="text" class="form-control string_trim" formControlName="user" 
+                                <input name="email" type="text" class="form-control string_trim" formControlName="user" 
                                     placeholder="Email"
                                     [ngClass]="{ 'is-invalid': submitted && f.user.errors }" autocomplete="new-email">
                                 <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
@@ -39,7 +39,7 @@
                                         src="../../../assets/images/close-eyes.svg" (click)="showPassword()"
                                         *ngIf="isPasswordShow">
                                 </a>
-                                <input [(ngModel)]="passwordData" [type]="isPasswordShow ? 'text':'password'" class="form-control string_trim1" formControlName="password"
+                                <input [type]="isPasswordShow ? 'text':'password'" class="form-control string_trim1" formControlName="password"
                                     placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
                                     autocomplete="new-password" minlength="6" maxlength="12">
                                 <div *ngIf="submitted && f.password.errors" class="invalid-feedback">

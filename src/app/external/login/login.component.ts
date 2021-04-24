@@ -52,8 +52,10 @@ export class LoginComponent implements OnInit {
 
     if(this._cookies.get('rememberfor')!=undefined){
       if(this._cookies.get('rememberfor')=="yes"){
-        this.userdata=this._cookies.get('username')
-        this.passwordData=this._cookies.get('password')
+        this.LoginForm.controls.user.setValue(this._cookies.get('username'))
+        this.LoginForm.controls.password.setValue(this._cookies.get('password'))
+        // this.userdata=this._cookies.get('username')
+        // this.passwordData=this._cookies.get('password')
         console.log(this.userdata)
       }
     }
