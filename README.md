@@ -1,2 +1,0 @@
-# moneysynk_web
-
