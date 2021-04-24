@@ -1,0 +1,101 @@
+.add-account-section {
+    padding: 25px 30px;
+    form.add-account-entry {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 10px;
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+            label {
+                margin-bottom: 0;
+                font-size: 11px;
+                margin-right: 13px !important;
+                width: 24%;
+                text-align: right;
+            }
+        }
+    }
+}
+
+
+.add-icon {
+    position: absolute;
+    right: 23px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 15px;
+    cursor: pointer;
+}
+
+.add-btn {
+    background: transparent !important;
+    padding: 0;
+    position: absolute;
+    right: 18px;
+    bottom: 1px;
+    line-height: 42px;
+    font-size: 11px;
+    color: #7299FF !important;
+    font-weight: 100;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.last-section {
+    text-align: right;
+    margin-top: 15px;
+    .btn{
+        padding: 12px 30px;
+        font-size: 13px;
+        font-weight: 300;
+    }
+}
+.icon-div-main{
+    width: 100%;
+    overflow: auto;
+    overflow-x: hidden;
+    background: #f9f9f9;
+    border-radius: 26px;
+    padding: 10px 20px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-row-gap: 5px;
+    border-collapse: collapse;
+    grid-column-gap: 5px;
+    max-height: 100px;
+    .icon-inner-main{
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center;
+        padding: 4px;
+        cursor: pointer;
+        img{
+            width: 30px;
+            height: 30px;
+        }
+    }
+    .active{
+        border: 2px solid #f8c038 !important;
+        background: #fff;
+    }
+}
+
+
+// ----------new-csss------------//
+
+
+.add-account-section{
+    .add-account-entry{
+        .note-section-text-area{
+            align-items: self-start !important;
+            label{
+                padding-top: 13px;
+            }
+        }
+    }
+}

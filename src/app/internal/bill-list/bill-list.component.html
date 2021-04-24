@@ -1,0 +1,149 @@
+
+<!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
+
+<div class="heading-pannel">
+    <div class="component-heading">
+        <span>Bill</span>
+    </div>
+    <div class="component-btn">
+        <button class="btn" routerLink="/bill">Add Bill</button>
+    </div>
+</div>
+
+
+
+<!-------------------------------trasaction table-start-------------------------- -->
+
+<div class="white-box">
+    <nav class="asset-main-tab">
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-asset" role="tab"
+                aria-controls="nav-home" aria-selected="true" (click)="onFilterChange('Daily')">Daily</a>
+
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-asset" role="tab"
+                aria-controls="nav-profile" aria-selected="false" (click)="onFilterChange('Weekly')">Weekly</a>
+
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-asset" role="tab"
+                aria-controls="nav-profile" aria-selected="false" (click)="onFilterChange('Monthly')">Monthly</a>
+
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-asset" role="tab"
+                aria-controls="nav-profile" aria-selected="false" (click)="onFilterChange('Quaterly')">Quaterly</a>
+
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-asset" role="tab"
+                aria-controls="nav-profile" aria-selected="false" (click)="onFilterChange('Yearly')">Yearly</a>
+
+        </div>
+        <div class="filter-main">
+            <div class="left-col">
+                <div class="form-group">
+                    <input type="text" formcontrolname="Search" placeholder="Search Here..." class="form-control">
+                </div>
+
+            </div>
+            <div class="search-btn right-col range-picker-main">
+                <mat-form-field appearance="fill">
+
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate placeholder="Start date" #dateRangeStart>
+                        <input matEndDate placeholder="End date" #dateRangeEnd
+                            (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+            </div>
+        </div>
+    </nav>
+    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="padding:0px !important">
+        <!-- --------------------------first-tab----------------------- -->
+        <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
+
+            <!---------------------------Table--------------------------------------->
+            <div class="table-main">
+                <table class="tran-table">
+                    <thead>
+                        <tr>
+                            <th class="sr-no">Sr No.</th>
+                            <th class="payee">Payee/Payer</th>
+                            <th class="amount">Amount</th>
+                            <th class="account-type">Account Type</th>
+                            <th class="category">Category</th>
+                            <th class="created-date"> Created Date </th>
+                            <th class="class-name">Class</th>
+                            <th class="action"> Actions</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="isShimmerloding">
+                            <tr *ngFor="let shimmer of [1,2,3,4,5]">
+                                <td colspan="8" class="payee">
+                                    <ngx-shimmer-loading [width]="'100%'"></ngx-shimmer-loading>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="!isShimmerloding">
+                            <tr *ngFor="let t of transactionList;let i = index">
+                                <td class="sr-no">{{i+1}}</td>
+                                <td class="payee">{{t.beneficiaryId.name}}</td>
+                                <td class="amount">${{t.amount}}</td>
+                                <td class="account-type"><span class="label-saving">{{t.accountId.name}}</span> </td>
+                                <td class="category">{{t.categoryId.name}}</td>
+                                <td class="created-date"> {{t.createdAt | date}} </td>
+                                <td class="class-name">
+                                    <span *ngIf="t.classId?.name">{{t.classId?.name}}</span>
+                                    <span *ngIf="!t.classId?.name">-</span>
+                                </td>
+                                <td class="action">
+                                    <a style="cursor: pointer;" title="edit" class="edit-icon" (click)="editEntry(t._id)">
+                                        <img src="../../../assets/images/edit-pencil.svg">
+                                    </a>
+                                    <a style="cursor: pointer;" title="Delete" class="delete-icon"
+                                        (click)="deleteTransaction(t._id,t.beneficiaryId.name)">
+                                        <img src="../../../assets/images/delete-trash.svg">
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr *ngIf="transactionList.length==0" style="text-align: center;">
+                                <th colspan="8">No records found</th>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+
+                <div style="display: flex;float: left;" *ngIf="resultsLength > 10">
+                    <mat-paginator (page)="pageChange($event)" [length]="resultsLength" [pageSize]="10">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+   
+        <!-------------------------third tab--------------------------- -->
+        <div class="tab-pane fade" id="nav-monthly" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+            
+          
+
+        </div>
+
+        <!-------------------------Fourth tab--------------------------- -->
+        <div class="tab-pane fade" id="nav-quaterly" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+         
+
+        </div>
+        <!-------------------------Fifth tab--------------------------- -->
+        <div class="tab-pane fade" id="nav-yearly" role="tabpanel" aria-labelledby="nav-profile-tab">            
+           
+        </div>
+
+
+        <!-- <div class="search-and-print-panal">
+
+            <div class="right-print-btn" (click)="downloadExcel()" style="cursor: pointer;">
+                <a class="report-print">Export CSV</a>
+            </div>
+        </div> -->
+
+    </div>
+</div>

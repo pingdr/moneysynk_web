@@ -1,0 +1,57 @@
+.add-account-section {
+    padding: 25px 32px;
+    form.add-account-entry {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 10px;
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+            label {
+                margin-bottom: 0;
+                font-size: 11px;
+                margin-right: 13px !important;
+                width: 19%;
+                text-align: right;
+            }
+        }
+    }
+}
+
+
+.add-icon {
+    position: absolute;
+    right: 23px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 15px;
+    cursor: pointer;
+}
+
+.add-btn {
+    background: transparent !important;
+    padding: 0;
+    position: absolute;
+    right: 18px;
+    bottom: 1px;
+    line-height: 42px;
+    font-size: 11px;
+    color: #7299FF !important;
+    font-weight: 100;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.last-section {
+    text-align: right;
+    margin-top: 15px;
+    .btn{
+        padding: 12px 30px;
+        font-size: 13px;
+        font-weight: 300;
+    }
+}

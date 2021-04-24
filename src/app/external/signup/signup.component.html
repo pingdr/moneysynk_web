@@ -1,0 +1,135 @@
+<div class="main-login">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-8 col-md-8 col-sm-8 col-lg-8 col-xl-8 padding-none">
+                <div class="main-left-login">
+                    <div class="logo">
+                        <img src="/assets/images/logo.svg" alt="logo" title="Moneysynk" class="image-responsive">
+                        <p>Eradicate complex payment records, instead, maintain your balance sheet and client portfolios
+                            with simplicity. Don’t rely upon vague predictions but make wiser financial choices with
+                            Moneysynk's statistics-driven analysis.</p>
+                    </div>
+
+                    <div class="login-graphic">
+                        <img src="/assets/images/Signup-graphic.svg" alt="graphics" width="100%" height="100%">
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-4 col-md-4 col-lg-4 col-xl-4 padding-none right-login-main">
+                <div class="main-right-login-form">
+                    <div class="upper-div-one">
+                        <label class="label-login">Signup to MoneySynk</label>
+                        <form autocomplete="new-form" [formGroup]="SignupForm" (ngSubmit)="onSubmit()">
+                            <div class="form-group User-name">
+                                <input id="inputTextBox" (keypress)="special_char($event)" maxlength="30" type="text"
+                                    class="form-control" placeholder="Full Name" formControlName="fullName"
+                                    name="fullName" autocomplete="new-fullName"
+                                    [ngClass]="{ 'validate-field': submitted && f.fullName.errors }">
+
+                            </div>
+                            <div *ngIf="submitted && f.fullName.errors" class="validation-label">
+                                <span *ngIf="f.fullName.errors.required">
+                                    <!-- Full name is required -->
+                                </span>
+                                <span *ngIf="f.fullName.errors.maxlength"></span>
+                            </div>
+
+                            <div class="form-group Email-id">
+                                <input type="text" class="form-control string_trim1" placeholder="Email"
+                                    formControlName="email"
+                                    [ngClass]="{ 'validate-field': submitted && f.email.errors }" name="email"
+                                    autocomplete="new-email">
+                            </div>
+                            <div *ngIf="submitted && f.email.errors" class="validation-label">
+                                <span *ngIf="f.email.errors.required">
+                                    <!-- Email is required -->
+                                </span>
+                                <span *ngIf="f.email.errors.email">
+                                    <!-- Invalid email -->
+                                </span>
+                            </div>
+
+                            <div class="form-group Password">
+                                <a class="view-btn">
+                                    <img style="cursor: pointer; float: right;position: absolute;top: 24px;right: 23px;"
+                                        src="../../../assets/images/view-eye.svg" (click)="showPassword('password')"
+                                        *ngIf="!isPasswordShow">
+                                    <img style="width:22px;cursor: pointer; float: right;position: absolute;top: 24px;right: 23px;"
+                                        src="../../../assets/images/close-eyes.svg" (click)="showPassword('password')"
+                                        *ngIf="isPasswordShow">
+                                </a>
+                                <input maxlength="12" [type]="isPasswordShow ? 'text':'password'"
+                                    class="form-control string_trim2" placeholder="Password" formControlName="password"
+                                    autocomplete="new-password"
+                                    [ngClass]="{ 'validate-field': submitted && f.password.errors }">
+                            </div>
+
+                            <div *ngIf="submitted && f.password.errors" class="validation-label">
+                                <div *ngIf="f.password.errors.required">
+                                    <!-- Password is required -->
+                                </div>
+                                <div *ngIf="f.password.errors.minlength">
+                                    <!-- Please enter password between 6-12
+                                    character -->
+                                </div>
+                                <div *ngIf="f.password.errors.maxlength"></div>
+                            </div>
+
+                            <div class="form-group Password">
+                                <a class="view-btn">
+                                    <img style="cursor: pointer; float: right;position: absolute;top: 24px;right: 23px;"
+                                        src="../../../assets/images/view-eye.svg"
+                                        (click)="showPassword('confirmPassword')" *ngIf="!isConfirmPassworShow">
+                                    <img style="width:22px;cursor: pointer; float: right;position: absolute;top: 24px;right: 23px;"
+                                        src="../../../assets/images/close-eyes.svg"
+                                        (click)="showPassword('confirmPassword')" *ngIf="isConfirmPassworShow">
+                                </a>
+                                <input maxlength="12" [type]="isConfirmPassworShow ? 'text':'password'"
+                                    class="form-control string_trim3" placeholder="Confirm Password"
+                                    formControlName="confirmPassword"
+                                    [ngClass]="{ 'validate-field': submitted && f.confirmPassword.errors }"
+                                    autocomplete="new-confirmPassword">
+                            </div>
+                            <div *ngIf="submitted && f.confirmPassword.errors" class="validation-label">
+                                <div *ngIf="f.confirmPassword.errors.required">
+                                    <!-- Confirm password is required -->
+                                </div>
+                                <div *ngIf="f.confirmPassword.errors.mustMatch">
+                                    <!-- Password does not match. -->
+                                </div>
+                            </div>
+
+                            <div class="form-group Remember-me">
+                                <div class="in-remember">
+                                    <!-- <input type="checkbox" formControlName="acceptTerms" id="acceptTerms"
+                                        class="form-check-input" (change)="onchangeTnC($event)"
+                                        [ngClass]="{ 'validate-field': submitted && f.acceptTerms.errors }"> -->
+                                    <label for="vehicle1"> By registering you agree to <span style="text-decoration: underline; cursor: pointer;">T&C</span> </label>
+                                    <div *ngIf="submitted && f.acceptTerms.errors" class="validation-label"
+                                        style="display: none"></div>
+                                </div>
+
+                            </div>
+                            <div class="login-btn">
+                                <!-- <button title="SignUp" class="btn">SignUp</button> -->
+                                <!-- <button [disabled]="isLoading" title="SignUp" class="btn"><i class="fa"
+                                        [ngClass]="{'fa-spin fa-spinner': isLoading}"></i>{{button}}</button> -->
+
+                                        <button title="SignUp" [disabled]="isLoading" class="btn"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading}"></i> {{button}}</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="low-login-two">
+                        <label class="text-btn">Already on Moneysynk?</label>
+                        <a [routerLink]="['/login']" title="Login" class="btn signup-btn"> Login </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

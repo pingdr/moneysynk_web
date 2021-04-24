@@ -1,0 +1,84 @@
+<div class="heading-modal">
+    <span *ngIf="!categoryData._id">Add Category</span>
+    <span *ngIf="categoryData._id">Edit Category</span>
+    <button class="btn" matDialogClose="no">
+        <img src="../../../assets/images/close.svg">
+    </button>
+</div>
+
+<mat-progress-bar *ngIf="isApiCalling" mode="indeterminate"></mat-progress-bar>
+<div class="form-group-main add-account-section">
+    <form class="add-account-entry" [formGroup]="Addaccountentry" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>Name</label>
+            <mat-form-field appearance="fill">
+                <input matInput maxlength="40" placeholder="Category name" formControlName="name"
+                    [ngModel]="categoryData.name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                </div>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label>Icon</label>
+            <div class="icon-div-main" *ngIf="categoryData.icon">
+                <div class="icon-inner-main" *ngFor="let data of icons;let i = index"
+                    [ngClass]="{ 'active' : isSelected == i }">
+                    <img src="{{data.path}}" (click)="selectIcon(i,data.path)">
+                </div>
+            </div>
+            <div class="icon-div-main" *ngIf="!categoryData.icon">
+                <div class="icon-inner-main" *ngFor="let data of icons;let i = index"
+                    [ngClass]="{ 'active' : isSelected == i }">
+                    <img src="{{data.path}}" (click)="selectIcon(i,data.path)">
+                </div>
+            </div>
+            <!-- <mat-form-field appearance="fill">
+                    <mat-select class="textTransform" formControlName="icon" [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }">
+                        <mat-option *ngFor="let data of icons" value="{{data.path}}"><span style="display: flex;justify-content: center;"><img style="width: 32px;" src="{{data.path}}"></span></mat-option>
+                    </mat-select>
+            </mat-form-field> -->
+        </div>
+        <div class="form-group opening-balance">
+            <label>Parent category</label>
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>0</mat-label> -->
+                <mat-select placeholder="Select Category" formControlName="parent"
+                    [ngClass]="{ 'is-invalid': submitted && f.parent.errors }" [ngModel]="categoryData.parent"
+                    [disabled]="categoryData._id">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let p of allParents" [value]="p._id"><span><img
+                                style="width: 30px;padding-right: 5px;" src="{{p.icon}}"></span>{{p.name}}</mat-option>
+                </mat-select>
+                <div *ngIf="submitted && f.parent.errors" class="invalid-feedback">
+                    <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                </div>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group note-section-text-area">
+            <label>Note</label>
+            <mat-form-field appearance="fill">
+                <textarea style="height: 100px !important; border-radius: 20px !important; resize: none;" matInput
+                    placeholder="Add note here" maxlength="150" formControlName="note"
+                    [ngModel]="categoryData.note"></textarea>
+                <!-- <div *ngIf="submitted && f.note.errors" class="invalid-feedback"> -->
+                <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                <!-- </div> -->
+            </mat-form-field>
+        </div>
+
+        <div class="last-section">
+            <button class="btn" [disabled]="isSpinnerLoding">
+                <i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoding"></i> &nbsp;
+                <span *ngIf="!categoryData._id">
+                    Save
+                </span>
+                <span *ngIf="categoryData._id">
+                    Update
+                </span>
+            </button>
+        </div>
+    </form>
+
+</div>

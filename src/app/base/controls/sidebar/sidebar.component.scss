@@ -1,0 +1,182 @@
+// ----Media query mixin-----------//
+@mixin min-mq($min-screen-size) {
+    @media (min-width: $min-screen-size +"px") {
+        @content;
+    }
+}
+
+@mixin max-mq($max-screen-size) {
+    @media (max-width: $max-screen-size +"px") {
+        @content;
+    }
+}
+
+// ----------------------------For Orientation-----------------------//
+@mixin landscape-orientation($max-screen-size, $orientation) {
+    @media (max-width: $max-screen-size +"px") and (orientation: $orientation) {
+        @content;
+    }
+}
+
+@mixin btw-mq($min-screen-size, $max-screen-size, $pixel-ratio, $orientation) {
+    @media only screen and (min-width: $min-screen-size +"px") and (max-width: $max-screen-size +"px") and (-webkit-min-device-pixel-ratio: $pixel-ratio) and (orientation: $orientation) {
+        @content;
+    }
+}
+
+aside.sidenav-main {
+    position: fixed;
+    background: #313242;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    max-height: 100%;
+    width: 250px;
+    max-width: 250px;
+    @include max-mq(1550) {
+        width: 210px;
+        max-width: 210px;
+    }
+    @include max-mq(1100){
+        width: 180px;
+        max-width: 180px;
+    }
+    @include max-mq(991){
+        width: 160px;
+        max-width: 160px;
+    }
+}
+
+.brand-sidebar {
+    height: 90px;
+    background: #292933;
+    @include max-mq(1100){
+        height: 80px;
+    }
+    @include max-mq(991){
+        height: 75px;
+    }
+    .logo-wrapper {
+        height: 100%;
+        margin-bottom: 0px !important;
+        a.brand-logo {
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            img {
+                width: 155px;
+                @include max-mq(1550){
+                    width: 135px;
+                }
+                @include max-mq(1100){
+                    width: 120px;
+                    position: relative;
+                    top: 7px;
+                }
+                @include max-mq(991){
+                    width: 110px;
+                    top: 4px;
+                }
+            }
+            span.logo-text {
+                display: none;
+            }
+        }
+        a.navbar-toggler {
+            display: none;
+        }
+    }
+}
+
+.main-nav-item {
+    // height: 100%;
+    // max-height: 67%;
+    // overflow-x: hidden;
+    // overflow-y: auto;
+    // padding-top:50px;
+    ul.nav-item-inner {
+        padding-left: 0px;
+        list-style-type: none;
+        margin-bottom: 0;
+        height: 100%;
+
+        .nav-list-parents {
+            padding: 18px 30px;
+            position: relative;
+            transition: 0.8s all ease;
+            @include max-mq(1550){
+                padding: 15px 25px;
+            }
+            @include max-mq(1100){
+                padding: 11px 24px;
+            }
+            &:hover {
+                cursor: pointer;
+                &::before {
+                    position: absolute;
+                    content: "";
+                    background: #f5b822;
+                    width: 4px;
+                    left: 0;
+                    top: 0px;
+                    bottom: 0px;
+                    transition: 0.8s all ease;
+                    @include max-mq(1550){
+                        width: 3px;
+                    }
+                }
+            }
+            .navlinks {
+                color: #fff;
+                font-size: 13px;
+                position: relative;
+                @include max-mq(1550){
+                    font-size: 12px;
+                }
+                @include max-mq(1100){
+                    font-size: 11px;
+                }
+                &:hover {
+                    color: #f5b822 !important;
+                    text-decoration: none;
+                }
+            }
+        }
+        .active {
+            &::before {
+                position: absolute;
+                content: "";
+                background: #f5b822;
+                width: 4px;
+                left: 0;
+                top: 0px;
+                bottom: 0px;
+                transition: 0.8s all ease;
+            }
+            .navlinks {
+                color: #f5b822 !important;
+            }
+        }
+    }
+}
+
+.router-active {
+    color: red;
+}
+
+.settings {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: #5a5b67;
+    padding: 12px 0px;
+    text-align: center;
+    img{
+        @include max-mq(991){
+            width: 20px;
+        }
+    }
+}

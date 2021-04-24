@@ -1,0 +1,157 @@
+// ----Media query mixin-----------//
+@mixin min-mq($min-screen-size) {
+    @media (min-width: $min-screen-size +"px") {
+        @content;
+    }
+}
+
+@mixin max-mq($max-screen-size) {
+    @media (max-width: $max-screen-size +"px") {
+        @content;
+    }
+}
+
+// ----------------------------For Orientation-----------------------//
+@mixin landscape-orientation($max-screen-size, $orientation) {
+    @media (max-width: $max-screen-size +"px") and (orientation: $orientation) {
+        @content;
+    }
+}
+
+@mixin btw-mq($min-screen-size, $max-screen-size, $pixel-ratio, $orientation) {
+    @media only screen and (min-width: $min-screen-size +"px") and (max-width: $max-screen-size +"px") and (-webkit-min-device-pixel-ratio: $pixel-ratio) and (orientation: $orientation) {
+        @content;
+    }
+}
+
+// ------------END of Media Screen Mixing--------------//
+
+.add-entry-main {
+    .component-heading {
+        width: auto;
+        margin-right: 27px;
+    }  
+    .component-btn{
+        width: auto;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        .btn-compo-main {
+            display: flex;
+            margin-right: 40px;
+            .plus-btn{
+                border: none;
+                padding: 0px 12px;
+                font-size: 18px;
+                border-radius: 33.5px;
+                width: 36px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                // color: #fff;
+                margin-right: 14px;
+                &:focus{
+                    outline: none !important;
+                }
+            }
+            .minus-btn{
+                width: 36px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                margin-right: 14px;
+                padding: 0px 13px;
+                font-size: 24px;
+                border: 1px solid #CCCCCC;
+                background: #fff;
+                border-radius: 18px;
+                &:focus{
+                    outline: none !important;
+                }
+            }
+            .refresh-btn {
+                height: 36px;
+                width: 36px;
+                font-size: 0;
+                background: #fff url('../../../assets/images/refresh-icon.svg') no-repeat;
+                background-size: 13px;
+                border: 1px solid #ccc;
+                border-radius: 18px;
+                background-position: center;
+                &:focus{
+                    outline: none !important;
+                }
+            }
+        }
+        .main-input-filed-entry{
+            input{
+                width: 45%;
+                padding: 10px 20px;
+                background: #FFFFFF;
+                border: 1px solid #CCCCCC;
+                border-radius: 100px;
+                &:focus{
+                    outline: none !important;
+                }
+            }
+        }
+    }  
+}
+.add-btn {
+    background: transparent !important;
+    padding: 0;
+    position: absolute;
+    right: 18px;
+    bottom: 1px;
+    line-height: 42px;
+    font-size: 11px;
+    color: #7299FF !important;
+    font-weight: 100;
+    &:hover{
+    text-decoration: underline;
+    }
+    }
+.active-btn{
+    background: linear-gradient(90deg, #F5B822 0%, #FFD263 96.98%) !important;
+    color: white !important;
+}
+
+.classListButton{
+    background: transparent !important;
+    padding: 0;
+    position: absolute;
+    right: 18px;
+    bottom: 1px;
+    line-height: 42px;
+    font-size: 11px;
+    color: #7299FF !important;
+    font-weight: 100;
+    &:hover{
+    text-decoration: underline;
+    }
+}
+
+.amount-dollar{
+    position: absolute;
+    left: 19px;
+    top: 19px;
+    font-size: 13px;
+    color: #5e5e5e;
+    font-family: 'Sul Sans';
+    @include max-mq(1500){
+        left: 23px;
+        top: 18px;
+        font-size: 12px;
+    }
+}
+
+
+.plus-icon-new {
+    width: 100%;
+    margin-left: 3px;
+    position: relative;
+    top: 6px;
+    a{
+        font-size: 30px;
+    }
+}

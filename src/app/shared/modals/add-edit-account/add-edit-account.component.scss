@@ -1,0 +1,109 @@
+.add-account-section {
+    padding: 25px;
+    form.add-account-entry {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 10px;
+    .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    label {
+    margin-bottom: 0;
+    font-size: 11px;
+    margin-right: 15px !important;
+    width: 33.33%;
+    text-align: right;
+    }
+    }
+    }
+    }
+    
+    
+    .add-icon {
+    position: absolute;
+    right: 23px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 15px;
+    cursor: pointer;
+    }
+    
+    .add-btn {
+    background: transparent !important;
+    padding: 0;
+    position: absolute;
+    right: 18px;
+    bottom: 1px;
+    line-height: 42px;
+    font-size: 11px;
+    color: #7299FF !important;
+    font-weight: 100;
+    &:hover{
+    text-decoration: underline;
+    }
+    }
+    
+    .last-section {
+    text-align: right;
+    margin-top: 15px;
+    grid-column-start: 1;
+    grid-column-end: -1;
+    .btn{
+    padding: 12px 30px;
+    font-size: 13px;
+    font-weight: 300;
+    }
+    }
+    .vector{
+
+        border: none !important;
+        background: transparent;
+        &:focus{
+            outline: none !important;
+        }
+
+    }
+    .icon-div-main{
+        width: 100%;
+        overflow: auto;
+        overflow-x: hidden;
+        background: #f9f9f9;
+        border-radius: 26px;
+        padding: 10px 20px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-row-gap: 5px;
+        border-collapse: collapse;
+        grid-column-gap: 5px;
+        max-height: 100px;
+        .icon-inner-main{
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            padding: 4px;
+            cursor: pointer;
+            img{
+                width: 30px;
+                height: 30px;
+            }
+        }
+        .active{
+            border: 2px solid #f8c038 !important;
+            background: #fff;
+        }
+    }
+
+   
+   
+// -------new css------------//
+   
+.add-account-section form.add-account-entry .form-group.note-section-last {
+    align-items: self-start !important;
+}
+
+.add-account-section form.add-account-entry .form-group.note-section-last label {
+    padding-top: 13px;
+}

@@ -1,0 +1,216 @@
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-100Thin.eot');
+    src: url('SinkinSans-100Thin.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-100Thin.woff2') format('woff2'),
+        url('SinkinSans-100Thin.woff') format('woff'),
+        url('SinkinSans-100Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-100ThinItalic.eot');
+    src: url('SinkinSans-100ThinItalic.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-100ThinItalic.woff2') format('woff2'),
+        url('SinkinSans-100ThinItalic.woff') format('woff'),
+        url('SinkinSans-100ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-300LightItalic.eot');
+    src: url('SinkinSans-300LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-300LightItalic.woff2') format('woff2'),
+        url('SinkinSans-300LightItalic.woff') format('woff'),
+        url('SinkinSans-300LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-400Italic.eot');
+    src: url('SinkinSans-400Italic.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-400Italic.woff2') format('woff2'),
+        url('SinkinSans-400Italic.woff') format('woff'),
+        url('SinkinSans-400Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-500Medium.eot');
+    src: url('SinkinSans-500Medium.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-500Medium.woff2') format('woff2'),
+        url('SinkinSans-500Medium.woff') format('woff'),
+        url('SinkinSans-500Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-500MediumItalic.eot');
+    src: url('SinkinSans-500MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-500MediumItalic.woff2') format('woff2'),
+        url('SinkinSans-500MediumItalic.woff') format('woff'),
+        url('SinkinSans-500MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-300Light.eot');
+    src: url('SinkinSans-300Light.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-300Light.woff2') format('woff2'),
+        url('SinkinSans-300Light.woff') format('woff'),
+        url('SinkinSans-300Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-200XLight.eot');
+    src: url('SinkinSans-200XLight.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-200XLight.woff2') format('woff2'),
+        url('SinkinSans-200XLight.woff') format('woff'),
+        url('SinkinSans-200XLight.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-200XLightItalic.eot');
+    src: url('SinkinSans-200XLightItalic.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-200XLightItalic.woff2') format('woff2'),
+        url('SinkinSans-200XLightItalic.woff') format('woff'),
+        url('SinkinSans-200XLightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-400Regular.eot');
+    src: url('SinkinSans-400Regular.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-400Regular.woff2') format('woff2'),
+        url('SinkinSans-400Regular.woff') format('woff'),
+        url('SinkinSans-400Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-800BlackItalic.eot');
+    src: url('SinkinSans-800BlackItalic.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-800BlackItalic.woff2') format('woff2'),
+        url('SinkinSans-800BlackItalic.woff') format('woff'),
+        url('SinkinSans-800BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-900XBlackItalic.eot');
+    src: url('SinkinSans-900XBlackItalic.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-900XBlackItalic.woff2') format('woff2'),
+        url('SinkinSans-900XBlackItalic.woff') format('woff'),
+        url('SinkinSans-900XBlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-800Black.eot');
+    src: url('SinkinSans-800Black.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-800Black.woff2') format('woff2'),
+        url('SinkinSans-800Black.woff') format('woff'),
+        url('SinkinSans-800Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-600SemiBold.eot');
+    src: url('SinkinSans-600SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-600SemiBold.woff2') format('woff2'),
+        url('SinkinSans-600SemiBold.woff') format('woff'),
+        url('SinkinSans-600SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-600SemiBoldItalic.eot');
+    src: url('SinkinSans-600SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-600SemiBoldItalic.woff2') format('woff2'),
+        url('SinkinSans-600SemiBoldItalic.woff') format('woff'),
+        url('SinkinSans-600SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-900XBlack.eot');
+    src: url('SinkinSans-900XBlack.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-900XBlack.woff2') format('woff2'),
+        url('SinkinSans-900XBlack.woff') format('woff'),
+        url('SinkinSans-900XBlack.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-700BoldItalic.eot');
+    src: url('SinkinSans-700BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-700BoldItalic.woff2') format('woff2'),
+        url('SinkinSans-700BoldItalic.woff') format('woff'),
+        url('SinkinSans-700BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    src: url('SinkinSans-700Bold.eot');
+    src: url('SinkinSans-700Bold.eot?#iefix') format('embedded-opentype'),
+        url('SinkinSans-700Bold.woff2') format('woff2'),
+        url('SinkinSans-700Bold.woff') format('woff'),
+        url('SinkinSans-700Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+

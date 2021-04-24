@@ -1,0 +1,24 @@
+<div class="heading-modal">
+    <span>Verify Phone Number</span>
+</div>
+<div class="stat-content-modal">
+    <span class="we-have">We have sent OTP to your Mobile number.</span>
+    <div class="img-otp">
+        <div class="round-img">
+            <img src="../../../assets/images/mobile-phone.svg">
+        </div>
+    </div>
+    <div class="otp-code-main">
+        <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+        <!-- <button data-dismiss="modal" (click)="openOtpmodal()" data-toggle="modal"
+            class="btn Verify w-100 d-block">Verify & Enter</button> -->
+        <button [disabled]="isLoading" data-dismiss="modal" (click)="openOtpmodal()" data-toggle="modal"
+            class="btn Verify w-100 d-block"><i class="fa"
+                [ngClass]="{'fa-spin fa-spinner': isLoading}"></i>{{button}}</button>
+    </div>
+    <div class="main-links">
+        <a style="cursor: pointer;" (click)="openMobileOtp()" title="Change Email">Change Number</a>
+        <a style="cursor: pointer;" (click)="openResendOtp()" title="Resend OTP">Resend OTP</a>
+    </div>
+
+</div>

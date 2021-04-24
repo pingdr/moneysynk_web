@@ -1,0 +1,86 @@
+<div class="main-login">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-8 col-md-8 col-sm-8 col-lg-8 col-xl-8 padding-none">
+                <div class="main-left-login">
+                    <div class="logo">
+                        <img src="/assets/images/logo.svg" alt="logo" title="Moneysynk" class="image-responsive">
+                        <p>Struggling to monitor the cash inflow and outflow of your business? Make the financial management convenient with Moneysnyk’s omnichannel for budget tracking.</p>
+                    </div>
+
+                    <div class="login-graphic">
+                        <img src="/assets/images/login-page-graphic-1.svg" alt="graphics" width="100%" height="100%">
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-4 col-md-4 col-lg-4 col-xl-4 padding-none right-login-main">
+                <div class="main-right-login-form">
+                    <div class="upper-div-one">
+                        <label class="label-login">Login to MoneySynk</label>
+                        <form autocomplete="new-form" [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
+                            <div class="form-group Email-id">
+                                <input name="email" type="text" class="form-control string_trim" formControlName="user" 
+                                    placeholder="Email"
+                                    [ngClass]="{ 'is-invalid': submitted && f.user.errors }" autocomplete="new-email">
+                                <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
+                                    <div *ngIf="f.user.errors.required"></div>
+                                    <div *ngIf="f.user.errors.user"></div>
+                                </div>
+
+                            </div>
+                            <div class="form-group Password">
+                                <a class="view-btn">
+                                    <img style="cursor: pointer; float: right;position: absolute;top: 24px;right: 23px;"
+                                        src="../../../assets/images/view-eye.svg" (click)="showPassword()"
+                                        *ngIf="!isPasswordShow">
+                                    <img style="width:22px;cursor: pointer; float: right;position: absolute;top: 24px;right: 23px;"
+                                        src="../../../assets/images/close-eyes.svg" (click)="showPassword()"
+                                        *ngIf="isPasswordShow">
+                                </a>
+                                <input [type]="isPasswordShow ? 'text':'password'" class="form-control string_trim1" formControlName="password"
+                                    placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                                    autocomplete="new-password" minlength="6" maxlength="12">
+                                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                    <div *ngIf="f.password.errors.required"></div>
+                                    <div *ngIf="f.password.errors.minlength"></div>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group Remember-me">
+                                <div class="in-remember">
+                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                    <label for="vehicle1"> Remember Me</label>
+                                </div>
+
+                            </div> -->
+                            <div class="form-group Remember-me">
+                                <div class="in-remember">
+                                    <input type="checkbox" formControlName="rememberme" id="vehicle1"
+                                        class="form-check-input">
+                                    <label for="vehicle1"> Remember Me </label>
+                                    <!-- <div *ngIf="submitted && f.rememberme.errors" class="invalid-feedback">Accept Ts &
+                                        Cs is required</div>
+                                </div> -->
+
+                                </div>
+                            </div>
+                            <div class="login-btn">
+                                <button title="Login" [disabled]="isLoading" class="btn"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading}"></i> {{button}}</button>
+                    
+                                <a href="javascript:void(0)" (click)="openOtpmodal()" title="Forgot Password?"
+                                    class="text-btn">Forgot Password?</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="low-login-two">
+                        <label class="text-btn">New to MoneySynk?</label>
+                        <a [routerLink]="['/signup']" title="Signup" class="btn signup-btn"> SignUp </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

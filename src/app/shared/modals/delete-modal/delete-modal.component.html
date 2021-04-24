@@ -1,0 +1,28 @@
+<div class="heading-modal">
+    <span>Delete {{data.title}} ?</span>
+    <button class="vector" (click)="onCancelModel()">
+        <img src="../../../../assets/images/Vector.svg">
+    </button>
+</div>
+
+<div class="form-group-main delete-section-message">
+    <div class="container">
+        <p style="margin: 15px 0 0px 0;color: gray;font-size: 15px;">
+            Are you sure you want to delete <br /> {{data.name}} {{data.title}}?
+        </p>
+
+        <div class="last-section">
+            <div class="row">
+                <div class="col-md-6">
+                    <button style="box-shadow: none !important;border-radius: 20px;width: 105px;
+                text-align: center;
+                height: 35px;" mat-raised-button class="orange-back" (click)="delete(data.type)">Confirm</button>
+                </div>
+                <div class="col-md-6">
+                    <button mat-stroked-button color="primary" style="border-radius: 20px;border: none;width: 105px;"
+                        matDialogClose="no">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

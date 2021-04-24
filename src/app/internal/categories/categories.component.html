@@ -1,0 +1,445 @@
+<!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
+<div class="heading-pannel">
+    <div class="component-heading">
+        <span>Categories</span>
+    </div>
+    <div class="component-btn">
+        <button class="btn" (click)="openCategorymodal()">Add Category</button>
+    </div>
+</div>
+
+<div class="sub-compo-wrap">
+    <div class="white-box">
+        <nav class="asset-main-tab">
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" (click)="setType('EXPENSE')"
+                    href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Expense</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" (click)="setType('INCOME')"
+                    href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Income</a>
+
+            </div>
+        </nav>
+        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+            <!-- --------------------------first-tab----------------------- -->
+            <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="row">
+                    <div class="col-8 col-md-8 col-lg-8 scroller-class">
+
+                        <ng-container *ngIf="isShimmerloading">
+                            <div *ngFor="let shimmer of [1,2,3,4,5,6,7,8,9,10]">
+                                <div class="shimmer">
+                                    <ngx-shimmer-loading [shape]="'circle'" [width]="'50px'"></ngx-shimmer-loading>
+                                </div>
+                                <div class="shimmer">
+                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'500px'" [height]="'50px'">
+                                    </ngx-shimmer-loading>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <!-------------------------------- categories-Expansion-------------------------------->
+                        <ng-container *ngIf="!isShimmerloading">
+                            <div class="categories-accordian-main">
+                                <mat-accordion>
+                                    <!-------------------- First-tab--------------------------->
+                                    <mat-expansion-panel id="tab{{i}}" *ngFor="let cat of expenseArray;let i = index"
+                                        [expanded]="i==0">
+                                        <mat-expansion-panel-header (click)="selectRecord(cat)">
+                                            <mat-panel-title>
+                                                <span>{{cat.name}}</span>
+                                                <img src="{{cat.icon}}" width="40px"
+                                                    [ngStyle]="{'height':cat.name=='Other'?'40px':''}">
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                <div class="main-right-heading">
+                                                    <div class="left-col">
+                                                        <span
+                                                            class="red-color">{{convertNumberinPositive(cat.expenseTotal)
+                                                            | currency}}</span>
+                                                        <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
+                                                    </div>
+
+                                                </div>
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <div *ngIf="cat.child.length > 0" class="expansion-description-main">
+                                            <div *ngFor="let c of cat.child;let j=index" class="inner-strips"
+                                                (click)="getSubCategorySummaryData(c,j)">
+                                                <div class="left-col">
+                                                    <img src="{{c.icon}}" width="40px">
+                                                    <span
+                                                        [ngClass]="{'sub-category-active':isSubCategoryRecord==j && isSubCategoryRecord!=null && selectedCategoryId==c.parent}">{{c.name}}</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span
+                                                        class="red-color">{{convertNumberinPositive(c.expenseTotal)}}</span>
+                                                    <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault"
+                                                        title="Delete"
+                                                        style="float: right;text-decoration: none;cursor: pointer;">
+                                                        <img src="../../../assets/images/delete-trash.svg">
+                                                    </a>
+                                                    <a title="Edit"
+                                                        style="float: right;text-decoration: none;cursor: pointer;"
+                                                        (click)="editCategory(c)" *ngIf="!c.isDefault">
+                                                        <img
+                                                            src="../../../assets/images/edit-pencil.svg">&nbsp;&nbsp;&nbsp;
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </div>
+                        </ng-container>
+
+                        <div style="display: flex;float: right;" class="pagination-customize" *ngIf="total > 10">
+                            <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4">
+                        <div class="list-main-filter">
+                            <nav class="asset-main-tab">
+                                <span>{{cName}}</span>
+                            </nav>
+                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                                <!-- list -->
+                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
+                                    aria-labelledby="nav-list-tab">
+                                    <div class="accordian-main">
+                                        <div class="for-shimmer-accordian">
+                                            <ng-container *ngIf="categoriesDetailsShimmer">
+                                                <div class="shimmer1">
+                                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                        [height]="'30px'">
+                                                    </ngx-shimmer-loading>
+                                                </div>
+                                                <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                                    <div class="shimmer2">
+                                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                            [height]="'70px'">
+                                                        </ngx-shimmer-loading>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                        <ng-container *ngIf="categoriesDetails.length>0; else other_content1">
+                                            <mat-accordion>
+                                                <!-- first-panal -->
+                                                <div *ngIf="!categoriesDetailsShimmer">
+
+                                                    <ng-container *ngFor="let ad of categoriesDetails">
+                                                        <mat-expansion-panel [expanded]="step === 0"
+                                                            (opened)="setStep(0)">
+                                                            <mat-expansion-panel-header>
+                                                                <mat-panel-title>
+                                                                    <span *ngIf="ad._id!=undefined">
+                                                                        {{transactionMonth(ad?._id?.month,ad?._id?.year)
+                                                                        | date:'MMM
+                                                                        yyyy'}}
+                                                                    </span>
+                                                                </mat-panel-title>
+                                                                <mat-panel-description>
+                                                                    <span class="red-color">
+                                                                        <!-- 120.00 -->
+                                                                        {{convertNumberinPositive(ad?.total) |
+                                                                        currency}}
+                                                                    </span>
+                                                                </mat-panel-description>
+                                                            </mat-expansion-panel-header>
+
+                                                            <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2}"
+                                                                *ngIf="ad?.data!=undefined">
+                                                                <div *ngFor="let d of ad?.data"
+                                                                    class="inner-expansion-main">
+                                                                    <div class="inner-sub-left">
+                                                                        <div class="main-strips">
+                                                                            <div class="holder-name">
+                                                                                {{d.accountId.name}}
+                                                                            </div>
+                                                                            <div *ngIf="d.transactionType == 'IN'"
+                                                                                class="price-tag green-color">
+                                                                                {{convertNumberinPositive(d.amount) |
+                                                                                currency}}
+                                                                            </div>
+                                                                            <div *ngIf="d.transactionType == 'OUT'"
+                                                                                class="price-tag red-color">
+                                                                                {{convertNumberinPositive(d.amount) |
+                                                                                currency}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="main-strips">
+                                                                            <div class="date-and-time">{{d.createdAt |
+                                                                                date:'dd
+                                                                                MMM yyyy hh:mm a'}}
+                                                                            </div>
+                                                                            <img class="edit-icon"
+                                                                                (click)="editTransaction(d)"
+                                                                                src="../../../assets/images/edit-pencil.svg">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </mat-expansion-panel>
+                                                    </ng-container>
+                                                </div>
+                                                <div style="display: flex;float: right; position: relative;top: -11px;"
+                                                    *ngIf="MonthlyIndexListTotal > 5">
+                                                    <!-- <mat-paginator (page)="pageDetailChange($event)"
+                                                        [length]="MonthlyIndexListTotal" [pageSize]="5">
+                                                    </mat-paginator>
+                                                      -->
+                                                    <app-categorypagination [length]="MonthlyIndexListTotal"
+                                                        (page)="pageDetailChange($event)" [pageSize]="5">
+                                                    </app-categorypagination>
+
+
+
+
+                                                </div>
+                                            </mat-accordion>
+                                        </ng-container>
+                                        <ng-template #other_content1>
+                                            <div *ngIf="categoriesDetailsShimmer == false"
+                                                class="not-transaction-added">
+                                                <div class="inner-img-main">
+                                                    <img src="../../../assets/images/transaction-no.svg">
+                                                </div>
+                                                <div class="not-text-main">No Transaction Found</div>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-------------------------second tab--------------------------- -->
+            <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="row">
+                    <div class="col-8 col-md-8 col-lg-8 scroller-class">
+
+                        <ng-container *ngIf="isShimmerloading">
+                            <div *ngFor="let shimmer of [1,2,3,4,5,6,7,8,9,10]">
+                                <div class="shimmer">
+                                    <ngx-shimmer-loading [shape]="'circle'" [width]="'50px'"></ngx-shimmer-loading>
+                                </div>
+                                <div class="shimmer">
+                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'500px'" [height]="'50px'">
+                                    </ngx-shimmer-loading>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="!isShimmerloading">
+                            <div class="categories-accordian-main">
+                                <mat-accordion>
+                                    <!-------------------- First-tab--------------------------->
+                                    <mat-expansion-panel *ngFor="let inc of incomeArray;let i=index" [expanded]="i==0">
+                                        <mat-expansion-panel-header (click)="selectRecord(inc)">
+                                            <mat-panel-title>
+                                                <span>{{inc.name}}</span>
+                                                <img src="{{inc.icon}}" width="40px"
+                                                    [ngStyle]="{'height':inc.name=='Other'?'40px':''}">
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                <div class="main-right-heading">
+                                                    <div class="left-col">
+                                                        <span
+                                                            class="green-cleared">{{convertNumberinPositive(inc.incomeTotal)
+                                                            | currency}}</span>
+                                                        <!-- <span class="subtract-expanse">($85.00 + $62.00)</span> -->
+                                                    </div>
+
+                                                </div>
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <div class="expansion-description-main">
+                                            <div *ngFor="let c of inc.child;let j=index" class="inner-strips"
+                                                (click)="getSubCategorySummaryData(c,j)">
+                                                <div class="left-col">
+                                                    <img src="{{c.icon}}" width="40px">
+                                                    <span
+                                                        [ngClass]="{'sub-category-active':isSubCategoryRecord==j && isSubCategoryRecord!=null && selectedCategoryId==c.parent}">{{c.name}}</span>
+                                                </div>
+                                                <div class="right-col">
+                                                    <span class="green-cleared">{{convertNumberinPositive(c.incomeTotal)
+                                                        | currency}}</span>
+                                                    <a (click)="deleteCategory(c._id,c.name)" *ngIf="!c.isDefault"
+                                                        title="Delete"
+                                                        style="float: right;text-decoration: none;cursor: pointer;">
+                                                        <img src="../../../assets/images/delete-trash.svg">
+                                                    </a>
+                                                    <a title="Edit"
+                                                        style="float: right;text-decoration: none;cursor: pointer;"
+                                                        (click)="editCategory(c)" *ngIf="!c.isDefault">
+                                                        <img
+                                                            src="../../../assets/images/edit-pencil.svg">&nbsp;&nbsp;&nbsp;
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </div>
+                        </ng-container>
+
+                        <div class="pagination-customize" *ngIf="total > 10">
+                            <mat-paginator (page)="pageChange($event)" [length]="total" [pageSize]="10">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4">
+                        <div class="list-main-filter">
+                            <nav class="asset-main-tab">
+
+                                <span>{{cName}}</span>
+                            </nav>
+                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                                <!-- list -->
+                                <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel"
+                                    aria-labelledby="nav-list-tab">
+                                    <div class="accordian-main">
+                                        <ng-container *ngIf="categoriesDetailsShimmer">
+                                            <div class="shimmer1">
+                                                <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                    [height]="'30px'">
+                                                </ngx-shimmer-loading>
+                                            </div>
+                                            <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                                <div class="shimmer2">
+                                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                        [height]="'70px'">
+                                                    </ngx-shimmer-loading>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="categoriesDetails.length>0; else other_content2">
+                                            <mat-accordion>
+                                                <!-- first-panal -->
+                                                <div *ngIf="!categoriesDetailsShimmer">
+                                                    <ng-container *ngFor="let ad of categoriesDetails">
+                                                        <mat-expansion-panel [expanded]="step === 0"
+                                                            (opened)="setStep(0)">
+                                                            <mat-expansion-panel-header>
+                                                                <mat-panel-title>
+                                                                    <span *ngIf="ad._id!=undefined">
+                                                                        {{transactionMonth(ad._id.month,ad._id.year)
+                                                                        | date:'MMM
+                                                                        yyyy'}}
+                                                                    </span>
+                                                                </mat-panel-title>
+                                                                <mat-panel-description>
+                                                                    <span class="green-color">
+                                                                        <!-- 120.00 -->
+                                                                        {{convertNumberinPositive(ad?.total) |
+                                                                        currency}}
+                                                                    </span>
+                                                                </mat-panel-description>
+                                                            </mat-expansion-panel-header>
+
+                                                            <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2 }"
+                                                                *ngIf="ad?.data!=undefined">
+                                                                <div *ngFor="let d of ad?.data"
+                                                                    class="inner-expansion-main">
+                                                                    <div class="inner-sub-left">
+                                                                        <div class="main-strips">
+                                                                            <div class="holder-name">
+                                                                                {{d.accountId.name}}
+                                                                            </div>
+                                                                            <div *ngIf="d.transactionType == 'IN'"
+                                                                                class="price-tag green-color">
+                                                                                {{convertNumberinPositive(d.amount) |
+                                                                                currency}}
+                                                                            </div>
+                                                                            <div *ngIf="d.transactionType == 'OUT'"
+                                                                                class="price-tag red-color">
+                                                                                {{convertNumberinPositive(d.amount) |
+                                                                                currency}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="main-strips">
+                                                                            <div class="date-and-time">{{d.createdAt |
+                                                                                date:'dd
+                                                                                MMM yyyy hh:mm a'}}
+                                                                            </div>
+                                                                            <img class="edit-icon"
+                                                                                (click)="editTransaction(d)"
+                                                                                src="../../../assets/images/edit-pencil.svg">
+                                                                            <!-- <div class="account-type">My Account</div> -->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </mat-expansion-panel>
+                                                    </ng-container>
+                                                </div>
+                                                <div style="float: right; position: relative;top: -11px;"
+                                                    *ngIf="MonthlyIndexListTotal > 5">
+                                                    <!-- <mat-paginator (page)="pageDetailChange($event)"
+                                                        [length]="MonthlyIndexListTotal" [pageSize]="5">
+                                                    </mat-paginator> -->
+
+                                                    <app-categorypagination [length]="MonthlyIndexListTotal"
+                                                        (page)="pageDetailChange($event)" [pageSize]="5">
+                                                    </app-categorypagination>
+
+                                                </div>
+                                            </mat-accordion>
+                                        </ng-container>
+
+                                        <ng-template #other_content2>
+                                            <div *ngIf="categoriesDetailsShimmer == false"
+                                                class="not-transaction-added">
+                                                <div class="inner-img-main">
+                                                    <img src="../../../assets/images/transaction-no.svg">
+                                                </div>
+                                                <div class="not-text-main">No Transaction Found</div>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------ total Expanse Panal-------------------------->
+
+<div class="fixed-foot total-expanse-panal-bottom-main">
+    <div class="inner-expanse-panal-main">
+
+        <div class="boxes border-right-custom">
+            <span class="label">Total Expanse : </span>
+            <span class="value red-total-expanse" *ngIf="categorySummary.expenseTotal">
+                {{convertNumberinPositive(categorySummary.expenseTotal) |
+                currency}}
+            </span>
+            <span class="value red-total-expanse" *ngIf="!categorySummary.expenseTotal">
+                $0.00
+            </span>
+        </div>
+        <div class="boxes">
+            <span class="label">Current Balance : </span>
+            <span class="value green-cleared"
+                *ngIf="categorySummary.currentBalance">{{convertNumberinPositive(categorySummary.currentBalance) |
+                currency}}</span>
+            <span class="value green-cleared" *ngIf="!categorySummary.currentBalance">$0.00</span>
+
+        </div>
+        <div class="boxes border-left-custom">
+            <span class="label">Income Total : </span>
+            <span class="value"
+                *ngIf="categorySummary.incomeTotal">{{convertNumberinPositive(categorySummary.incomeTotal) |
+                currency}}</span>
+            <span class="value" *ngIf="!categorySummary.incomeTotal">$0.00</span>
+        </div>
+
+    </div>
+</div>

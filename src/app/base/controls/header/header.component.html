@@ -1,0 +1,66 @@
+<header class="page-topbar" id="header">
+  <div class="navbar navbar-fixed">
+    <div class="header-main-area">
+      <div style="width: 200px;" class="groupadd">
+
+        <!-- <mat-form-field class="groupRight" appearance="fill"> -->
+        <mat-form-field appearance="fill">
+          <mat-select name="group" id="group"  class="groupRight" appearance="fill"
+            [(ngModel)]="modeselect">
+            <mat-option *ngFor="let data of groupList" (click)="groupSelect(data)" value="{{data._id}}">{{ data.name }}
+            </mat-option>
+            <mat-form-field appearance="fill">
+              <!-- <input type="text"  (keypress)="special_char($event)"  maxlength="40" [(ngModel)]="filterName" name="filterName" (keyup)="addGroup($event.target.value)"
+                (keydown)="$event.stopPropagation()" matInput placeholder="Add New Group"> -->
+              <input type="text"  maxlength="40" [(ngModel)]="filterName" name="filterName" (keyup)="addGroup($event.target.value)"
+                (keydown)="$event.stopPropagation()" matInput placeholder="Add New Group">
+              <button style="  background: transparent !important;
+              padding: 0;
+              position: absolute;
+              right: 18px;
+              bottom: 1px;
+              line-height: 42px;
+              font-size: 11px;
+              color: #7299FF !important;
+              font-weight: 100;
+              &:hover{
+              text-decoration: underline;
+              }" class="btn" (click)="saveGroup()"> Add</button>
+            </mat-form-field>
+
+          </mat-select>
+        </mat-form-field>
+        <!-- </mat-form-field> -->
+
+      </div>
+
+
+      <div class="form-group search-input">
+        <div class="form-field">
+          <input type="text" class="form-control" (keyup)="searchData($event)" (change)="searchData($event)" placeholder="Search Here...">
+        </div>
+      </div>
+
+      <div *ngIf="user" class="dropdown header-third-drop-down">
+
+        <button   class="btn btn-secondary dropdown-toggle" type="button" [matMenuTriggerFor]="profileMenu">
+          <span class="user-text-logo">
+            <!-- #e1e1e1 -->
+            {{user.username.charAt(0)}}
+          </span>
+          <!-- #e1e1e1 -->
+          <!-- <span class="user-pro-pic">
+            <img src="../../../../assets/images/round-pic.svg">
+          </span> -->
+          {{user.username}}</button>
+
+        <mat-menu #profileMenu="matMenu" class="header-right-dropdown" xPosition="before">
+          <button mat-menu-item style="border: none !important;">Action</button>
+          <button mat-menu-item>Another action</button>
+          <button mat-menu-item (click)="Logout()">Logout</button>
+        </mat-menu>
+      </div>
+    </div>
+
+  </div>
+</header>

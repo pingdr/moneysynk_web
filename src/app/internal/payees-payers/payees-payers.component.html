@@ -1,0 +1,490 @@
+<!-- <app-progress-bar *ngIf="isApiCalling"></app-progress-bar> -->
+<div class="heading-pannel">
+    <div class="component-heading">
+        <span>Payees / Payers</span>
+    </div>
+    <div class="component-btn">
+        <button class="btn" (click)="openCategorymodal()">{{AddText}}</button>
+    </div>
+</div>
+
+<div class="sub-compo-wrap">
+    <div class="white-box">
+        <nav class="asset-main-tab">
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" (click)="setType('PAYEE')"
+                    href="#nav-asset" role="tab" aria-controls="nav-home" aria-selected="true">Payees</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" (click)="setType('PAYER')"
+                    href="#nav-cash" role="tab" aria-controls="nav-profile" aria-selected="false">Payers</a>
+            </div>
+        </nav>
+        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-asset" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="row">
+                    <div class="col-8 col-md-8 col-lg-8 scroller-class">
+                        <div class="payees-contact-main">
+                            <div class="left-col-contact">
+
+                                <ng-container *ngIf="isShimmerLoading">
+                                    <div *ngFor="let shimmer of [1,2,3,4,5,6,7,8,9,10]">
+                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'100%'" [height]="'50px'">
+                                        </ngx-shimmer-loading>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="!isShimmerLoading">
+                                    <ng-container *ngIf="payeePayer.length >0; else other_content">
+                                        <div id="{{char.title}}" class="main-box-character"
+                                            *ngFor="let char of payeePayer; let i = index">
+                                            <div class="first-latter-main">
+                                                <span>{{char.title}}</span>
+                                            </div>
+                                            <ng-container *ngFor="let payees of char.data; let j = index">
+                                                <div class="inner-strips-main-box"
+                                                    [ngClass]="{ 'active-box' : isRecordSelected == i && isRecordSelected1 == j}"
+                                                    (click)="recordSelected(i,j,payees)">
+                                                    <div class="name-of-holder">
+                                                        {{payees.name}}
+                                                    </div>
+                                                    <ng-container *ngIf="payees.expenseTotal==0;else other_contentexpenseTotal">
+                                                    <div class="green-color">
+                                                        {{convertNumberinPositive(payees.expenseTotal) | currency}}
+                                                    </div>
+                                                </ng-container>
+                                                    <ng-template #other_contentexpenseTotal> 
+                                                        <div class="red-color">
+                                                        {{convertNumberinPositive(payees.expenseTotal) | currency}}
+                                                    </div>
+                                                </ng-template>
+
+                                                    
+                                                    
+                                                    <div class="del-icon">
+                                                        <button class="icon-remove">
+                                                            <img src="../../../assets/images/edit-pencil.svg"
+                                                                (click)="updatePayeeOrPayer(payees)">
+                                                        </button>
+
+                                                        <button class="icon-remove">
+                                                            <img src="../../../assets/images/delete-trash.svg"
+                                                                (click)="deletePayee(payees._id,payees.name,'AddText')">
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #other_content>
+                                        <div class="main-div-payyes">
+                                            <div class="inner-div-height">
+                                                <img src="../../../assets/images/Payee-found.svg">
+                                                <div class="no-payee-found">No Payees Found</div>
+
+                                            </div>
+                                        </div>
+
+                                    </ng-template>
+
+                                    <!-- <div class="main-box-character" *ngFor="let char of availableSortData"
+                                        id="{{char}}">
+                                        <div class="first-latter-main">
+                                            <span>{{char}}</span>
+                                        </div>
+                                        <ng-container *ngFor="let payees of payeesArray; let i = index">
+                                            <div *ngIf="(payees.name.charAt(0)).toUpperCase()==char">
+                                                <div class="inner-strips-main-box"
+                                                    [ngClass]="{ 'active-box' : isRecordSelected == i }"
+                                                    (click)="recordSelected(i,payees)">
+                                                    <div class="name-of-holder">
+                                                        {{payees.name}}
+                                                    </div>
+                                                    <div class="price-tag-main">
+                                                        ${{payees.expenseTotal}}
+                                                    </div>
+                                                    <div class="del-icon">
+                                                        <button class="icon-remove">
+                                                            <img src="../../../assets/images/edit-pencil.svg"
+                                                                (click)="updatePayeeOrPayer(payees)">
+                                                        </button>
+
+                                                        <button class="icon-remove">
+                                                            <img src="../../../assets/images/delete-trash.svg"
+                                                                (click)="deletePayee(payees._id,payees.name,'deletePayee')">
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </ng-container>
+                                    </div> -->
+
+                                </ng-container>
+
+                            </div>
+                            <div class="right-col-contact">
+                                <div class="comm-char" *ngFor="let char of sortCharData" (click)="gotoPayeesTop(char)">
+                                    {{char}}
+                                </div>
+                                <div class="comm-char">#</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4">
+                        <div class="list-main-filter">
+                            <nav class="asset-main-tab">
+                                <span>{{pName}}</span>
+                            </nav>
+                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-list-tab" role="tabpanel"
+                                    aria-labelledby="nav-list-tab">
+                                    <div class="accordian-main">
+                                        <div class="for-shimmer-accordian">
+                                            <ng-container *ngIf="payeePayerShimmarLoding">
+                                                <div class="shimmer1">
+                                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                        [height]="'30px'">
+                                                    </ngx-shimmer-loading>
+                                                </div>
+                                                <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                                    <div class="shimmer2">
+                                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                            [height]="'70px'">
+                                                        </ngx-shimmer-loading>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+
+                                        <ng-container *ngIf="payeeDetails.length >0; else other_content2">
+                                            <mat-accordion>
+                                                <div *ngIf="!payeePayerShimmarLoding">
+                                                    <ng-container *ngFor="let ad of payeeDetails">
+                                                        <mat-expansion-panel [expanded]="step === 0"
+                                                            (opened)="setStep(0)">
+                                                            <mat-expansion-panel-header>
+                                                                <mat-panel-title>
+                                                                    <span *ngIf="ad._id != undefined">
+                                                                        {{transactionMonth(ad?._id.month,ad?._id.year) |
+                                                                        date:'MMM
+                                                                        yyyy'}}
+                                                                    </span>
+                                                                </mat-panel-title>
+                                                                <mat-panel-description>
+                                                                    <span class="red-color">
+                                                                        <!-- $ 120.00 -->
+                                                                        {{convertNumberinPositive(ad?.total) |
+                                                                        currency}}
+                                                                    </span>
+                                                                </mat-panel-description>
+                                                            </mat-expansion-panel-header>
+                                                            <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2 }"
+                                                                *ngIf="ad?.data !=undefined">
+                                                                <div *ngFor="let d of ad?.data"
+                                                                    class="inner-expansion-main">
+                                                                    <div class="inner-sub-left">
+                                                                        <div class="main-strips">
+                                                                            <div class="holder-name">
+                                                                                {{d.accountId.name}}
+                                                                            </div>
+                                                                            <div *ngIf="d.transactionType == 'IN'"
+                                                                                class="price-tag green-color">
+                                                                                {{convertNumberinPositive(d.amount) |
+                                                                                currency}}
+                                                                            </div>
+                                                                            <div *ngIf="d.transactionType == 'OUT'"
+                                                                                class="price-tag red-color">
+                                                                                {{convertNumberinPositive(d.amount)
+                                                                                |currency}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="main-strips">
+                                                                            <div class="date-and-time">{{d.createdAt |
+                                                                                date:'dd
+                                                                                MMM yyyy hh:mm a'}}
+                                                                            </div>
+                                                                            <img class="edit-icon"
+                                                                                (click)="editTransaction(d)"
+                                                                                src="../../../assets/images/edit-pencil.svg">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </mat-expansion-panel>
+                                                    </ng-container>
+                                                </div>
+                                                <div style="display: flex;float: right; position: relative;top: -11px;"
+                                                    *ngIf="payeeIndexTotal > 5">
+                                                    <mat-paginator (page)="payeeDetailPageChange($event)"
+                                                        [length]="payeeIndexTotal" [pageSize]="5">
+                                                    </mat-paginator>
+                                                </div>
+                                            </mat-accordion>
+                                        </ng-container>
+                                        <ng-template #other_content2>
+                                            <div *ngIf="!payeePayerShimmarLoding" class="not-transaction-added">
+                                                <div class="inner-img-main">
+                                                    <img src="../../../assets/images/transaction-no.svg">
+                                                </div>
+                                                <div class="not-text-main">No Transaction Found</div>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-------------------------second tab--------------------------- -->
+            <div class="tab-pane fade" id="nav-cash" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="row">
+                    <div class="col-8 col-md-8 col-lg-8 scroller-class">
+
+                        <div class="payees-contact-main">
+                            <div class="left-col-contact">
+
+                                <ng-container *ngIf="isShimmerLoading">
+                                    <div *ngFor="let shimmer of [1,2,3,4,5,6,7,8,9,10]">
+                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'100%'" [height]="'50px'">
+                                        </ngx-shimmer-loading>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="!isShimmerLoading">
+                                    <ng-container *ngIf="payeePayer.length >0; else other_content1">
+                                        <div id="P{{char.title}}" class="main-box-character"
+                                            *ngFor="let char of payeePayer; let i = index">
+                                            <div class="first-latter-main">
+                                                <span>{{char.title}}</span>
+                                            </div>
+                                            <ng-container *ngFor="let payees of char.data;let j = index">
+                                                <div class="inner-strips-main-box"
+                                                    [ngClass]="{ 'active-box' : isRecordSelected == i && isRecordSelected1 == j}"
+                                                    (click)="recordSelected(i,j,payees)">
+                                                    <div class="name-of-holder">
+                                                        {{payees.name}}
+                                                    </div>
+                                                    <div class="green-color">
+                                                        {{convertNumberinPositive(payees.incomeTotal) | currency}}
+                                                    </div>
+                                                    <div class="del-icon">
+                                                        <button class="icon-remove">
+                                                            <img src="../../../assets/images/edit-pencil.svg"
+                                                                (click)="updatePayeeOrPayer(payees)">
+                                                        </button>
+
+                                                        <button class="icon-remove">
+                                                            <img src="../../../assets/images/delete-trash.svg"
+                                                                (click)="deletePayee(payees._id,payees.name,'deletePayee')">
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #other_content1>
+                                        <div class="main-div-payyes">
+                                            <div class="inner-div-height">
+                                                <img src="../../../assets/images/Payee-found.svg">
+                                                <div class="no-payee-found">No Payers Found</div>
+
+                                            </div>
+                                        </div>
+
+                                    </ng-template>
+
+
+                                    <!-- <div class="main-box-character" *ngFor="let char of availableSortData"
+                                        id="P{{char}}">
+                                        <div class="first-latter-main">
+                                            <span>{{char}}</span>
+                                        </div>
+                                        <ng-container *ngFor="let payer of payersArray; let i = index">
+                                            <div *ngIf="(payer.name.charAt(0)).toUpperCase()==char">
+                                                <div class="inner-strips-main-box"
+                                                    [ngClass]="{ 'active-box' : isRecordSelected == i }"
+                                                    (click)="recordSelected(i,payer)">
+                                                    <div class="name-of-holder">
+                                                        {{payer.name}}
+                                                    </div>
+                                                    <div class="price-tag-main">
+                                                        ${{payer.incomeTotal}}
+                                                    </div>
+                                                    <div class="del-icon">
+                                                        <button class="icon-remove">
+                                                            <img src="../../../assets/images/edit-pencil.svg"
+                                                                (click)="updatePayeeOrPayer(payer)">
+                                                        </button>
+
+                                                        <button class="icon-remove">
+                                                            <img src="../../../assets/images/delete-trash.svg"
+                                                                (click)="deletePayee(payer._id,payer.name,'deletePayee')">
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </ng-container>
+                                    </div> -->
+
+                                </ng-container>
+
+                            </div>
+
+                            <div class="right-col-contact">
+                                <div class="comm-char" *ngFor="let char of sortCharData" (click)="gotoPayersTop(char)">
+                                    {{char}}
+                                </div>
+                                <div class="comm-char">#</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4 col-md-4 col-lg-4">
+                        <div class="list-main-filter">
+                            <nav class="asset-main-tab">
+
+                                <span>{{pName}}</span>
+                            </nav>
+                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-list-tab-2" role="tabpanel"
+                                    aria-labelledby="nav-list-tab">
+                                    <div class="accordian-main">
+                                        <div class="for-shimmer-accordian">
+                                            <ng-container *ngIf="payeePayerShimmarLoding">
+                                                <div class="shimmer1">
+                                                    <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                        [height]="'30px'">
+                                                    </ngx-shimmer-loading>
+                                                </div>
+                                                <div *ngFor="let shimmer of [1,2,3,4,5]">
+                                                    <div class="shimmer2">
+                                                        <ngx-shimmer-loading [shape]="'rect'" [width]="'490px'"
+                                                            [height]="'70px'">
+                                                        </ngx-shimmer-loading>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+
+                                        <ng-container *ngIf="payeeDetails.length >0; else other_content3">
+                                            <mat-accordion>
+
+                                                <div *ngIf="!payeePayerShimmarLoding">
+                                                    <ng-container *ngFor="let ad of payeeDetails">
+                                                        <mat-expansion-panel [expanded]="step === 0"
+                                                            (opened)="setStep(0)">
+                                                            <mat-expansion-panel-header>
+                                                                <mat-panel-title>
+                                                                    <span *ngIf="ad._id != undefined">
+                                                                        {{transactionMonth(ad?._id.month,ad?._id.year)|
+                                                                        date:'MMM
+                                                                        yyyy'}}
+                                                                    </span>
+                                                                </mat-panel-title>
+                                                                <mat-panel-description>
+                                                                    <span class="green-color">
+                                                                        <!-- $ 120.00 -->
+                                                                        {{convertNumberinPositive(ad?.total) |
+                                                                        currency}}
+                                                                    </span>
+                                                                </mat-panel-description>
+                                                            </mat-expansion-panel-header>
+
+                                                            <div [ngClass]="{'sidebar-scroller':ad?.data.length > 2 }"
+                                                                *ngIf="ad?.data !=undefined">
+                                                                <div *ngFor="let d of ad?.data"
+                                                                    class="inner-expansion-main">
+                                                                    <div class="inner-sub-left">
+                                                                        <div class="main-strips">
+                                                                            <div class="holder-name">
+                                                                                {{d.accountId.name}}
+                                                                            </div>
+                                                                            <div *ngIf="d.transactionType == 'IN'"
+                                                                                class="price-tag green-color">
+                                                                                {{convertNumberinPositive(d.amount) |
+                                                                                currency}}
+                                                                            </div>
+                                                                            <div *ngIf="d.transactionType == 'OUT'"
+                                                                                class="price-tag red-color">
+                                                                                {{convertNumberinPositive(d.amount) |
+                                                                                currency}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="main-strips">
+                                                                            <div class="date-and-time">{{d.createdAt |
+                                                                                date:'dd
+                                                                                MMM yyyy hh:mm a'}}
+                                                                            </div>
+                                                                            <img class="edit-icon"
+                                                                                (click)="editTransaction(d)"
+                                                                                src="../../../assets/images/edit-pencil.svg">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </mat-expansion-panel>
+                                                    </ng-container>
+                                                </div>
+                                                <div style="display: flex;float: right; position: relative;top: -11px;"
+                                                    *ngIf="payeeIndexTotal > 5">
+                                                    <mat-paginator (page)="payeeDetailPageChange($event)"
+                                                        [length]="payeeIndexTotal" [pageSize]="5">
+                                                    </mat-paginator>
+                                                </div>
+                                            </mat-accordion>
+                                        </ng-container>
+                                        <ng-template #other_content3>
+                                            <div *ngIf="!payeePayerShimmarLoding" class="not-transaction-added">
+                                                <div class="inner-img-main">
+                                                    <img src="../../../assets/images/transaction-no.svg">
+                                                </div>
+                                                <div class="not-text-main">No Transaction Found</div>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!------------------------------ total Expanse Panal-------------------------->
+
+<div class="fixed-foot total-expanse-panal-bottom-main">
+    <div class="inner-expanse-panal-main">
+        <div class="boxes border-right-custom">
+            <span class="label">Total Expanse : </span>
+            <span class="value red-total-expanse"
+                *ngIf="payeeSummary.expenseTotal">{{convertNumberinPositive(payeeSummary.expenseTotal) |
+                currency}}</span>
+            <span class="value red-total-expanse" *ngIf="!payeeSummary.expenseTotal">$0.00</span>
+        </div>
+        <div class="boxes">
+            <span class="label">Current Balance : </span>
+            <span class="value green-cleared"
+                *ngIf="payeeSummary.currentBalance">{{convertNumberinPositive(payeeSummary.currentBalance) | currency
+                }}</span>
+            <span class="value green-cleared" *ngIf="!payeeSummary.currentBalance">$0.00</span>
+
+        </div>
+        <div class="boxes border-left-custom">
+            <span class="label">Income Total : </span>
+            <span class="value" *ngIf="payeeSummary.incomeTotal">{{convertNumberinPositive(payeeSummary.incomeTotal) |
+                currency}}</span>
+            <span class="value" *ngIf="!payeeSummary.incomeTotal">$0.00</span>
+        </div>
+    </div>
+</div>

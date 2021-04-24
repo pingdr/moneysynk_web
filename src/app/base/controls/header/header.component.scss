@@ -1,0 +1,258 @@
+@mixin min-mq($min-screen-size) {
+    @media (min-width: $min-screen-size +"px") {
+        @content;
+    }
+}
+
+@mixin max-mq($max-screen-size) {
+    @media (max-width: $max-screen-size +"px") {
+        @content;
+    }
+}
+
+// ----------------------------For Orientation-----------------------//
+@mixin landscape-orientation($max-screen-size, $orientation) {
+    @media (max-width: $max-screen-size +"px") and (orientation: $orientation) {
+        @content;
+    }
+}
+
+@mixin btw-mq($min-screen-size, $max-screen-size, $pixel-ratio, $orientation) {
+    @media only screen and (min-width: $min-screen-size +"px") and (max-width: $max-screen-size +"px") and (-webkit-min-device-pixel-ratio: $pixel-ratio) and (orientation: $orientation) {
+        @content;
+    }
+}
+
+.page-topbar {
+    position: fixed;
+    left: 250px;
+    right: 0;
+    height: 90px;
+    background: #fff;
+    z-index: 9999;
+    @include max-mq(1550) {
+        left: 210px;
+    }
+    @include max-mq(1100){
+        left: 180px;
+        height: 80px;
+    }
+    @include max-mq(991){
+        left: 160px;
+        height: 75px;
+    }
+
+    .navbar {
+        padding: 0;
+        height: 100%;
+        .header-main-area {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+            height: 100%;
+        }
+    }
+}
+
+.dropdown {
+    .dropdown-toggle {
+        background: #fff;
+        padding: 0;
+        border: none !important;
+        color: #5e5e5e !important;
+    }
+}
+
+.header-first-drop-down {
+    .btn {
+        font-size: 14px;
+        font-weight: 400;
+        margin-left: 28px;
+        color: #5e5e5e !important;
+        @include max-mq(1100){
+            font-size: 12px;
+            margin-left: 0px;
+        }
+        @include max-mq(991){
+            font-size: 0;
+            margin-left: 0px;
+        }
+        &:focus {
+            outline: none !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+        &::after {
+            border: none;
+            background: url(../../../../assets/images/drop-down-arrow.svg) no-repeat;
+            background-size: 12px;
+            width: 15px;
+            height: 9px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            right: -25px;
+        }
+    }
+    .dropdown-menu {
+        left: 30px;
+        box-shadow: 0px 4px 5px #c7c7c7;
+        border-radius: 0;
+        border: 1px solid #ececec;
+        font-size: 11px;
+        padding: 0;
+        .dropdown-item {
+            border-bottom: 1px solid #e0e0e0cc;
+            padding: 10px 0px;
+            padding-left: 10px;
+            padding-right: 40px;
+            &:last-child {
+                border-bottom: none;
+            }
+            img {
+                width: 22px;
+            }
+        }
+    }
+    img {
+        margin-right: 10px;
+    }
+}
+
+.search-input {
+    margin-bottom: 0;
+    width: 48%;
+    @include max-mq(1550){
+        width: 35%;
+    }
+    @include max-mq(1250) {
+        width: 35%;
+    }
+    @include max-mq(1100) {
+        width: 35%;
+    }
+    @include max-mq(991){
+        width: 40%;
+    }
+    .form-field {
+        input {
+            padding: 24px 20px !important;
+            border-radius: 33.5px !important;
+            padding-left: 50px !important;
+            color: #5e5e5e !important;
+            border: 1px solid #ccc !important;
+            font-size: 15px !important;
+            font-family: "Sul Sans" !important;
+            font-weight: 100 !important;
+            background: #fff url(../../../../assets/images/search-mirror.svg) no-repeat !important;
+            background-size: 30px;
+            background-position: center left 20px !important;
+            @include max-mq(1100){
+                padding: 19px 17px !important;
+                border-radius: 25.5px !important;
+                padding-left: 43px !important;
+                font-size: 12px !important;
+                background-size: 20px;
+                background-position: center left 13px !important;
+            }
+            &:focus {
+                border-color: #dba43b !important;
+                box-shadow: 0 0 0 1px #dba43b;
+            }
+            &::placeholder {
+                color: #ccc !important;
+            }
+        }
+    }
+}
+
+.header-third-drop-down {
+    @extend .header-first-drop-down;
+    margin-right: 55px;
+    margin-left: 0px;
+    @include max-mq(991){
+        margin-right: 40px;
+    }
+    .user-pro-pic {
+        img {
+            width: 45px;
+            height: 45px;
+            border-radius: 100%;
+        }
+    }
+
+    .user-text-logo {
+        padding: 10px 10px 9px 15px;
+        background: #e1e1e1;
+        border-radius: 50%;
+        color: #000;
+        font-size: 20px;
+        margin: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        @include max-mq(1100){
+            padding: 6px 6px 6px 9px;
+            font-size: 14px;
+            margin: 9px;
+        }
+        @include max-mq(991){
+            margin-left: auto;
+            margin-right: 0;
+        }
+    }
+}
+
+// ------------custom-effect-dropdown-----------//
+.dropdown {
+    .dropdown-menu {
+        opacity: 0;
+        top: -170px;
+        display: block;
+        transition: 0.6s all ease;
+        z-index: -1;
+        width: 228px;
+    }
+    .show {
+        display: block;
+        opacity: 1;
+        top: 31px;
+        transition: 0.6s all ease;
+        z-index: 99;
+    }
+    .add-btn {
+        background: transparent !important;
+        padding: 0;
+        position: absolute;
+        right: 18px;
+        bottom: 1px;
+        line-height: 42px;
+        font-size: 11px;
+        color: #7299ff !important;
+        font-weight: 100;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    .groupadd {
+        width: 200px;
+    }
+}
+
+.groupRight {
+    margin: 30px;
+    @include max-mq(1100){
+        margin: 30px;
+    }
+    @include max-mq(991){
+        margin: 15px;
+    }
+}
+
+
+// ::ng-deep.cdk-overlay-connected-position-bounding-box {
+//     left: auto !important;
+//     right: 70px !important;
+//     top: 80px !important;
+// }

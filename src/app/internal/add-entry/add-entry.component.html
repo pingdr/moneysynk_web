@@ -1,0 +1,193 @@
+<app-progress-bar *ngIf="isApiCalling"></app-progress-bar>
+<div class="heading-pannel add-entry-main">
+    <div class="component-heading">
+        <span *ngIf="this.accountEntryDetail._id == undefined">Add Transaction</span>
+        <span *ngIf="this.accountEntryDetail._id != undefined">Edit Transaction</span>
+    </div>
+    <div class="component-btn">
+        <div class="btn-compo-main">
+            <button id="plus-btn" class="plus-btn" (click)="billTypeChange('IN')"
+                [ngClass]="{ 'active-btn' : isbtnSelected == 1 }" [disabled]="this.accountEntryDetail._id"> +
+            </button>
+            <button id="minus-btn" class="minus-btn" (click)="billTypeChange('OUT')"
+                [ngClass]="{ 'active-btn' : isbtnSelected == 2 }" [disabled]="this.accountEntryDetail._id">
+                - </button>
+            <button class="refresh-btn" [ngClass]="{ 'active-btn' : isbtnSelected == 3 }" [disabled]="this.accountEntryDetail._id"> refresh</button>
+        </div>
+        <!-- <div class="main-input-filed-entry">
+            <input type="text" [(ngModel)]="amount" appOnlynumberDirective name="amount" placeholder="$0">
+        </div> -->
+    </div>
+</div>
+
+
+
+<div class="sub-compo-wrap">
+
+    <div class="white-box start-entry">
+
+        <form class="add-entry-main-form" [formGroup]="editentry">
+            <div class="form-group">
+                <label>{{type=='PAYEE' ? 'Payee' : 'Payer'}}</label>
+                <mat-form-field appearance="fill">
+                    <mat-label>{{type=='PAYEE' ? 'Please Select Payee' : 'Please Select Payer'}}</mat-label>
+                    <mat-select formControlName="beneficiaryId" [disabled]="this.accountEntryDetail._id"
+                        [ngClass]="{ 'is-invalid': submitted && f.beneficiaryId.errors }">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let p of payeesArray" value="{{p._id}}">{{p.name}}</mat-option>
+                    </mat-select>
+                    <div *ngIf="submitted && f.beneficiaryId.errors" class="invalid-feedback">
+                        <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                    </div>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <label>Account</label>
+                <mat-form-field appearance="fill">
+                    <!-- <mat-label>Add Account</mat-label> -->
+                    <mat-select style="font-size: 12px;" placeholder="Select Account" formControlName="accountId" [disabled]="this.accountEntryDetail._id"
+                        [ngClass]="{ 'is-invalid': submitted && f.accountId.errors }">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let a of accountList" value="{{a._id}}">{{a.name}}</mat-option>
+                    </mat-select>
+                    <div *ngIf="submitted && f.accountId.errors" class="invalid-feedback">
+                        <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                    </div>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <label>Amount</label>
+                <mat-form-field appearance="fill">
+                    <input matInput placeholder="0" appOnlynumberDirective formControlName="amount"
+                        [ngClass]="{ 'is-invalid': submitted && f.amount.errors }"
+                        style="padding-left: 38px !important;" maxlength="6">
+                    <span class="amount-dollar">$</span>
+                    <!-- <div *ngIf="submitted && f.chequeNumber.errors" class="invalid-feedback">
+                        <div *ngIf="f.Accountname.errors.required">First Name is required</div>
+                    </div> -->
+
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <label>Class</label>
+                <mat-form-field appearance="fill">
+                    <mat-select style="font-size: 12px;" placeholder="Select Class" name="group" id="group" appearance="fill" formControlName="classId">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let data of classes" value="{{data._id}}">{{ data.name }}</mat-option>
+                        <mat-form-field appearance="fill">
+                            <input maxlength="40" [(ngModel)]="filterName" [ngModelOptions]="{standalone: true}"
+                                name="filterName" (keyup)="addclass($event.target.value)"
+                                (keydown)="$event.stopPropagation()" [value]="className" matInput
+                                placeholder="Add New Class">
+                            <button class="btn classListButton" (click)="saveClass()"> Add</button>
+                        </mat-form-field>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Category</mat-label>
+                    <mat-select formControlName="categoryId" [disabled]="this.accountEntryDetail._id" (selectionChange)="parentSelected($event)"
+                        [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let c of categories" [value]="c._id">
+                            <span>
+                                <img style="width: 30px;padding-right: 5px;" src="{{c.icon}}"></span>
+                            {{c.name}}
+                        </mat-option>
+                    </mat-select>
+                    <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback">
+                        <!-- <div *ngIf="f.Accountname.errors.required">First Name is required</div> -->
+                    </div>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="f.categoryId.value" class="form-group">
+                <label>Sub category</label>
+                <mat-form-field appearance="fill">
+                    <!-- <mat-label>0</mat-label> -->
+                    <mat-select formControlName="subCategoryId" [disabled]="this.accountEntryDetail._id" (selectionChange)="subSelected($event)">
+                        <mat-option value="">None</mat-option>
+                        <mat-option *ngFor="let p of childs" [value]="p._id"><span><img
+                                    style="width: 30px;padding-right: 5px;" src="{{p.icon}}"></span>{{p.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group">
+                <label>Check#</label>
+                <mat-form-field appearance="fill">
+                    <input matInput placeholder="Check Number" maxlength="40" appOnlynumberDirective
+                        formControlName="chequeNumber">
+                    <!-- <div *ngIf="submitted && f.chequeNumber.errors" class="invalid-feedback">
+                        <div *ngIf="f.Accountname.errors.required">First Name is required</div>
+                    </div> -->
+
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <label>Date Time</label>
+                <!-- <mat-form-field appearance="fill">
+                    <input formControlName="dateTime" (focus)="picker.open()" maxlength="40" matInput
+                        [matDatepicker]="picker" [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                 </mat-form-field> -->
+
+                <mat-form-field appearance="fill">
+                    <input matInput formControlName="dateTime" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2"
+                        placeholder="Date Time" [ngClass]="{ 'is-invalid': submitted && f.dateTime.errors }">
+                    <span [owlDateTimeTrigger]="dt2"><i style="position: absolute;
+                        top: 17px;
+                        bottom: 0;
+                        margin: auto;
+                        right: 22px;" class="fa fa-calendar"></i></span>
+                    <owl-date-time #dt2 [hour12Timer]="true"></owl-date-time>
+                </mat-form-field>
+            </div>
+            <!-- <div class="form-group check-box-cleared">
+                <label>Cleared</label>
+                <mat-checkbox formControlName="cleared" class="example-margin">Yes</mat-checkbox>
+            </div> -->
+            <div class="form-group budget-input-main-entry">
+                <label>Budget</label>
+                <mat-form-field appearance="fill">
+                    <!-- <mat-label>Add Account</mat-label> -->
+                    <mat-select style="font-size: 12px;" placeholder="Select Budget" formControlName="financialSourceId">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let a of budgets" value="{{a._id}}">{{a.name}}</mat-option>
+                    </mat-select>
+                    <!-- <div *ngIf="submitted && f.financialSourceId.errors" class="invalid-feedback">
+                        <div *ngIf="f.Accountname.errors.required">First Name is required</div>
+                    </div> -->
+                </mat-form-field>
+            </div>
+            <div class="form-group budget-input-main-entry">
+                <label>Repeat</label>
+                <div class="btn-compo-main plus-icon-new">
+                    <a id="plus-btn" class="plus-btn" style="cursor: pointer;" (click)="openRepeat()"> +
+                    </a>
+                </div>
+            </div>
+        
+            <div class="form-group Add-not-main">
+                <label>Note</label>
+                <mat-form-field appearance="fill">
+
+                    <textarea style="height: 100px; border-radius: 20px !important; resize: none;" class="textTransform"
+                    maxlength="150" matInput placeholder="Add note here" formControlName="note"></textarea>
+                    <!-- <input formControlName="note" matInput maxlength="150" placeholder="Add note here"> -->
+                </mat-form-field>
+            </div>
+            <div class="last-section">
+                <button [disabled]="isSpinnerLoading" *ngIf="this.accountEntryDetail._id == undefined" (click)="onSubmit()"  class="btn"><i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoading"></i> Save</button>
+                <button [disabled]="isSpinnerLoading" *ngIf="this.accountEntryDetail._id != undefined" (click)="onSubmit()"  class="btn"><i class="fa fa-spin fa-spinner" *ngIf="isSpinnerLoading"></i>&nbsp; Update</button>
+
+            </div>
+        </form>
+
+    </div>
+
+</div>
